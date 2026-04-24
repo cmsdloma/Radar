@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radar &ndash; Privacy Policy</title>
+    <style>
+
+    :root {
+        --purple-dark:  #2b1640;
+        --purple-mid:   #3b235a;
+        --purple-light: #6b42a0;
+        --amber:        #f5a623;
+        --amber-light:  #fff3dc;
+        --bg:           #f7f4fb;
+        --card-bg:      #ffffff;
+        --text-main:    #1a1a2e;
+        --text-muted:   #5a5470;
+        --border:       #e0d8f0;
+        --link:         #5b2fa0;
+        --highlight-bg: #fdf6ff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.75; padding-bottom: 60px; }
+    header { background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-mid) 60%, var(--purple-light) 100%); color: #fff; padding: 52px 40px 44px; text-align: center; }
+    header .app-icon { font-size: 3rem; margin-bottom: 12px; }
+    header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+    header h1 span { color: var(--amber); }
+    header p.subtitle { color: #c8b8e8; font-size: 0.95rem; margin-top: 6px; }
+    header p.updated { display: inline-block; margin-top: 18px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 20px; padding: 4px 18px; font-size: .8rem; color: #d8ccea; }
+    .wrapper { max-width: 860px; margin: 44px auto; padding: 0 24px; }
+    .toc { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin-bottom: 40px; }
+    .toc h2 { font-size: .75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 16px; }
+    .toc ol { padding-left: 20px; }
+    .toc ol li { margin-bottom: 6px; }
+    .toc a { color: var(--link); text-decoration: none; font-size: .9rem; font-weight: 500; }
+    .toc a:hover { text-decoration: underline; }
+    section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 32px 36px; margin-bottom: 24px; scroll-margin-top: 20px; }
+    section h2 { font-size: 1.25rem; font-weight: 700; color: var(--purple-dark); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    section h3 { font-size: 1rem; font-weight: 700; color: var(--purple-mid); margin: 22px 0 8px; }
+    section p { margin-bottom: 14px; font-size: .93rem; }
+    section p:last-child { margin-bottom: 0; }
+    ul.plain-list { list-style: none; padding: 0; margin: 10px 0 16px; }
+    ul.plain-list li { padding: 6px 12px 6px 28px; position: relative; font-size: .9rem; border-bottom: 1px solid var(--border); }
+    ul.plain-list li:last-child { border-bottom: none; }
+    ul.plain-list li::before { content: "—"; position: absolute; left: 8px; color: var(--purple-light); font-weight: 700; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .87rem; margin: 14px 0; }
+    .data-table thead tr { background: var(--purple-mid); color: #fff; }
+    .data-table th { padding: 10px 14px; text-align: left; font-weight: 600; }
+    .data-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .data-table tbody tr:nth-child(even) { background: var(--highlight-bg); }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .callout { border-left: 4px solid var(--purple-light); background: var(--highlight-bg); border-radius: 0 10px 10px 0; padding: 14px 18px; font-size: .9rem; margin: 16px 0; }
+    .callout.amber { border-left-color: var(--amber); background: var(--amber-light); }
+    .contact-box { background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid)); color: #fff; border-radius: 14px; padding: 32px 36px; text-align: center; margin-top: 40px; }
+    .contact-box h2 { color: var(--amber); font-size: 1.2rem; margin-bottom: 10px; }
+    .contact-box p { color: #c8b8e8; font-size: .92rem; margin-bottom: 10px; }
+    .contact-box a { display: inline-block; background: var(--amber); color: #3a1800; font-weight: 700; padding: 10px 28px; border-radius: 30px; text-decoration: none; font-size: .9rem; margin-top: 8px; }
+    footer { text-align: center; font-size: .8rem; color: var(--text-muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+    @media (max-width: 600px) {
+        header { padding: 36px 20px 30px; } header h1 { font-size: 1.6rem; }
+        .wrapper { padding: 0 14px; } section { padding: 24px 20px; } .toc { padding: 22px 20px; }
+        .data-table { font-size: .8rem; } .data-table th, .data-table td { padding: 8px 10px; }
+    }
+
+    </style>
+</head>
+<body>
+<header>
+    <div class="app-icon">&#x1F4E1;</div>
+    <h1><span>Radar</span> &ndash; Privacy Policy</h1>
+    <p class="subtitle">How we collect, use, and protect your information</p>
+    <p class="updated">Last updated: 24 April 2026</p>
+</header>
+<div class="wrapper">
+    <nav class="toc" aria-label="Table of contents">
+        <h2>Contents</h2>
+        <ol>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#data-collected">Information We Collect</a></li>
+            <li><a href="#server-storage">What Our Server Stores — In Detail</a></li>
+            <li><a href="#how-we-use">How We Use Your Information</a></li>
+            <li><a href="#data-sharing">How We Share Your Information</a></li>
+            <li><a href="#retention">Data Retention &amp; Deletion</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#permissions">Android Permissions Explained</a></li>
+            <li><a href="#location">Location Data — Special Notice</a></li>
+            <li><a href="#sms">SMS &amp; MMS Integration</a></li>
+            <li><a href="#user-rights">Your Rights &amp; Choices</a></li>
+            <li><a href="#children">Children&#x27;s Privacy</a></li>
+            <li><a href="#third-party">Third-Party Links &amp; Services</a></li>
+            <li><a href="#changes">Changes to This Policy</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ol>
+    </nav>
+
+    <section id="overview">
+        <h2><span>📋</span> Overview</h2>
+        <p>This Privacy Policy explains how DAL Technology (“we”, “our”, or “us”) collects, uses, stores, and shares information when you use the Radar Android application (package uk.co.daltechnology.radar).</p>
+        <p>By installing or using Radar you agree to the practices described in this policy. If you do not agree, please uninstall the app and do not use it.</p>
+        <div class="callout amber">Radar is a peer-to-peer mesh communication tool. Some data is temporarily stored on our server strictly to enable peer discovery and message relay — this is explained in full below. We do not sell, profile, or advertise using your data.</div>
+    </section>
+    <section id="data-collected">
+        <h2><span>📦</span> Information We Collect</h2>
+        <p>The following categories of data are collected or accessed, depending on the features you use and the permissions you grant.</p>
+        <h3>Data you provide directly</h3>
+        <table class="data-table"><thead><tr>
+            <th>Data type</th>
+            <th>Examples</th>
+            <th>Where it is stored</th>
+            <th>Why it is needed</th>
+        </tr></thead><tbody>
+        <tr>
+            <td>Profile nickname</td>
+            <td>Optional display name you choose</td>
+            <td>On your device and on our server (current value only)</td>
+            <td>Shown to nearby Radar peers who discover you</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>Optional — male / female / not specified</td>
+            <td>On your device and on our server (current value only)</td>
+            <td>Shown to nearby peers as part of your profile</td>
+        </tr>
+        <tr>
+            <td>Profile photo</td>
+            <td>Image chosen from your gallery or camera</td>
+            <td>On your device only — transferred peer-to-peer</td>
+            <td>Shown on your contact card to nearby peers</td>
+        </tr>
+        <tr>
+            <td>Chat messages (unencrypted path)</td>
+            <td>Text, images, video, audio clips, files</td>
+            <td>On your device; temporarily on our relay server (≤ 7 days)</td>
+            <td>Delivered to the intended recipient via server relay when direct path unavailable</td>
+        </tr>
+        <tr>
+            <td>Chat messages (encrypted / sealed-sender path)</td>
+            <td>End-to-end encrypted ciphertext</td>
+            <td>On your device; temporarily on our relay server (≤ 7 days) — content is unreadable to us</td>
+            <td>Encrypted delivery via server relay when direct path unavailable</td>
+        </tr>
+        <tr>
+            <td>Emergency contacts</td>
+            <td>Names and phone numbers you add manually</td>
+            <td>On your device only</td>
+            <td>Quick-dial contacts for the Emergency / SOS screen</td>
+        </tr>
+        <tr>
+            <td>In-app support message</td>
+            <td>Problem description / feedback text; optional reply-to email</td>
+            <td>On our server (retained for support resolution)</td>
+            <td>Enable us to respond to support requests</td>
+        </tr>
+        </tbody></table>
+        <h3>Data collected automatically</h3>
+        <table class="data-table"><thead><tr>
+            <th>Data type</th>
+            <th>Examples</th>
+            <th>Where it is stored</th>
+            <th>Why it is needed</th>
+        </tr></thead><tbody>
+        <tr>
+            <td>Current GPS location</td>
+            <td>Latitude, longitude, altitude</td>
+            <td>On your device; current position only on our server (overwritten each update — no history kept)</td>
+            <td>Power the radar view; share your position with nearby peers; enable peer discovery</td>
+        </tr>
+        <tr>
+            <td>Device UUID</td>
+            <td>Randomly generated GUID created on first launch</td>
+            <td>On your device and on our server (linked to your current location row)</td>
+            <td>Pseudonymous device identifier for peer routing; contains no personal information</td>
+        </tr>
+        <tr>
+            <td>IP address</td>
+            <td>IPv4 / IPv6 address at time of server contact</td>
+            <td>On our server (current value, overwritten each update)</td>
+            <td>Network routing for direct peer communication</td>
+        </tr>
+        <tr>
+            <td>Device technical info</td>
+            <td>Device manufacturer, model, Android version, SDK version</td>
+            <td>On our server (stored when push notifications are registered)</td>
+            <td>Diagnostic support and compatibility checks</td>
+        </tr>
+        <tr>
+            <td>App version</td>
+            <td>e.g. 1.4.2</td>
+            <td>On our server</td>
+            <td>Compatibility checks and support</td>
+        </tr>
+        <tr>
+            <td>FCM push token</td>
+            <td>Firebase Cloud Messaging registration token</td>
+            <td>On our server</td>
+            <td>Deliver a wake-up notification when a new message is waiting</td>
+        </tr>
+        <tr>
+            <td>Matrix guest credentials (auto-generated)</td>
+            <td>Server-generated username and password derived from your UUID</td>
+            <td>On our server and on your device</td>
+            <td>Auto-created Matrix account for the in-app support chat. Not linked to any personal Matrix account you may have.</td>
+        </tr>
+        </tbody></table>
+        <h3>Data accessed with your permission</h3>
+        <table class="data-table"><thead><tr>
+            <th>Permission</th>
+            <th>Data accessed</th>
+            <th>Storage</th>
+            <th>Why it is needed</th>
+        </tr></thead><tbody>
+        <tr>
+            <td>Contacts</td>
+            <td>Names, phone numbers, emails from your address book</td>
+            <td>On your device only</td>
+            <td>Merge Android contacts with Radar peers in the unified contact list</td>
+        </tr>
+        <tr>
+            <td>SMS / MMS</td>
+            <td>Message content, sender numbers, timestamps</td>
+            <td>On your device only</td>
+            <td>Display and send SMS/MMS from within the app (optional feature)</td>
+        </tr>
+        <tr>
+            <td>Camera</td>
+            <td>Photos and video captured in-app</td>
+            <td>On your device only</td>
+            <td>Attach media to messages or set a profile photo</td>
+        </tr>
+        <tr>
+            <td>Microphone</td>
+            <td>Audio recordings you initiate</td>
+            <td>On your device only</td>
+            <td>Record audio clips to attach to messages</td>
+        </tr>
+        <tr>
+            <td>Media / Storage</td>
+            <td>Images and files you choose to share</td>
+            <td>On your device only</td>
+            <td>Attach files and images to messages</td>
+        </tr>
+        </tbody></table>
+    </section>
+    <section id="server-storage">
+        <h2><span>🗄️</span> What Our Server Stores — In Detail</h2>
+        <p>Radar operates an Oracle-based backend server that enables peer discovery and message relay. The following explains precisely what is stored on that server, how long it is kept, and what we can and cannot see.</p>
+        <h3>Peer location record (DEVICE_LOCATION)</h3>
+        <ul class="plain-list">
+            <li>One row per device UUID — no history, just the current position.</li>
+            <li>Stores: UUID (pseudonymous), current GPS coordinates, optional nickname, optional gender, IP address, port, app version, FCM token, device model/OS.</li>
+            <li>No email address or phone number is stored — this is a deliberate privacy design decision.</li>
+            <li>The record is overwritten on every location update; previous locations are not retained.</li>
+            <li>Soft-deleted when the device identity is reset; hard-deleted on the next nightly cleanup job.</li>
+        </ul>
+        <h3>Relayed messages (RELAY_MESSAGE / RELAY_MESSAGE_RECIPIENT)</h3>
+        <ul class="plain-list">
+            <li>Messages sent via the server relay are stored temporarily until the recipient collects them.</li>
+            <li>Maximum retention: 7 days (k_Message_TTL_Days). Messages are soft-deleted as soon as all recipients acknowledge them, or when the 7-day TTL expires. The nightly job physically removes soft-deleted rows.</li>
+            <li>Unencrypted relay messages: the server stores the full message JSON. We can technically read the payload. We do not do so except for operational support or legal obligations.</li>
+            <li>Encrypted (sealed-sender) messages: the ciphertext is stored opaquely. We cannot decrypt or read the message content. The cipher used is X25519 / XChaCha20-Poly1305.</li>
+            <li>The sender&#x27;s UUID is stored in the outer message envelope of both encrypted and unencrypted messages (used for authentication / anti-spam). It is pseudonymous and not linked to any real-world identity.</li>
+            <li>Recipient UUIDs are stored for routing and are pseudonymous.</li>
+            <li>Push notification payload for sealed messages contains only a minimal wake-up signal (&#x27;message_pending&#x27;) — no message content, no sender identity.</li>
+        </ul>
+        <h3>API request log (RADAR_REQUEST)</h3>
+        <ul class="plain-list">
+            <li>Every API call is logged with: client IP address, sender UUID, action type, request timestamp, and the full request/response JSON.</li>
+            <li>Used for debugging, security monitoring, and operational support.</li>
+            <li>Log tables are partitioned by date and rotated by the nightly job.</li>
+        </ul>
+        <h3>Nonces (NONCE)</h3>
+        <ul class="plain-list">
+            <li>Single-use cryptographic nonces are stored for up to 5 minutes to prevent replay attacks.</li>
+            <li>No personal data is contained in nonces.</li>
+        </ul>
+        <h3>Support records (SUPPORT)</h3>
+        <ul class="plain-list">
+            <li>Stores: sender UUID, support category, message text, optional reply-to email you provide.</li>
+            <li>Retained until the support request is resolved.</li>
+        </ul>
+    </section>
+    <section id="how-we-use">
+        <h2><span>⚙️</span> How We Use Your Information</h2>
+        <p>We use the information described above only for the following purposes:</p>
+        <div class="callout">We do not sell your data, use it for advertising, share it with data brokers, or process it for any purpose beyond those listed below.</div>
+        <ul class="plain-list">
+            <li>To power the core peer discovery, messaging, and mapping features of Radar.</li>
+            <li>To display your pseudonymous profile (nickname and gender) to nearby Radar peers.</li>
+            <li>To relay messages between you and other Radar users when no direct wireless path is available.</li>
+            <li>To send a minimal push notification to your device when a relayed message is waiting.</li>
+            <li>To render maps and location features via Google Maps SDK and Google Play Services Location.</li>
+            <li>To maintain the local encrypted database of your messages, contacts, and settings.</li>
+            <li>To provide emergency features including GPS display, SOS signalling, and nearby-services lookup.</li>
+            <li>To respond to in-app support requests you submit.</li>
+            <li>To detect and prevent abuse, replay attacks, and unauthorised access to the API.</li>
+        </ul>
+    </section>
+    <section id="data-sharing">
+        <h2><span>🤝</span> How We Share Your Information</h2>
+        <p>Radar is designed to minimise data sharing. Information is shared only in the following limited circumstances.</p>
+        <h3>Third-party services used by the app</h3>
+        <table class="data-table"><thead><tr>
+            <th>Service</th>
+            <th>Provider</th>
+            <th>Data shared</th>
+            <th>Purpose</th>
+        </tr></thead><tbody>
+        <tr>
+            <td>Google Maps SDK</td>
+            <td>Google LLC</td>
+            <td>Map tile requests, device location</td>
+            <td>Render the interactive peer and POI map</td>
+        </tr>
+        <tr>
+            <td>Firebase Cloud Messaging</td>
+            <td>Google LLC</td>
+            <td>FCM push token, minimal wake-up payload</td>
+            <td>Deliver background push notifications</td>
+        </tr>
+        <tr>
+            <td>Google Play Services Location</td>
+            <td>Google LLC</td>
+            <td>Device GPS coordinates</td>
+            <td>Obtain precise and fused location data</td>
+        </tr>
+        <tr>
+            <td>ML Kit (on-device)</td>
+            <td>Google LLC</td>
+            <td>Message text — processed on-device only, not sent to Google servers</td>
+            <td>On-device translation of received messages</td>
+        </tr>
+        <tr>
+            <td>OpenSky Network (Premium)</td>
+            <td>OpenSky Network</td>
+            <td>Bounding-box coordinates</td>
+            <td>Live aircraft position data for the map overlay</td>
+        </tr>
+        <tr>
+            <td>Overpass API / OpenStreetMap</td>
+            <td>OpenStreetMap Foundation</td>
+            <td>Bounding-box coordinates</td>
+            <td>Points of interest (hospitals, pharmacies, etc.)</td>
+        </tr>
+        <tr>
+            <td>Google Places API (Premium)</td>
+            <td>Google LLC</td>
+            <td>Bounding-box coordinates</td>
+            <td>Emergency service POI (hospitals, police, pharmacy)</td>
+        </tr>
+        <tr>
+            <td>HERE Maps API (Premium)</td>
+            <td>HERE Global B.V.</td>
+            <td>Bounding-box coordinates</td>
+            <td>Points of interest and emergency contact data</td>
+        </tr>
+        <tr>
+            <td>WiGLE (Premium)</td>
+            <td>WiGLE.net</td>
+            <td>Bounding-box coordinates</td>
+            <td>Historical Wi-Fi network data overlay</td>
+        </tr>
+        <tr>
+            <td>Matrix homeserver (optional)</td>
+            <td>Server you configure, or our built-in support server</td>
+            <td>Messages, media, room membership</td>
+            <td>Federated group chat via the Matrix protocol</td>
+        </tr>
+        </tbody></table>
+        <h3>With other Radar users (peer-to-peer and via relay)</h3>
+        <ul class="plain-list">
+            <li>Your current location and pseudonymous profile (nickname, gender) are shared with nearby Radar peers via our server or direct wireless link.</li>
+            <li>No email address or phone number is ever sent to other users.</li>
+            <li>You control what profile information you provide — all profile fields except UUID are optional.</li>
+        </ul>
+        <h3>Legal requirements</h3>
+        <ul class="plain-list">
+            <li>We may disclose information if required by law, court order, or governmental authority.</li>
+            <li>We may also disclose information where necessary to protect our legal rights or the safety of any person.</li>
+        </ul>
+    </section>
+    <section id="retention">
+        <h2><span>⏱️</span> Data Retention &amp; Deletion</h2>
+        <table class="data-table"><thead><tr>
+            <th>Data</th>
+            <th>Retention period</th>
+            <th>How deleted</th>
+        </tr></thead><tbody>
+        <tr>
+            <td>Current location + profile</td>
+            <td>Until you reset your device identity, or until you are inactive and the record is cleaned up</td>
+            <td>Soft-deleted then hard-deleted by the nightly scheduled job</td>
+        </tr>
+        <tr>
+            <td>Relayed messages</td>
+            <td>Maximum 7 days; earlier if all recipients acknowledge receipt</td>
+            <td>Automatically soft-deleted on acknowledgement or TTL expiry; hard-deleted by the nightly job</td>
+        </tr>
+        <tr>
+            <td>FCM token / device info</td>
+            <td>Until you reset your device identity</td>
+            <td>Cleared when identity is reset; nightly cleanup</td>
+        </tr>
+        <tr>
+            <td>Matrix guest credentials</td>
+            <td>Until you reset your device identity</td>
+            <td>Cleared when identity is reset</td>
+        </tr>
+        <tr>
+            <td>API request log</td>
+            <td>Log tables are partitioned by date and rotated on a schedule</td>
+            <td>Automatic rotation by DB_LOGROTATE nightly job</td>
+        </tr>
+        <tr>
+            <td>Support messages</td>
+            <td>Until support request is resolved</td>
+            <td>Deleted manually or on request</td>
+        </tr>
+        <tr>
+            <td>On-device data (messages, contacts, settings)</td>
+            <td>Until you delete in-app, or until you uninstall</td>
+            <td>Clear chat, delete contact, or uninstall the app</td>
+        </tr>
+        </tbody></table>
+    </section>
+    <section id="security">
+        <h2><span>🔒</span> Security</h2>
+        <div class="callout amber">No method of electronic storage or transmission is 100% secure. While we use industry-standard measures, we cannot guarantee absolute security.</div>
+        <h3>On-device security</h3>
+        <ul class="plain-list">
+            <li>The local message and contact database is encrypted at rest using SQLCipher.</li>
+            <li>Optional biometric lock (fingerprint / face authentication) before the app opens.</li>
+            <li>Device UUID and cryptographic keys can be wiped and regenerated at any time via Settings → Device Identity Reset.</li>
+        </ul>
+        <h3>In-transit security</h3>
+        <ul class="plain-list">
+            <li>All communication with the relay server uses HTTPS (TLS).</li>
+            <li>API requests are authenticated with a pre-shared API key, a per-request timestamp, and a one-time-use nonce to prevent replay attacks.</li>
+            <li>End-to-end encrypted messages use X25519 key exchange and XChaCha20-Poly1305 authenticated encryption — the server stores only the opaque ciphertext.</li>
+            <li>The sealed-sender design means the server cannot determine the real-world identity of message participants from the encrypted payload alone.</li>
+        </ul>
+        <h3>Server-side security</h3>
+        <ul class="plain-list">
+            <li>The relay server is an Oracle APEX / ORDS deployment.</li>
+            <li>Requests older than 60 seconds are rejected (anti-replay).</li>
+            <li>Single-use nonces prevent exact request replay.</li>
+        </ul>
+    </section>
+    <section id="permissions">
+        <h2><span>🔑</span> Android Permissions Explained</h2>
+        <p>Every Android permission declared in the app manifest is listed below with the reason it is needed.</p>
+        <table class="data-table"><thead><tr>
+            <th>Permission</th>
+            <th>Required / Optional</th>
+            <th>Reason</th>
+        </tr></thead><tbody>
+        <tr>
+            <td>ACCESS_FINE_LOCATION</td>
+            <td>Required</td>
+            <td>Core radar, map, and peer-discovery features</td>
+        </tr>
+        <tr>
+            <td>ACCESS_COARSE_LOCATION</td>
+            <td>Required</td>
+            <td>Fallback location for device discovery</td>
+        </tr>
+        <tr>
+            <td>ACCESS_BACKGROUND_LOCATION</td>
+            <td>Required</td>
+            <td>Keep mesh and position updates active while app is in background</td>
+        </tr>
+        <tr>
+            <td>BLUETOOTH_SCAN</td>
+            <td>Required</td>
+            <td>Discover nearby Radar peers over Bluetooth LE</td>
+        </tr>
+        <tr>
+            <td>BLUETOOTH_CONNECT</td>
+            <td>Required</td>
+            <td>Connect to discovered Bluetooth LE peers</td>
+        </tr>
+        <tr>
+            <td>BLUETOOTH_ADVERTISE</td>
+            <td>Required</td>
+            <td>Make your device discoverable to other Radar peers</td>
+        </tr>
+        <tr>
+            <td>NEARBY_WIFI_DEVICES</td>
+            <td>Required</td>
+            <td>Wi-Fi Aware peer discovery (Android 13+)</td>
+        </tr>
+        <tr>
+            <td>ACCESS_WIFI_STATE / CHANGE_WIFI_STATE</td>
+            <td>Required</td>
+            <td>Read and configure Wi-Fi for peer discovery</td>
+        </tr>
+        <tr>
+            <td>CHANGE_WIFI_MULTICAST_STATE</td>
+            <td>Required</td>
+            <td>Enable multicast for local network peer discovery</td>
+        </tr>
+        <tr>
+            <td>CHANGE_NETWORK_STATE</td>
+            <td>Required</td>
+            <td>Manage network connections for the relay feature</td>
+        </tr>
+        <tr>
+            <td>INTERNET</td>
+            <td>Required</td>
+            <td>Web relay, Google Maps, Firebase push notifications</td>
+        </tr>
+        <tr>
+            <td>FOREGROUND_SERVICE / FOREGROUND_SERVICE_LOCATION</td>
+            <td>Required</td>
+            <td>Run background location service with visible notification</td>
+        </tr>
+        <tr>
+            <td>POST_NOTIFICATIONS</td>
+            <td>Required</td>
+            <td>Show incoming message and service notifications (Android 13+)</td>
+        </tr>
+        <tr>
+            <td>RECEIVE_BOOT_COMPLETED</td>
+            <td>Required</td>
+            <td>Auto-restart background service after device reboot</td>
+        </tr>
+        <tr>
+            <td>WAKE_LOCK</td>
+            <td>Required</td>
+            <td>Prevent CPU sleep during active message delivery</td>
+        </tr>
+        <tr>
+            <td>VIBRATE</td>
+            <td>Required</td>
+            <td>Haptic feedback for messages and distress alerts</td>
+        </tr>
+        <tr>
+            <td>READ_CONTACTS / WRITE_CONTACTS</td>
+            <td>Optional</td>
+            <td>Merge Android address book with Radar peers; save peers as contacts</td>
+        </tr>
+        <tr>
+            <td>READ_SMS / RECEIVE_SMS / SEND_SMS</td>
+            <td>Optional</td>
+            <td>SMS integration — read, receive, and send SMS from within the app</td>
+        </tr>
+        <tr>
+            <td>RECEIVE_MMS / READ_MMS</td>
+            <td>Optional</td>
+            <td>MMS integration — display received MMS messages</td>
+        </tr>
+        <tr>
+            <td>CAMERA</td>
+            <td>Optional</td>
+            <td>Take photos for profile or message attachments</td>
+        </tr>
+        <tr>
+            <td>READ_MEDIA_IMAGES / READ_EXTERNAL_STORAGE</td>
+            <td>Optional</td>
+            <td>Select images and files to attach to messages</td>
+        </tr>
+        <tr>
+            <td>RECORD_AUDIO</td>
+            <td>Optional</td>
+            <td>Record audio clips to attach to messages</td>
+        </tr>
+        <tr>
+            <td>WRITE_EXTERNAL_STORAGE</td>
+            <td>Optional (Android ≤9)</td>
+            <td>Save attachments on older Android versions</td>
+        </tr>
+        </tbody></table>
+    </section>
+    <section id="location">
+        <h2><span>📍</span> Location Data — Special Notice</h2>
+        <p>Radar uses both foreground and background location. This is fundamental to the app&#x27;s purpose: discovering nearby peers and keeping your position updated on the shared map even when the screen is off.</p>
+        <div class="callout">Background location access is required to maintain mesh connectivity and update your position for nearby contacts when the app is minimised. If you revoke background location permission, position updates will only occur while the app is actively open.</div>
+        <ul class="plain-list">
+            <li>Your current location is sent to our relay server and stored in one record per device (no history — each update overwrites the previous position).</li>
+            <li>Location is shared with other Radar peers who query for nearby devices within your configured discovery range.</li>
+            <li>Location is not used for advertising or profiling.</li>
+            <li>You can disable location sharing at any time via the app&#x27;s Privacy Settings or by revoking the location permission in Android Settings.</li>
+            <li>A persistent foreground service notification is shown whenever background location is active, in compliance with Android requirements.</li>
+        </ul>
+    </section>
+    <section id="sms">
+        <h2><span>📱</span> SMS &amp; MMS Integration</h2>
+        <p>Radar can optionally act as an SMS/MMS client. This feature is entirely optional and off by default.</p>
+        <div class="callout amber">Google Play note: SMS and Call Log permissions are sensitive. Radar requests SMS permissions solely to provide the optional unified SMS/MMS inbox. SMS content is never uploaded to our servers.</div>
+        <ul class="plain-list">
+            <li>The app reads your SMS inbox from the Android Telephony provider to display messages alongside Radar chats.</li>
+            <li>Incoming SMS/MMS messages are received via system broadcast receivers.</li>
+            <li>SMS/MMS content is stored locally in the encrypted on-device database only — it is never uploaded to our relay server.</li>
+            <li>You can disable SMS integration at any time in Settings → SMS Integration.</li>
+        </ul>
+    </section>
+    <section id="user-rights">
+        <h2><span>🧑</span> Your Rights &amp; Choices</h2>
+        <p>You have the following controls over your data:</p>
+        <ul class="plain-list">
+            <li>Delete messages — delete individual messages, clear entire conversations, or wipe all chats from within the app.</li>
+            <li>Delete contacts — remove any Radar contact from the contact card dialog.</li>
+            <li>Reset device identity — Settings → Device Identity Reset destroys all cryptographic keys and generates a new UUID, severing all links to your previous identity on the server.</li>
+            <li>Revoke permissions — revoke any permission (location, contacts, SMS, camera, microphone) at any time via Android Settings → Apps → Radar → Permissions.</li>
+            <li>Block contacts — block any peer to stop all messages and presence updates from them.</li>
+            <li>Delete all data — uninstalling the app removes all locally stored app data. Your server-side location record and any pending relay messages will be removed by the scheduled nightly cleanup.</li>
+            <li>Export data — use Settings → Debug Info to view stored data; use Export Chat to export conversations.</li>
+        </ul>
+        <h3>GDPR / UK GDPR rights (EU/EEA and UK users)</h3>
+        <ul class="plain-list">
+            <li>If you are in the EU/EEA or UK you may also have rights to: access, rectification, erasure, restriction of processing, and data portability.</li>
+            <li>To exercise these rights contact us at support@daltechnology.co.uk.</li>
+        </ul>
+    </section>
+    <section id="children">
+        <h2><span>🧒</span> Children&#x27;s Privacy</h2>
+        <p>Radar is not intended for children under the age of 13 (or the applicable minimum age in your jurisdiction). We do not knowingly collect personal information from children under 13.</p>
+        <p>If you are a parent or guardian and believe your child has provided us with personal information, please contact us at support@daltechnology.co.uk. We will take steps to delete such information as quickly as possible.</p>
+    </section>
+    <section id="third-party">
+        <h2><span>🔗</span> Third-Party Links &amp; Services</h2>
+        <p>The app may contain links to third-party websites or services (e.g. emergency services websites, hospital listings). We are not responsible for the privacy practices of those third parties.</p>
+        <p>The Matrix protocol allows you to connect to homeservers operated by third parties. Those homeservers are governed by their own privacy policies.</p>
+        <p>Google&#x27;s use of data is governed by the Google Privacy Policy (https://policies.google.com/privacy).</p>
+    </section>
+    <section id="changes">
+        <h2><span>📝</span> Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. When we do, we will revise the &quot;Last updated&quot; date at the top of this page and, where appropriate, notify you via an in-app notice.</p>
+        <p>Your continued use of Radar after any changes constitutes your acceptance of the revised policy. We encourage you to review this page periodically.</p>
+    </section>
+
+    <div class="contact-box" id="contact">
+        <h2>Contact Us</h2>
+        <p>Questions, concerns, or data requests regarding this Privacy Policy:</p>
+        <p><strong style="color:#fff;">Developer:</strong> DAL Technology<br />
+           <strong style="color:#fff;">App:</strong> Radar &nbsp;(uk.co.daltechnology.radar)</p>
+        <a href="mailto:support@daltechnology.co.uk">support@daltechnology.co.uk</a>
+    </div>
+    <footer>
+        &copy; 2026 DAL Technology &mdash; All rights reserved.<br />
+        This privacy policy is intended to comply with Google Play Store requirements.
+    </footer>
+</div>
+</body>
+</html>

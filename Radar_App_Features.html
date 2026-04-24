@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radar App &ndash; Feature List</title>
+    <style>
+
+    :root {
+        --purple-dark:   #2b1640;
+        --purple-mid:    #3b235a;
+        --purple-light:  #6b42a0;
+        --amber:         #f5a623;
+        --amber-light:   #ffd27f;
+        --bg:            #f7f4fb;
+        --card-bg:       #ffffff;
+        --text-main:     #1a1a2e;
+        --text-muted:    #5a5470;
+        --text-sub:      #7a6d8e;
+        --border:        #e0d8f0;
+        --tag-bg:        #ede8f7;
+        --premium-bg:    #fff8ec;
+        --premium-border:#f5a623;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+        line-height: 1.6;
+        padding: 0 0 60px;
+    }
+
+    /* ---- Header ---- */
+    header {
+        background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-mid) 60%, var(--purple-light) 100%);
+        color: #fff;
+        padding: 48px 40px 40px;
+        text-align: center;
+    }
+    header h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        margin-bottom: 10px;
+    }
+    header h1 span.amber { color: var(--amber); }
+    header p.subtitle {
+        font-size: 1rem;
+        color: #c8b8e8;
+        max-width: 600px;
+        margin: 0 auto 24px;
+    }
+    .stat-bar {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+    }
+    .stat {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 10px;
+        padding: 10px 24px;
+        text-align: center;
+    }
+    .stat-number { font-size: 1.8rem; font-weight: 700; color: var(--amber); }
+    .stat-label  { font-size: 0.75rem; color: #c8b8e8; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ---- TOC ---- */
+    nav.toc {
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 40px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+    nav.toc .toc-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-right: 8px;
+    }
+    nav.toc a {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: var(--tag-bg);
+        color: var(--purple-mid);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        transition: background 0.15s, color 0.15s;
+    }
+    nav.toc a:hover {
+        background: var(--purple-mid);
+        color: #fff;
+    }
+
+    /* ---- Main layout ---- */
+    main {
+        max-width: 980px;
+        margin: 40px auto;
+        padding: 0 24px;
+    }
+
+    /* ---- Category section ---- */
+    .category {
+        margin-bottom: 48px;
+    }
+    .category-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+    .category-icon {
+        font-size: 2rem;
+        line-height: 1;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+    .category-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--purple-dark);
+        margin-bottom: 4px;
+    }
+    .category-desc {
+        font-size: 0.92rem;
+        color: var(--text-muted);
+    }
+    .category-count {
+        display: inline-block;
+        background: var(--purple-mid);
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+
+    /* ---- Feature grid ---- */
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+    }
+
+    /* ---- Feature card ---- */
+    .feature-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px 20px;
+        transition: box-shadow 0.15s, transform 0.1s;
+    }
+    .feature-card:hover {
+        box-shadow: 0 4px 20px rgba(59, 35, 90, 0.12);
+        transform: translateY(-2px);
+    }
+    .feature-card.premium {
+        background: var(--premium-bg);
+        border-color: var(--premium-border);
+    }
+    .feature-name {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--purple-mid);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .feature-card.premium .feature-name { color: #8a5a00; }
+    .badge-premium {
+        font-size: 0.62rem;
+        font-weight: 700;
+        background: var(--amber);
+        color: #5a3600;
+        padding: 2px 7px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        flex-shrink: 0;
+    }
+    .feature-points {
+        list-style: none;
+        padding: 0;
+    }
+    .feature-points li {
+        font-size: 0.83rem;
+        color: var(--text-sub);
+        padding: 3px 0 3px 14px;
+        position: relative;
+    }
+    .feature-points li::before {
+        content: "\2014";   /* em dash */
+        position: absolute;
+        left: 0;
+        color: var(--amber);
+        font-weight: 700;
+    }
+
+    /* ---- Footer ---- */
+    footer {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.82rem;
+        margin-top: 60px;
+        padding: 24px 40px;
+        border-top: 1px solid var(--border);
+    }
+    footer strong { color: var(--purple-mid); }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 600px) {
+        header { padding: 32px 20px 28px; }
+        header h1 { font-size: 1.7rem; }
+        nav.toc { padding: 14px 16px; }
+        main { padding: 0 14px; }
+        .feature-grid { grid-template-columns: 1fr; }
+    }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>&#x1F4E1; <span class="amber">Radar</span> App &ndash; Feature List</h1>
+    <p class="subtitle">
+        Comprehensive listing of all features implemented in the Radar Android application.
+    </p>
+    <div class="stat-bar">
+        <div class="stat">
+            <div class="stat-number">113</div>
+            <div class="stat-label">Features</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">10</div>
+            <div class="stat-label">Categories</div>
+        </div>
+    </div>
+</header>
+
+<nav class="toc">
+    <span class="toc-label">Jump to</span>
+        <a href="#radar-and-device-discovery">&#x1F4E1; Radar & Device Discovery</a>
+        <a href="#map">&#x1F5FA; Map</a>
+        <a href="#messaging">&#x1F4AC; Messaging</a>
+        <a href="#contacts">&#x1F464; Contacts</a>
+        <a href="#matrix-rooms">&#x1F4CA; Matrix Rooms</a>
+        <a href="#emergency---sos">&#x1F6A8; Emergency / SOS</a>
+        <a href="#settings-and-configuration">&#x2699; Settings &amp; Configuration</a>
+        <a href="#security-and-privacy">&#x1F512; Security &amp; Privacy</a>
+        <a href="#background-services-and-system-integration">&#x1F4F2; Background Services &amp; System Integration</a>
+        <a href="#utilities-and-tools">&#x1F527; Utilities &amp; Tools</a>
+</nav>
+
+<main>
+
+    <section class="category" id="radar-and-device-discovery">
+        <div class="category-header">
+            <span class="category-icon">&#x1F4E1;</span>
+            <div>
+                <div class="category-title">Radar & Device Discovery<span class="category-count">10</span></div>
+                <div class="category-desc">Live radar-style view that discovers nearby peers and devices across multiple wireless channels.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Bluetooth LE Discovery</div>
+            <ul class="feature-points">
+                    <li>Scans for and advertises to nearby Bluetooth Low Energy devices.</li>
+                    <li>Supports BLUETOOTH_SCAN, BLUETOOTH_CONNECT, and BLUETOOTH_ADVERTISE modes.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Wi-Fi Aware (NAN) Discovery</div>
+            <ul class="feature-points">
+                    <li>Peer discovery via Wi-Fi Neighbour Awareness Networking.</li>
+                    <li>Works without a router or internet connection.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Wi-Fi Access Point Mode</div>
+            <ul class="feature-points">
+                    <li>Device can act as a Wi-Fi hotspot to extend the local mesh.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Network / IP Discovery</div>
+            <ul class="feature-points">
+                    <li>Discovers devices on the same local IP network.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Web / Internet Relay</div>
+            <ul class="feature-points">
+                    <li>Routes messages through a configurable internet relay when no direct path exists.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Live Radar View</div>
+            <ul class="feature-points">
+                    <li>Animated radar sweep showing nearby peers and devices in real time.</li>
+                    <li>Tap any blip to open the device detail dialog.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">RSSI / Distance Estimation</div>
+            <ul class="feature-points">
+                    <li>Estimates physical distance to each device from signal strength.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Device Detail Dialog</div>
+            <ul class="feature-points">
+                    <li>Shows full device information: name, type, IPs, MACs, source channel, distance.</li>
+                    <li>Actions: open chat, view profile, show on map, block.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Profile Requests</div>
+            <ul class="feature-points">
+                    <li>Request the full profile of a discovered peer on demand.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Device Type Labels</div>
+            <ul class="feature-points">
+                    <li>Identifies and labels phone, tablet, laptop, and wearable device types.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="map">
+        <div class="category-header">
+            <span class="category-icon">&#x1F5FA;</span>
+            <div>
+                <div class="category-title">Map<span class="category-count">7</span></div>
+                <div class="category-desc">Interactive map showing real-time positions of nearby peers and points of interest.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Live Peer / Device Map</div>
+            <ul class="feature-points">
+                    <li>Google Maps view with live-updating markers for each known peer.</li>
+                    <li>Markers show peer name and last-seen timestamp.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Centre-on-Me</div>
+            <ul class="feature-points">
+                    <li>Button to pan and zoom the map to the user&#x27;s current GPS location.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Layer Controls</div>
+            <ul class="feature-points">
+                    <li>Toggle overlay layers individually.</li>
+                    <li>Available layers: peers, earthquakes, hospitals, pharmacies, aircraft (premium).</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Offline Maps Support</div>
+            <ul class="feature-points">
+                    <li>Download and cache map tiles for use without an internet connection.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Show Contact on Map</div>
+            <ul class="feature-points">
+                    <li>Jump to a specific contact&#x27;s last known location directly from the contact card.</li>
+            </ul>
+        </div>
+        <div class="feature-card premium">
+            <div class="feature-name">POI Layers (Premium)<span class="badge-premium">Premium</span></div>
+            <ul class="feature-points">
+                    <li>Real-time aircraft positions.</li>
+                    <li>WiGLE Wi-Fi historical network data.</li>
+                    <li>Web-sourced points of interest.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Pull-to-Refresh</div>
+            <ul class="feature-points">
+                    <li>Swipe down to force a map data refresh.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="messaging">
+        <div class="category-header">
+            <span class="category-icon">&#x1F4AC;</span>
+            <div>
+                <div class="category-title">Messaging<span class="category-count">23</span></div>
+                <div class="category-desc">Full-featured messaging across multiple transport channels with rich media and advanced message management.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Radar P2P Chat</div>
+            <ul class="feature-points">
+                    <li>Direct encrypted messaging between two Radar peers over the mesh.</li>
+                    <li>Works over Bluetooth, Wi-Fi Aware, local network, or internet relay.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Group / Broadcast Chat</div>
+            <ul class="feature-points">
+                    <li>Send a single message to multiple Radar contacts simultaneously.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">SMS Integration</div>
+            <ul class="feature-points">
+                    <li>Send and receive standard SMS messages from inside the app.</li>
+                    <li>Receive MMS messages via WAP-Push broadcast receiver.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">SMS Import &amp;amp; Sync</div>
+            <ul class="feature-points">
+                    <li>Import the device&#x27;s existing SMS inbox.</li>
+                    <li>Configurable sync interval for ongoing new-message sync.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Matrix (Element) Chat</div>
+            <ul class="feature-points">
+                    <li>Connect to any Matrix homeserver.</li>
+                    <li>Chat in public or private rooms.</li>
+                    <li>Send and receive Matrix media (images, files).</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Message Reactions</div>
+            <ul class="feature-points">
+                    <li>React to any message with an emoji.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Pinned Messages</div>
+            <ul class="feature-points">
+                    <li>Pin important messages to the top of a conversation.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Message Resend</div>
+            <ul class="feature-points">
+                    <li>Retry sending a failed outbound message.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Copy / Delete Message</div>
+            <ul class="feature-points">
+                    <li>Long-press a message to copy its text or permanently delete it.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Message Metadata</div>
+            <ul class="feature-points">
+                    <li>View delivery state, acknowledgement, read receipt, and source channel.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Message Translation</div>
+            <ul class="feature-points">
+                    <li>Translate received messages into the device&#x27;s display language.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Image / Video Attachments</div>
+            <ul class="feature-points">
+                    <li>Send and receive images and video files inline in chat.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">File Attachments</div>
+            <ul class="feature-points">
+                    <li>Attach and transfer arbitrary files of any MIME type.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Large-File Chunking</div>
+            <ul class="feature-points">
+                    <li>Automatically splits large attachments into chunks for reliable mesh transfer.</li>
+                    <li>Reassembles chunks transparently on the receiving end.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">End-to-End Encryption</div>
+            <ul class="feature-points">
+                    <li>All Radar peer messages are encrypted before transmission.</li>
+                    <li>Per-chat and global encryption toggles available in settings.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Prevent Unencrypted Sending</div>
+            <ul class="feature-points">
+                    <li>Hard block on sending any message that is not fully encrypted.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Message History</div>
+            <ul class="feature-points">
+                    <li>Browse a searchable archive of all past messages.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Export Chat</div>
+            <ul class="feature-points">
+                    <li>Export a full conversation to a file.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Chat Wallpaper</div>
+            <ul class="feature-points">
+                    <li>Set or reset a custom background image per conversation.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Mark Read / Mark All Read</div>
+            <ul class="feature-points">
+                    <li>Mark individual conversations or all conversations as read.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Clear Chat</div>
+            <ul class="feature-points">
+                    <li>Delete all messages in a single conversation.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Share-to-App</div>
+            <ul class="feature-points">
+                    <li>Receive shared content from other Android apps.</li>
+                    <li>Supported types: plain text, images, video, audio, and generic files.</li>
+                    <li>Single-item and multi-item share intents both handled.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Inbound / Outbound Queues</div>
+            <ul class="feature-points">
+                    <li>View pending messages waiting to be delivered or received.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="contacts">
+        <div class="category-header">
+            <span class="category-icon">&#x1F464;</span>
+            <div>
+                <div class="category-title">Contacts<span class="category-count">15</span></div>
+                <div class="category-desc">Unified contact list merging Radar peers with the device&#x27;s Android address book.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Unified Contact List</div>
+            <ul class="feature-points">
+                    <li>Single scrollable list combining Radar peers and native Android contacts.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Contact Search</div>
+            <ul class="feature-points">
+                    <li>Real-time filter across all contacts by name or identifier.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Alphabetical Scroll Strip</div>
+            <ul class="feature-points">
+                    <li>Fast-scroll sidebar for jumping directly to a letter section.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Contact Card Dialog</div>
+            <ul class="feature-points">
+                    <li>Full profile view: display name, phone, email, interests, tags, location, photo.</li>
+                    <li>Live direction arrow and distance to Radar peers.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Add / Edit Contact</div>
+            <ul class="feature-points">
+                    <li>Create a new contact or edit an existing one from within the app.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Save to Android Contacts</div>
+            <ul class="feature-points">
+                    <li>Save a Radar peer as a native Android address-book entry.</li>
+                    <li>Requests WRITE_CONTACTS permission at runtime.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Block Contact</div>
+            <ul class="feature-points">
+                    <li>Block a contact to stop receiving messages and presence updates.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Mute Contact</div>
+            <ul class="feature-points">
+                    <li>Mute a contact to suppress notification alerts without blocking.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Delete Contact</div>
+            <ul class="feature-points">
+                    <li>Remove a contact from the Radar database.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">New Chat Picker</div>
+            <ul class="feature-points">
+                    <li>Pick a contact to start a brand-new conversation.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Share Contact Picker</div>
+            <ul class="feature-points">
+                    <li>Select a contact as the destination when sharing content from another app.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Show on Map</div>
+            <ul class="feature-points">
+                    <li>Jump to a contact&#x27;s last known GPS position on the map view.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Direction Arrow</div>
+            <ul class="feature-points">
+                    <li>Live compass arrow that continuously points toward a nearby Radar peer.</li>
+                    <li>Updates at 500 ms cadence.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Verified State Badge</div>
+            <ul class="feature-points">
+                    <li>Visual indicator displayed when a contact&#x27;s identity has been verified.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Blocked Users List</div>
+            <ul class="feature-points">
+                    <li>Dedicated settings screen to review and unblock previously blocked contacts.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="matrix-rooms">
+        <div class="category-header">
+            <span class="category-icon">&#x1F4CA;</span>
+            <div>
+                <div class="category-title">Matrix Rooms<span class="category-count">9</span></div>
+                <div class="category-desc">Built-in Matrix (Element-compatible) client for federated, decentralised group chat.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Homeserver Selection</div>
+            <ul class="feature-points">
+                    <li>Configure any Matrix homeserver URL.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Login / Logout</div>
+            <ul class="feature-points">
+                    <li>Authenticate with Matrix username and password credentials.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Guest / Support Login</div>
+            <ul class="feature-points">
+                    <li>Automatic guest session for contacting app support without creating an account.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Public Room Browser</div>
+            <ul class="feature-points">
+                    <li>Browse and join publicly listed rooms on the configured homeserver.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Room Caching</div>
+            <ul class="feature-points">
+                    <li>Locally cache room lists and message history for offline browsing.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Filter by Active Account</div>
+            <ul class="feature-points">
+                    <li>Show only rooms belonging to the currently logged-in Matrix account.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Leave Room</div>
+            <ul class="feature-points">
+                    <li>Leave a Matrix room from inside the app.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Matrix Media Upload</div>
+            <ul class="feature-points">
+                    <li>Send images and files into Matrix rooms; resolves server-side media URLs.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Key Request / Refresh</div>
+            <ul class="feature-points">
+                    <li>Request missing encryption keys or force a session key refresh.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="emergency---sos">
+        <div class="category-header">
+            <span class="category-icon">&#x1F6A8;</span>
+            <div>
+                <div class="category-title">Emergency / SOS<span class="category-count">10</span></div>
+                <div class="category-desc">Dedicated emergency hub with distress signalling, location sharing, and access to emergency services.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Distress Alarm</div>
+            <ul class="feature-points">
+                    <li>Triggers a loud audible alarm and vibration pattern.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">SOS Morse Torch Flash</div>
+            <ul class="feature-points">
+                    <li>Flashes the camera torch in SOS Morse code (. . . - - - . . .).</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Current Location Panel</div>
+            <ul class="feature-points">
+                    <li>Displays GPS coordinates, reverse-geocoded address, and accuracy in real time.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Emergency Contacts</div>
+            <ul class="feature-points">
+                    <li>Store personal emergency contacts for quick access and one-tap dialling.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Country Emergency Numbers</div>
+            <ul class="feature-points">
+                    <li>Built-in database of national emergency numbers (police, fire, ambulance).</li>
+                    <li>Automatically resolves numbers for the device&#x27;s current country.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Nearby Hospitals</div>
+            <ul class="feature-points">
+                    <li>Lists and maps nearby hospitals using the device&#x27;s current location.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Nearby Pharmacies</div>
+            <ul class="feature-points">
+                    <li>Lists and maps nearby pharmacies.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Emergency Checklist</div>
+            <ul class="feature-points">
+                    <li>Step-by-step checklist for common emergency scenarios.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Mini Radio</div>
+            <ul class="feature-points">
+                    <li>Built-in audio stream player for tuning into emergency broadcast stations.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Battery Saver Shortcut</div>
+            <ul class="feature-points">
+                    <li>One-tap shortcut to open Android Battery Saver settings during an emergency.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="settings-and-configuration">
+        <div class="category-header">
+            <span class="category-icon">&#x2699;</span>
+            <div>
+                <div class="category-title">Settings &amp; Configuration<span class="category-count">15</span></div>
+                <div class="category-desc">Comprehensive settings covering appearance, connectivity, security, and third-party integrations.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Appearance / Theme</div>
+            <ul class="feature-points">
+                    <li>Choose the app colour scheme; default is dark purple and amber.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Pinch-to-Zoom Text Scaling</div>
+            <ul class="feature-points">
+                    <li>Adjust chat font size with a two-finger pinch gesture.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Bluetooth Settings</div>
+            <ul class="feature-points">
+                    <li>Enable or disable BLE scan, connect, and advertise modes independently.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Wi-Fi Aware Settings</div>
+            <ul class="feature-points">
+                    <li>Configure Wi-Fi NAN discovery parameters.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Wi-Fi AP Settings</div>
+            <ul class="feature-points">
+                    <li>Configure and toggle the device&#x27;s Wi-Fi access-point (hotspot) mode.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Web / Internet Relay Settings</div>
+            <ul class="feature-points">
+                    <li>Set the relay server address and authentication credentials.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">SMS Integration Settings</div>
+            <ul class="feature-points">
+                    <li>Enable SMS sync, set sync interval, and manage associated phone numbers.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Matrix Settings</div>
+            <ul class="feature-points">
+                    <li>Set homeserver URL, log in or out, and manage the Matrix session.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Security Settings</div>
+            <ul class="feature-points">
+                    <li>Biometric lock toggle.</li>
+                    <li>Default encryption mode.</li>
+                    <li>Prevent-unencrypted-sending guard.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Device Identity Reset</div>
+            <ul class="feature-points">
+                    <li>Destroy and regenerate all cryptographic keys and the device UUID.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Blocked Users Management</div>
+            <ul class="feature-points">
+                    <li>View all blocked contacts and unblock individual entries.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Privacy Settings</div>
+            <ul class="feature-points">
+                    <li>Control location sharing visibility and data retention policies.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Permissions Wizard</div>
+            <ul class="feature-points">
+                    <li>Step-by-step tutorial guiding the user to grant all required Android permissions.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Debug Info &amp;amp; History</div>
+            <ul class="feature-points">
+                    <li>View internal log output, device info, and recent transport events.</li>
+                    <li>Useful for diagnosing connectivity issues.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">About / Support</div>
+            <ul class="feature-points">
+                    <li>App version number and build info.</li>
+                    <li>Open-source licences.</li>
+                    <li>Direct link to the support contact chat.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="security-and-privacy">
+        <div class="category-header">
+            <span class="category-icon">&#x1F512;</span>
+            <div>
+                <div class="category-title">Security &amp; Privacy<span class="category-count">8</span></div>
+                <div class="category-desc">Features that protect user data, secure the app, and control information sharing.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Biometric Lock</div>
+            <ul class="feature-points">
+                    <li>Require fingerprint or face authentication to open the app.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">End-to-End Encryption</div>
+            <ul class="feature-points">
+                    <li>All Radar peer messages are encrypted before transmission.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Prevent Unencrypted Messages</div>
+            <ul class="feature-points">
+                    <li>Hard block on sending any message that is not fully encrypted.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Device Identity Reset</div>
+            <ul class="feature-points">
+                    <li>Full cryptographic identity wipe and regeneration.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Block Users</div>
+            <ul class="feature-points">
+                    <li>Permanently stop receiving messages or presence from a specific user.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Mute Users</div>
+            <ul class="feature-points">
+                    <li>Suppress alerts from a user without fully blocking them.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Background Location Transparency</div>
+            <ul class="feature-points">
+                    <li>Foreground service notification keeps users informed that location is active.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Scoped Contact Access</div>
+            <ul class="feature-points">
+                    <li>Reads and writes Android contacts only when the user explicitly triggers the action.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="background-services-and-system-integration">
+        <div class="category-header">
+            <span class="category-icon">&#x1F4F2;</span>
+            <div>
+                <div class="category-title">Background Services &amp; System Integration<span class="category-count">8</span></div>
+                <div class="category-desc">Services that keep the app functional in the background and deeply integrated with Android.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Foreground Location Service</div>
+            <ul class="feature-points">
+                    <li>Persistent service maintaining GPS updates and mesh connectivity.</li>
+                    <li>Declared as foregroundServiceType=location for Android compliance.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Firebase Push Notifications</div>
+            <ul class="feature-points">
+                    <li>Receive push notifications via Firebase Cloud Messaging (FCM).</li>
+                    <li>Wakes the app for incoming Radar messages when in background.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">SMS Receiver</div>
+            <ul class="feature-points">
+                    <li>Manifest-registered broadcast receiver for incoming SMS_RECEIVED broadcasts.</li>
+                    <li>Works even when the app is not running.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">MMS Receiver</div>
+            <ul class="feature-points">
+                    <li>WAP_PUSH_DELIVER / WAP_PUSH_RECEIVED broadcast receiver for MMS.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Boot Receiver</div>
+            <ul class="feature-points">
+                    <li>Automatically restarts the background service after a device reboot.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Wake Lock</div>
+            <ul class="feature-points">
+                    <li>Prevents the CPU from sleeping during critical network operations.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Vibration</div>
+            <ul class="feature-points">
+                    <li>Haptic feedback for incoming messages and distress alerts.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">FileProvider</div>
+            <ul class="feature-points">
+                    <li>Secure content-URI sharing of photos and attachments with other Android apps.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <section class="category" id="utilities-and-tools">
+        <div class="category-header">
+            <span class="category-icon">&#x1F527;</span>
+            <div>
+                <div class="category-title">Utilities &amp; Tools<span class="category-count">8</span></div>
+                <div class="category-desc">Standalone utility features bundled within the app.</div>
+            </div>
+        </div>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-name">Flashlight</div>
+            <ul class="feature-points">
+                    <li>Toggle the camera torch on and off from within the app.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Audio Recording</div>
+            <ul class="feature-points">
+                    <li>Record audio clips to attach to outbound messages.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Camera Capture</div>
+            <ul class="feature-points">
+                    <li>Take photos directly within the app and send them as message attachments.</li>
+            </ul>
+        </div>
+        <div class="feature-card premium">
+            <div class="feature-name">WiGLE Wi-Fi Lookup (Premium)<span class="badge-premium">Premium</span></div>
+            <ul class="feature-points">
+                    <li>Query the WiGLE API for historical Wi-Fi network records at a location.</li>
+            </ul>
+        </div>
+        <div class="feature-card premium">
+            <div class="feature-name">Aircraft Data Layer (Premium)<span class="badge-premium">Premium</span></div>
+            <ul class="feature-points">
+                    <li>Live aircraft position overlay on the map powered by a premium data feed.</li>
+            </ul>
+        </div>
+        <div class="feature-card premium">
+            <div class="feature-name">Premium Feature Gating<span class="badge-premium">Premium</span></div>
+            <ul class="feature-points">
+                    <li>In-app subscription that unlocks advanced and data-heavy premium features.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">RTL &amp;amp; Localisation Support</div>
+            <ul class="feature-points">
+                    <li>Full right-to-left layout support.</li>
+                    <li>Locale-aware formatting for dates, times, and numbers.</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <div class="feature-name">Debug &amp;amp; Test Tools</div>
+            <ul class="feature-points">
+                    <li>Hidden developer screens for testing individual transport channels.</li>
+                    <li>Message flow inspection and simulated peer injection.</li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <strong>Radar App</strong> &mdash; Feature List &mdash; 113 features across 10 categories
+</footer>
+
+</body>
+</html>
