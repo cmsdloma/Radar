@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radar &ndash; DAL Technology</title>
+    <style>
+    :root {
+        --purple-dark:  #2b1640;
+        --purple-mid:   #3b235a;
+        --purple-light: #6b42a0;
+        --amber:        #f5a623;
+        --amber-dark:   #c07d00;
+        --amber-light:  #fff3dc;
+        --bg:           #f7f4fb;
+        --card-bg:      #ffffff;
+        --text-main:    #1a1a2e;
+        --text-muted:   #5a5470;
+        --border:       #e0d8f0;
+        --link:         #5b2fa0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+        line-height: 1.7;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Header                                                               */
+    /* ------------------------------------------------------------------ */
+    header {
+        background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-mid) 60%, var(--purple-light) 100%);
+        color: #fff;
+        padding: 64px 40px 56px;
+        text-align: center;
+    }
+
+    .app-icon {
+        font-size: 4rem;
+        display: block;
+        margin-bottom: 18px;
+        filter: drop-shadow(0 4px 12px rgba(0,0,0,.35));
+    }
+
+    header h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 6px;
+    }
+    header h1 span.amber { color: var(--amber); }
+
+    .developer-tag {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #c8b8e8;
+        margin-bottom: 20px;
+    }
+
+    header p.tagline {
+        font-size: 1.05rem;
+        color: #d0c0e8;
+        max-width: 560px;
+        margin: 0 auto 36px;
+        line-height: 1.65;
+    }
+
+    /* Pill badges */
+    .badge-row {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .badge {
+        background: rgba(255,255,255,.12);
+        border: 1px solid rgba(255,255,255,.2);
+        border-radius: 20px;
+        padding: 5px 16px;
+        font-size: .8rem;
+        color: #d8ccea;
+        white-space: nowrap;
+    }
+    .badge.amber-badge {
+        background: rgba(245,166,35,.2);
+        border-color: rgba(245,166,35,.4);
+        color: var(--amber);
+        font-weight: 600;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Main content                                                         */
+    /* ------------------------------------------------------------------ */
+    main {
+        flex: 1;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 52px 24px 60px;
+        width: 100%;
+    }
+
+    .section-label {
+        font-size: .7rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+        padding-left: 4px;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Document cards                                                       */
+    /* ------------------------------------------------------------------ */
+    .card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 48px;
+    }
+
+    .doc-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 32px 28px 26px;
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow .2s, transform .2s, border-color .2s;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        overflow: hidden;
+    }
+    .doc-card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--purple-mid), var(--purple-light));
+        border-radius: 18px 18px 0 0;
+    }
+    .doc-card.amber-card::before {
+        background: linear-gradient(90deg, var(--amber-dark), var(--amber));
+    }
+    .doc-card:hover {
+        box-shadow: 0 8px 32px rgba(59,35,90,.14);
+        transform: translateY(-3px);
+        border-color: var(--purple-light);
+        text-decoration: none;
+    }
+    .doc-card.amber-card:hover {
+        border-color: var(--amber);
+    }
+
+    .card-icon {
+        font-size: 2.2rem;
+        margin-bottom: 14px;
+        display: block;
+    }
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--purple-dark);
+        margin-bottom: 8px;
+    }
+    .amber-card .card-title { color: #7a4800; }
+
+    .card-desc {
+        font-size: .88rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        flex: 1;
+        margin-bottom: 22px;
+    }
+
+    .card-cta {
+        display: block;
+        margin-top: auto;
+        font-size: .85rem;
+        font-weight: 700;
+        color: var(--purple-light);
+        letter-spacing: .3px;
+    }
+    .amber-card .card-cta { color: var(--amber-dark); }
+
+    /* ------------------------------------------------------------------ */
+    /* Key facts strip                                                      */
+    /* ------------------------------------------------------------------ */
+    .facts-strip {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 28px 32px;
+        margin-bottom: 48px;
+    }
+    .facts-strip h2 {
+        font-size: .7rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 18px;
+    }
+    .facts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px 32px;
+    }
+    .fact {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .fact-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .fact-text strong {
+        display: block;
+        font-size: .85rem;
+        font-weight: 700;
+        color: var(--purple-dark);
+        margin-bottom: 2px;
+    }
+    .fact-text span { font-size: .8rem; color: var(--text-muted); }
+
+    /* ------------------------------------------------------------------ */
+    /* Contact box                                                          */
+    /* ------------------------------------------------------------------ */
+    .contact-box {
+        background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid));
+        color: #fff;
+        border-radius: 14px;
+        padding: 32px 36px;
+        text-align: center;
+    }
+    .contact-box h2 { color: var(--amber); font-size: 1.1rem; margin-bottom: 8px; }
+    .contact-box p { color: #c8b8e8; font-size: .9rem; margin-bottom: 4px; }
+    .contact-box a {
+        display: inline-block;
+        background: var(--amber);
+        color: #3a1800;
+        font-weight: 700;
+        padding: 10px 28px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: .88rem;
+        margin-top: 14px;
+    }
+    .contact-box a:hover { background: var(--amber-dark); color: #fff; }
+
+    /* ------------------------------------------------------------------ */
+    /* Footer                                                               */
+    /* ------------------------------------------------------------------ */
+    footer {
+        text-align: center;
+        font-size: .78rem;
+        color: var(--text-muted);
+        padding: 24px;
+        border-top: 1px solid var(--border);
+        background: var(--card-bg);
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Responsive                                                           */
+    /* ------------------------------------------------------------------ */
+    @media (max-width: 640px) {
+        header { padding: 48px 20px 40px; }
+        header h1 { font-size: 2rem; }
+        .card-grid { grid-template-columns: 1fr; }
+        main { padding: 36px 16px 48px; }
+        .facts-strip { padding: 22px 20px; }
+    }
+    </style>
+</head>
+<body>
+
+<!-- ====================================================================== -->
+<!-- Header                                                                  -->
+<!-- ====================================================================== -->
+<header>
+    <span class="app-icon">&#x1F4E1;</span>
+    <h1><span class="amber">Radar</span></h1>
+    <p class="developer-tag">by DAL Technology</p>
+    <p class="tagline">
+        A peer-to-peer mesh communication and location-sharing app for Android.
+        Works over Bluetooth LE, Wi-Fi Aware, local network, and internet relay.
+    </p>
+    <div class="badge-row">
+        <span class="badge">&#x1F4F1; Android</span>
+        <span class="badge">&#x1F512; End-to-End Encrypted</span>
+        <span class="badge">&#x1F4E1; BLE &amp; Wi-Fi Aware</span>
+        <span class="badge">&#x1F4E8; SMS / MMS Integration</span>
+        <span class="badge amber-badge">&#x2B50; Premium Features Available</span>
+    </div>
+</header>
+
+<!-- ====================================================================== -->
+<!-- Main                                                                    -->
+<!-- ====================================================================== -->
+<main>
+
+    <!-- Document cards -->
+    <p class="section-label">App Documents</p>
+    <div class="card-grid">
+
+        <!-- Features card -->
+        <a class="doc-card amber-card" href="Radar_App_Features.html">
+            <span class="card-icon">&#x1F4CB;</span>
+            <p class="card-title">Feature List</p>
+            <p class="card-desc">
+                A comprehensive catalogue of every capability in the Radar app &mdash;
+                113 features across 10 categories including radar &amp; discovery,
+                messaging, maps, emergency / SOS, security, and more.
+            </p>
+            <span class="card-cta">View Features &#x2192;</span>
+        </a>
+
+        <!-- Privacy Policy card -->
+        <a class="doc-card" href="privacy-policy.html">
+            <span class="card-icon">&#x1F512;</span>
+            <p class="card-title">Privacy Policy</p>
+            <p class="card-desc">
+                Our Google Play Store&ndash;compliant privacy policy. Explains what data
+                is collected, how it is used and retained, server-side storage details,
+                Android permissions, your rights, and how to contact us.
+            </p>
+            <span class="card-cta">View Policy &#x2192;</span>
+        </a>
+
+    </div>
+
+    <!-- Key facts -->
+    <div class="facts-strip">
+        <h2>Key Privacy Principles</h2>
+        <div class="facts-grid">
+            <div class="fact">
+                <span class="fact-icon">&#x1F464;</span>
+                <div class="fact-text">
+                    <strong>Pseudonymous identity</strong>
+                    <span>Random UUID only &mdash; no email or phone required</span>
+                </div>
+            </div>
+            <div class="fact">
+                <span class="fact-icon">&#x1F4CD;</span>
+                <div class="fact-text">
+                    <strong>Location (current only)</strong>
+                    <span>Stored on server for peer discovery &mdash; no history retained</span>
+                </div>
+            </div>
+            <div class="fact">
+                <span class="fact-icon">&#x23F1;</span>
+                <div class="fact-text">
+                    <strong>Messages auto-deleted</strong>
+                    <span>Relayed messages removed within 7 days or on receipt</span>
+                </div>
+            </div>
+            <div class="fact">
+                <span class="fact-icon">&#x1F510;</span>
+                <div class="fact-text">
+                    <strong>End-to-end encryption</strong>
+                    <span>Sealed-sender design &mdash; server cannot read content</span>
+                </div>
+            </div>
+            <div class="fact">
+                <span class="fact-icon">&#x1F4F1;</span>
+                <div class="fact-text">
+                    <strong>SMS stays on device</strong>
+                    <span>SMS/MMS content is never uploaded to our servers</span>
+                </div>
+            </div>
+            <div class="fact">
+                <span class="fact-icon">&#x1F6AB;</span>
+                <div class="fact-text">
+                    <strong>No advertising</strong>
+                    <span>We do not sell data or use it for advertising</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-box">
+        <h2>Contact DAL Technology</h2>
+        <p>Privacy questions, data requests, or GDPR / UK GDPR rights:</p>
+        <p><strong style="color:#fff;">Package:</strong> <span style="color:#c8b8e8;">uk.co.daltechnology.radar</span></p>
+        <a href="mailto:support@daltechnology.co.uk">support@daltechnology.co.uk</a>
+    </div>
+
+</main>
+
+<!-- ====================================================================== -->
+<!-- Footer                                                                  -->
+<!-- ====================================================================== -->
+<footer>
+    &copy; 2026 DAL Technology &mdash; All rights reserved.<br />
+    Radar is a proprietary, closed-source, commercial Android application.
+    See <a href="LICENSE" style="color:var(--link);">LICENSE</a> for the full Proprietary Software Licence Agreement.
+</footer>
+
+</body>
+</html>

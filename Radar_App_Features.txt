@@ -1,0 +1,408 @@
+RADAR APP - FEATURE LIST
+============================================================
+
+Comprehensive listing of all features implemented in the
+Radar Android application.
+
+*  Radar & Device Discovery
+    Live radar-style view that discovers nearby peers and devices across multiple wireless channels.
+
+    +  Bluetooth LE Discovery
+        -  Scans for and advertises to nearby Bluetooth Low Energy devices.
+        -  Supports BLUETOOTH_SCAN, BLUETOOTH_CONNECT, and BLUETOOTH_ADVERTISE modes.
+
+    +  Wi-Fi Aware (NAN) Discovery
+        -  Peer discovery via Wi-Fi Neighbour Awareness Networking.
+        -  Works without a router or internet connection.
+
+    +  Wi-Fi Access Point Mode
+        -  Device can act as a Wi-Fi hotspot to extend the local mesh.
+
+    +  Network / IP Discovery
+        -  Discovers devices on the same local IP network.
+
+    +  Web / Internet Relay
+        -  Routes messages through a configurable internet relay when no direct path exists.
+
+    +  Live Radar View
+        -  Animated radar sweep showing nearby peers and devices in real time.
+        -  Tap any blip to open the device detail dialog.
+
+    +  RSSI / Distance Estimation
+        -  Estimates physical distance to each device from signal strength.
+
+    +  Device Detail Dialog
+        -  Shows full device information: name, type, IPs, MACs, source channel, distance.
+        -  Actions: open chat, view profile, show on map, block.
+
+    +  Profile Requests
+        -  Request the full profile of a discovered peer on demand.
+
+    +  Device Type Labels
+        -  Identifies and labels phone, tablet, laptop, and wearable device types.
+
+*  Map
+    Interactive map showing real-time positions of nearby peers and points of interest.
+
+    +  Live Peer / Device Map
+        -  Google Maps view with live-updating markers for each known peer.
+        -  Markers show peer name and last-seen timestamp.
+
+    +  Centre-on-Me
+        -  Button to pan and zoom the map to the user's current GPS location.
+
+    +  Layer Controls
+        -  Toggle overlay layers individually.
+        -  Available layers: peers, earthquakes, hospitals, pharmacies, aircraft (premium).
+
+    +  Offline Maps Support
+        -  Download and cache map tiles for use without an internet connection.
+
+    +  Show Contact on Map
+        -  Jump to a specific contact's last known location directly from the contact card.
+
+    +  POI Layers (Premium)
+        -  Real-time aircraft positions.
+        -  WiGLE Wi-Fi historical network data.
+        -  Web-sourced points of interest.
+
+    +  Pull-to-Refresh
+        -  Swipe down to force a map data refresh.
+
+*  Messaging
+    Full-featured messaging across multiple transport channels with rich media and advanced message management.
+
+    +  Radar P2P Chat
+        -  Direct encrypted messaging between two Radar peers over the mesh.
+        -  Works over Bluetooth, Wi-Fi Aware, local network, or internet relay.
+
+    +  Group / Broadcast Chat
+        -  Send a single message to multiple Radar contacts simultaneously.
+
+    +  SMS Integration
+        -  Send and receive standard SMS messages from inside the app.
+        -  Receive MMS messages via WAP-Push broadcast receiver.
+
+    +  SMS Import & Sync
+        -  Import the device's existing SMS inbox.
+        -  Configurable sync interval for ongoing new-message sync.
+
+    +  Matrix (Element) Chat
+        -  Connect to any Matrix homeserver.
+        -  Chat in public or private rooms.
+        -  Send and receive Matrix media (images, files).
+
+    +  Message Reactions
+        -  React to any message with an emoji.
+
+    +  Pinned Messages
+        -  Pin important messages to the top of a conversation.
+
+    +  Message Resend
+        -  Retry sending a failed outbound message.
+
+    +  Copy / Delete Message
+        -  Long-press a message to copy its text or permanently delete it.
+
+    +  Message Metadata
+        -  View delivery state, acknowledgement, read receipt, and source channel.
+
+    +  Message Translation
+        -  Translate received messages into the device's display language.
+
+    +  Image / Video Attachments
+        -  Send and receive images and video files inline in chat.
+
+    +  File Attachments
+        -  Attach and transfer arbitrary files of any MIME type.
+
+    +  Large-File Chunking
+        -  Automatically splits large attachments into chunks for reliable mesh transfer.
+        -  Reassembles chunks transparently on the receiving end.
+
+    +  End-to-End Encryption
+        -  All Radar messages are encrypted in transit by default.
+        -  Per-chat and global encryption toggles available in settings.
+
+    +  Prevent Unencrypted Sending
+        -  Optional hard guard that blocks any message from being sent unencrypted.
+
+    +  Message History
+        -  Browse a searchable archive of all past messages.
+
+    +  Export Chat
+        -  Export a full conversation to a file.
+
+    +  Chat Wallpaper
+        -  Set or reset a custom background image per conversation.
+
+    +  Mark Read / Mark All Read
+        -  Mark individual conversations or all conversations as read.
+
+    +  Clear Chat
+        -  Delete all messages in a single conversation.
+
+    +  Share-to-App
+        -  Receive shared content from other Android apps.
+        -  Supported types: plain text, images, video, audio, and generic files.
+        -  Single-item and multi-item share intents both handled.
+
+    +  Inbound / Outbound Queues
+        -  View pending messages waiting to be delivered or received.
+
+*  Contacts
+    Unified contact list merging Radar peers with the device's Android address book.
+
+    +  Unified Contact List
+        -  Single scrollable list combining Radar peers and native Android contacts.
+
+    +  Contact Search
+        -  Real-time filter across all contacts by name or identifier.
+
+    +  Alphabetical Scroll Strip
+        -  Fast-scroll sidebar for jumping directly to a letter section.
+
+    +  Contact Card Dialog
+        -  Full profile view: display name, phone, email, interests, tags, location, photo.
+        -  Live direction arrow and distance to Radar peers.
+
+    +  Add / Edit Contact
+        -  Create a new contact or edit an existing one from within the app.
+
+    +  Save to Android Contacts
+        -  Save a Radar peer as a native Android address-book entry.
+        -  Requests WRITE_CONTACTS permission at runtime.
+
+    +  Block Contact
+        -  Block a contact to stop receiving messages and presence updates.
+
+    +  Mute Contact
+        -  Mute a contact to suppress notification alerts without blocking.
+
+    +  Delete Contact
+        -  Remove a contact from the Radar database.
+
+    +  New Chat Picker
+        -  Pick a contact to start a brand-new conversation.
+
+    +  Share Contact Picker
+        -  Select a contact as the destination when sharing content from another app.
+
+    +  Show on Map
+        -  Jump to a contact's last known GPS position on the map view.
+
+    +  Direction Arrow
+        -  Live compass arrow that continuously points toward a nearby Radar peer.
+        -  Updates at 500 ms cadence.
+
+    +  Verified State Badge
+        -  Visual indicator displayed when a contact's identity has been verified.
+
+    +  Blocked Users List
+        -  Dedicated settings screen to review and unblock previously blocked contacts.
+
+*  Matrix Rooms
+    Built-in Matrix (Element-compatible) client for federated, decentralised group chat.
+
+    +  Homeserver Selection
+        -  Configure any Matrix homeserver URL.
+
+    +  Login / Logout
+        -  Authenticate with Matrix username and password credentials.
+
+    +  Guest / Support Login
+        -  Automatic guest session for contacting app support without creating an account.
+
+    +  Public Room Browser
+        -  Browse and join publicly listed rooms on the configured homeserver.
+
+    +  Room Caching
+        -  Locally cache room lists and message history for offline browsing.
+
+    +  Filter by Active Account
+        -  Show only rooms belonging to the currently logged-in Matrix account.
+
+    +  Leave Room
+        -  Leave a Matrix room from inside the app.
+
+    +  Matrix Media Upload
+        -  Send images and files into Matrix rooms; resolves server-side media URLs.
+
+    +  Key Request / Refresh
+        -  Request missing encryption keys or force a session key refresh.
+
+*  Emergency / SOS
+    Dedicated emergency hub with distress signalling, location sharing, and access to emergency services.
+
+    +  Distress Alarm
+        -  Triggers a loud audible alarm and vibration pattern.
+
+    +  SOS Morse Torch Flash
+        -  Flashes the camera torch in SOS Morse code (. . . - - - . . .).
+
+    +  Current Location Panel
+        -  Displays GPS coordinates, reverse-geocoded address, and accuracy in real time.
+
+    +  Emergency Contacts
+        -  Store personal emergency contacts for quick access and one-tap dialling.
+
+    +  Country Emergency Numbers
+        -  Built-in database of national emergency numbers (police, fire, ambulance).
+        -  Automatically resolves numbers for the device's current country.
+
+    +  Nearby Hospitals
+        -  Lists and maps nearby hospitals using the device's current location.
+
+    +  Nearby Pharmacies
+        -  Lists and maps nearby pharmacies.
+
+    +  Emergency Checklist
+        -  Step-by-step checklist for common emergency scenarios.
+
+    +  Mini Radio
+        -  Built-in audio stream player for tuning into emergency broadcast stations.
+
+    +  Battery Saver Shortcut
+        -  One-tap shortcut to open Android Battery Saver settings during an emergency.
+
+*  Settings & Configuration
+    Comprehensive settings covering appearance, connectivity, security, and third-party integrations.
+
+    +  Appearance / Theme
+        -  Choose the app colour scheme; default is dark purple and amber.
+
+    +  Pinch-to-Zoom Text Scaling
+        -  Adjust chat font size with a two-finger pinch gesture.
+
+    +  Bluetooth Settings
+        -  Enable or disable BLE scan, connect, and advertise modes independently.
+
+    +  Wi-Fi Aware Settings
+        -  Configure Wi-Fi NAN discovery parameters.
+
+    +  Wi-Fi AP Settings
+        -  Configure and toggle the device's Wi-Fi access-point (hotspot) mode.
+
+    +  Web / Internet Relay Settings
+        -  Set the relay server address and authentication credentials.
+
+    +  SMS Integration Settings
+        -  Enable SMS sync, set sync interval, and manage associated phone numbers.
+
+    +  Matrix Settings
+        -  Set homeserver URL, log in or out, and manage the Matrix session.
+
+    +  Security Settings
+        -  Biometric lock toggle.
+        -  Default encryption mode.
+        -  Prevent-unencrypted-sending guard.
+
+    +  Device Identity Reset
+        -  Destroy and regenerate all cryptographic keys and the device UUID.
+
+    +  Blocked Users Management
+        -  View all blocked contacts and unblock individual entries.
+
+    +  Privacy Settings
+        -  Control location sharing visibility and data retention policies.
+
+    +  Permissions Wizard
+        -  Step-by-step tutorial guiding the user to grant all required Android permissions.
+
+    +  Debug Info & History
+        -  View internal log output, device info, and recent transport events.
+        -  Useful for diagnosing connectivity issues.
+
+    +  About / Support
+        -  App version number and build info.
+        -  Open-source licences.
+        -  Direct link to the support contact chat.
+
+*  Security & Privacy
+    Features that protect user data, secure the app, and control information sharing.
+
+    +  Biometric Lock
+        -  Require fingerprint or face authentication to open the app.
+
+    +  End-to-End Encryption
+        -  All Radar peer messages are encrypted before transmission.
+
+    +  Prevent Unencrypted Messages
+        -  Hard block on sending any message that is not fully encrypted.
+
+    +  Device Identity Reset
+        -  Full cryptographic identity wipe and regeneration.
+
+    +  Block Users
+        -  Permanently stop receiving messages or presence from a specific user.
+
+    +  Mute Users
+        -  Suppress alerts from a user without fully blocking them.
+
+    +  Background Location Transparency
+        -  Foreground service notification keeps users informed that location is active.
+
+    +  Scoped Contact Access
+        -  Reads and writes Android contacts only when the user explicitly triggers the action.
+
+*  Background Services & System Integration
+    Services that keep the app functional in the background and deeply integrated with Android.
+
+    +  Foreground Location Service
+        -  Persistent service maintaining GPS updates and mesh connectivity.
+        -  Declared as foregroundServiceType=location for Android compliance.
+
+    +  Firebase Push Notifications
+        -  Receive push notifications via Firebase Cloud Messaging (FCM).
+        -  Wakes the app for incoming Radar messages when in background.
+
+    +  SMS Receiver
+        -  Manifest-registered broadcast receiver for incoming SMS_RECEIVED broadcasts.
+        -  Works even when the app is not running.
+
+    +  MMS Receiver
+        -  WAP_PUSH_DELIVER / WAP_PUSH_RECEIVED broadcast receiver for MMS.
+
+    +  Boot Receiver
+        -  Automatically restarts the background service after a device reboot.
+
+    +  Wake Lock
+        -  Prevents the CPU from sleeping during critical network operations.
+
+    +  Vibration
+        -  Haptic feedback for incoming messages and distress alerts.
+
+    +  FileProvider
+        -  Secure content-URI sharing of photos and attachments with other Android apps.
+
+*  Utilities & Tools
+    Standalone utility features bundled within the app.
+
+    +  Flashlight
+        -  Toggle the camera torch on and off from within the app.
+
+    +  Audio Recording
+        -  Record audio clips to attach to outbound messages.
+
+    +  Camera Capture
+        -  Take photos directly within the app and send them as message attachments.
+
+    +  WiGLE Wi-Fi Lookup (Premium)
+        -  Query the WiGLE API for historical Wi-Fi network records at a location.
+
+    +  Aircraft Data Layer (Premium)
+        -  Live aircraft position overlay on the map powered by a premium data feed.
+
+    +  Premium Feature Gating
+        -  In-app subscription that unlocks advanced and data-heavy premium features.
+
+    +  RTL & Localisation Support
+        -  Full right-to-left layout support.
+        -  Locale-aware formatting for dates, times, and numbers.
+
+    +  Debug & Test Tools
+        -  Hidden developer screens for testing individual transport channels.
+        -  Message flow inspection and simulated peer injection.
+
+============================================================
+Total features: 113
