@@ -124,7 +124,7 @@
     /* ------------------------------------------------------------------ */
     .card-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 24px;
         margin-bottom: 48px;
     }
@@ -279,6 +279,9 @@
         main { padding: 36px 16px 48px; }
         .facts-strip { padding: 22px 20px; }
     }
+    @media (min-width: 641px) and (max-width: 900px) {
+        .card-grid { grid-template-columns: 1fr 1fr; }
+    }
     </style>
 </head>
 <body>
@@ -334,6 +337,30 @@
                 Android permissions, your rights, and how to contact us.
             </p>
             <span class="card-cta">View Policy &#x2192;</span>
+        </a>
+
+        <!-- Release Notes card -->
+        <a class="doc-card" href="release-notes.html">
+            <span class="card-icon">&#x1F4DD;</span>
+            <p class="card-title">Release Notes</p>
+            <p class="card-desc">
+                Version history for the Radar Android app. Latest release: v0.9.1
+                (Closed Alpha) &mdash; bug fixes, new features, and Play Store
+                compatibility improvements.
+            </p>
+            <span class="card-cta">View Release Notes &#x2192;</span>
+        </a>
+
+        <!-- Free vs Premium card -->
+        <a class="doc-card amber-card" href="premium.html">
+            <span class="card-icon">&#x2B50;</span>
+            <p class="card-title">Free vs Premium</p>
+            <p class="card-desc">
+                Side-by-side feature comparison. See exactly what&rsquo;s included
+                in the free tier and what unlocks with a Premium subscription
+                (&pound;2.99&nbsp;/&nbsp;month).
+            </p>
+            <span class="card-cta">Compare Plans &#x2192;</span>
         </a>
 
     </div>

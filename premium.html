@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radar &ndash; Basic vs Premium</title>
+    <style>
+
+    :root {
+        --purple-dark:  #2b1640;
+        --purple-mid:   #3b235a;
+        --purple-light: #6b42a0;
+        --amber:        #f5a623;
+        --amber-dark:   #c07d00;
+        --amber-light:  #fff8e8;
+        --amber-mid:    #fde8aa;
+        --green:        #1a7a45;
+        --green-light:  #eaf7f0;
+        --bg:           #f7f4fb;
+        --card-bg:      #ffffff;
+        --text-main:    #1a1a2e;
+        --text-muted:   #5a5470;
+        --border:       #e0d8f0;
+        --link:         #5b2fa0;
+        --free-col:     #f4f2f9;
+        --premium-col:  #fffbe8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+        line-height: 1.65;
+        padding-bottom: 60px;
+    }
+
+    /* ---- Header ---- */
+    header {
+        background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-mid) 60%, var(--purple-light) 100%);
+        color: #fff;
+        padding: 52px 40px 48px;
+        text-align: center;
+    }
+    header .app-icon { font-size: 3rem; margin-bottom: 14px; display: block; }
+    header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+    header h1 span.amber { color: var(--amber); }
+    header p.subtitle { color: #c8b8e8; font-size: 0.95rem; max-width: 520px; margin: 0 auto 32px; }
+    .price-bar {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .price-pill {
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 14px;
+        padding: 12px 28px;
+        text-align: center;
+        min-width: 140px;
+    }
+    .price-pill.amber-pill {
+        background: rgba(245,166,35,0.18);
+        border-color: rgba(245,166,35,0.45);
+    }
+    .pill-label { font-size: .72rem; text-transform: uppercase; letter-spacing: 1.5px; color: #c8b8e8; margin-bottom: 4px; }
+    .pill-price { font-size: 1.5rem; font-weight: 800; color: #fff; line-height: 1.1; }
+    .pill-price.amber { color: var(--amber); }
+    .pill-sub   { font-size: .72rem; color: #b8a8d0; margin-top: 3px; }
+
+    /* ---- Back link ---- */
+    .back-bar {
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 24px;
+    }
+    .back-bar a { color: var(--link); text-decoration: none; font-size: .85rem; font-weight: 600; }
+    .back-bar a:hover { text-decoration: underline; }
+
+    /* ---- Wrapper ---- */
+    .wrapper { max-width: 960px; margin: 44px auto; padding: 0 24px; }
+
+    /* ================================================================ */
+    /* Comparison table                                                   */
+    /* ================================================================ */
+    .compare-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        margin-bottom: 40px;
+        background: var(--card-bg);
+    }
+
+    /* Column headers */
+    .compare-table thead tr {
+        background: var(--card-bg);
+    }
+    .compare-table thead th {
+        padding: 0;
+        vertical-align: bottom;
+    }
+    .col-feature { width: 46%; }
+    .col-free    { width: 27%; }
+    .col-premium { width: 27%; }
+
+    .col-header {
+        padding: 26px 24px 22px;
+        text-align: center;
+    }
+    .col-header.free-header {
+        background: var(--free-col);
+        border-left: 1px solid var(--border);
+    }
+    .col-header.premium-header {
+        background: var(--premium-col);
+        border-left: 1px solid var(--amber-mid);
+        position: relative;
+    }
+    .col-header.premium-header::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--amber-dark), var(--amber));
+    }
+
+    .col-tier-label {
+        font-size: .65rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 6px;
+    }
+    .free-header .col-tier-label  { color: var(--text-muted); }
+    .premium-header .col-tier-label { color: var(--amber-dark); }
+
+    .col-tier-name {
+        display: block;
+        font-size: 1.25rem;
+        font-weight: 800;
+        line-height: 1.1;
+    }
+    .free-header .col-tier-name    { color: var(--purple-dark); }
+    .premium-header .col-tier-name { color: var(--amber-dark); }
+
+    .col-tier-price {
+        display: block;
+        margin-top: 8px;
+        font-size: .82rem;
+    }
+    .free-header .col-tier-price  { color: var(--text-muted); }
+    .premium-header .col-tier-price { color: var(--amber-dark); font-weight: 600; }
+
+    /* Section rows */
+    .section-row td {
+        background: var(--purple-dark);
+        color: #e8deff;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 9px 20px;
+        border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .section-row td.free-cell, .section-row td.premium-cell {
+        border-left: 1px solid rgba(255,255,255,.1);
+        background: rgba(43,22,64,.92);
+    }
+
+    /* Feature rows */
+    .compare-table tbody tr.feature-row {
+        border-top: 1px solid var(--border);
+    }
+    .compare-table tbody tr.feature-row:hover {
+        background: var(--bg);
+    }
+    .compare-table tbody tr.feature-row td {
+        padding: 12px 20px;
+        vertical-align: middle;
+        font-size: .88rem;
+    }
+    .feature-name {
+        font-weight: 500;
+        color: var(--text-main);
+        line-height: 1.4;
+    }
+    .feature-name small {
+        display: block;
+        font-size: .76rem;
+        color: var(--text-muted);
+        font-weight: 400;
+        margin-top: 2px;
+    }
+
+    .cell-free {
+        background: var(--free-col);
+        border-left: 1px solid var(--border);
+        text-align: center;
+    }
+    .cell-premium {
+        background: var(--premium-col);
+        border-left: 1px solid var(--amber-mid);
+        text-align: center;
+    }
+
+    /* Tick / cross / badge */
+    .tick   { color: var(--green); font-size: 1.2rem; font-weight: 700; }
+    .cross  { color: #b0a0b8; font-size: 1.1rem; }
+    .dash   { color: #c0b8cc; font-size: 1.1rem; }
+    .star   { color: var(--amber); font-size: 1.15rem; }
+
+    .limited {
+        display: inline-block;
+        background: var(--free-col);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: .72rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        padding: 2px 10px;
+    }
+    .premium-badge {
+        display: inline-block;
+        background: var(--amber-light);
+        border: 1px solid var(--amber-mid);
+        border-radius: 10px;
+        font-size: .72rem;
+        font-weight: 700;
+        color: var(--amber-dark);
+        padding: 2px 10px;
+    }
+
+    /* ================================================================ */
+    /* CTA block                                                         */
+    /* ================================================================ */
+    .cta-block {
+        background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-mid) 65%, var(--purple-light) 100%);
+        border-radius: 18px;
+        padding: 44px 40px;
+        text-align: center;
+        color: #fff;
+        margin-bottom: 40px;
+    }
+    .cta-block h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; }
+    .cta-block h2 span { color: var(--amber); }
+    .cta-block p { color: #c8b8e8; max-width: 520px; margin: 0 auto 28px; font-size: .95rem; }
+    .cta-btn {
+        display: inline-block;
+        background: var(--amber);
+        color: #2b1200;
+        font-weight: 800;
+        font-size: 1rem;
+        padding: 14px 40px;
+        border-radius: 40px;
+        text-decoration: none;
+        letter-spacing: .3px;
+        transition: background .2s, transform .15s;
+    }
+    .cta-btn:hover { background: var(--amber-dark); color: #fff; transform: translateY(-2px); }
+    .cta-note { display: block; margin-top: 16px; font-size: .78rem; color: #a090c0; }
+
+    /* ================================================================ */
+    /* FAQ strip                                                         */
+    /* ================================================================ */
+    .faq-section { margin-bottom: 40px; }
+    .faq-section h2 {
+        font-size: .7rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 16px;
+        padding-left: 4px;
+    }
+    .faq-item {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin-bottom: 10px;
+    }
+    .faq-q { font-weight: 700; font-size: .9rem; margin-bottom: 6px; color: var(--purple-dark); }
+    .faq-a { font-size: .86rem; color: var(--text-muted); }
+
+    /* ---- Footer ---- */
+    footer {
+        text-align: center;
+        font-size: .78rem;
+        color: var(--text-muted);
+        padding: 24px;
+        border-top: 1px solid var(--border);
+        background: var(--card-bg);
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 640px) {
+        header { padding: 36px 20px 32px; }
+        header h1 { font-size: 1.7rem; }
+        .price-bar { gap: 12px; }
+        .price-pill { padding: 10px 18px; min-width: 120px; }
+        .wrapper { padding: 0 12px; margin-top: 28px; }
+        .compare-table tbody tr.feature-row td { padding: 10px 12px; font-size: .82rem; }
+        .compare-table thead .col-header { padding: 18px 12px 14px; }
+        .cta-block { padding: 32px 20px; border-radius: 14px; }
+        .cta-block h2 { font-size: 1.3rem; }
+    }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <span class="app-icon">&#x1F4E1;</span>
+    <h1><span class="amber">Radar</span> &mdash; Basic vs Premium</h1>
+    <p class="subtitle">Everything in Basic, plus powerful extras when you upgrade to Premium.</p>
+    <div class="price-bar">
+        <div class="price-pill">
+            <span class="pill-label">Basic</span>
+            <span class="pill-price">&#xA3;0</span>
+            <span class="pill-sub">forever</span>
+        </div>
+        <div class="price-pill amber-pill">
+            <span class="pill-label">Premium</span>
+            <span class="pill-price amber">&#xA3;0.99</span>
+            <span class="pill-sub">per month &middot; cancel anytime</span>
+        </div>
+    </div>
+</header>
+
+<div class="back-bar">
+    <a href="index.html">&#x2190; Back to Radar Home</a>
+</div>
+
+<div class="wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Comparison table                                                -->
+    <!-- ============================================================== -->
+    <table class="compare-table" aria-label="Free vs Premium feature comparison">
+        <colgroup>
+            <col class="col-feature" />
+            <col class="col-free" />
+            <col class="col-premium" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th class="col-feature" scope="col"></th>
+                <th class="col-free" scope="col">
+                    <div class="col-header free-header">
+                        <span class="col-tier-name">Basic</span>
+                    </div>
+                </th>
+                <th class="col-premium" scope="col">
+                    <div class="col-header premium-header">
+                        <span class="col-tier-name">Premium</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- ── MESSAGING ── -->
+            <tr class="section-row">
+                <td>&#x1F4AC; Messaging</td>
+                <td class="free-cell"></td>
+                <td class="premium-cell"></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Receive messages from anyone
+                    <small>Including first-contact inbound chats</small></td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Reply to existing chats</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Start a chat with a new contact
+                    <small>Initiate first contact with a peer you haven&rsquo;t spoken to before</small></td>
+                <td class="cell-free"><span class="cross">&#x2715;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Group messaging</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">End-to-end encryption</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Emoji reactions</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Read receipts &amp; typing indicators</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Delete for me / Delete for everyone</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Pin messages</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">SMS &amp; MMS integration</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Matrix federated chat</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+
+            <!-- ── CONNECTIVITY ── -->
+            <tr class="section-row">
+                <td>&#x1F4F6; Connectivity &amp; Delivery</td>
+                <td class="free-cell"></td>
+                <td class="premium-cell"></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Bluetooth LE (BLE) delivery</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Wi-Fi Aware (peer-to-peer) delivery</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">LAN / Ethernet delivery</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Internet web relay</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Offline mesh networking
+                    <small>Store-and-forward relay across up to 5 hops without internet</small></td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+
+            <!-- ── RADAR MAP ── -->
+            <tr class="section-row">
+                <td>&#x1F5FA; Radar Map</td>
+                <td class="free-cell"></td>
+                <td class="premium-cell"></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Nearby Radar contacts on map</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">BLE &amp; Wi-Fi Aware peers on map</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Earthquakes &amp; seismic events on map</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Points of interest (POI)
+                    <small>Free: taps open in Google Maps</small></td>
+                <td class="cell-free"><span class="limited">Basic</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span> <span class="premium-badge">Rich details</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Live aircraft on map (OpenSky)
+                    <small>Real-time flight positions via OpenSky Network</small></td>
+                <td class="cell-free"><span class="cross">&#x2715;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span> <span class="premium-badge">Premium</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">WiGLE Wi-Fi AP lookup on map
+                    <small>See crowd-sourced Wi-Fi access points near you</small></td>
+                <td class="cell-free"><span class="cross">&#x2715;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span> <span class="premium-badge">Premium</span></td>
+            </tr>
+
+            <!-- ── PRIVACY & SECURITY ── -->
+            <tr class="section-row">
+                <td>&#x1F512; Privacy &amp; Security</td>
+                <td class="free-cell"></td>
+                <td class="premium-cell"></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Sealed-sender encryption</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Encrypted local database (SQLCipher)</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Pseudonymous identity (UUID only)
+                    <small>No email or phone number required</small></td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Auto-deletion of relayed messages
+                    <small>Server purges within 7 days or on confirmed receipt</small></td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">No advertising &mdash; ever</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+
+            <!-- ── EMERGENCY ── -->
+            <tr class="section-row">
+                <td>&#x1F198; Emergency Features</td>
+                <td class="free-cell"></td>
+                <td class="premium-cell"></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">SOS broadcast to all reachable peers
+                    <small>Sends GPS coordinates across all available channels simultaneously</small></td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+
+            <!-- ── SUPPORT ── -->
+            <tr class="section-row">
+                <td>&#x1F4AC; Support</td>
+                <td class="free-cell"></td>
+                <td class="premium-cell"></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">In-app support request</td>
+                <td class="cell-free"><span class="tick">&#x2714;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span></td>
+            </tr>
+            <tr class="feature-row">
+                <td class="feature-name">Priority support response</td>
+                <td class="cell-free"><span class="cross">&#x2715;</span></td>
+                <td class="cell-premium"><span class="tick">&#x2714;</span> <span class="premium-badge">Premium</span></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <!-- ============================================================== -->
+    <!-- CTA                                                             -->
+    <!-- ============================================================== -->
+    <div class="cta-block">
+        <h2>Ready to go <span>Premium</span>?</h2>
+        <p>Upgrade in the app under <strong>Settings &rarr; Upgrade (Go Premium!)</strong> to unlock new contact messaging, live aircraft &amp; Wi-Fi AP map layers, and rich POI details &mdash; all for less than a coffee a month.</p>
+        <a class="cta-btn" href="index.html">&#x2B50; Get Radar &rarr;</a>
+        <span class="cta-note">Available on Google Play &middot; Cancel anytime via your Play Store subscription settings</span>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- FAQ                                                             -->
+    <!-- ============================================================== -->
+    <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <p class="faq-q">Can I receive messages without a Premium subscription?</p>
+            <p class="faq-a">Yes &mdash; always. Receiving messages (including first-contact messages from new peers) and replying to any existing chat are completely free. Premium is only required to <em>initiate</em> a chat with someone you&rsquo;ve never spoken to before.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Is my encryption or privacy affected by my subscription tier?</p>
+            <p class="faq-a">No. All messages are end-to-end encrypted using the sealed-sender design regardless of tier. The local database is encrypted on both Free and Premium. Your identity is pseudonymous (UUID only) on both tiers. Subscription tier has no effect on any security or privacy feature.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">What happens if my subscription lapses?</p>
+            <p class="faq-a">You&rsquo;ll revert to Free tier. You can still receive and reply to all existing chats. Any map layers that require Premium (aircraft, WiGLE Wi-Fi APs) will be hidden, and starting new chats with contacts will require resubscribing.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">How do I cancel?</p>
+            <p class="faq-a">Via Google Play: <strong>Google Play &rarr; Subscriptions &rarr; Radar Premium &rarr; Cancel</strong>. Cancellation takes effect at the end of the current billing period; you retain Premium access until then.</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Are more Premium features coming?</p>
+            <p class="faq-a">Yes. The roadmap includes voice &amp; video calls, large file transfers over LAN, offline map tile caching, and disappearing messages. Premium subscribers get access to new features as they ship.</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2026 DAL Technology &mdash; All rights reserved.<br />
+    Radar is a proprietary, closed-source, commercial Android application.
+    See <a href="LICENSE" style="color:var(--link);">LICENSE</a> for the Proprietary Software Licence Agreement.
+    &middot; <a href="privacy-policy.html" style="color:var(--link);">Privacy Policy</a>
+</footer>
+
+</body>
+</html>
