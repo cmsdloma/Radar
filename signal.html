@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Signal – Privacy Strengths, Limitations &amp; Remaining Risks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="A comprehensive technical and legal analysis of Signal's privacy architecture — what it gets right, where it still falls short, and what remains beyond its reach." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent-warn:  #ff6868;
+      --accent-amber: #ffe16b;
+      --accent-teal:  #4ab5ff;
+      --accent-pink:  #ff71c8;
+    }
+
+    /* ── Sticky site nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(74,181,255,0.08); color: var(--accent-teal); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero-surv {
+      padding: 5rem 1.25rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-surv .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      border: 1px solid rgba(51, 255, 204, 0.35);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-surv h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-surv h1 em {
+      font-style: normal;
+      color: var(--accent-teal);
+    }
+    .hero-surv h1 em.warn {
+      color: var(--accent-amber);
+    }
+    .hero-surv .lead {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-surv blockquote.pull-quote {
+      margin: 0 auto 1rem;
+      max-width: 700px;
+      padding: 1.5rem 2rem;
+      border-left: 4px solid var(--accent-teal);
+      background: rgba(51, 255, 204, 0.06);
+      border-radius: 0 12px 12px 0;
+      text-align: left;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #f5f7ff;
+      line-height: 1.7;
+    }
+    .hero-surv blockquote.pull-quote cite {
+      display: block;
+      margin-top: 0.75rem;
+      font-style: normal;
+      font-size: 0.82rem;
+      color: var(--accent-teal);
+      letter-spacing: 0.05em;
+    }
+
+    /* SECTION WRAPPERS */
+    .surv-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .surv-section .kicker {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 0.6rem;
+    }
+    .kicker--red    { color: var(--accent-warn); }
+    .kicker--amber  { color: var(--accent-amber); }
+    .kicker--teal   { color: var(--accent-teal); }
+    .kicker--pink   { color: var(--accent-pink); }
+
+    .surv-section h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      margin: 0 0 0.8rem;
+      line-height: 1.25;
+    }
+    .surv-section .section-lead {
+      color: var(--muted);
+      font-size: 0.97rem;
+      max-width: 680px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
+    /* RISK CARDS */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .risk-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .risk-card:hover {
+      background: rgba(255,255,255,0.055);
+      border-color: rgba(74,181,255,0.3);
+    }
+    .risk-card .risk-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .risk-card h3 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      color: var(--accent-teal);
+    }
+    .risk-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .risk-card p strong { color: var(--text); }
+
+    /* AMBER (limitation) cards */
+    .risk-card--amber h3    { color: var(--accent-amber); }
+    .risk-card--amber:hover  { border-color: rgba(255,225,107,0.3); }
+
+    /* RED (risk) cards */
+    .risk-card--red h3   { color: var(--accent-warn); }
+    .risk-card--red:hover { border-color: rgba(255,104,104,0.3); }
+
+    /* PINK cards */
+    .risk-card--pink h3    { color: var(--accent-pink); }
+    .risk-card--pink:hover  { border-color: rgba(255,113,200,0.3); }
+
+    /* STAT BAND */
+    .stat-band {
+      background: linear-gradient(135deg, rgba(74,181,255,0.07), rgba(255,225,107,0.04));
+      border: 1px solid rgba(74,181,255,0.18);
+      border-radius: var(--card-radius);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+    .stat-item {
+      padding: 1.75rem 1.5rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent-teal);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .stat-num.warn  { color: var(--accent-warn); }
+    .stat-num.amber { color: var(--accent-amber); }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* QUOTE BLOCK */
+    blockquote.inline-quote {
+      margin: 2.5rem 0;
+      padding: 1.4rem 1.75rem;
+      border-left: 3px solid;
+      border-radius: 0 10px 10px 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    blockquote.inline-quote.red    { border-color: var(--accent-warn);  background: rgba(255,104,104,0.06); }
+    blockquote.inline-quote.amber  { border-color: var(--accent-amber); background: rgba(255,225,107,0.05); }
+    blockquote.inline-quote.teal   { border-color: var(--accent-teal);  background: rgba(74,181,255,0.05); }
+    blockquote.inline-quote cite {
+      display: block;
+      margin-top: 0.65rem;
+      font-style: normal;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      opacity: 0.75;
+    }
+    blockquote.inline-quote.red   cite { color: var(--accent-warn); }
+    blockquote.inline-quote.amber cite { color: var(--accent-amber); }
+    blockquote.inline-quote.teal  cite { color: var(--accent-teal); }
+
+    /* BULLET LIST */
+    .risk-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .risk-list li {
+      display: flex;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .risk-list li .bullet-icon {
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      margin-top: 1px;
+    }
+    .risk-list li strong { color: var(--text); }
+
+    /* TWO-COL PROSE */
+    .two-col-prose {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      .two-col-prose { grid-template-columns: 1fr; }
+    }
+    .two-col-prose p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-top: 0;
+    }
+    .two-col-prose p strong { color: var(--text); }
+
+    /* COURTROOM TABLE */
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1.5rem;
+    }
+    .evidence-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-teal);
+      border-bottom: 1px solid rgba(74,181,255,0.25);
+      font-weight: 600;
+    }
+    .evidence-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--muted);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .evidence-table td:first-child {
+      color: var(--text);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .evidence-table tr:last-child td { border-bottom: none; }
+    .evidence-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* TECH DEEP-DIVE: protocol breakdown */
+    .protocol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .protocol-card {
+      background: rgba(74,181,255,0.04);
+      border: 1px solid rgba(74,181,255,0.15);
+      border-radius: 14px;
+      padding: 1.4rem;
+    }
+    .protocol-card h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent-teal);
+      margin: 0 0 0.5rem;
+      font-family: "SF Mono", "Consolas", "Courier New", monospace;
+    }
+    .protocol-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .protocol-card p strong { color: var(--text); }
+
+    /* VERDICT BAND */
+    .verdict-band {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 700px) {
+      .verdict-band { grid-template-columns: 1fr; }
+    }
+    .verdict-panel {
+      border-radius: var(--card-radius);
+      padding: 1.75rem;
+    }
+    .verdict-panel.green {
+      background: rgba(74,181,255,0.06);
+      border: 1px solid rgba(74,181,255,0.25);
+    }
+    .verdict-panel.amber {
+      background: rgba(255,225,107,0.05);
+      border: 1px solid rgba(255,225,107,0.25);
+    }
+    .verdict-panel h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 1rem;
+    }
+    .verdict-panel.green h3 { color: var(--accent-teal); }
+    .verdict-panel.amber h3 { color: var(--accent-amber); }
+    .verdict-panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .verdict-panel ul li {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .verdict-panel ul li::before {
+      position: absolute;
+      left: 0;
+    }
+    .verdict-panel.green ul li::before { content: "✓"; color: var(--accent-teal); }
+    .verdict-panel.amber ul li::before { content: "⚠"; color: var(--accent-amber); }
+    .verdict-panel ul li strong { color: var(--text); }
+
+    /* CLOSING BANNER */
+    .closing-banner {
+      max-width: var(--max-width);
+      margin: 2rem auto 4rem;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, rgba(74,181,255,0.06), rgba(255,225,107,0.04), rgba(255,113,200,0.04));
+      border: 1px solid rgba(74,181,255,0.18);
+      border-radius: var(--card-radius);
+      text-align: center;
+    }
+    .closing-banner h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      margin: 0 0 1rem;
+    }
+    .closing-banner p {
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      font-size: 0.97rem;
+      line-height: 1.75;
+    }
+    .closing-banner .disclaimer {
+      font-size: 0.77rem;
+      color: rgba(160,163,194,0.6);
+      margin-top: 2rem;
+      font-style: italic;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* FOOTER */
+    footer.surv-footer {
+      text-align: center;
+      padding: 2rem 1.25rem;
+      font-size: 0.78rem;
+      color: rgba(160,163,194,0.45);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .stat-band { grid-template-columns: 1fr 1fr; }
+      .stat-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .risk-list li { flex-direction: column; gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html" class="nav-active">Signal</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+    </ul>
+  </div>
+</nav>
+
+  <main>
+
+    <!-- ── HERO ── -->
+    <div class="hero-surv">
+      <span class="eyebrow">Signal · Privacy Analysis · Technical &amp; Legal Assessment</span>
+      <h1>Signal is the <em>best</em> of<br>a <em class="warn">fundamentally flawed</em> model.</h1>
+      <p class="lead">
+        Signal is the most credible privacy-focused messaging platform available at scale.
+        Its technical architecture is genuinely excellent.  Its commitment to user privacy
+        is real and demonstrable.  But it operates within structural constraints — centralised
+        infrastructure, jurisdictional exposure, phone number identity, and device-level
+        vulnerability — that no amount of cryptographic excellence can fully overcome.
+        Understanding exactly what Signal protects, and what it cannot, is not an attack
+        on Signal.  It is the foundation of informed security decisions.
+      </p>
+      <blockquote class="pull-quote">
+        "Use Signal."
+        <cite>— Edward Snowden, 2015 — a genuine endorsement from the world's most famous
+        surveillance whistleblower, who has used it to communicate with journalists from
+        asylum in Russia ever since</cite>
+      </blockquote>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 1 — WHAT SIGNAL GETS RIGHT
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="strengths">
+      <div class="kicker kicker--teal">Genuine Strengths · What Works</div>
+      <h2>Signal's architecture is designed<br>from the ground up to protect you</h2>
+      <p class="section-lead">
+        Signal is not marketing privacy — it is engineered for it.  Unlike platforms that bolt
+        privacy features onto a surveillance-driven core, Signal's entire architecture begins
+        from the question: <em>what is the minimum data we need to operate?</em>  The result is
+        a platform that is qualitatively different from everything else available at comparable scale.
+      </p>
+
+      <div class="stat-band">
+        <div class="stat-item">
+          <span class="stat-num">~0</span>
+          <span class="stat-label">useful data producible from Signal servers under subpoena</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">messages end-to-end encrypted by default — no opt-in required</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">Open</span>
+          <span class="stat-label">source — full client and server code independently auditable</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">Non-<br>profit</span>
+          <span class="stat-label">Signal Foundation — no advertising, no data monetisation</span>
+        </div>
+      </div>
+
+      <div class="risk-grid">
+        <div class="risk-card">
+          <span class="risk-icon">🏗️</span>
+          <h3>Privacy-First Architecture</h3>
+          <p>Signal is designed with a <strong>minimal data collection philosophy</strong> at its
+          foundation — not as a retrofit.  Very little user data is collected or retained on central
+          servers because the system is architected specifically to avoid needing it.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🔐</span>
+          <h3>End-to-End Encryption — Always On</h3>
+          <p>All messages, calls, and media are protected by <strong>end-to-end encryption by
+          default</strong>, using the Signal Protocol — the most widely respected secure messaging
+          cryptographic standard in existence.  There is no unencrypted mode, no opt-in requirement,
+          and no way to accidentally send an unencrypted message.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🗑️</span>
+          <h3>No Server-Side Message Storage</h3>
+          <p>Signal's servers <strong>do not store message content</strong>.  Once a message is
+          delivered to the recipient's device, it is deleted from Signal's infrastructure entirely.
+          There is no inbox to subpoena, no archive to breach, no stored conversation to hand over.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🧊</span>
+          <h3>Minimal Metadata Collection</h3>
+          <p>Signal collects <strong>only what it cannot avoid</strong>: the phone number used for
+          registration, and the date and time of last connection to its servers.  No message graph,
+          no contact list, no location data, no communication frequency, no device fingerprint
+          beyond operational necessity.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🕸️</span>
+          <h3>No Social Graph Construction</h3>
+          <p>Signal does not build or maintain a <strong>centralised social graph</strong>.
+          Contact discovery — finding which of your phone contacts use Signal — uses
+          cryptographic hashing and privacy-preserving computation, ensuring that your
+          address book is never transmitted to Signal's servers in recoverable form.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🏛️</span>
+          <h3>Non-Profit Foundation</h3>
+          <p>Signal is operated by the <strong>Signal Foundation</strong>, a 501(c)(3) non-profit
+          funded by donations and grants.  There is no shareholder demanding revenue growth, no
+          advertising business model, and no financial incentive to collect, retain, or monetise
+          user data.  The mission is the product.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🚫</span>
+          <h3>No Advertising or Tracking Ecosystem</h3>
+          <p>Signal contains <strong>no advertising, no analytics SDKs, no tracking pixels, and no
+          integration with data brokers or third-party social platforms</strong>.  It does not report
+          your behaviour to anyone.  There is no cross-platform identity linking — Signal knows
+          nothing about your activity on any other platform.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">📂</span>
+          <h3>Fully Open Source</h3>
+          <p>Signal's client and server code is <strong>open source and independently audited</strong>
+          by security researchers worldwide.  Claims about its security model can be — and
+          regularly are — verified by independent experts.  There is no proprietary black box
+          to hide implementation decisions from scrutiny.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">📭</span>
+          <h3>Sealed Sender</h3>
+          <p>Signal's <strong>sealed sender</strong> technology hides the identity of message
+          senders from Signal's own servers where possible.  The server knows that a message
+          was delivered to a recipient, but cannot determine who sent it — a meaningful
+          reduction in metadata exposure even within a centralised architecture.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">☁️</span>
+          <h3>No Cloud Backup by Default</h3>
+          <p>Unlike WhatsApp, Signal <strong>does not default to cloud backup</strong>.  Message
+          history lives only on user devices, encrypted at rest.  There is no iCloud or
+          Google Drive copy of your conversations waiting to be subpoenaed or breached.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">⏱️</span>
+          <h3>Disappearing Messages</h3>
+          <p>Signal's <strong>disappearing messages</strong> feature allows users to set automatic
+          deletion timers on conversations — ensuring that sensitive communications leave no
+          permanent record on either device.  This is the digital equivalent of a conversation
+          that cannot be recalled.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🎭</span>
+          <h3>Minimise Trust in the Provider</h3>
+          <p>Signal's architecture is explicitly designed to <strong>minimise the trust users
+          must place in Signal itself</strong>.  Even Signal cannot read your messages, reconstruct
+          your contact network, or determine the frequency and timing of your communications
+          with specific individuals.</p>
+        </div>
+      </div>
+
+      <blockquote class="inline-quote teal">
+        "Signal has publicly demonstrated that it can provide virtually no useful data to
+        authorities — beyond basic account existence and a last-seen timestamp.  This is
+        not a policy commitment; it is an architectural consequence."
+        <cite>— DAL Technology Research Brief, 2026</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 2 — THE SIGNAL PROTOCOL
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="protocol">
+      <div class="kicker kicker--teal">Cryptographic Architecture · The Signal Protocol</div>
+      <h2>The gold standard in<br>secure messaging cryptography</h2>
+      <p class="section-lead">
+        The Signal Protocol is not Signal's private property — it is the open cryptographic
+        standard that WhatsApp, Google Messages, and Skype also use for their encrypted
+        messaging.  The fact that multiple competing platforms have adopted it is the
+        strongest possible endorsement of its technical quality.  Here is what it actually does.
+      </p>
+
+      <div class="protocol-grid">
+        <div class="protocol-card">
+          <h4>Double Ratchet Algorithm</h4>
+          <p>Generates a new encryption key for <strong>every single message</strong>.  Even if
+          an attacker captures and later compromises one key, they can decrypt only that one
+          message — not the conversation history, and not future messages.</p>
+        </div>
+        <div class="protocol-card">
+          <h4>Extended Triple Diffie-Hellman (X3DH)</h4>
+          <p>A key agreement protocol that allows two parties to establish a <strong>shared
+          secret key over an untrusted network</strong> without ever transmitting the key itself.
+          Provides strong authentication and deniability simultaneously.</p>
+        </div>
+        <div class="protocol-card">
+          <h4>Forward Secrecy</h4>
+          <p>Past messages <strong>cannot be decrypted even if long-term keys are later
+          compromised</strong>.  Compromise of today's keys reveals nothing about yesterday's
+          conversations.  Each session generates fresh ephemeral keys that are immediately
+          discarded after use.</p>
+        </div>
+        <div class="protocol-card">
+          <h4>Break-In Recovery (Future Secrecy)</h4>
+          <p>If current session keys are somehow compromised, the ratchet mechanism ensures that
+          <strong>subsequent messages automatically regain security</strong> without any user
+          action — the system heals itself cryptographically.</p>
+        </div>
+        <div class="protocol-card">
+          <h4>Authenticated Encryption (AES-256-GCM)</h4>
+          <p>Message content is encrypted using AES-256 in GCM mode, providing both
+          <strong>confidentiality and integrity</strong> — an attacker cannot read the message,
+          and cannot modify it without detection.</p>
+        </div>
+        <div class="protocol-card">
+          <h4>Elliptic Curve Cryptography (Curve25519)</h4>
+          <p>Uses Curve25519 for public key operations — a modern elliptic curve that provides
+          <strong>strong security with compact key sizes</strong>, resistant to known
+          classical attacks, and designed to avoid potential backdoors in NIST-standard curves.</p>
+        </div>
+      </div>
+
+      <blockquote class="inline-quote teal">
+        "The Signal Protocol has been independently audited multiple times by academic
+        cryptographers, consistently validated as sound, and adopted by the platforms
+        used by billions of people worldwide.  The cryptography is not the weak link."
+        <cite>— Security research consensus, 2015–2026</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 3 — IN THE COURTROOM
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="courtroom">
+      <div class="kicker kicker--teal">Legal Record · What Authorities Actually Received</div>
+      <h2>Signal in the courtroom:<br>the evidence speaks for itself</h2>
+      <p class="section-lead">
+        Signal's privacy claims are not marketing.  They have been tested in US federal court
+        proceedings, and the documented results of government subpoenas provide the most
+        credible possible verification: Signal cannot provide what it does not hold.
+      </p>
+
+      <table class="evidence-table">
+        <thead>
+          <tr>
+            <th>Case / Request</th>
+            <th>Year</th>
+            <th>Data Signal Was Able to Provide</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Grand Jury Subpoena<br>(US Federal Court)</td>
+            <td>2016</td>
+            <td>Unix timestamp of account creation date.  Unix timestamp of the last date the
+            account connected to Signal servers.  Nothing else existed on Signal's infrastructure
+            to disclose.  Message content, contacts, social graph, location: none held.</td>
+          </tr>
+          <tr>
+            <td>Second Federal Grand Jury Subpoena</td>
+            <td>2021</td>
+            <td>Identical result: account creation date and last connection timestamp only.  Signal
+            published the subpoena and their response publicly, with the court's permission, to
+            demonstrate architectural compliance rather than policy compliance.</td>
+          </tr>
+          <tr>
+            <td>UK Online Safety Act Threat</td>
+            <td>2023</td>
+            <td>Signal stated it would <strong>cease UK operations entirely</strong> rather than
+            introduce backdoors or client-side scanning capabilities.  The provisions were
+            subsequently not enforced against encrypted messaging platforms — a direct
+            consequence of Signal's credible withdrawal threat.</td>
+          </tr>
+          <tr>
+            <td>Comparison: Meta / WhatsApp<br>(same period)</td>
+            <td>2016–2024</td>
+            <td>Meta received and complied with thousands of government data requests annually,
+            producing metadata, account information, IP addresses, device identifiers, and
+            communication graphs in response to lawful process.  The contrast with Signal
+            is structural, not a matter of willingness.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <blockquote class="inline-quote teal">
+        "The only information Signal could provide to investigators was the date the account
+        was created and the date it last connected to Signal's servers.  That's it."
+        <cite>— Signal Foundation, published response to 2021 Grand Jury subpoena</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 4 — LIMITATIONS
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="limits">
+      <div class="kicker kicker--amber">Honest Assessment · Where Signal Still Falls Short</div>
+      <h2>What Signal cannot protect —<br>no matter how good the cryptography</h2>
+      <p class="section-lead">
+        Signal's limitations are not failures of intent or engineering.  They are the inherent
+        boundaries of what any centralised, phone-number-anchored messaging platform can
+        achieve — boundaries that matter enormously for users with serious security requirements.
+        Understanding these limitations is not optional for anyone making informed decisions
+        about their digital safety.
+      </p>
+
+      <div class="risk-grid">
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">📱</span>
+          <h3>Phone Number Linkage</h3>
+          <p>Signal requires a <strong>phone number for registration</strong>, which in most
+          countries is tied to a verified real-world identity via SIM card registration laws.
+          Your phone number can be subpoenaed from your carrier, linking your Signal account
+          to your legal identity even without any data from Signal itself.  The username
+          feature (introduced 2024) reduces — but does not eliminate — this exposure.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">📲</span>
+          <h3>App Store Dependencies</h3>
+          <p>Signal is distributed via <strong>Apple App Store and Google Play Store</strong>.
+          Both Apple and Google can be compelled by governments to remove Signal from their
+          stores, to push modified versions, or to restrict access in specific jurisdictions.
+          This has already occurred with other apps in Russia, China, and India.
+          Signal's technical protections do not extend to its distribution channel.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">🔔</span>
+          <h3>Push Notification Infrastructure</h3>
+          <p>Signal relies on <strong>Apple's APNs and Google's FCM push notification
+          services</strong> to deliver message delivery alerts on iOS and Android respectively.
+          These services necessarily create metadata: when a device receives a notification,
+          from which app, at what time.  Apple and Google can observe — and are legally
+          obligated to disclose under lawful process — the fact that your device received
+          a Signal notification at a specific timestamp.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">💻</span>
+          <h3>Endpoint Vulnerability</h3>
+          <p>Messages exist in <strong>plaintext on user devices</strong> after decryption —
+          before encryption too.  This is an unavoidable consequence of the need to display
+          readable messages.  Device compromise via malware, forensic tools, physical access,
+          or OS-level exploits bypasses all cryptographic protections entirely.
+          The Pegasus spyware explicitly targeted this layer — with zero interaction required
+          from the victim.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">🇺🇸</span>
+          <h3>US Jurisdiction</h3>
+          <p>Signal Foundation is incorporated in the United States, subject to
+          <strong>US law including NSL (National Security Letter) orders</strong> — which
+          can compel disclosure with a gag order preventing Signal from informing users.
+          Signal's architecture limits what can be disclosed; it does not limit what can be
+          demanded, nor does it fully neutralise the legal and operational pressure that
+          US legal process can generate.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">🔒</span>
+          <h3>Contact Discovery — Residual Risk</h3>
+          <p>Signal's privacy-preserving contact discovery uses <strong>Intel SGX secure
+          enclaves</strong>.  SGX has suffered multiple significant vulnerabilities
+          (Spectre, MDS attacks, SGAxe) that have undermined its security guarantees
+          in practice.  Signal has worked to mitigate these, but SGX-dependent security
+          properties remain a matter of ongoing research rather than settled fact.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">🎯</span>
+          <h3>Targeted Attacks Still Work</h3>
+          <p>Signal's architecture protects against <strong>mass surveillance and bulk
+          collection</strong> extremely effectively.  It provides much weaker protection
+          against <strong>targeted attacks</strong> on a specific individual, where an
+          adversary can invest resources in device compromise, physical interception,
+          traffic analysis, or social engineering of other parties to a conversation.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">🧑‍🤝‍🧑</span>
+          <h3>You Are Only As Secure As Your Contacts</h3>
+          <p>Signal protects the channel between you and your conversation partners.  It cannot
+          protect against a contact's device being compromised, a contact being coerced into
+          disclosing messages, <strong>screenshots</strong>, or a contact voluntarily sharing
+          message content.  Every conversation has a human threat model that cryptography
+          cannot address.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">📡</span>
+          <h3>Traffic Analysis Remains Possible</h3>
+          <p>An adversary with visibility of network traffic — an ISP, a government operating
+          a national firewall, or a local network operator — can observe <strong>when your
+          device communicates with Signal's servers</strong>, how much data is transferred,
+          and at what frequency.  While they cannot read the content, communication timing
+          and volume can be informative even without content.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════���══════════════════════════════════════
+         SECTION 5 — THE STRUCTURAL PROBLEM
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="structural">
+      <div class="kicker kicker--red">The Core Problem · Centralisation</div>
+      <h2>Even the best centralised platform<br>requires trust in a third party</h2>
+      <p class="section-lead">
+        Signal's fundamental architecture — like every mainstream messaging platform — is
+        centralised.  All communications are routed through Signal's servers.  All contact
+        discovery passes through Signal's infrastructure.  All accounts are registered
+        with Signal.  However excellent Signal's intentions and however minimal its data
+        collection, the platform's existence creates a dependency that cannot be engineered away
+        within a centralised model.
+      </p>
+
+      <div class="two-col-prose">
+        <div>
+          <p>
+            <strong>The trust problem is structural, not reputational.</strong>  The question
+            is not whether Signal can be trusted today — the evidence strongly supports that
+            it can.  The question is whether any centralised platform can guarantee the same
+            trust under all future legal, political, and technical conditions.  The honest
+            answer is no.
+          </p>
+          <p>
+            Governments that find Signal inconvenient have options beyond subpoenaing Signal's
+            servers.  They can <strong>block Signal at the network level</strong> — as Russia,
+            Iran, and China have done.  They can pressure Apple and Google to remove the app.
+            They can mandate client-side scanning before encryption, as the UK's Online Safety
+            Act attempted.  They can target Signal's infrastructure directly.
+          </p>
+          <p>
+            <strong>Signal has resisted all such pressures to date</strong>, with remarkable
+            consistency and public transparency.  But the legal and political trajectory in
+            multiple major democracies is toward more compelled access, not less.  The
+            Investigatory Powers Act in the UK, EARN IT in the US, Chat Control in the EU —
+            each represents a legislative effort to mandate capabilities that Signal has
+            committed to refusing to implement.  At some point, refusal and withdrawal from
+            a market may not be the only option available to a regulator.
+          </p>
+        </div>
+        <div>
+          <p>
+            <strong>The phone number requirement ties Signal to the identity infrastructure
+            of the state.</strong>  Phone numbers are issued by carriers who are regulated
+            by governments, required to retain customer identity records, and compelled to
+            disclose them under lawful process.  The username feature softens this dependency
+            for contacts — but the underlying registration still requires a phone number,
+            and that number creates a thread of identity that leads outside Signal's
+            architecture entirely.
+          </p>
+          <p>
+            <strong>There is also the question of what "centralised" means for resilience.</strong>
+            Signal's servers are a single point of failure.  When Signal has experienced
+            outages — as occurred in 2021 when a surge of new users joined following
+            WhatsApp's privacy policy change — communication for millions of users failed
+            simultaneously.  A decentralised architecture with no central point of failure
+            cannot be taken offline by attacking a single set of servers.
+          </p>
+          <p>
+            None of this diminishes Signal's genuine achievement.  It is the strongest
+            privacy-preserving option available to general users who need to communicate
+            with other general users over smartphones.  <strong>For users with ordinary
+            threat models, Signal is an excellent choice.</strong>  For users with serious
+            adversaries — journalists, activists, professionals handling sensitive data,
+            or anyone operating under persistent surveillance pressure — the remaining
+            limitations matter, and they are structural rather than fixable.
+          </p>
+        </div>
+      </div>
+
+      <ul class="risk-list" style="margin-top:2rem">
+        <li>
+          <span class="bullet-icon">⚖️</span>
+          <span><strong>Legislative assault on encryption is accelerating:</strong> The UK Online
+          Safety Act, EU Chat Control proposals, and US EARN IT Act all represent governmental
+          attempts to mandate access to encrypted communications.  Signal's resistance is
+          principled but not legally immune in perpetuity.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">🌍</span>
+          <span><strong>Jurisdictional risk is real:</strong> Signal currently operates from the US.
+          Changes in US law, US government policy toward encryption, or a change in Signal
+          Foundation leadership and mission could alter the trust calculus overnight.
+          No contract with a third party is stronger than the legal environment surrounding it.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">🔄</span>
+          <span><strong>Centralised infrastructure is a single point of censorship:</strong>
+          A government capable of ordering Signal's servers taken offline, or compelling
+          Apple and Google to block the app, can silence Signal users in that jurisdiction
+          with no technical expertise required — regardless of how strong the encryption is.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">🪪</span>
+          <span><strong>Identity linkage exists outside Signal's control:</strong> The combination
+          of phone number, carrier records, IMSI data, and SIM registration requirements
+          means that a sufficiently motivated government can establish the real-world identity
+          behind any Signal account without ever requesting data from Signal itself.</span>
+        </li>
+      </ul>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 6 — VERDICT
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="verdict">
+      <div class="kicker kicker--teal">Summary Assessment</div>
+      <h2>An honest verdict on<br>the world's best mainstream option</h2>
+      <p class="section-lead">
+        Signal deserves its reputation.  The comparison with alternatives available at scale
+        is not close.  But a precise understanding of what it provides — and what it cannot —
+        is essential for anyone making security decisions.
+      </p>
+
+      <div class="verdict-band">
+        <div class="verdict-panel green">
+          <h3>✓ What Signal Genuinely Delivers</h3>
+          <ul>
+            <li><strong>End-to-end encryption</strong> of all content, always, by default</li>
+            <li><strong>Forward secrecy</strong> — past messages safe even if keys are compromised</li>
+            <li><strong>Zero server-side message storage</strong> — nothing to hand over</li>
+            <li><strong>Minimal metadata retention</strong> — creation date and last-seen only</li>
+            <li><strong>No social graph</strong> held centrally or disclosable</li>
+            <li><strong>No advertising</strong>, no tracking, no data monetisation</li>
+            <li><strong>Open source</strong> — independently auditable and verified</li>
+            <li><strong>No cloud backup</strong> exposure by default</li>
+            <li><strong>Sealed sender</strong> — server cannot identify who messaged whom</li>
+            <li><strong>Demonstrated courtroom record</strong> — subpoenas yield nothing useful</li>
+            <li><strong>Disappearing messages</strong> — no permanent record on either device</li>
+            <li><strong>Non-profit mission</strong> — structural resistance to commercial pressure</li>
+          </ul>
+        </div>
+        <div class="verdict-panel amber">
+          <h3>⚠ What Signal Cannot Fully Protect</h3>
+          <ul>
+            <li><strong>Phone number identity</strong> — links to carrier records outside Signal's control</li>
+            <li><strong>Device-level compromise</strong> — Pegasus and similar tools bypass encryption entirely</li>
+            <li><strong>Push notification metadata</strong> — Apple/Google see Signal notification timestamps</li>
+            <li><strong>App store gatekeeping</strong> — Apple and Google can be compelled to act</li>
+            <li><strong>Traffic analysis</strong> — network observers see communication timing and volume</li>
+            <li><strong>US jurisdiction</strong> — NSL orders, FISA process, future legislation</li>
+            <li><strong>Targeted attacks</strong> — sophisticated adversaries with device access</li>
+            <li><strong>Your contacts' security</strong> — screenshots, coercion, device compromise</li>
+            <li><strong>Network availability</strong> — single point of failure, blockable by governments</li>
+            <li><strong>SGX vulnerabilities</strong> — contact discovery security has known weaknesses</li>
+            <li><strong>Future legislative compulsion</strong> — no platform can guarantee immunity</li>
+            <li><strong>Centralised infrastructure</strong> — requires ongoing trust in a single provider</li>
+          </ul>
+        </div>
+      </div>
+
+      <blockquote class="inline-quote amber">
+        "Signal significantly reduces both content exposure and metadata leakage — but it
+        cannot eliminate risks arising from device-level access, centralised infrastructure,
+        jurisdictional exposure, or the identity chain created by phone number registration.
+        For the threat models that matter most, these residual risks are not marginal."
+        <cite>— DAL Technology Research Brief, 2026</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ── CLOSING BANNER ── -->
+    <div class="closing-banner">
+      <h2>Signal is the ceiling of<br>centralised privacy — not the answer.</h2>
+      <p>
+        Signal represents the maximum achievable privacy within a centralised, phone-number-anchored,
+        app-store-distributed architecture.  It should be the default choice for anyone moving
+        away from WhatsApp, Facebook Messenger, or other surveillance-driven platforms.
+        But the ceiling it sets is not high enough for users who need communication that cannot
+        be blocked, cannot be linked to a phone number, cannot be disrupted by a court order
+        on a single infrastructure provider, and does not depend on trusting any third party —
+        no matter how well-intentioned — with the knowledge that communication occurred at all.
+        <br><br>
+        Genuine communications privacy requires a fundamentally different architecture:
+        decentralised, serverless where possible, with no central point of failure,
+        no phone number requirement, and no third party capable of being compelled,
+        breached, or pressured into disclosure.
+      </p>
+      <p class="disclaimer">
+        This document reflects publicly known technical architecture, open-source implementation,
+        published court records, and widely reported capabilities.  Both confirmed behaviour
+        and realistic technical limitations are described.  Signal's strengths are genuine and
+        significant; its limitations are structural and not a criticism of its mission or engineering.
+      </p>
+    </div>
+
+  </main>
+
+  <footer class="surv-footer">
+    &copy; 2026 DAL Technology Ltd &nbsp;·&nbsp;
+    <a href="surveillance.html" style="color:var(--accent-teal);opacity:0.7">Surveillance Overview</a>
+    &nbsp;·&nbsp;
+    <a href="privacy-policy.html" style="color:var(--accent-teal);opacity:0.7">Privacy Policy</a>
+    &nbsp;·&nbsp;
+    <a href="index.html" style="color:var(--accent-teal);opacity:0.7">Radar App</a>
+  </footer>
+
+</div>
+</body>
+</html>

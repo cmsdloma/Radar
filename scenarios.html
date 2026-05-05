@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Radar – When Infrastructure Fails, Radar Doesn't</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="Discover every scenario where Radar keeps you connected — on cruise ships, aircraft, underground metros, disaster zones, remote islands, and off-grid locations — with no internet required." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Blue accent override ── */
+    :root {
+      --accent-blue: #4ab5ff;
+      --accent-blue-soft: rgba(74,181,255,0.12);
+      --accent-blue-mid:  rgba(74,181,255,0.25);
+    }
+
+    /* ── Sticky nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(74,181,255,0.08); color: #4ab5ff; }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 6rem 1.25rem 4.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #4ab5ff;
+      border: 1px solid rgba(74,181,255,0.35);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.6rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0 0 1.4rem;
+      letter-spacing: -0.025em;
+    }
+    .hero h1 em { font-style: normal; color: #4ab5ff; }
+    .hero .lead {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-bottom: 2.5rem;
+    }
+    .hero-pill {
+      font-size: 0.78rem; font-weight: 600;
+      padding: 0.35rem 0.9rem; border-radius: 999px;
+      border: 1px solid rgba(74,181,255,0.35);
+      color: #4ab5ff; background: rgba(74,181,255,0.07);
+    }
+
+    /* ── CAPABILITY STRIP ── */
+    .cap-strip {
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      background: rgba(11,16,32,0.6);
+      padding: 2.5rem 1.25rem;
+    }
+    .cap-strip-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 700px) { .cap-strip-inner { grid-template-columns: 1fr; } }
+    .cap-item { text-align: center; padding: 1.25rem; }
+    .cap-icon { font-size: 2rem; margin-bottom: 0.7rem; display: block; }
+    .cap-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .cap-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+    .cap-desc strong { color: #4ab5ff; }
+
+    /* ── SCENARIOS GRID ── */
+    .scenarios-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 4rem 1.25rem 5rem;
+    }
+    .scenarios-kicker {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.22em;
+      color: #4ab5ff; margin-bottom: 0.55rem;
+    }
+    .scenarios-heading {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800; margin: 0 0 0.6rem;
+    }
+    .scenarios-intro {
+      color: var(--muted); font-size: 0.97rem; max-width: 640px;
+      line-height: 1.7; margin-bottom: 3rem;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 780px) { .scenario-grid { grid-template-columns: 1fr; } }
+
+    /* Full-width spanning cards for drama */
+    .scenario-card.span-full { grid-column: 1 / -1; }
+
+    .scenario-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .scenario-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+    }
+    .scenario-card.span-full { min-height: 440px; }
+
+    .scenario-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.5s ease;
+    }
+    .scenario-card:hover .scenario-bg { transform: scale(1.03); }
+
+    /* Gradient overlay — dark at bottom for text readability */
+    .scenario-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(5,8,20,0.15) 0%,
+        rgba(5,8,20,0.4)  40%,
+        rgba(5,8,20,0.88) 75%,
+        rgba(5,8,20,0.97) 100%
+      );
+    }
+
+    .scenario-body {
+      position: relative;
+      z-index: 2;
+      padding: 1.75rem 1.75rem 1.6rem;
+    }
+    .scenario-icon { font-size: 1.8rem; margin-bottom: 0.5rem; display: block; }
+    .scenario-tag {
+      display: inline-block;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 0.2rem 0.65rem;
+      border-radius: 999px; margin-bottom: 0.65rem;
+    }
+    .tag-disaster { background: rgba(255,104,104,0.18); color: #ff8888; border: 1px solid rgba(255,104,104,0.3); }
+    .tag-isolated { background: rgba(74,181,255,0.18); color: #4ab5ff; border: 1px solid rgba(74,181,255,0.3); }
+    .tag-offgrid  { background: rgba(255,225,107,0.18); color: #ffe16b; border: 1px solid rgba(255,225,107,0.3); }
+    .tag-crowded  { background: rgba(255,113,200,0.18); color: #ff71c8; border: 1px solid rgba(255,113,200,0.3); }
+
+    .scenario-title {
+      font-size: 1.35rem; font-weight: 800;
+      margin: 0 0 0.5rem; line-height: 1.2; color: var(--text);
+    }
+    .scenario-card.span-full .scenario-title { font-size: 1.6rem; }
+
+    .scenario-desc {
+      font-size: 0.88rem; color: rgba(200,210,240,0.88);
+      line-height: 1.65; margin: 0 0 1rem;
+      max-width: 560px;
+    }
+
+    .scenario-features {
+      display: flex; flex-wrap: wrap; gap: 0.45rem;
+    }
+    .feat-chip {
+      font-size: 0.7rem; font-weight: 600;
+      padding: 0.22rem 0.65rem; border-radius: 999px;
+      background: rgba(74,181,255,0.12);
+      border: 1px solid rgba(74,181,255,0.28);
+      color: #4ab5ff;
+    }
+    .feat-chip.chip-mesh   { background: rgba(255,225,107,0.1); border-color: rgba(255,225,107,0.28); color: #ffe16b; }
+    .feat-chip.chip-ble    { background: rgba(255,113,200,0.1); border-color: rgba(255,113,200,0.28); color: #ff71c8; }
+    .feat-chip.chip-lan    { background: rgba(74,181,255,0.12); border-color: rgba(74,181,255,0.28); color: #4ab5ff; }
+    .feat-chip.chip-p2p    { background: rgba(51,255,170,0.1);  border-color: rgba(51,255,170,0.28); color: #33ffaa; }
+
+    /* ── SELL STRIP — How It Works ── */
+    .how-strip {
+      background: linear-gradient(135deg, rgba(74,181,255,0.07), rgba(11,16,32,0.8));
+      border-top: 1px solid rgba(74,181,255,0.15);
+      border-bottom: 1px solid rgba(74,181,255,0.15);
+      padding: 4rem 1.25rem;
+    }
+    .how-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .how-kicker { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.22em; color: #4ab5ff; margin-bottom: 0.5rem; }
+    .how-heading { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin: 0 0 0.65rem; }
+    .how-lead { color: var(--muted); font-size: 0.97rem; max-width: 640px; line-height: 1.75; margin-bottom: 2.5rem; }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem;
+    }
+    .how-card {
+      background: rgba(11,16,32,0.85);
+      border: 1px solid rgba(74,181,255,0.15);
+      border-radius: var(--card-radius);
+      padding: 1.5rem 1.4rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .how-card:hover { border-color: rgba(74,181,255,0.4); box-shadow: 0 8px 28px rgba(0,0,0,0.5); }
+    .how-card .hc-icon { font-size: 1.6rem; margin-bottom: 0.6rem; display: block; }
+    .how-card h3 { font-size: 0.94rem; font-weight: 700; margin: 0 0 0.45rem; color: #4ab5ff; }
+    .how-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .how-card p strong { color: var(--text); }
+
+    /* ── CLOSING CTA ── */
+    .cta-banner {
+      max-width: var(--max-width);
+      margin: 4rem auto;
+      padding: 3.5rem 2rem;
+      text-align: center;
+      background: radial-gradient(circle at 50% 0%, rgba(74,181,255,0.1), transparent 65%),
+                  rgba(11,16,32,0.7);
+      border: 1px solid rgba(74,181,255,0.2);
+      border-radius: var(--card-radius);
+    }
+    .cta-banner h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin: 0 0 0.8rem; }
+    .cta-banner p { color: var(--muted); max-width: 580px; margin: 0 auto 2rem; font-size: 0.97rem; line-height: 1.75; }
+    .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; padding: 0.75rem 1.75rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.9rem;
+      background: radial-gradient(circle at 20% 0%, #5cc4ff, #1a70c0);
+      box-shadow: 0 8px 30px rgba(74,181,255,0.4);
+      color: #fff; text-decoration: none;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { box-shadow: 0 12px 40px rgba(74,181,255,0.55); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block; padding: 0.75rem 1.75rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.9rem;
+      border: 1px solid rgba(74,181,255,0.45); color: #4ab5ff;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover { background: rgba(74,181,255,0.08); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1.25rem;
+      font-size: 0.78rem;
+      color: rgba(160,163,194,0.45);
+      border-top: 1px solid var(--border-subtle);
+    }
+    footer a { color: rgba(160,163,194,0.55); }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scenarios.html" class="nav-active">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html">Signal</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-eyebrow">Real-World Scenarios</div>
+    <h1>When infrastructure fails,<br><em>Radar doesn't.</em></h1>
+    <p class="lead">
+      Cellular towers get congested. Power grids go down. Satellites are expensive.
+      Underground, at sea, in the air, or in a disaster zone — Radar keeps your group
+      connected using nothing but the devices in your pockets.
+    </p>
+    <div class="hero-pills">
+      <span class="hero-pill">No internet required</span>
+      <span class="hero-pill">No cell signal needed</span>
+      <span class="hero-pill">Works on isolated WiFi</span>
+      <span class="hero-pill">Mesh relay across devices</span>
+      <span class="hero-pill">Bluetooth LE discovery</span>
+      <span class="hero-pill">Android 8.0+</span>
+    </div>
+  </div>
+
+  <!-- ── CAPABILITY STRIP ── -->
+  <div class="cap-strip">
+    <div class="cap-strip-inner">
+      <div class="cap-item">
+        <span class="cap-icon">📡</span>
+        <div class="cap-title">Isolated WiFi Networks</div>
+        <p class="cap-desc">
+          Any closed WiFi — a ship's LAN, hotel network, or in-flight WiFi — becomes a
+          <strong>free messaging backbone</strong>. Radar discovers all peers on the
+          same network without touching the internet.
+        </p>
+      </div>
+      <div class="cap-item">
+        <span class="cap-icon">🔗</span>
+        <div class="cap-title">Mesh Store-and-Forward</div>
+        <p class="cap-desc">
+          Messages <strong>hop through intermediate devices</strong> with up to 5 relay
+          hops, loop protection, and TTL expiry — so a message sent to someone around
+          the corner can reach them via a third device in between.
+        </p>
+      </div>
+      <div class="cap-item">
+        <span class="cap-icon">📶</span>
+        <div class="cap-title">Pure Peer-to-Peer</div>
+        <p class="cap-desc">
+          WiFi Aware creates <strong>direct encrypted data links</strong> between
+          devices with no router, no access point, and no internet. Bluetooth LE
+          provides presence beaconing even when WiFi is unavailable.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENARIO CARDS ── -->
+  <div class="scenarios-section">
+    <div class="scenarios-kicker">Eight Real Scenarios</div>
+    <h2 class="scenarios-heading">Wherever you lose signal, Radar finds a way</h2>
+    <p class="scenarios-intro">
+      From post-disaster rubble to the inside of an aircraft, these are the situations
+      where standard messaging apps go silent — and Radar keeps talking.
+    </p>
+
+    <div class="scenario-grid">
+
+      <!-- 1. DISASTER / APOCALYPSE — span full for dramatic opener -->
+      <div class="scenario-card span-full">
+        <div class="scenario-bg" style="background-image: url('../Intro_cards/apocalypse.jpeg');"></div>
+        <div class="scenario-overlay"></div>
+        <div class="scenario-body">
+          <span class="scenario-icon">🌪️</span>
+          <span class="scenario-tag tag-disaster">Infrastructure Collapse</span>
+          <h2 class="scenario-title">Natural Disaster &amp; Grid Failure</h2>
+          <p class="scenario-desc">
+            An earthquake, flood, or major civil emergency can bring down cellular towers, knock
+            out power, and sever fibre links in minutes. When the grid goes dark and every
+            conventional communication channel fails, Radar operates entirely from the battery
+            in your phone. WiFi Aware creates direct encrypted links between nearby devices.
+            The mesh relay forwards messages through other Radar users, building a communication
+            network from nothing but the people around you.
+          </p>
+          <div class="scenario-features">
+            <span class="feat-chip chip-p2p">WiFi Aware P2P</span>
+            <span class="feat-chip chip-ble">BLE Discovery</span>
+            <span class="feat-chip chip-mesh">Mesh Relay</span>
+            <span class="feat-chip chip-p2p">No Infrastructure</span>
+            <span class="feat-chip chip-lan">Offline-First</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. CRUISE SHIP -->
+      <div class="scenario-card">
+        <div class="scenario-bg" style="background-image: url('../Intro_cards/cruise_ship.jpeg');"></div>
+        <div class="scenario-overlay"></div>
+        <div class="scenario-body">
+          <span class="scenario-icon">🚢</span>
+          <span class="scenario-tag tag-isolated">Isolated LAN</span>
+          <h2 class="scenario-title">Cruise Ship at Sea</h2>
+          <p class="scenario-desc">
+            Onboard satellite internet costs a fortune and crawls along. But the ship runs
+            its own closed WiFi network that connects every passenger and crew member on
+            the same LAN. Radar discovers everyone on that network via mDNS and local
+            scanning — free messaging, radar view, and group chat, all without using a
+            single byte of expensive satellite data.
+          </p>
+          <div class="scenario-features">
+            <span class="feat-chip chip-lan">Isolated LAN</span>
+            <span class="feat-chip chip-lan">mDNS Discovery</span>
+            <span class="feat-chip chip-p2p">No Internet Cost</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. PLANE -->
+      <div class="scenario-card">
+        <div class="scenario-bg" style="background-image: url('../Intro_cards/plane.jpeg');"></div>
+        <div class="scenario-overlay"></div>
+        <div class="scenario-body">
+          <span class="scenario-icon">✈️</span>
+          <span class="scenario-tag tag-isolated">In-Flight LAN</span>
+          <h2 class="scenario-title">Aircraft &amp; In-Flight WiFi</h2>
+          <p class="scenario-desc">
+            At 35,000 feet with phones in airplane mode, standard messaging is impossible.
+            Many modern aircraft offer in-flight WiFi as a closed local network — no
+            external internet access. Radar operates entirely within that LAN, letting
+            passengers message each other, share their seat location on the radar view,
+            and coordinate free of charge. No satellite subscription required.
+          </p>
+          <div class="scenario-features">
+            <span class="feat-chip chip-lan">In-Flight LAN</span>
+            <span class="feat-chip chip-lan">mDNS Discovery</span>
+            <span class="feat-chip chip-p2p">Airplane Mode Friendly</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. LONDON UNDERGROUND -->
+      <div class="scenario-card">
+        <div class="scenario-bg" style="background-image: url('../Intro_cards/london_underground.jpeg');"></div>
+        <div class="scenario-overlay"></div>
+        <div class="scenario-body">
+          <span class="scenario-icon">🚇</span>
+          <span class="scenario-tag tag-isolated">Underground Transit</span>
+          <h2 class="scenario-title">Metro &amp; Underground Rail</h2>
+          <p class="scenario-desc">
+            Deep in a subway system, cellular signal disappears. But many underground
+            networks now provide station and in-carriage WiFi — a closed local network
+            with no internet gateway. Radar uses that WiFi to discover other passengers
+            nearby, enabling messaging between friends separated by carriages or platforms,
+            without ever needing the cell network or internet.
+          </p>
+          <div class="scenario-features">
+            <span class="feat-chip chip-lan">Station WiFi LAN</span>
+            <span class="feat-chip chip-ble">BLE Proximity</span>
+            <span class="feat-chip chip-p2p">No Cell Signal Needed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. NIGHTCLUB -->
+      <div class="scenario-card">
+        <div class="scenario-bg" style="background-image: url('../Intro_cards/nightclub.jpeg');"></div>
+        <div class="scenario-overlay"></div>
+        <div class="scenario-body">
+          <span class="scenario-icon">🎵</span>
+          <span class="scenario-tag tag-crowded">Congested Network</span>
+          <h2 class="scenario-title">Clubs, Concerts &amp; Packed Venues</h2>
+          <p class="scenario-desc">
+            Thousands of people in one space overwhelm local cell towers. Calls drop.
+            Messages sit undelivered for minutes. Radar bypasses the cellular network
+            entirely — WiFi Aware creates direct device-to-device links, while BLE
+            continuously broadcasts your presence so friends can locate you on the
+            radar view even in a heaving crowd. No signal, no problem.
+          </p>
+          <div class="scenario-features">
+            <span class="feat-chip chip-p2p">WiFi Aware Direct</span>
+            <span class="feat-chip chip-ble">BLE Radar View</span>
+            <span class="feat-chip chip-p2p">Bypasses Cell Network</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. TROPICAL ISLAND -->
+      <div class="scenario-card">
+        <div class="scenario-bg" style="background-image: url('../Intro_cards/tropical_island.jpeg');"></div>
+        <div class="scenario-overlay"></div>
+        <div class="scenario-body">
+          <span class="scenario-icon">🏝️</span>
+          <span class="scenario-tag tag-offgrid">Off-Grid</span>
+          <h2 class="scenario-title">Remote Islands &amp; Wilderness</h2>
+          <p class="scenario-desc">
+            A tropical island with no mobile mast, a mountain expedition, a festival in
+            a field — no towers, no internet, no problem. WiFi Aware creates peer-to-peer
+            links directly between devices in the group, with no access point needed.
+            BLE keeps everyone visible on the radar view. Messages relay through the group
+            as a mesh, ensuring nobody is out of reach.
+          </p>
+          <div class="scenario-features">
+            <span class="feat-chip chip-p2p">Pure P2P — No AP</span>
+            <span class="feat-chip chip-mesh">Mesh Relay</span>
+            <span class="feat-chip chip-ble">BLE Presence</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. UNDERGROUND BUNKER -->
+      <div class="scenario-card">
+        <div class="scenario-bg" style="background-image: url('../Intro_cards/underground_bunker.jpeg');"></div>
+        <div class="scenario-overlay"></div>
+        <div class="scenario-body">
+          <span class="scenario-icon">🛡️</span>
+          <span class="scenario-tag tag-disaster">Shielded Environment</span>
+          <h2 class="scenario-title">Underground Shelters &amp; Bunkers</h2>
+          <p class="scenario-desc">
+            Reinforced concrete and underground depth block all radio signals from the
+            outside world. Inside the structure, Radar runs purely on local WiFi and
+            Bluetooth between the devices present. The store-and-forward mesh means
+            messages are held and delivered the moment a relay path opens up — keeping
+            communication alive even as people move between rooms or levels.
+          </p>
+          <div class="scenario-features">
+            <span class="feat-chip chip-p2p">Local WiFi Only</span>
+            <span class="feat-chip chip-mesh">Store-and-Forward</span>
+            <span class="feat-chip chip-ble">BLE Mesh</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. UNDERGROUND BUNKER 2 — span full for closing impact -->
+      <div class="scenario-card span-full">
+        <div class="scenario-bg" style="background-image: url('../Intro_cards/underground_bunker_2.jpeg'); background-position: center 40%;"></div>
+        <div class="scenario-overlay"></div>
+        <div class="scenario-body">
+          <span class="scenario-icon">📻</span>
+          <span class="scenario-tag tag-disaster">Emergency Operations</span>
+          <h2 class="scenario-title">Civil Defence &amp; Emergency Coordination</h2>
+          <p class="scenario-desc">
+            When professional responders need to coordinate across a building, site, or
+            subterranean facility without relying on external infrastructure, Radar
+            provides a self-organising communications mesh built from the team's own
+            devices. Messages hop through intermediate team members at up to 5 relay hops,
+            with loop prevention and automatic expiry. No base station, no repeater, no
+            radio licence required — just Android devices and Radar.
+          </p>
+          <div class="scenario-features">
+            <span class="feat-chip chip-mesh">5-Hop Mesh Relay</span>
+            <span class="feat-chip chip-p2p">WiFi Aware Direct</span>
+            <span class="feat-chip chip-ble">BLE Discovery</span>
+            <span class="feat-chip chip-mesh">Loop Prevention</span>
+            <span class="feat-chip chip-p2p">Self-Organising</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /scenario-grid -->
+  </div><!-- /scenarios-section -->
+
+  <!-- ── HOW IT WORKS ── -->
+  <div class="how-strip">
+    <div class="how-inner">
+      <div class="how-kicker">Under the Hood</div>
+      <h2 class="how-heading">Three technologies, zero infrastructure</h2>
+      <p class="how-lead">
+        Radar stacks three complementary radio technologies so that if one isn't
+        available in your environment, another takes over — seamlessly and automatically.
+      </p>
+      <div class="how-grid">
+        <div class="how-card">
+          <span class="hc-icon">📡</span>
+          <h3>WiFi Aware (NAN)</h3>
+          <p>
+            WiFi Aware lets two Android devices <strong>find each other and open an
+            encrypted data socket directly</strong> — no router, no hotspot, no internet.
+            This is Radar's primary messaging channel: sub-second discovery, high
+            bandwidth, and completely peer-to-peer. Works on any Android 8.0+ device
+            that supports the standard (most modern flagships and mid-range phones).
+          </p>
+        </div>
+        <div class="how-card">
+          <span class="hc-icon">🏠</span>
+          <h3>Isolated LAN (mDNS)</h3>
+          <p>
+            On any WiFi network — ship, hotel, aircraft, venue, office — Radar uses
+            <strong>mDNS to announce and discover other Radar users on the same subnet</strong>,
+            then opens direct TCP connections for messaging. The internet gateway can be
+            down entirely or behind a paywall; Radar only needs the local network layer
+            to work. Network scan also identifies all other devices on the LAN.
+          </p>
+        </div>
+        <div class="how-card">
+          <span class="hc-icon">📲</span>
+          <h3>Bluetooth LE Mesh</h3>
+          <p>
+            BLE runs continuously, even in the background, <strong>advertising your
+            presence and scanning for other Radar users</strong>. It powers the radar
+            view with RSSI-based distance estimation, and acts as a relay transport
+            for the mesh when WiFi isn't available. BLE is the lowest-power, longest-lived
+            radio in your pocket.
+          </p>
+        </div>
+        <div class="how-card">
+          <span class="hc-icon">🔗</span>
+          <h3>Store-and-Forward Mesh</h3>
+          <p>
+            Messages that can't be delivered immediately are <strong>stored and forwarded
+            the next time a path opens</strong>. Each message carries a TTL (up to 5 hops),
+            a unique ID for duplicate prevention, and loop-protection counters.
+            This means a message can traverse a chain of devices to reach someone out
+            of direct range — building an ad-hoc network from the people themselves.
+          </p>
+        </div>
+        <div class="how-card">
+          <span class="hc-icon">🔒</span>
+          <h3>End-to-End Security</h3>
+          <p>
+            WiFi Aware connections use <strong>PSK-secured data paths</strong>.
+            Relay messages are encrypted at the transport layer. In local-only mode,
+            no data ever leaves your device or network — there is nothing to intercept
+            at a server because there is no server in the loop.
+          </p>
+        </div>
+        <div class="how-card">
+          <span class="hc-icon">⚡</span>
+          <h3>Background Operation</h3>
+          <p>
+            A persistent foreground service keeps BLE advertising and location
+            broadcasting active when the app is minimised. <strong>You don't need
+            to keep the screen on</strong> — Radar continues announcing your presence
+            and accepting relay messages silently in the background, so your group
+            always knows you're there.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="cta-banner">
+    <h2>Ready for whatever comes next?</h2>
+    <p>
+      Radar is free to download on Android. Premium unlocks unlimited new chats,
+      aircraft overlay, and advanced map features — but the core peer-to-peer
+      communication works without any subscription.
+    </p>
+    <div class="cta-row">
+      <a class="btn-primary" href="index.html">Learn more about Radar →</a>
+      <a class="btn-ghost" href="premium.html">Compare Free vs Premium</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>
+    &copy; 2026 <strong>Radar</strong> · Developed by DAL Technology
+    (<a href="http://www.daltechnology.co.uk" target="_blank" rel="noreferrer">www.daltechnology.co.uk</a>)
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

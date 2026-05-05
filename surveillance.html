@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Digital Surveillance – The Architecture of Mass Observation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="A comprehensive examination of how metadata, state surveillance programmes, surveillance capitalism, and legal frameworks combine to dismantle the right to private communication — and why it matters." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent-warn:  #ff6868;
+      --accent-amber: #ffe16b;
+      --accent-teal:  #4ab5ff;
+      --accent-pink:  #ff71c8;
+    }
+
+    /* ── Sticky site nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(74,181,255,0.08); color: var(--accent-teal); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero-surv {
+      padding: 5rem 1.25rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-surv .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-warn);
+      border: 1px solid rgba(255, 104, 104, 0.35);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-surv h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-surv h1 em {
+      font-style: normal;
+      color: var(--accent-warn);
+    }
+    .hero-surv .lead {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-surv blockquote.pull-quote {
+      margin: 0 auto 1rem;
+      max-width: 700px;
+      padding: 1.5rem 2rem;
+      border-left: 4px solid var(--accent-warn);
+      background: rgba(255, 104, 104, 0.06);
+      border-radius: 0 12px 12px 0;
+      text-align: left;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #f5f7ff;
+      line-height: 1.7;
+    }
+    .hero-surv blockquote.pull-quote cite {
+      display: block;
+      margin-top: 0.75rem;
+      font-style: normal;
+      font-size: 0.82rem;
+      color: var(--accent-warn);
+      letter-spacing: 0.05em;
+    }
+
+    /* SECTION WRAPPERS */
+    .surv-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .surv-section .kicker {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 0.6rem;
+    }
+    .kicker--red    { color: var(--accent-warn); }
+    .kicker--amber  { color: var(--accent-amber); }
+    .kicker--teal   { color: var(--accent-teal); }
+    .kicker--pink   { color: var(--accent-pink); }
+
+    .surv-section h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      margin: 0 0 0.8rem;
+      line-height: 1.25;
+    }
+    .surv-section .section-lead {
+      color: var(--muted);
+      font-size: 0.97rem;
+      max-width: 680px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
+    /* RISK CARDS */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .risk-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .risk-card:hover {
+      background: rgba(255,255,255,0.055);
+      border-color: rgba(255,104,104,0.3);
+    }
+    .risk-card .risk-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .risk-card h3 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      color: var(--accent-warn);
+    }
+    .risk-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .risk-card p strong { color: var(--text); }
+
+    /* AMBER (government) cards */
+    .risk-card--amber h3   { color: var(--accent-amber); }
+    .risk-card--amber:hover { border-color: rgba(255,225,107,0.3); }
+
+    /* PINK (surveillance capitalism) cards */
+    .risk-card--pink h3    { color: var(--accent-pink); }
+    .risk-card--pink:hover  { border-color: rgba(255,113,200,0.3); }
+
+    /* TEAL (rights) cards */
+    .risk-card--teal h3    { color: var(--accent-teal); }
+    .risk-card--teal:hover  { border-color: rgba(74,181,255,0.3); }
+
+    /* QUOTE BLOCK */
+    blockquote.inline-quote {
+      margin: 2.5rem 0;
+      padding: 1.4rem 1.75rem;
+      border-left: 3px solid;
+      border-radius: 0 10px 10px 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    blockquote.inline-quote.red    { border-color: var(--accent-warn);  background: rgba(255,104,104,0.06); }
+    blockquote.inline-quote.amber  { border-color: var(--accent-amber); background: rgba(255,225,107,0.05); }
+    blockquote.inline-quote.teal   { border-color: var(--accent-teal);  background: rgba(74,181,255,0.05); }
+    blockquote.inline-quote cite {
+      display: block;
+      margin-top: 0.65rem;
+      font-style: normal;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      opacity: 0.75;
+    }
+    blockquote.inline-quote.red  cite { color: var(--accent-warn); }
+    blockquote.inline-quote.amber cite { color: var(--accent-amber); }
+    blockquote.inline-quote.teal  cite { color: var(--accent-teal); }
+
+    /* BULLET LIST */
+    .risk-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .risk-list li {
+      display: flex;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .risk-list li .bullet-icon {
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      margin-top: 1px;
+    }
+    .risk-list li strong { color: var(--text); }
+
+    /* TWO-COL PROSE */
+    .two-col-prose {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      .two-col-prose { grid-template-columns: 1fr; }
+    }
+    .two-col-prose p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-top: 0;
+    }
+    .two-col-prose p strong { color: var(--text); }
+
+    /* EVIDENCE TABLE */
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1.5rem;
+    }
+    .evidence-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-amber);
+      border-bottom: 1px solid rgba(255,225,107,0.25);
+      font-weight: 600;
+    }
+    .evidence-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--muted);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .evidence-table td:first-child {
+      color: var(--text);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .evidence-table tr:last-child td { border-bottom: none; }
+    .evidence-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* CLOSING BANNER */
+    .closing-banner {
+      max-width: var(--max-width);
+      margin: 2rem auto 4rem;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, rgba(255,104,104,0.08), rgba(255,113,200,0.05), rgba(74,181,255,0.05));
+      border: 1px solid rgba(255,104,104,0.2);
+      border-radius: var(--card-radius);
+      text-align: center;
+    }
+    .closing-banner h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      margin: 0 0 1rem;
+    }
+    .closing-banner p {
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      font-size: 0.97rem;
+      line-height: 1.75;
+    }
+    .closing-banner .disclaimer {
+      font-size: 0.77rem;
+      color: rgba(160,163,194,0.6);
+      margin-top: 2rem;
+      font-style: italic;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* FOOTER */
+    footer.surv-footer {
+      text-align: center;
+      padding: 2rem 1.25rem;
+      font-size: 0.78rem;
+      color: rgba(160,163,194,0.45);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .risk-list li { flex-direction: column; gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html">Signal</a></li>
+      <li><a href="surveillance.html" class="nav-active">Surveillance</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+    </ul>
+  </div>
+</nav>
+
+  <main>
+
+    <!-- ── HERO ── -->
+    <div class="hero-surv">
+      <span class="eyebrow">Privacy · Security · Freedom of Speech</span>
+      <h1>The surveillance apparatus<br>is <em>already built</em>.</h1>
+      <p class="lead">
+        Metadata, state programmes, surveillance capitalism, and sweeping legal powers
+        combine to form an architecture of mass observation that operates regardless of
+        which messaging app you use.  The evidence is overwhelming, the stakes are
+        fundamental, and the consequences for free societies are profound.
+      </p>
+      <blockquote class="pull-quote">
+        "We kill people based on metadata."
+        <cite>— General Michael Hayden, former Director of both the NSA and the CIA</cite>
+      </blockquote>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 1 — THE METADATA TRAP
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="metadata">
+      <div class="kicker kicker--red">The Metadata Paradox</div>
+      <h2>Metadata knows more<br>about you than you do</h2>
+      <p class="section-lead">
+        The intelligence community long ago understood that metadata — the record of <em>who</em>
+        communicates with <em>whom</em>, <em>when</em>, and from <em>where</em> — is frequently
+        more valuable than message content itself.  Content is noisy and requires interpretation.
+        Metadata is precise, machine-readable, and at scale reveals the entire architecture of a
+        person's life.
+      </p>
+
+      <div class="risk-grid">
+        <div class="risk-card">
+          <span class="risk-icon">🕐</span>
+          <h3>Temporal Patterns</h3>
+          <p>Metadata reveals <strong>when you are awake, when you work, when you sleep</strong>,
+          and the precise rhythms of your daily life — information that can be used to assess
+          political reliability, vulnerability, and routine.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🏥</span>
+          <h3>Sensitive Inferences</h3>
+          <p>A call to a cancer helpline at 11pm, followed by calls to family members, reveals
+          a medical diagnosis <strong>without a single word being read</strong>.  Contact with
+          a lawyer, a domestic violence line, or a political organiser is equally legible.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">📍</span>
+          <h3>Location + Contact = Identity</h3>
+          <p>The combination of location metadata and communication patterns <strong>uniquely
+          identifies individuals</strong> with extreme accuracy — even when names, numbers,
+          and content are anonymised.  Anonymisation of metadata is effectively impossible at scale.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">🧩</span>
+          <h3>Graph-Based Social Control</h3>
+          <p>Social graph data enables <strong>guilt by association</strong> — identifying
+          individuals as persons of interest based solely on who they communicate with, without
+          any evidence of wrongdoing.  Six degrees of separation becomes a legal liability.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">📊</span>
+          <h3>AI-Augmented Analysis</h3>
+          <p>Modern machine learning can extract <strong>personality, political affiliation,
+          health status, and future behaviour</strong> from metadata patterns.  What took
+          analysts weeks now takes milliseconds at the population level.</p>
+        </div>
+        <div class="risk-card">
+          <span class="risk-icon">♾️</span>
+          <h3>Permanent Record</h3>
+          <p>Unlike content, metadata is <strong>retained indefinitely</strong> by both platforms
+          and governments.  Under the UK Investigatory Powers Act, metadata can be retained for
+          up to 12 months by default — available retrospectively to build a complete
+          historical picture of any individual.</p>
+        </div>
+      </div>
+
+      <blockquote class="inline-quote red">
+        "In practice, platforms like WhatsApp protect the <strong>content of messages in transit</strong>, but
+        still enable extensive visibility into <strong>who you are, who you know, and how you behave</strong>."
+        <cite>— DAL Technology Research Brief, 2026</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 2 — STATE SURVEILLANCE
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="surveillance">
+      <div class="kicker kicker--amber">State Power · Legal Frameworks</div>
+      <h2>The architecture of<br>mass state surveillance</h2>
+      <p class="section-lead">
+        Edward Snowden's 2013 disclosures were not an aberration — they were a window into an
+        intelligence apparatus that had been operating at industrial scale for years.  The
+        programmes he revealed were not dismantled; most were legalised.
+      </p>
+
+      <table class="evidence-table">
+        <thead>
+          <tr>
+            <th>Programme / Law</th>
+            <th>Jurisdiction</th>
+            <th>Capability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PRISM</td>
+            <td>USA (NSA)</td>
+            <td>Direct access to stored data held by Google, Apple, Facebook, Microsoft, Yahoo, Skype, YouTube and others under FISA Section 702 authorisation.  Confirmed operational by leaked NSA slides (2007–2013+).</td>
+          </tr>
+          <tr>
+            <td>MUSCULAR / WINDSTOP</td>
+            <td>NSA / GCHQ</td>
+            <td>Bulk interception of data flowing between overseas data centres of Google and Yahoo — bypassing encryption entirely by tapping links between internal infrastructure.</td>
+          </tr>
+          <tr>
+            <td>TEMPORA</td>
+            <td>UK (GCHQ)</td>
+            <td>Bulk interception of fibre-optic cables carrying internet traffic into and out of the UK, operated under secret authorisation for years before public disclosure.  Up to 21 petabytes of data intercepted per day.</td>
+          </tr>
+          <tr>
+            <td>XKeyscore</td>
+            <td>USA (NSA)</td>
+            <td>A global mass metadata and content search system covering "nearly everything a user does on the internet."  Analysts could query data without prior authorisation.</td>
+          </tr>
+          <tr>
+            <td>Investigatory Powers Act 2016 (UK)</td>
+            <td>United Kingdom</td>
+            <td>Legalised bulk collection of communications data, bulk interception, bulk equipment interference (lawful hacking at scale), and bulk personal datasets.  Compels companies to maintain "technical capability" to assist surveillance.</td>
+          </tr>
+          <tr>
+            <td>FISA / Section 702</td>
+            <td>USA</td>
+            <td>Authorises warrantless surveillance of non-US persons overseas, with significant collection of US person communications as "incidental" collection.  Reauthorised repeatedly despite civil liberties opposition.</td>
+          </tr>
+          <tr>
+            <td>Five Eyes Alliance</td>
+            <td>US · UK · CA · AU · NZ</td>
+            <td>Intelligence-sharing treaty allowing member nations to circumvent domestic surveillance restrictions by having partner nations collect on their own citizens, then share the product.</td>
+          </tr>
+          <tr>
+            <td>Online Safety Act 2023 (UK)</td>
+            <td>United Kingdom</td>
+            <td>Contains provisions that could compel platforms to scan encrypted messages for content — effectively mandating a backdoor into end-to-end encrypted communications.  Signal and WhatsApp threatened to leave the UK market over this requirement.</td>
+          </tr>
+          <tr>
+            <td>Pegasus (NSO Group)</td>
+            <td>Israel / Global</td>
+            <td>Military-grade spyware sold to governments, deployed via zero-click exploits in WhatsApp and iMessage.  Confirmed targets include journalists, lawyers, activists, politicians, and at least one head of state (Emmanuel Macron).  Jeff Bezos's phone was compromised via WhatsApp.</td>
+          </tr>
+          <tr>
+            <td>RIPA 2000 (UK)</td>
+            <td>United Kingdom</td>
+            <td>Precursor to the IPA.  Authorised bulk surveillance, covert human intelligence, and directed surveillance.  Used by over 600 public bodies including local councils to monitor communications.</td>
+          </tr>
+          <tr>
+            <td>CLOUD Act (USA)</td>
+            <td>USA / Global</td>
+            <td>Requires US technology companies to produce data stored on servers anywhere in the world in response to valid US legal orders — regardless of where the data physically resides or the citizenship of the subject.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <blockquote class="inline-quote amber">
+        "The argument that no one has anything to fear if they have nothing to hide presupposes
+        that surveillance is only ever used lawfully, proportionately, and by people with no
+        interest in abusing it.  History offers no support for that assumption."
+        <cite>— Civil liberties analysis, post-Snowden</cite>
+      </blockquote>
+
+      <div class="risk-grid" style="margin-top:2rem">
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">🔓</span>
+          <h3>Encryption Is Not a Complete Defence</h3>
+          <p>Intelligence agencies — including the NSA and CIA — have historically combined
+          <strong>legal access, technical exploitation, and endpoint compromise</strong> to obtain
+          target communications.  Encryption protects data in transit; it cannot protect data
+          at rest on a compromised device, or against lawful orders served on the platform operator.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">⚙️</span>
+          <h3>Compelled Capability</h3>
+          <p>Centralised platforms create the structural risk that governments can compel
+          <strong>targeted modifications at the client or account level</strong>.  There is no
+          public evidence of mass backdooring — but the legal and technical architecture
+          for it exists in most major democracies.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">🌐</span>
+          <h3>Authoritarian Export</h3>
+          <p>Surveillance tools and legal frameworks developed in liberal democracies are
+          routinely <strong>adopted and extended by authoritarian regimes</strong>.  Saudi Arabia
+          used WhatsApp metadata to track and identify dissidents.  The tool does not know the
+          values of its operator.</p>
+        </div>
+        <div class="risk-card risk-card--amber">
+          <span class="risk-icon">💼</span>
+          <h3>The Data Broker Loophole</h3>
+          <p>Following <em>Carpenter v. United States</em> (2018), law enforcement agencies moved
+          to <strong>purchase commercially aggregated location and behavioural data</strong> as a
+          warrant-free alternative.  Companies like Venntel, Fog Data Science, and LexisNexis
+          Risk Solutions sell this access directly to government agencies.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 3 — SURVEILLANCE CAPITALISM
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="capitalism">
+      <div class="kicker kicker--pink">Surveillance Capitalism</div>
+      <h2>The data economy is<br>built on your behaviour</h2>
+      <p class="section-lead">
+        Professor Shoshana Zuboff of Harvard Business School coined the term
+        <em>surveillance capitalism</em> to describe an economic logic in which human experience
+        is claimed as raw material, translated into behavioural data, and sold as prediction
+        products to advertisers, insurers, employers, and governments.
+        This is not an accident of technology — it is the <strong>designed purpose</strong>
+        of the dominant digital economy.
+      </p>
+
+      <div class="two-col-prose">
+        <div>
+          <p>
+            <strong>The fundamental transaction is asymmetric and non-consensual.</strong>
+            Users are offered a service — messaging, search, mapping, social connection — and
+            in return surrender not just data about their explicit actions, but continuous
+            telemetry about their physical movements, attention patterns, emotional states,
+            social relationships, and purchasing intent.
+          </p>
+          <p>
+            This data is processed at scale to construct <strong>behavioural futures</strong>:
+            predictive models of what individuals will do, think, buy, or vote for.  These
+            models are sold in real-time auctions to anyone willing to pay — including political
+            campaigns, foreign governments, and organisations whose interests are directly
+            contrary to those of the users being profiled.
+          </p>
+          <p>
+            <strong>The Cambridge Analytica scandal</strong> (2018) exposed how psychographic
+            profiles built from Facebook data — covering 87 million users without consent —
+            were deployed in political operations in at least 68 countries.  The data was not
+            stolen; it was collected through mechanisms the platform explicitly permitted.
+          </p>
+        </div>
+        <div>
+          <p>
+            <strong>Cross-platform data fusion</strong> allows companies to correlate behaviour
+            across entirely separate services.  Meta's tracking pixel is embedded in millions
+            of third-party websites, reporting browsing behaviour back to Facebook even for
+            users who have never created a Facebook account.
+          </p>
+          <p>
+            <strong>Data brokers</strong> — an almost entirely unregulated industry — purchase,
+            aggregate, and resell personal data collected from apps, loyalty programmes, financial
+            records, and public sources.  The resulting profiles are sold to law enforcement
+            agencies, bypassing warrant requirements through commercial purchase.
+            Companies including Acxiom, LexisNexis, Venntel, and Clearview AI have all been
+            confirmed supplying government agencies with data that would otherwise require judicial oversight to obtain.
+          </p>
+          <p>
+            <strong>The economic incentive is structural, not incidental.</strong>  Platforms
+            that collect less data are less profitable.  Platforms that implement strong
+            privacy by default lose competitive advantage.  The market systematically rewards
+            the erosion of privacy, and individual consent — even when nominally offered —
+            is extracted through dark patterns, cognitive overload, and manufactured urgency.
+          </p>
+        </div>
+      </div>
+
+      <ul class="risk-list" style="margin-top:1.5rem">
+        <li>
+          <span class="bullet-icon">🎯</span>
+          <span><strong>Micro-targeted manipulation:</strong> Behavioural profiles enable
+          the delivery of individually calibrated political, commercial, and emotional
+          content — amplifying division, exploiting vulnerability, and bypassing rational
+          deliberation at scale.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">🔮</span>
+          <span><strong>Predictive policing and profiling:</strong> Law enforcement agencies
+          in multiple countries use commercially purchased data and algorithmic profiling to
+          identify "persons of interest" based on inferred characteristics — without judicial
+          oversight or the right to confront the evidence.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">🩺</span>
+          <span><strong>Insurance and employment discrimination:</strong> Health, financial,
+          and behavioural data — inferred from app usage, location patterns, and social
+          graphs — is used in insurance underwriting and employment screening, often without
+          subjects' knowledge or legal right to challenge the decision.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">🏦</span>
+          <span><strong>Data as a geopolitical weapon:</strong> The concentration of global
+          personal data in a small number of US-headquartered platforms represents a
+          strategic asset whose availability to US intelligence services is mandated by law —
+          and whose availability to adversarial states via breach, coercion, or acquisition
+          is a persistent national security risk.</span>
+        </li>
+      </ul>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 4 — FREE SPEECH & CHILLING EFFECTS
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="speech">
+      <div class="kicker kicker--pink">Freedom of Expression</div>
+      <h2>Surveillance silences speech<br>before it is spoken</h2>
+      <p class="section-lead">
+        The threat to free speech from mass surveillance is not primarily direct censorship —
+        it is the <strong>chilling effect</strong>: the documented, measurable phenomenon whereby
+        people alter their behaviour, self-censor their expression, and abandon legitimate
+        associational activities when they believe they are being observed.
+        Surveillance does not merely record dissent — it preemptively suppresses it.
+      </p>
+
+      <blockquote class="inline-quote red">
+        "The NSA's surveillance programme fundamentally changes the nature of democratic
+        deliberation.  When people know they are watched, they choose safer opinions,
+        avoid controversial associations, and abandon political activity.
+        The panopticon does not need to punish — it only needs to be known."
+        <cite>— Academic synthesis, post-Snowden privacy research</cite>
+      </blockquote>
+
+      <div class="risk-grid">
+        <div class="risk-card risk-card--pink">
+          <span class="risk-icon">📰</span>
+          <h3>Journalism Under Threat</h3>
+          <p>Investigative journalists who communicate via unsecured platforms expose their
+          sources to state identification.  <strong>Source protection is the foundation of
+          investigative journalism</strong> — without it, whistleblowers go silent, corruption
+          goes unreported, and governments operate without accountability.</p>
+        </div>
+        <div class="risk-card risk-card--pink">
+          <span class="risk-icon">✊</span>
+          <h3>Activist and Dissident Risk</h3>
+          <p>Activists, protest organisers, trade union leaders, and political dissidents
+          are <strong>disproportionately targeted by surveillance</strong> across all political
+          systems — including liberal democracies.  The history of COINTELPRO, Operation
+          Overt, and post-9/11 Muslim community surveillance demonstrates that the
+          definition of "threat" expands to meet political need.</p>
+        </div>
+        <div class="risk-card risk-card--pink">
+          <span class="risk-icon">🏳️‍🌈</span>
+          <h3>Vulnerable Communities</h3>
+          <p>LGBTQ+ individuals in hostile jurisdictions, religious minorities, abuse
+          survivors, and undocumented migrants face <strong>existential consequences</strong>
+          from the exposure of their communications, contacts, and locations.  Communication
+          platforms that cannot guarantee privacy are not safe tools for vulnerable people.</p>
+        </div>
+        <div class="risk-card risk-card--pink">
+          <span class="risk-icon">🗳️</span>
+          <h3>Democratic Integrity</h3>
+          <p>When political associations, campaign strategies, and voter contacts are
+          exposed to surveillance — whether by the state or by commercial data brokers —
+          <strong>the integrity of democratic processes is undermined</strong>.
+          Privacy is not a preference; it is a precondition for meaningful political participation.</p>
+        </div>
+        <div class="risk-card risk-card--pink">
+          <span class="risk-icon">🔬</span>
+          <h3>The Research Evidence</h3>
+          <p>A 2015 study published in <em>Journalism &amp; Mass Communication Quarterly</em>
+          found that <strong>awareness of NSA surveillance caused significant reduction</strong>
+          in visits to Wikipedia articles on sensitive topics.  The chilling effect operates
+          on the general population, not just those engaged in wrongdoing.</p>
+        </div>
+        <div class="risk-card risk-card--pink">
+          <span class="risk-icon">🪞</span>
+          <h3>The Panopticon Effect</h3>
+          <p>Jeremy Bentham's panopticon — a prison where inmates can never know whether
+          they are being watched at any given moment — produces <strong>self-regulation
+          through uncertainty</strong>.  Mass surveillance achieves the same effect at
+          civilisational scale.  The watcher does not need to watch everyone; they need
+          only ensure that no one knows when they are not being watched.</p>
+        </div>
+      </div>
+
+      <blockquote class="inline-quote amber">
+        "Arguing that you don't care about the right to privacy because you have nothing to
+        hide is no different from saying you don't care about free speech because you have
+        nothing to say."
+        <cite>— Edward Snowden</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 5 — YOUR RIGHTS
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="rights">
+      <div class="kicker kicker--teal">Legal Rights · International Frameworks</div>
+      <h2>Privacy is a fundamental<br>human right — not a luxury</h2>
+      <p class="section-lead">
+        The right to private communication is not a technical preference or a niche concern.
+        It is recognised as a foundational human right in every major international legal
+        instrument — a right whose erosion has historically preceded the suppression of all
+        other rights.
+      </p>
+
+      <div class="risk-grid">
+        <div class="risk-card risk-card--teal">
+          <span class="risk-icon">📖</span>
+          <h3>UDHR Article 12</h3>
+          <p><em>"No one shall be subjected to arbitrary interference with his privacy,
+          family, home or correspondence."</em>  The <strong>Universal Declaration of Human
+          Rights</strong> (1948) enshrined privacy as fundamental — written by people who had
+          just witnessed the consequences of states that could surveil their populations
+          without constraint.</p>
+        </div>
+        <div class="risk-card risk-card--teal">
+          <span class="risk-icon">⚖️</span>
+          <h3>ECHR Article 8</h3>
+          <p>The <strong>European Convention on Human Rights</strong> guarantees the right
+          to respect for private and family life, home and correspondence — with any
+          interference required to be lawful, necessary in a democratic society, and
+          proportionate.  Mass surveillance fails this test by definition.</p>
+        </div>
+        <div class="risk-card risk-card--teal">
+          <span class="risk-icon">🗣️</span>
+          <h3>ECHR Article 10</h3>
+          <p>Freedom of expression — including the freedom to hold opinions and receive
+          and impart information — is <strong>inseparable from the right to communicate
+          privately</strong>.  The European Court of Human Rights has consistently held
+          that surveillance that chills expression violates Article 10.</p>
+        </div>
+        <div class="risk-card risk-card--teal">
+          <span class="risk-icon">🛡️</span>
+          <h3>UK GDPR / Data Protection Act 2018</h3>
+          <p>UK law imposes <strong>data minimisation, purpose limitation, and accuracy
+          requirements</strong> on personal data processing — requirements that much of
+          the surveillance economy, and many government programmes, cannot meet under
+          honest scrutiny.</p>
+        </div>
+        <div class="risk-card risk-card--teal">
+          <span class="risk-icon">🇪🇺</span>
+          <h3>EU Digital Markets Act &amp; AI Act</h3>
+          <p>The EU's emerging digital regulatory framework places new <strong>restrictions
+          on targeted advertising, algorithmic profiling, and high-risk AI systems</strong>
+          applied to individuals — recognising that the surveillance economy requires
+          structural reform, not individual consent management.</p>
+        </div>
+        <div class="risk-card risk-card--teal">
+          <span class="risk-icon">🧾</span>
+          <h3>The Right to Know</h3>
+          <p>Under UK GDPR, individuals have the right to <strong>access the personal
+          data held about them, to object to its processing, and to request its erasure</strong>.
+          In practice, the complexity of data ecosystems makes these rights extremely
+          difficult to exercise meaningfully against large platforms.</p>
+        </div>
+      </div>
+
+      <blockquote class="inline-quote teal">
+        "Privacy is not about secrecy.  It is about autonomy — the ability to develop
+        thoughts, relationships, and identity free from the constant gaze of those with
+        the power to judge, punish, or exploit what they observe."
+        <cite>— Privacy as a social value</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ── CLOSING BANNER ── -->
+    <div class="closing-banner">
+      <h2>The status quo is not acceptable.<br>The alternative must be built.</h2>
+      <p>
+        Every day, billions of people communicate through systems engineered to extract
+        maximum intelligence about their lives — systems operating under legal frameworks
+        that prioritise access over rights.  Meaningful privacy is not delivered by policy
+        statements, marketing language, or end-to-end encryption applied selectively
+        to content while everything else is harvested.  It requires a fundamentally
+        different architecture: one that collects nothing it does not need, stores nothing
+        it does not have to, and routes nothing through infrastructure it cannot control.
+      </p>
+      <p style="margin-top:0.5rem">
+        <a href="whatsapp.html" style="color:var(--accent-warn);margin-right:1.5rem">→ WhatsApp analysis</a>
+        <a href="telegram.html" style="color:var(--accent-amber);margin-right:1.5rem">→ Telegram analysis</a>
+        <a href="signal.html" style="color:var(--accent-teal);margin-right:1.5rem">→ Signal analysis</a>
+        <a href="compare_privacy.html" style="color:var(--accent-pink)">→ Full privacy comparison</a>
+      </p>
+      <p class="disclaimer">
+        This document reflects publicly known technical architecture, published policies,
+        confirmed surveillance programmes, and peer-reviewed research.  Where risk scenarios
+        are described rather than confirmed, this is clearly indicated.  Sources include
+        NSA/GCHQ primary documents released via Freedom of Information and journalistic
+        disclosure, European Court of Human Rights judgments, academic literature, and
+        official regulatory determinations.
+      </p>
+    </div>
+
+  </main>
+
+  <footer class="surv-footer">
+    &copy; 2026 DAL Technology Ltd &nbsp;·&nbsp;
+    <a href="index.html" style="color:var(--accent-teal);opacity:0.7">Radar App</a>
+  </footer>
+
+</div>
+</body>
+</html>

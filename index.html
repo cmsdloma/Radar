@@ -1,437 +1,1082 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Radar &ndash; DAL Technology</title>
-    <style>
+  <meta charset="UTF-8" />
+  <title>Radar App – Off-Grid Peer-to-Peer Communication</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="Radar is a peer-to-peer Android app for local device discovery, off-grid messaging, and radar-style visualization of nearby peers."/>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Site-wide nav extensions ── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 50;
+      background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9));
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(74,181,255,0.22);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em;
+      color: #4ab5ff; text-decoration: none; flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; gap: 0.25rem; list-style: none;
+      margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap;
+    }
+    .nav-links a {
+      padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap;
+      color: var(--muted); transition: background 0.18s, color 0.18s;
+    }
+    .nav-links a:hover, .nav-links a.nav-active {
+      background: rgba(74,181,255,0.08); color: #4ab5ff;
+    }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── Pages hub section ── */
+    .hub-section { padding: 2.25rem 1.25rem 2.5rem; border-top: 1px solid rgba(255,255,255,0.03); }
+    .hub-inner { max-width: var(--max-width); margin: 0 auto; }
+    .hub-kicker { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: #4ab5ff; margin-bottom: 0.6rem; }
+    .hub-title { font-size: 1.05rem; font-weight: 700; margin: 0 0 1.5rem; color: var(--text); }
+    .hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.85rem; }
+    .hub-card {
+      background: rgba(11,16,32,0.8); border: 1px solid rgba(32,37,59,0.9);
+      border-radius: 14px; padding: 1.1rem 1.2rem;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.15s;
+      display: flex; flex-direction: column; gap: 0.35rem;
+    }
+    .hub-card:hover { border-color: rgba(74,181,255,0.35); box-shadow: 0 8px 28px rgba(0,0,0,0.5); transform: translateY(-2px); }
+    .hub-card.amber:hover { border-color: rgba(255,225,107,0.35); }
+    .hub-card.red:hover   { border-color: rgba(255,104,104,0.35); }
+    .hub-icon { font-size: 1.4rem; margin-bottom: 0.1rem; }
+    .hub-name { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+    .hub-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.5; flex: 1; }
+    .hub-cta  { font-size: 0.72rem; color: #4ab5ff; margin-top: 0.4rem; }
+    .hub-card.amber .hub-cta { color: #ffe16b; }
+    .hub-card.red   .hub-cta { color: #ff6868; }
+
+    /* Group labels */
+    .hub-group { margin-bottom: 0.5rem; }
+    .hub-group-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); margin-bottom: 0.55rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+    /* ================================================================
+       BLUE ACCENT THEME — overrides styles.css teal/green defaults
+       ================================================================ */
     :root {
-        --purple-dark:  #2b1640;
-        --purple-mid:   #3b235a;
-        --purple-light: #6b42a0;
-        --amber:        #f5a623;
-        --amber-dark:   #c07d00;
-        --amber-light:  #fff3dc;
-        --bg:           #f7f4fb;
-        --card-bg:      #ffffff;
-        --text-main:    #1a1a2e;
-        --text-muted:   #5a5470;
-        --border:       #e0d8f0;
-        --link:         #5b2fa0;
+      --accent:        #4ab5ff;
+      --accent-strong: #4ab5ff;
+      --accent-soft:   rgba(74,181,255,0.12);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text-main);
-        line-height: 1.7;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+    /* Brand mark → blue */
+    .brand-mark {
+      background: radial-gradient(circle at 30% 30%, #5cc4ff, #0e2060);
+      box-shadow: 0 0 20px rgba(74,181,255,0.9), 0 0 40px rgba(74,181,255,0.45);
     }
+    .brand-mark::after { border-color: rgba(74,181,255,0.3); }
 
-    /* ------------------------------------------------------------------ */
-    /* Header                                                               */
-    /* ------------------------------------------------------------------ */
-    header {
-        background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-mid) 60%, var(--purple-light) 100%);
-        color: #fff;
-        padding: 64px 40px 56px;
-        text-align: center;
+    /* Tags/pills */
+    .tag--highlight { border-color: rgba(74,181,255,0.8); background: rgba(74,181,255,0.06); }
+    .pill--accent   { border-color: rgba(74,181,255,0.8); }
+
+    /* Buttons */
+    .btn-primary { background: radial-gradient(circle at 20% 0%, #5cc4ff, #1a70c0); box-shadow: 0 10px 35px rgba(74,181,255,0.4), 0 0 25px rgba(74,181,255,0.35); }
+    .btn-ghost   { border-color: rgba(74,181,255,0.5); }
+
+    /* Cards */
+    .card { background: radial-gradient(circle at top left, rgba(74,181,255,0.12), transparent 55%), var(--bg-alt); }
+
+    /* Nav CTA */
+    .nav-cta { border-color: rgba(74,181,255,0.4); color: #4ab5ff; box-shadow: 0 0 10px rgba(74,181,255,0.25); }
+
+    /* ================================================================
+       BLUE RADAR VISUAL
+       ================================================================ */
+
+    /* Outer wrapper — no box, just transparent layout container */
+    .hero-visual {
+      border: none;
+      background: none;
+      box-shadow: none;
     }
+    .hero-badge { border-color: rgba(74,181,255,0.45); }
 
-    .app-icon {
-        font-size: 4rem;
-        display: block;
-        margin-bottom: 18px;
-        filter: drop-shadow(0 4px 12px rgba(0,0,0,.35));
-    }
-
-    header h1 {
-        font-size: 2.8rem;
-        font-weight: 800;
-        letter-spacing: -1px;
-        margin-bottom: 6px;
-    }
-    header h1 span.amber { color: var(--amber); }
-
-    .developer-tag {
-        display: inline-block;
-        font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: #c8b8e8;
-        margin-bottom: 20px;
+    /* Radar circle */
+    .hero-visual-inner {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(48,110,200,0.22), transparent 55%),
+        radial-gradient(circle at 50% 50%, #091428, #040c1a);
+      box-shadow:
+        0 0 40px rgba(50,120,220,0.38),
+        0 0 120px rgba(50,120,220,0.13);
+      border-color: rgba(100,165,255,0.5);
     }
 
-    header p.tagline {
-        font-size: 1.05rem;
-        color: #d0c0e8;
-        max-width: 560px;
-        margin: 0 auto 36px;
-        line-height: 1.65;
+    /* Crosshair grid lines */
+    .radar-grid-h, .radar-grid-v {
+      position: absolute;
+      background: rgba(90,155,255,0.1);
+      pointer-events: none;
+      border: none;
+      border-radius: 0;
+      transform: none;
+    }
+    .radar-grid-h { width: 100%; height: 1px; top: 50%; left: 0; }
+    .radar-grid-v { width: 1px; height: 100%; left: 50%; top: 0; }
+
+    /* 5 concentric rings — children 3–7 (1 & 2 are the grid lines) */
+    .radar-ring { border-color: rgba(100,165,255,0.22); border-style: solid; }
+    .radar-ring:nth-child(3) { width: 19%; height: 19%; }
+    .radar-ring:nth-child(4) { width: 38%; height: 38%; }
+    .radar-ring:nth-child(5) { width: 57%; height: 57%; }
+    .radar-ring:nth-child(6) { width: 76%; height: 76%; }
+    .radar-ring:nth-child(7) { width: 94%; height: 94%; }
+
+    /* Blue sweep — fills circle, rotates from centre */
+    .radar-sweep {
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: auto;
+      height: auto;
+      border-radius: 50%;
+      transform-origin: 50% 50%;
+      background: conic-gradient(
+        from 0deg,
+        rgba(30,100,200,0.95) 0deg,
+        rgba(20,70,160,0.55) 50deg,
+        transparent 88deg,
+        transparent 360deg
+      );
+      opacity: 1;
+      mix-blend-mode: screen;
+      animation: sweep 4s linear infinite;
     }
 
-    /* Pill badges */
-    .badge-row {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    .badge {
-        background: rgba(255,255,255,.12);
-        border: 1px solid rgba(255,255,255,.2);
-        border-radius: 20px;
-        padding: 5px 16px;
-        font-size: .8rem;
-        color: #d8ccea;
-        white-space: nowrap;
-    }
-    .badge.amber-badge {
-        background: rgba(245,166,35,.2);
-        border-color: rgba(245,166,35,.4);
-        color: var(--amber);
-        font-weight: 600;
+    @keyframes sweep {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
 
-    /* ------------------------------------------------------------------ */
-    /* Main content                                                         */
-    /* ------------------------------------------------------------------ */
-    main {
-        flex: 1;
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 52px 24px 60px;
-        width: 100%;
+    /* Self dot → blue */
+    .radar-dot--self {
+      background: #4ab5ff;
+      color: #4ab5ff;
+      box-shadow: 0 0 16px rgba(74,181,255,0.9), 0 0 6px #fff;
     }
 
-    .section-label {
-        font-size: .7rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        margin-bottom: 20px;
-        padding-left: 4px;
+    /* Drone → yellow (was red) */
+    .radar-dot--drone {
+      background: #ffe16b;
+      color: #ffe16b;
+      box-shadow: 0 0 12px rgba(255,225,107,0.85);
+      left: 23%; top: 67%;
     }
 
-    /* ------------------------------------------------------------------ */
-    /* Document cards                                                       */
-    /* ------------------------------------------------------------------ */
-    .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 24px;
-        margin-bottom: 48px;
+    /* Unknown → gray (was yellow) */
+    .radar-dot--unknown {
+      background: #8a9ab8;
+      color: #8a9ab8;
+      box-shadow: 0 0 10px rgba(138,154,184,0.6);
+      left: 60%; top: 74%;
     }
 
-    .doc-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        padding: 32px 28px 26px;
-        display: flex;
-        flex-direction: column;
-        transition: box-shadow .2s, transform .2s, border-color .2s;
-        text-decoration: none;
-        color: inherit;
-        position: relative;
-        overflow: hidden;
+    /* Labeled peer wrappers */
+    .radar-peer {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      pointer-events: none;
+      z-index: 2;
+      transform: translateX(-50%);
     }
-    .doc-card::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--purple-mid), var(--purple-light));
-        border-radius: 18px 18px 0 0;
+    .radar-peer--male   { left: 72%; top: 28%; }
+    .radar-peer--female { left: 25%; top: 24%; }
+
+    .peer-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
-    .doc-card.amber-card::before {
-        background: linear-gradient(90deg, var(--amber-dark), var(--amber));
-    }
-    .doc-card:hover {
-        box-shadow: 0 8px 32px rgba(59,35,90,.14);
-        transform: translateY(-3px);
-        border-color: var(--purple-light);
-        text-decoration: none;
-    }
-    .doc-card.amber-card:hover {
-        border-color: var(--amber);
+    .peer-dot--male   { background: #4ab5ff; box-shadow: 0 0 12px rgba(74,181,255,0.85); }
+    .peer-dot--female { background: #ff71c8; box-shadow: 0 0 12px rgba(255,113,200,0.75); }
+
+    .peer-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      color: rgba(185,220,255,0.92);
+      white-space: nowrap;
+      background: rgba(4,10,28,0.82);
+      border: 1px solid rgba(100,155,255,0.22);
+      padding: 1px 5px;
+      border-radius: 3px;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
     }
 
-    .card-icon {
-        font-size: 2.2rem;
-        margin-bottom: 14px;
-        display: block;
-    }
-    .card-title {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: var(--purple-dark);
-        margin-bottom: 8px;
-    }
-    .amber-card .card-title { color: #7a4800; }
-
-    .card-desc {
-        font-size: .88rem;
-        color: var(--text-muted);
-        line-height: 1.6;
-        flex: 1;
-        margin-bottom: 22px;
-    }
-
-    .card-cta {
-        display: block;
-        margin-top: auto;
-        font-size: .85rem;
-        font-weight: 700;
-        color: var(--purple-light);
-        letter-spacing: .3px;
-    }
-    .amber-card .card-cta { color: var(--amber-dark); }
-
-    /* ------------------------------------------------------------------ */
-    /* Key facts strip                                                      */
-    /* ------------------------------------------------------------------ */
-    .facts-strip {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 28px 32px;
-        margin-bottom: 48px;
-    }
-    .facts-strip h2 {
-        font-size: .7rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        margin-bottom: 18px;
-    }
-    .facts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px 32px;
-    }
-    .fact {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    .fact-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
-    .fact-text strong {
-        display: block;
-        font-size: .85rem;
-        font-weight: 700;
-        color: var(--purple-dark);
-        margin-bottom: 2px;
-    }
-    .fact-text span { font-size: .8rem; color: var(--text-muted); }
-
-    /* ------------------------------------------------------------------ */
-    /* Contact box                                                          */
-    /* ------------------------------------------------------------------ */
-    .contact-box {
-        background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid));
-        color: #fff;
-        border-radius: 14px;
-        padding: 32px 36px;
-        text-align: center;
-    }
-    .contact-box h2 { color: var(--amber); font-size: 1.1rem; margin-bottom: 8px; }
-    .contact-box p { color: #c8b8e8; font-size: .9rem; margin-bottom: 4px; }
-    .contact-box a {
-        display: inline-block;
-        background: var(--amber);
-        color: #3a1800;
-        font-weight: 700;
-        padding: 10px 28px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-size: .88rem;
-        margin-top: 14px;
-    }
-    .contact-box a:hover { background: var(--amber-dark); color: #fff; }
-
-    /* ------------------------------------------------------------------ */
-    /* Footer                                                               */
-    /* ------------------------------------------------------------------ */
-    footer {
-        text-align: center;
-        font-size: .78rem;
-        color: var(--text-muted);
-        padding: 24px;
-        border-top: 1px solid var(--border);
-        background: var(--card-bg);
-    }
-
-    /* ------------------------------------------------------------------ */
-    /* Responsive                                                           */
-    /* ------------------------------------------------------------------ */
-    @media (max-width: 640px) {
-        header { padding: 48px 20px 40px; }
-        header h1 { font-size: 2rem; }
-        .card-grid { grid-template-columns: 1fr; }
-        main { padding: 36px 16px 48px; }
-        .facts-strip { padding: 22px 20px; }
-    }
-    @media (min-width: 641px) and (max-width: 900px) {
-        .card-grid { grid-template-columns: 1fr 1fr; }
-    }
-    </style>
+    /* Legend dot overrides */
+    .legend-dot--unknown { background: #8a9ab8; }
+    .legend-dot--drone   { background: #ffe16b; }
+  </style>
 </head>
 <body>
-
-<!-- ====================================================================== -->
-<!-- Header                                                                  -->
-<!-- ====================================================================== -->
-<header>
-    <span class="app-icon">&#x1F4E1;</span>
-    <h1><span class="amber">Radar</span></h1>
-    <p class="developer-tag">by DAL Technology</p>
-    <p class="tagline">
-        A peer-to-peer mesh communication and location-sharing app for Android.
-        Works over Bluetooth LE, Wi-Fi Aware, local network, and internet relay.
-    </p>
-    <div class="badge-row">
-        <span class="badge">&#x1F4F1; Android</span>
-        <span class="badge">&#x1F512; End-to-End Encrypted</span>
-        <span class="badge">&#x1F4E1; BLE &amp; Wi-Fi Aware</span>
-        <span class="badge">&#x1F4E8; SMS / MMS Integration</span>
-        <span class="badge amber-badge">&#x2B50; Premium Features Available</span>
+<div class="page">
+  <!-- ── SITE-WIDE NAV ── -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+        Radar
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-active">Home</a></li>
+        <li><a href="scenarios.html">Scenarios</a></li>
+        <li><a href="emergency.html">Emergency</a></li>
+        <li><a href="matrix.html">Matrix</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="release-notes.html">Releases</a></li>
+        <li><a href="premium.html">Premium</a></li>
+        <li><a href="ios-limitations.html">iOS</a></li>
+        <li><a href="whatsapp.html">WhatsApp</a></li>
+        <li><a href="telegram.html">Telegram</a></li>
+        <li><a href="signal.html">Signal</a></li>
+        <li><a href="surveillance.html">Surveillance</a></li>
+        <li><a href="compare_privacy.html">Compare Privacy</a></li>
+        <li><a href="compare_features.html">Compare Features</a></li>
+      </ul>
     </div>
-</header>
+  </nav>
 
-<!-- ====================================================================== -->
-<!-- Main                                                                    -->
-<!-- ====================================================================== -->
-<main>
+  <main>
+    <!-- HERO -->
+    <section class="section hero" id="top">
+      <div>
+        <div class="hero-eyebrow">Android · Peer-to-Peer · Offline-First</div>
+        <h1 class="hero-title">
+          Local device discovery &amp;
+          <span>off-grid messaging</span>.
+        </h1>
+        <p class="hero-subtitle">
+          <strong>Radar</strong> is a peer-to-peer Android application for
+          discovering nearby devices, seeing where they are relative to you on a
+          radar-style map, and chatting directly over Bluetooth LE, WiFi Aware,
+          and local networks – no central servers, no internet required.
+        </p>
 
-    <!-- Document cards -->
-    <p class="section-label">App Documents</p>
-    <div class="card-grid">
-
-        <!-- Features card -->
-        <a class="doc-card amber-card" href="Radar_App_Features.html">
-            <span class="card-icon">&#x1F4CB;</span>
-            <p class="card-title">Feature List</p>
-            <p class="card-desc">
-                A comprehensive catalogue of every capability in the Radar app &mdash;
-                113 features across 10 categories including radar &amp; discovery,
-                messaging, maps, emergency / SOS, security, and more.
-            </p>
-            <span class="card-cta">View Features &#x2192;</span>
-        </a>
-
-        <!-- Privacy Policy card -->
-        <a class="doc-card" href="privacy-policy.html">
-            <span class="card-icon">&#x1F512;</span>
-            <p class="card-title">Privacy Policy</p>
-            <p class="card-desc">
-                Our Google Play Store&ndash;compliant privacy policy. Explains what data
-                is collected, how it is used and retained, server-side storage details,
-                Android permissions, your rights, and how to contact us.
-            </p>
-            <span class="card-cta">View Policy &#x2192;</span>
-        </a>
-
-        <!-- Release Notes card -->
-        <a class="doc-card" href="release-notes.html">
-            <span class="card-icon">&#x1F4DD;</span>
-            <p class="card-title">Release Notes</p>
-            <p class="card-desc">
-                Version history for the Radar Android app. Latest release: v0.9.1
-                (Closed Alpha) &mdash; bug fixes, new features, and Play Store
-                compatibility improvements.
-            </p>
-            <span class="card-cta">View Release Notes &#x2192;</span>
-        </a>
-
-        <!-- Free vs Premium card -->
-        <a class="doc-card amber-card" href="premium.html">
-            <span class="card-icon">&#x2B50;</span>
-            <p class="card-title">Free vs Premium</p>
-            <p class="card-desc">
-                Side-by-side feature comparison. See exactly what&rsquo;s included
-                in the free tier and what unlocks with a Premium subscription
-                (&pound;2.99&nbsp;/&nbsp;month).
-            </p>
-            <span class="card-cta">Compare Plans &#x2192;</span>
-        </a>
-
-    </div>
-
-    <!-- Key facts -->
-    <div class="facts-strip">
-        <h2>Key Privacy Principles</h2>
-        <div class="facts-grid">
-            <div class="fact">
-                <span class="fact-icon">&#x1F464;</span>
-                <div class="fact-text">
-                    <strong>Pseudonymous identity</strong>
-                    <span>Random UUID only &mdash; no email or phone required</span>
-                </div>
-            </div>
-            <div class="fact">
-                <span class="fact-icon">&#x1F4CD;</span>
-                <div class="fact-text">
-                    <strong>Location (current only)</strong>
-                    <span>Stored on server for peer discovery &mdash; no history retained</span>
-                </div>
-            </div>
-            <div class="fact">
-                <span class="fact-icon">&#x23F1;</span>
-                <div class="fact-text">
-                    <strong>Messages auto-deleted</strong>
-                    <span>Relayed messages removed within 7 days or on receipt</span>
-                </div>
-            </div>
-            <div class="fact">
-                <span class="fact-icon">&#x1F510;</span>
-                <div class="fact-text">
-                    <strong>End-to-end encryption</strong>
-                    <span>Sealed-sender design &mdash; server cannot read content</span>
-                </div>
-            </div>
-            <div class="fact">
-                <span class="fact-icon">&#x1F4F1;</span>
-                <div class="fact-text">
-                    <strong>SMS stays on device</strong>
-                    <span>SMS/MMS content is never uploaded to our servers</span>
-                </div>
-            </div>
-            <div class="fact">
-                <span class="fact-icon">&#x1F6AB;</span>
-                <div class="fact-text">
-                    <strong>No advertising</strong>
-                    <span>We do not sell data or use it for advertising</span>
-                </div>
-            </div>
+        <div class="hero-tags">
+          <span class="tag tag--highlight">Works fully offline</span>
+          <span class="tag">Bluetooth LE</span>
+          <span class="tag">WiFi Aware (NAN)</span>
+          <span class="tag">mDNS + Network scanning</span>
+          <span class="tag">Mesh store-and-forward</span>
+          <span class="tag">Android 15 compliant</span>
         </div>
+
+        <div class="hero-actions">
+          <a href="#use-cases" class="btn-primary">
+            Explore use cases →
+          </a>
+          <a href="#core-features" class="btn-ghost">
+            View full feature set
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div><strong>Platform:</strong> Android 8.0+ (API 26+)</div>
+          <div><strong>Transports:</strong> WiFi Aware · Internet relay · BLE</div>
+          <div><strong>Privacy:</strong> Local-only by default, no cloud required</div>
+        </div>
+      </div>
+
+      <aside class="hero-visual" aria-hidden="true">
+        <div class="hero-visual-inner">
+          <!-- Crosshair grid lines -->
+          <div class="radar-grid-h"></div>
+          <div class="radar-grid-v"></div>
+          <!-- 5 concentric rings for dense radar look -->
+          <div class="radar-ring"></div>
+          <div class="radar-ring"></div>
+          <div class="radar-ring"></div>
+          <div class="radar-ring"></div>
+          <div class="radar-ring"></div>
+          <!-- Rotating sweep -->
+          <div class="radar-sweep"></div>
+          <!-- Self (centre) -->
+          <div class="radar-dot radar-dot--self"></div>
+          <!-- Male peer with label -->
+          <div class="radar-peer radar-peer--male">
+            <div class="peer-dot peer-dot--male"></div>
+            <span class="peer-label">Dave (39m)</span>
+          </div>
+          <!-- Female peer with label -->
+          <div class="radar-peer radar-peer--female">
+            <div class="peer-dot peer-dot--female"></div>
+            <span class="peer-label">Katie (26f)</span>
+          </div>
+          <!-- Unknown contact (gray) -->
+          <div class="radar-dot radar-dot--unknown"></div>
+          <!-- Drone — Remote ID (yellow) -->
+          <div class="radar-dot radar-dot--drone"></div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--male"></span> Blue = Male
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--female"></span> Pink = Female
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--drone"></span> Yellow = Drone
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--unknown"></span> Gray = Unknown
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ── PAGES HUB ── -->
+    <div class="hub-section">
+      <div class="hub-inner">
+        <div class="hub-kicker">All Pages</div>
+        <div class="hub-title">Everything in the Radar website</div>
+
+        <!-- Scenarios group -->
+        <div class="hub-group">
+          <div class="hub-group-label">Use Cases</div>
+          <div class="hub-grid">
+            <a class="hub-card" href="scenarios.html">
+              <span class="hub-icon">🌍</span>
+              <span class="hub-name">Scenarios</span>
+              <span class="hub-desc">Eight real-world situations where Radar keeps you connected — disasters, cruise ships, aircraft, underground, and more.</span>
+              <span class="hub-cta">Explore Scenarios →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- App info group -->
+        <div class="hub-group" style="margin-top:1.5rem;">
+          <div class="hub-group-label">App Information</div>
+          <div class="hub-grid">
+            <a class="hub-card amber" href="privacy-policy.html">
+              <span class="hub-icon">🔒</span>
+              <span class="hub-name">Privacy Policy</span>
+              <span class="hub-desc">What data is collected, how it's used, server storage details, Android permissions, and your rights.</span>
+              <span class="hub-cta">Read Policy →</span>
+            </a>
+            <a class="hub-card amber" href="release-notes.html">
+              <span class="hub-icon">📝</span>
+              <span class="hub-name">Release Notes</span>
+              <span class="hub-desc">Version history — bug fixes, new features, and the development roadmap.</span>
+              <span class="hub-cta">View Releases →</span>
+            </a>
+            <a class="hub-card amber" href="premium.html">
+              <span class="hub-icon">⭐</span>
+              <span class="hub-name">Basic vs Premium</span>
+              <span class="hub-desc">Side-by-side feature comparison. See exactly what's free and what unlocks with Premium (£0.99/month).</span>
+              <span class="hub-cta">Compare Plans →</span>
+            </a>
+            <a class="hub-card red" href="ios-limitations.html">
+              <span class="hub-icon">🚫</span>
+              <span class="hub-name">Why Not iOS?</span>
+              <span class="hub-desc">The precise technical reasons why Radar's core features are impossible on Apple's platform.</span>
+              <span class="hub-cta">Read Explanation →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Privacy series group -->
+        <div class="hub-group" style="margin-top:1.5rem;">
+          <div class="hub-group-label">Privacy Research Series</div>
+          <div class="hub-grid">
+            <a class="hub-card" href="whatsapp.html">
+              <span class="hub-icon">💬</span>
+              <span class="hub-name">WhatsApp Analysis</span>
+              <span class="hub-desc">End-to-end encrypted. Still not private. A forensic look at what WhatsApp actually exposes.</span>
+              <span class="hub-cta">Read Analysis →</span>
+            </a>
+            <a class="hub-card" href="telegram.html">
+              <span class="hub-icon">✈️</span>
+              <span class="hub-name">Telegram Analysis</span>
+              <span class="hub-desc">Telegram is not a privacy app — it never was. The gap between reputation and reality.</span>
+              <span class="hub-cta">Read Analysis →</span>
+            </a>
+            <a class="hub-card" href="signal.html">
+              <span class="hub-icon">🔐</span>
+              <span class="hub-name">Signal Analysis</span>
+              <span class="hub-desc">Signal is the best of a fundamentally flawed model. Honest strengths and structural limits.</span>
+              <span class="hub-cta">Read Analysis →</span>
+            </a>
+            <a class="hub-card" href="surveillance.html">
+              <span class="hub-icon">🕵️</span>
+              <span class="hub-name">Digital Surveillance</span>
+              <span class="hub-desc">Metadata, state surveillance, surveillance capitalism, freedom of speech, and your rights.</span>
+              <span class="hub-cta">Read Report →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Comparison group -->
+        <div class="hub-group" style="margin-top:1.5rem;">
+          <div class="hub-group-label">Comparisons</div>
+          <div class="hub-grid">
+            <a class="hub-card" href="compare_privacy.html">
+              <span class="hub-icon">🛡️</span>
+              <span class="hub-name">Privacy Matrix</span>
+              <span class="hub-desc">How Radar, WhatsApp, Telegram, and Signal score across 27 privacy and surveillance criteria.</span>
+              <span class="hub-cta">View Matrix →</span>
+            </a>
+            <a class="hub-card" href="compare_features.html">
+              <span class="hub-icon">📊</span>
+              <span class="hub-name">Feature Comparison</span>
+              <span class="hub-desc">Full feature-by-feature comparison across 5 platforms covering all categories including offline, voice, location.</span>
+              <span class="hub-cta">View Comparison →</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Contact -->
-    <div class="contact-box">
-        <h2>Contact DAL Technology</h2>
-        <p>Privacy questions, data requests, or GDPR / UK GDPR rights:</p>
-        <p><strong style="color:#fff;">Package:</strong> <span style="color:#c8b8e8;">uk.co.daltechnology.radar</span></p>
-        <a href="mailto:support@daltechnology.co.uk">support@daltechnology.co.uk</a>
+    <!-- OVERVIEW -->
+    <section class="section" id="overview">
+      <div class="two-column">
+        <div>
+          <div class="section-kicker">01 · Overview</div>
+          <h2 class="section-heading">What is Radar?</h2>
+          <p class="section-intro">
+            Radar is a <strong>peer-to-peer Android application</strong> for local device discovery
+            and off-grid communication. It enables you to discover nearby devices,
+            visualize them on a radar or map, and message them directly without
+            internet connectivity or central servers.
+          </p>
+
+          <div class="section-grid">
+            <div class="card">
+              <h3>Core purpose</h3>
+              <ul style="margin:0.65rem 0 0; padding-left:1.1rem; font-size:0.86rem; color:var(--muted);">
+                <li>Discover nearby Android devices running Radar</li>
+                <li>See where peers are relative to your position</li>
+                <li>Chat directly via local transports</li>
+                <li>Discover all devices on local WiFi networks</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Key differentiators</h3>
+              <ul style="margin:0.2rem 0 0; padding-left:1.1rem; font-size:0.86rem; color:var(--muted);">
+                <li>Works <strong>fully offline</strong> – no cloud required</li>
+                <li>Multi-protocol: BLE, WiFi Aware, mDNS, internet (optional)</li>
+                <li>Transport-agnostic message routing</li>
+                <li>Mesh store-and-forward relaying</li>
+                <li>Real-time location visualizations</li>
+                <li>Privacy-first, local-only by default</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="section-kicker">Quick navigation</div>
+          <div class="toc">
+            <div>Jump to a section:</div>
+            <ul>
+              <li><a href="#core-features">Core Features</a></li>
+              <li><a href="#protocols">Device Discovery Protocols</a></li>
+              <li><a href="#messaging">Messaging System</a></li>
+              <li><a href="#profiles">Profile System</a></li>
+              <li><a href="#network">Network Scanning</a></li>
+              <li><a href="#persistence">Data Persistence</a></li>
+              <li><a href="#services">Background Services</a></li>
+              <li><a href="#architecture">Architecture</a></li>
+              <li><a href="#special">Special Features</a></li>
+              <li><a href="#settings">Settings &amp; Configuration</a></li>
+              <li><a href="#tech">Technical Specs</a></li>
+              <li><a href="#use-cases">Use Cases</a></li>
+              <li><a href="#future">Future Enhancements</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CORE FEATURES -->
+    <section class="section" id="core-features">
+      <div class="section-kicker">02 · Core Features</div>
+      <h2 class="section-heading">Visual radar, messaging &amp; mesh networking</h2>
+      <p class="section-intro">
+        Radar combines a live visual radar with a transport-agnostic messaging engine
+        and mesh relay logic to keep conversations flowing even when peers are only
+        intermittently reachable.
+      </p>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Visual Radar Display</h3>
+          <p>
+            Circular radar with distance rings, GPS-based bearing, color-coded peers
+            (male, female, unknown, drone), and real-time updates. Tap any peer to
+            view their profile or jump into chat.
+          </p>
+          <div class="pill-row">
+            <span class="pill pill--accent">Directional positioning</span>
+            <span class="pill">Field-of-view mode</span>
+            <span class="pill">Map view integration</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Multi-protocol messaging</h3>
+          <p>
+            Direct and broadcast messages are delivered via WiFi Aware, internet relay,
+            or Bluetooth (planned), with automatic retry, acknowledgments, sequence
+            numbers, and delivery state tracking.
+          </p>
+          <div class="pill-row">
+            <span class="pill pill--accent">Direct &amp; broadcast</span>
+            <span class="pill">Acks &amp; read receipts</span>
+            <span class="pill">Exponential backoff</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Mesh networking</h3>
+          <p>
+            Messages can hop through intermediate peers with TTL limits, loop protection,
+            duplicate prevention, and expiry – enabling store-and-forward messaging in
+            dynamic topologies.
+          </p>
+          <div class="pill-row">
+            <span class="pill">TTL: 5 hops</span>
+            <span class="pill">Loop prevention</span>
+            <span class="pill">Forwarded: direct &amp; broadcast</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Profile &amp; SMS integration</h3>
+          <p>
+            Rich profiles with avatars, demographics, interests, tags, and device info –
+            plus virtual profiles for SMS contacts using deterministic UUIDs.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Automatic exchange</span>
+            <span class="pill">Photo transfer</span>
+            <span class="pill">Virtual SMS profiles</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROTOCOLS -->
+    <section class="section" id="protocols">
+      <div class="section-kicker">03 · Device Discovery Protocols</div>
+      <h2 class="section-heading">BLE, WiFi Aware, mDNS &amp; network scanning</h2>
+      <p class="section-intro">
+        Radar layers multiple discovery mechanisms so that peers can find each other
+        using whatever radios and network connectivity are available.
+      </p>
+
+      <div class="two-column">
+        <div class="section-grid">
+          <div class="card">
+            <h3>Bluetooth Low Energy (BLE)</h3>
+            <p>
+              Custom advertising with UUID, coarse location, age, and gender; background
+              scanning with RSSI-based distance estimation and MAC-based vendor detection.
+            </p>
+            <ul style="margin:0.5rem 0 0; padding-left:1.15rem; font-size:0.86rem; color:var(--muted);">
+              <li>Custom Bluetooth service UUID</li>
+              <li>Custom manufacturer ID</li>
+              <li>Update frequency: 10s background · 2s foreground</li>
+              <li>Battery impact: ~2–5% per hour</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>WiFi Aware (NAN)</h3>
+            <p>
+              Primary discovery and messaging transport using publish/subscribe and
+              PSK-secured data paths for reliable JSON-based communication.
+            </p>
+            <ul style="margin:0.5rem 0 0; padding-left:1.15rem; font-size:0.86rem; color:var(--muted);">
+              <li>Custom Radar service name</li>
+              <li>Shared passphrase (API 29+)</li>
+              <li>Port range: 5000–5100</li>
+              <li>Foreground-only due to OS limitations</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>mDNS &amp; network segment scanning</h3>
+            <p>
+              mDNS discovers Radar peers on the LAN, while ARP cache, ping sweeps, and
+              reverse DNS enumerate all devices on the subnet.
+            </p>
+            <ul style="margin:0.5rem 0 0; padding-left:1.15rem; font-size:0.86rem; color:var(--muted);">
+              <li>Custom mDNS service type</li>
+              <li>ARP + ping sweep (20 concurrent threads)</li>
+              <li>Typical scan: 192.168.x.1–254 in ~10–15s</li>
+              <li>Smart merging of duplicate sightings</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Internet-based discovery (optional)</h3>
+            <p>
+              When enabled, locations and messages can be relayed via an Oracle APEX
+              backend with ORDS APIs and FCM push notifications for global reach.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Location history</span>
+              <span class="pill">Cloud message relay</span>
+              <span class="pill">FCM notifications</span>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <h3 style="margin-top:0;">Protocol snapshot</h3>
+          <table class="table-like">
+            <thead>
+            <tr>
+              <th>Protocol</th>
+              <th>Role</th>
+              <th>Range</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>BLE</td>
+              <td>Low-power discovery &amp; handshake</td>
+              <td>~10–100 m</td>
+            </tr>
+            <tr>
+              <td>WiFi Aware</td>
+              <td>Primary discovery &amp; messaging</td>
+              <td>~10–100 m</td>
+            </tr>
+            <tr>
+              <td>mDNS / LAN</td>
+              <td>WiFi peers &amp; network devices</td>
+              <td>Local subnet</td>
+            </tr>
+            <tr>
+              <td>Internet</td>
+              <td>Global reach &amp; fallback</td>
+              <td>Worldwide</td>
+            </tr>
+            </tbody>
+          </table>
+          <p class="muted" style="margin-top:0.8rem;">
+            Device support and Android background restrictions are handled internally
+            so the app can gracefully fall back to whatever transports are available.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MESSAGING -->
+    <section class="section" id="messaging">
+      <div class="section-kicker">04 · Messaging System</div>
+      <h2 class="section-heading">Transport-agnostic delivery with acks &amp; retries</h2>
+      <p class="section-intro">
+        The messaging layer separates message delivery logic from transport
+        implementation. A central delivery service continuously scans
+        for pending messages, selects the best available route, and tracks state
+        through to acknowledgment.
+      </p>
+
+      <div class="two-column">
+        <div>
+          <div class="card">
+            <h3>Delivery pipeline</h3>
+            <p class="muted">
+              1. User sends message → message record created (status: pending)<br/>
+              2. Delivery service checks every 1 second<br/>
+              3. Attempts WiFi Aware → Internet → Bluetooth<br/>
+              4. On success: pending → sent<br/>
+              5. Recipient auto-sends acknowledgment<br/>
+              6. Sender marks as sent + acknowledged (✓✓) in the UI.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Automatic retry (up to 3 attempts)</span>
+              <span class="pill">Exponential backoff 2s / 4s / 8s</span>
+              <span class="pill">In-flight tracking &amp; duplicate prevention</span>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:1rem;">
+            <h3>Message types</h3>
+            <ul style="margin:0.35rem 0 0; padding-left:1.1rem; font-size:0.86rem; color:var(--muted);">
+              <li><strong>Direct</strong> messages (1:1)</li>
+              <li><strong>Broadcast</strong> messages (multi-recipient)</li>
+              <li><strong>Acknowledgments</strong> and <strong>read receipts</strong></li>
+              <li><strong>Profile exchange</strong> messages</li>
+              <li><strong>Chat initialization</strong> for deterministic chat IDs</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card">
+            <h3>Sequence-based acknowledgments</h3>
+            <p class="muted">
+              Each chat has a monotonically increasing sequence number per message.
+              Acks carry just the sequence number, making them compact, ordered,
+              and easy to debug.
+            </p>
+            <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.82rem; color:var(--muted);">
+              <li>Used only for direct messages (broadcasts are unacked)</li>
+              <li>Provides implicit ordering within each chat</li>
+              <li>No retry if ack fails – message already delivered</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROFILES -->
+    <section class="section" id="profiles">
+      <div class="section-kicker">05 · Profile System</div>
+      <h2 class="section-heading">Rich profiles &amp; deterministic virtual identities</h2>
+      <p class="section-intro">
+        The profile model describes user identity and device attributes, including
+        avatars, demographics, interests, tags, and MAC/IP info. Profiles are exchanged
+        automatically when you tap peers on the radar or map.
+      </p>
+
+      <div class="two-column">
+        <div>
+          <div class="card">
+            <h3>Core &amp; extended fields</h3>
+            <ul style="margin:0.35rem 0 0; padding-left:1.15rem; font-size:0.86rem; color:var(--muted);">
+              <li>UUID – 32-char hex identifier</li>
+              <li>Nickname, given name, family name</li>
+              <li>Email, phone number (E.164)</li>
+              <li>Gender (Male, Female, Drone)</li>
+              <li>Date of birth, age, photo</li>
+              <li>Interests, tags, metadata, version</li>
+              <li>Device fields: MAC, IP, manufacturer, last seen</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-top:1rem;">
+            <h3>Automatic exchange &amp; photos</h3>
+            <p class="muted">
+              When you tap a peer, Radar requests a full profile (if incomplete). The
+              peer responds with a profile response containing a Base64-encoded
+              JPEG avatar, which is decoded and stored in local profile photo storage.
+            </p>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card">
+            <h3>Virtual profiles (SMS)</h3>
+            <p class="muted">
+              For non-Radar contacts, virtual profiles are created from SMS data. Phone
+              numbers are normalized to E.164 and mapped deterministically to UUIDs,
+              keeping SMS and Radar messages for the same contact unified under one
+              profile without duplicates.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- NETWORK / PERSISTENCE / SERVICES -->
+    <section class="section" id="network">
+      <div class="section-kicker">06 · Network Scanning, Persistence &amp; Services</div>
+      <h2 class="section-heading">LAN visibility, saved state &amp; background operation</h2>
+      <p class="section-intro">
+        Radar discovers everything on your LAN, persists chats and profiles across
+        restarts, and keeps advertising your presence via a foreground service when
+        running in the background.
+      </p>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Network segment scanner</h3>
+          <p class="muted">
+            Uses ARP cache, ping sweeps, and reverse DNS to identify devices on
+            the local subnet, distinguishing Radar peers from generic devices.
+          </p>
+          <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.84rem; color:var(--muted);">
+            <li>20 concurrent ping threads</li>
+            <li>Scans 192.168.x.1–254 in ~10–15 seconds</li>
+            <li>MAC vendor lookup for common manufacturers</li>
+          </ul>
+        </div>
+
+        <div class="card" id="persistence">
+          <h3>Data persistence</h3>
+          <p class="muted">
+            Chats, messages, peer profiles, and metadata are serialized to JSON
+            and stored in app-private storage, with photos as JPEG files referenced
+            by URI.
+          </p>
+          <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.84rem; color:var(--muted);">
+            <li>Automatic save on background, ViewModel clear, and every 5 minutes</li>
+            <li>Automatic load on app start</li>
+            <li>Graceful handling of missing/new fields and corrupt entries</li>
+          </ul>
+        </div>
+
+        <div class="card" id="services">
+          <h3>Background services</h3>
+          <p class="muted">
+            The background service keeps BLE advertising and periodic location
+            updates active when the app is minimized, with a persistent, low-priority
+            notification.
+          </p>
+          <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.84rem; color:var(--muted);">
+            <li>Broadcasts your location every 10 seconds in background</li>
+            <li>Requires foreground &amp; background location permissions</li>
+            <li>Automatically restarts to recover after process death</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="section" id="architecture">
+      <div class="section-kicker">07 · Architecture</div>
+      <h2 class="section-heading">MVVM, repositories &amp; a shared ViewModel core</h2>
+      <p class="section-intro">
+        Radar is built on a clean MVVM architecture with a central shared ViewModel
+        that owns device collections, chats, profile, scanners, and message delivery
+        services.
+      </p>
+
+      <div class="two-column">
+        <div>
+          <div class="card">
+            <h3>Core patterns</h3>
+            <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.86rem; color:var(--muted);">
+              <li>MVVM with LiveData and lifecycle-aware observers</li>
+              <li>Repository layer (data persistence, profile repository, etc.)</li>
+              <li>Service layer for scanners, messaging, and location</li>
+              <li>Transport-agnostic abstraction for message delivery</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card">
+            <h3>Key components</h3>
+            <ul style="margin:0.35rem 0 0; padding-left:1.1rem; font-size:0.86rem; color:var(--muted);">
+              <li><strong>Shared ViewModel</strong> – central state &amp; collections</li>
+              <li><strong>Scanners</strong> – Bluetooth, WiFi Aware, mDNS, Network Segment</li>
+              <li><strong>Services</strong> – message delivery, foreground service, location pusher, peers fetcher</li>
+              <li><strong>Data collections</strong> – chats, peers, Bluetooth devices, WiFi devices, all devices</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SPECIAL FEATURES -->
+    <section class="section" id="special">
+      <div class="section-kicker">08 · Special Features</div>
+      <h2 class="section-heading">Drone detection, SMS integration, FCM &amp; aircraft tracking</h2>
+      <p class="section-intro">
+        Beyond core messaging and presence, Radar includes airspace awareness,
+        SMS integration, and cloud-assisted notifications via Firebase Cloud Messaging.
+      </p>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Drone detection (Remote ID)</h3>
+          <p class="muted">
+            Decodes ASTM F3411-22 and ASD-STAN prEN 4709-002 Remote ID messages
+            over BLE, showing drone ID, GPS coordinates, altitude, speed, heading,
+            and operational status.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Dedicated Remote ID Bluetooth service UUID</span>
+            <span class="pill">Basic ID, Location &amp; Message Pack</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>SMS integration</h3>
+          <p class="muted">
+            Data model and SMS inbox reader support importing SMS messages, normalizing
+            phone numbers, grouping by thread, and mapping to virtual profiles with
+            deterministic UUIDs.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Firebase Cloud Messaging</h3>
+          <p class="muted">
+            The Firebase messaging service registers an FCM token with the
+            Oracle backend so that message relays can trigger push notifications that
+            deep-link to the correct chat.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Aircraft tracking (OpenSky)</h3>
+          <p class="muted">
+            Optional connection to the OpenSky Network API to render real-time aircraft
+            positions on the map view with heading-aligned airplane icons and callsigns.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS & TECH -->
+    <section class="section" id="settings">
+      <div class="section-kicker">09 · Settings &amp; Technical Specs</div>
+      <h2 class="section-heading">Fine-grained control &amp; Android 15 compliance</h2>
+
+      <div class="two-column">
+        <div>
+          <h3>Settings &amp; configuration</h3>
+          <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.86rem; color:var(--muted);">
+            <li>Profile: nickname, names, email, gender, birth year, photo</li>
+            <li>Appearance: theme, radar options, FOV angle, distance rings</li>
+            <li>Sound: discovery pings per transport type</li>
+            <li>Scanner toggles for Bluetooth, WiFi Aware, internet sharing</li>
+            <li>Distance calibration per device (TX power at 1m)</li>
+            <li>Privacy control including 100% local-only mode</li>
+          </ul>
+        </div>
+
+        <aside id="tech">
+          <h3>Technical specifications</h3>
+          <table class="table-like">
+            <tbody>
+            <tr>
+              <th>Min / Target SDK</th>
+              <td>26 (Android 8.0) / 35 (Android 15)</td>
+            </tr>
+            <tr>
+              <th>Transports</th>
+              <td>BLE, WiFi Aware, mDNS, TCP/IP, HTTP/REST</td>
+            </tr>
+            <tr>
+              <th>Performance</th>
+              <td>Message delivery &lt; 1s on WiFi Aware · Scan interval 30s</td>
+            </tr>
+            <tr>
+              <th>Battery</th>
+              <td>~2–5% per hour with screen off</td>
+            </tr>
+            <tr>
+              <th>Storage</th>
+              <td>JSON files in app-private storage + JPEG avatars</td>
+            </tr>
+            </tbody>
+          </table>
+          <p class="muted" style="margin-top:0.7rem;">
+            Radar is aligned with Android 15 requirements: foreground service types,
+            immutable PendingIntents, predictive back via Navigation, and edge-to-edge
+            UI readiness.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section class="section" id="use-cases">
+      <div class="section-kicker">10 · Use Cases</div>
+      <h2 class="section-heading">Where Radar shines</h2>
+
+      <div class="use-cases-grid">
+        <div class="use-case">
+          <h3>Event networking</h3>
+          <p class="muted">
+            Conferences, concerts, and festivals with 100+ attendees where cellular
+            networks are congested – discover nearby people and chat locally.
+          </p>
+        </div>
+        <div class="use-case">
+          <h3>Emergency communication</h3>
+          <p class="muted">
+            Natural disasters or outages where infrastructure is down. Use WiFi Aware
+            and BLE for local messaging between nearby devices.
+          </p>
+        </div>
+        <div class="use-case">
+          <h3>Outdoor activities</h3>
+          <p class="muted">
+            Hiking, camping, or skiing trips where you want to keep track of your
+            group’s positions without relying on mobile coverage.
+          </p>
+        </div>
+        <div class="use-case">
+          <h3>Large venue coordination</h3>
+          <p class="muted">
+            Stadiums, arenas, and convention centers where friends are spread out and
+            cellular is overloaded – Radar helps coordinate meeting points.
+          </p>
+        </div>
+        <div class="use-case">
+          <h3>Network administration</h3>
+          <p class="muted">
+            Office and home network audits to discover devices, identify vendors,
+            and spot unknown or rogue hosts on the LAN.
+          </p>
+        </div>
+        <div class="use-case">
+          <h3>Drone &amp; airspace awareness</h3>
+          <p class="muted">
+            Security teams can detect and track Remote ID-broadcasting drones around a
+            site, alongside aircraft overlays via the OpenSky Network.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="section">
+      <div class="section-kicker">12 · Summary</div>
+      <h2 class="section-heading">A full-featured, offline-capable P2P platform</h2>
+      <p class="section-intro">
+        Radar brings together multi-protocol discovery, transport-agnostic
+        messaging, mesh relays, rich profiles, and background services into a
+        single Android app that works completely offline, with optional cloud
+        features for extended reach.
+      </p>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Key achievements</h3>
+          <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.86rem; color:var(--muted);">
+            <li>Bluetooth LE, WiFi Aware, mDNS, LAN scanning, optional internet</li>
+            <li>Transport-agnostic message routing with delivery tracking</li>
+            <li>Mesh store-and-forward message relay</li>
+            <li>Visual radar &amp; map views with real-time positioning</li>
+            <li>Profile exchange with automatic photo transmission</li>
+            <li>Data persistence and SMS integration roadmap</li>
+            <li>Drone detection, aircraft tracking &amp; network visibility</li>
+            <li>Android 15 compliant and production-ready architecture</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        &copy; 2026 <strong>Radar</strong> · Developed by DAL Technology
+        (<a href="http://www.daltechnology.co.uk" target="_blank" rel="noreferrer">www.daltechnology.co.uk</a>)
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;font-size:0.76rem;">
+        <a href="privacy-policy.html" style="color:var(--muted);opacity:0.7;">Privacy Policy</a> ·
+        <a href="release-notes.html" style="color:var(--muted);opacity:0.7;">Release Notes</a> ·
+        <a href="premium.html" style="color:var(--muted);opacity:0.7;">Premium</a> ·
+        <a href="ios-limitations.html" style="color:var(--muted);opacity:0.7;">iOS</a> ·
+        <a href="compare_privacy.html" style="color:var(--muted);opacity:0.7;">Compare Privacy</a> ·
+        <a href="compare_features.html" style="color:var(--muted);opacity:0.7;">Compare Features</a>
+      </div>
     </div>
-
-</main>
-
-<!-- ====================================================================== -->
-<!-- Footer                                                                  -->
-<!-- ====================================================================== -->
-<footer>
-    &copy; 2026 DAL Technology &mdash; All rights reserved.<br />
-    Radar is a proprietary, closed-source, commercial Android application.
-    See <a href="LICENSE" style="color:var(--link);">LICENSE</a> for the full Proprietary Software Licence Agreement.
-</footer>
-
+  </footer>
+</div>
 </body>
 </html>

@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feature Comparison Matrix – WhatsApp vs Telegram vs Signal vs Radar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="A comprehensive side-by-side feature comparison of WhatsApp, Telegram, Signal, and Radar — scored across 14 core features, 8 limitations, and 12 Radar-exclusive capabilities." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent-warn:  #ff6868;
+      --accent-amber: #ffe16b;
+      --accent-teal:  #4ab5ff;
+      --accent-pink:  #ff71c8;
+      --col-wa:   rgba(37,211,102,0.10);
+      --col-tg:   rgba(40,167,229,0.10);
+      --col-sig:  rgba(74,181,255,0.08);
+      --col-rad:  rgba(74,181,255,0.22);
+      --col-rad-border: rgba(74,181,255,0.75);
+    }
+
+    /* ── Sticky site nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(74,181,255,0.08); color: var(--accent-teal); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero-surv {
+      padding: 5rem 1.25rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-surv .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      border: 1px solid rgba(74,181,255,0.35);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-surv h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-surv h1 em       { font-style: normal; color: var(--accent-teal); }
+    .hero-surv h1 em.warn  { color: var(--accent-warn); }
+    .hero-surv .lead {
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      line-height: 1.75;
+    }
+
+    /* ── SECTION WRAPPERS ── */
+    .surv-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .surv-section .kicker { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 0.6rem; }
+    .kicker--teal  { color: var(--accent-teal); }
+    .kicker--amber { color: var(--accent-amber); }
+    .kicker--red   { color: var(--accent-warn); }
+    .kicker--pink  { color: var(--accent-pink); }
+    .surv-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin: 0 0 0.8rem; line-height: 1.25; }
+    .surv-section .section-lead { color: var(--muted); font-size: 0.97rem; max-width: 680px; margin-bottom: 2.5rem; line-height: 1.75; }
+
+    /* ── PLATFORM SCORE CARDS ── */
+    .platform-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    @media (max-width: 800px) { .platform-cards { grid-template-columns: 1fr 1fr; } }
+
+    .pcard {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .pcard--wa   { border-top: 3px solid rgba(37,211,102,0.6); }
+    .pcard--tg   { border-top: 3px solid rgba(40,167,229,0.6); }
+    .pcard--sig  { border-top: 3px solid rgba(74,181,255,0.4); }
+    .pcard--rad  { border-top: 3px solid var(--accent-teal); box-shadow: 0 0 24px rgba(74,181,255,0.12); }
+
+    .pcard .badge {
+      position: absolute; top: 0.9rem; right: 0.9rem;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      background: rgba(74,181,255,0.15); color: var(--accent-teal);
+      border: 1px solid rgba(74,181,255,0.35); border-radius: 999px;
+      padding: 0.18rem 0.55rem;
+    }
+    .pcard .badge--warn { background: rgba(255,104,104,0.15); color: var(--accent-warn); border-color: rgba(255,104,104,0.35); }
+    .pcard .pname { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.8rem; opacity: 0.7; }
+    .pcard .score-big { font-size: 2.4rem; font-weight: 800; line-height: 1; margin-bottom: 0.4rem; }
+    .pcard--wa  .score-big  { color: #25d366; }
+    .pcard--tg  .score-big  { color: #28a7e5; }
+    .pcard--sig .score-big  { color: var(--accent-teal); }
+    .pcard--rad .score-big  { color: var(--accent-teal); }
+    .pcard .score-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+    .pcard .prow { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.28rem 0; border-bottom: 1px solid var(--border-subtle); }
+    .pcard .prow:last-child { border-bottom: none; }
+    .pcard .prow .lbl { color: var(--muted); }
+    .pcard .prow .val { font-weight: 600; }
+    .val--good { color: var(--accent-teal); }
+    .val--warn { color: var(--accent-warn); }
+    .val--amber { color: var(--accent-amber); }
+
+    /* ── COMPARISON TABLE ── */
+    .matrix-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 2.5rem;
+    }
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .matrix-table thead th {
+      padding: 0.9rem 1rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+    .matrix-table thead th:first-child { text-align: left; min-width: 240px; }
+    .th-wa   { color: #25d366; background: var(--col-wa); }
+    .th-tg   { color: #28a7e5; background: var(--col-tg); }
+    .th-sig  { color: var(--accent-teal); background: var(--col-sig); }
+    .th-rad  { color: var(--accent-teal); background: var(--col-rad); border-left: 2px solid var(--col-rad-border); border-right: 2px solid var(--col-rad-border); border-top: 3px solid #4ab5ff; box-shadow: 0 0 22px rgba(74,181,255,0.28), inset 0 0 18px rgba(74,181,255,0.1); }
+    .th-feat { color: var(--muted); background: transparent; }
+
+    .matrix-table tbody tr { border-bottom: 1px solid var(--border-subtle); transition: background 0.15s; }
+    .matrix-table tbody tr:last-child { border-bottom: none; }
+    .matrix-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+    .matrix-table tbody td { padding: 0.75rem 1rem; text-align: center; vertical-align: middle; }
+    .matrix-table tbody td:first-child { text-align: left; font-size: 0.85rem; color: var(--text); }
+    .matrix-table tbody td.col-rad { background: rgba(74,181,255,0.13); border-left: 2px solid rgba(74,181,255,0.5); border-right: 2px solid rgba(74,181,255,0.5); box-shadow: inset 4px 0 14px rgba(74,181,255,0.07), inset -4px 0 14px rgba(74,181,255,0.07); }
+
+    /* Cells */
+    .cell-yes { color: #25d366; font-size: 1.15rem; }
+    .cell-no  { color: var(--accent-warn); font-size: 1.15rem; }
+    .cell-partial { color: var(--accent-amber); font-size: 1.05rem; font-weight: 600; }
+    .cell-design { color: var(--accent-teal); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* Limit cells — inverted logic (✓ = has limitation = bad) */
+    .cell-lim-yes { color: var(--accent-warn); font-size: 1.15rem; }
+    .cell-lim-no  { color: #25d366; font-size: 1.15rem; }
+
+    /* Score row */
+    .score-row td { font-weight: 700; font-size: 0.88rem; background: rgba(255,255,255,0.04); border-top: 2px solid var(--border-subtle); }
+    .score-row td.col-rad { background: rgba(74,181,255,0.22); }
+
+    /* Category group header */
+    .matrix-table .group-hdr td {
+      background: rgba(255,255,255,0.04);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* ── RADAR EXCLUSIVE GRID ── */
+    .radar-exclusive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 900px) { .radar-exclusive-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .radar-exclusive-grid { grid-template-columns: 1fr; } }
+
+    .excl-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(74,181,255,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.25rem 1.1rem;
+      position: relative;
+    }
+    .excl-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent-teal), transparent);
+      border-radius: 12px 12px 0 0;
+    }
+    .excl-card .excl-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+    .excl-card h4 { font-size: 0.9rem; font-weight: 700; margin: 0 0 0.4rem; color: var(--accent-teal); }
+    .excl-card p  { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    /* ── VERDICT GRID ── */
+    .verdict-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 800px) { .verdict-grid { grid-template-columns: 1fr 1fr; } }
+
+    .verdict-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .verdict-card .v-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem; opacity: 0.6; }
+    .verdict-card .v-rating { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.35rem; }
+    .verdict-card .v-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+    .verdict-card ul { text-align: left; padding: 0; margin: 0; list-style: none; }
+    .verdict-card ul li { font-size: 0.8rem; padding: 0.28rem 0; border-bottom: 1px solid var(--border-subtle); color: var(--muted); display: flex; align-items: flex-start; gap: 0.5rem; }
+    .verdict-card ul li:last-child { border-bottom: none; }
+    .verdict-card ul li .li-icon { flex-shrink: 0; font-size: 0.85rem; }
+
+    .verdict-card--wa  { border-top: 3px solid rgba(37,211,102,0.6); }
+    .verdict-card--tg  { border-top: 3px solid rgba(40,167,229,0.6); }
+    .verdict-card--sig { border-top: 3px solid rgba(74,181,255,0.4); }
+    .verdict-card--rad { border-top: 3px solid var(--accent-teal); box-shadow: 0 0 24px rgba(74,181,255,0.12); }
+
+    .vc-wa  { color: #25d366; }
+    .vc-tg  { color: #28a7e5; }
+    .vc-sig { color: var(--accent-teal); opacity: 0.8; }
+    .vc-rad { color: var(--accent-teal); }
+
+    /* ── STAT BAND ── */
+    .stat-band {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      text-align: center;
+      margin: 2.5rem 0;
+    }
+    @media (max-width: 700px) { .stat-band { grid-template-columns: 1fr 1fr; } }
+    .stat-item .stat-n { font-size: 2rem; font-weight: 800; color: var(--accent-teal); line-height: 1; }
+    .stat-item .stat-n.warn { color: var(--accent-warn); }
+    .stat-item .stat-n.amber { color: var(--accent-amber); }
+    .stat-item .stat-l { font-size: 0.8rem; color: var(--muted); margin-top: 0.35rem; line-height: 1.4; }
+
+    /* ── CLOSING BANNER ── */
+    .closing-banner {
+      text-align: center;
+      padding: 5rem 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .closing-banner h2 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 800;
+      max-width: 750px;
+      margin: 0 auto 1.25rem;
+      line-height: 1.2;
+    }
+    .closing-banner h2 em { font-style: normal; color: var(--accent-teal); }
+    .closing-banner p {
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+    .closing-banner .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTNOTE BOX ── */
+    .footnote-box {
+      background: rgba(74,181,255,0.05);
+      border: 1px solid rgba(74,181,255,0.2);
+      border-radius: 10px;
+      padding: 1.1rem 1.4rem;
+      margin-top: 1.5rem;
+    }
+    .footnote-box p { font-size: 0.82rem; color: var(--muted); margin: 0; line-height: 1.7; }
+    .footnote-box strong { color: var(--accent-teal); }
+
+    /* ── TWO-COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+    .prose-block h3 { font-size: 1rem; font-weight: 700; margin: 0 0 0.6rem; }
+    .prose-block p { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin: 0 0 0.8rem; }
+
+    /* ── BIG COMPREHENSIVE MATRIX ── */
+    .big-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border-subtle); margin-bottom: 2rem; }
+    .big-table { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 0.82rem; }
+    .big-table col.bc-feat { width: 30%; }
+    .big-table col.bc-rad  { width: 14%; }
+    .big-table col.bc-wa   { width: 14%; }
+    .big-table col.bc-tg   { width: 14%; }
+    .big-table col.bc-sig  { width: 14%; }
+    .big-table col.bc-dc   { width: 14%; }
+
+    .big-table thead th { padding: 0; border-bottom: 1px solid var(--border-subtle); vertical-align: bottom; }
+    .big-table thead th:first-child { background: transparent; }
+    .bc-app { display: flex; flex-direction: column; align-items: center; padding: 14px 10px 10px; gap: 3px; position: relative; }
+    .bc-app::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:0; }
+    .bc-emoji { font-size: 1.3rem; }
+    .bc-name  { font-size: 0.78rem; font-weight: 800; }
+    .bc-tag   { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; }
+
+    .bh-feat { background: transparent; text-align: left !important; padding: 14px 18px !important; min-width: 180px; white-space: normal !important; }
+    .bh-rad  { background: rgba(74,181,255,0.22); border-left: 2px solid rgba(74,181,255,0.7); border-right: 2px solid rgba(74,181,255,0.55); border-top: 3px solid #4ab5ff; color: var(--accent-teal); box-shadow: 0 0 24px rgba(74,181,255,0.25), inset 0 0 16px rgba(74,181,255,0.1); }
+    .bh-rad::after  { background: var(--accent-teal); }
+    .bh-wa   { background: rgba(37,211,102,0.08); border-left: 1px solid rgba(37,211,102,0.2); color: #25d366; }
+    .bh-wa::after   { background: #25d366; }
+    .bh-tg   { background: rgba(40,167,229,0.08); border-left: 1px solid rgba(40,167,229,0.2); color: #28a7e5; }
+    .bh-tg::after   { background: #28a7e5; }
+    .bh-sig  { background: rgba(74,181,255,0.05); border-left: 1px solid rgba(74,181,255,0.12); color: rgba(74,181,255,0.75); }
+    .bh-sig::after  { background: rgba(74,181,255,0.5); }
+    .bh-dc   { background: rgba(88,101,242,0.08); border-left: 1px solid rgba(88,101,242,0.2); color: #7289da; }
+    .bh-dc::after   { background: #7289da; }
+
+    .big-table tbody tr.bs-row td {
+      background: rgba(255,255,255,0.05); color: var(--muted);
+      font-size: 0.67rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; padding: 6px 18px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .big-table tbody tr.bs-row td.bc-rad { background: rgba(74,181,255,0.15); border-left: 2px solid rgba(74,181,255,0.5); border-right: 2px solid rgba(74,181,255,0.35); }
+    .big-table tbody tr.bs-row td.bc-wa  { background: rgba(37,211,102,0.06); border-left: 1px solid rgba(37,211,102,0.12); }
+    .big-table tbody tr.bs-row td.bc-tg  { background: rgba(40,167,229,0.06); border-left: 1px solid rgba(40,167,229,0.12); }
+    .big-table tbody tr.bs-row td.bc-sig { background: rgba(74,181,255,0.04); border-left: 1px solid rgba(74,181,255,0.1); }
+    .big-table tbody tr.bs-row td.bc-dc  { background: rgba(88,101,242,0.06); border-left: 1px solid rgba(88,101,242,0.12); }
+
+    .big-table tbody tr.bf-row { border-bottom: 1px solid var(--border-subtle); }
+    .big-table tbody tr.bf-row:last-child { border-bottom: none; }
+    .big-table tbody tr.bf-row:hover td { background: rgba(255,255,255,0.025) !important; }
+
+    .big-table tbody td { padding: 7px 10px; text-align: center; vertical-align: middle; }
+    .big-table tbody td.bc-feat-name { text-align: left; padding: 7px 18px; font-size: 0.82rem; color: var(--text); }
+    .big-table tbody td.bc-feat-name small { display: block; font-size: 0.71rem; color: var(--muted); font-weight: 400; margin-top: 1px; line-height: 1.35; }
+    .big-table tbody td.bc-rad { background: rgba(74,181,255,0.12); border-left: 2px solid rgba(74,181,255,0.45); border-right: 2px solid rgba(74,181,255,0.45); box-shadow: inset 4px 0 12px rgba(74,181,255,0.07), inset -4px 0 12px rgba(74,181,255,0.07); }
+    .big-table tbody td.bc-wa  { background: rgba(37,211,102,0.03); border-left: 1px solid rgba(37,211,102,0.08); }
+    .big-table tbody td.bc-tg  { background: rgba(40,167,229,0.03); border-left: 1px solid rgba(40,167,229,0.08); }
+    .big-table tbody td.bc-sig { background: rgba(74,181,255,0.02); border-left: 1px solid rgba(74,181,255,0.07); }
+    .big-table tbody td.bc-dc  { background: rgba(88,101,242,0.03); border-left: 1px solid rgba(88,101,242,0.08); }
+
+    .by  { color: #25d366; font-size: 1.05rem; font-weight: 700; }
+    .bn  { color: rgba(255,255,255,0.22); font-size: 0.95rem; }
+    .bp  { display: block; color: var(--accent-amber); font-size: 0.72rem; font-weight: 700; line-height: 1.3; }
+    .bsub{ display: block; font-size: 0.68rem; color: var(--muted); line-height: 1.3; margin-top: 1px; }
+    .bsoon{ display:inline-block; background:rgba(255,225,107,0.12); border:1px solid rgba(255,225,107,0.3); color:var(--accent-amber); font-size:0.62rem; font-weight:700; padding:1px 6px; border-radius:7px; white-space:nowrap; }
+    .bprem{ display:inline-block; background:rgba(74,181,255,0.08); border:1px solid rgba(74,181,255,0.25); color:var(--accent-teal); font-size:0.62rem; font-weight:700; padding:1px 6px; border-radius:7px; white-space:nowrap; }
+
+    .big-legend { display:flex; flex-wrap:wrap; gap:12px; font-size:0.78rem; margin-bottom:1.5rem; }
+    .big-legend span { display:flex; align-items:center; gap:5px; color:var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html">Signal</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="compare_features.html" class="nav-active">Compare Features</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section>
+  <div class="hero-surv">
+    <span class="eyebrow">Feature Comparison — 2025</span>
+    <h1>More features.<br><em class="warn">Or more privacy.</em><br>You were told to choose.</h1>
+    <p class="lead">
+      The dominant narrative in messaging has always been that rich features and genuine privacy are in fundamental tension —
+      that you must sacrifice one to get the other. This matrix puts that claim to the test,
+      scored across 14 core capabilities, 8 structural limitations, and 12 exclusive Radar features
+      that the others simply cannot offer.
+    </p>
+  </div>
+</section>
+
+<!-- ── SCORE CARDS ── -->
+<section class="surv-section" style="padding-top:0; border-top:none;">
+  <div class="kicker kicker--teal">Overall Scores</div>
+  <h2>Platform scorecard at a glance</h2>
+  <p class="section-lead">
+    Scored on core features (+1 per feature present) minus structural limitations (+1 per limitation present).
+    Radar's unique mesh and privacy features are scored separately — they cannot be compared on the same axis.
+  </p>
+
+  <div class="platform-cards">
+
+    <!-- WhatsApp -->
+    <div class="pcard pcard--wa">
+      <div class="pname">WhatsApp</div>
+      <div class="score-big">+4</div>
+      <div class="score-sub">11 features &minus; 7 limitations</div>
+      <div class="prow"><span class="lbl">Core Features</span><span class="val val--good">11 / 14</span></div>
+      <div class="prow"><span class="lbl">Limitations</span><span class="val val--warn">7 / 8</span></div>
+      <div class="prow"><span class="lbl">E2E Encrypted (default)</span><span class="val val--good">Yes</span></div>
+      <div class="prow"><span class="lbl">No phone number needed</span><span class="val val--warn">No</span></div>
+      <div class="prow"><span class="lbl">Cloud-free messaging</span><span class="val val--warn">No</span></div>
+    </div>
+
+    <!-- Telegram -->
+    <div class="pcard pcard--tg">
+      <div class="badge badge--warn">Most Features</div>
+      <div class="pname">Telegram</div>
+      <div class="score-big">+13</div>
+      <div class="score-sub">14 features &minus; 1 limitation</div>
+      <div class="prow"><span class="lbl">Core Features</span><span class="val val--good">14 / 14</span></div>
+      <div class="prow"><span class="lbl">Limitations</span><span class="val val--good">1 / 8</span></div>
+      <div class="prow"><span class="lbl">E2E Encrypted (default)</span><span class="val val--warn">No</span></div>
+      <div class="prow"><span class="lbl">No phone number needed</span><span class="val val--warn">No</span></div>
+      <div class="prow"><span class="lbl">Cloud-free messaging</span><span class="val val--warn">No</span></div>
+    </div>
+
+    <!-- Signal -->
+    <div class="pcard pcard--sig">
+      <div class="pname">Signal</div>
+      <div class="score-big">+3</div>
+      <div class="score-sub">10 features &minus; 7 limitations</div>
+      <div class="prow"><span class="lbl">Core Features</span><span class="val val--amber">10 / 14</span></div>
+      <div class="prow"><span class="lbl">Limitations</span><span class="val val--warn">7 / 8</span></div>
+      <div class="prow"><span class="lbl">E2E Encrypted (default)</span><span class="val val--good">Yes</span></div>
+      <div class="prow"><span class="lbl">No phone number needed</span><span class="val val--warn">No</span></div>
+      <div class="prow"><span class="lbl">Cloud-free messaging</span><span class="val val--warn">No</span></div>
+    </div>
+
+    <!-- Radar -->
+    <div class="pcard pcard--rad">
+      <div class="badge">Different Category</div>
+      <div class="pname">Radar</div>
+      <div class="score-big">+5</div>
+      <div class="score-sub">10 features &minus; 5 limitations</div>
+      <div class="prow"><span class="lbl">Core Features</span><span class="val val--good">10 / 14</span></div>
+      <div class="prow"><span class="lbl">Limitations</span><span class="val val--good">5 / 8</span></div>
+      <div class="prow"><span class="lbl">E2E Encrypted (default)</span><span class="val val--good">Yes</span></div>
+      <div class="prow"><span class="lbl">No phone number needed</span><span class="val val--good">Yes</span></div>
+      <div class="prow"><span class="lbl">Cloud-free messaging</span><span class="val val--good">Yes</span></div>
+    </div>
+
+  </div>
+
+  <div class="stat-band">
+    <div class="stat-item"><div class="stat-n">14/14</div><div class="stat-l">Telegram core features — the highest raw feature count</div></div>
+    <div class="stat-item"><div class="stat-n warn">1/8</div><div class="stat-l">Telegram limitations — only one, but it's a structural one</div></div>
+    <div class="stat-item"><div class="stat-n">12</div><div class="stat-l">Exclusive Radar capabilities no other platform offers</div></div>
+    <div class="stat-item"><div class="stat-n amber">0</div><div class="stat-l">User-identifiable records on Radar's relay — messages are E2E encrypted &amp; sealed-sender; UUID-only identity cannot be linked to a real person</div></div>
+  </div>
+</section>
+
+<!-- ── CORE FEATURES MATRIX ── -->
+<section class="surv-section">
+  <div class="kicker kicker--teal">Section 1 — Core Features</div>
+  <h2>14 core capabilities, side by side</h2>
+  <p class="section-lead">
+    Based on widely available product information as of 2025. A tick means the feature is genuinely available to users —
+    not buried in settings or restricted to premium tiers. A partial (≈) means significant caveats apply.
+  </p>
+
+  <div class="matrix-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="th-feat">Feature</th>
+          <th class="th-rad">Radar</th>
+          <th class="th-wa">WhatsApp</th>
+          <th class="th-tg">Telegram</th>
+          <th class="th-sig">Signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="group-hdr"><td colspan="5">Encryption &amp; Security</td></tr>
+        <tr>
+          <td>End-to-end encrypted messaging (default)</td>
+          <td class="col-rad cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-no">✗</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Group &amp; Broadcast Communication</td></tr>
+        <tr>
+          <td>Group chats</td>
+          <td class="col-rad cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+        <tr>
+          <td>Large group support (1,000+ members)</td>
+          <td class="col-rad cell-partial" title="Proximity-based — group size governed by range, not a hard limit">≈</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+        <tr>
+          <td>Broadcast / channel publishing</td>
+          <td class="col-rad cell-partial" title="Radar supports group broadcast; no public channels by design">≈</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-no">✗</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Voice &amp; Video</td></tr>
+        <tr>
+          <td>Voice &amp; video calls</td>
+          <td class="col-rad cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Multi-Device &amp; Cloud</td></tr>
+        <tr>
+          <td>Multi-device support</td>
+          <td class="col-rad cell-no">✗</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+        <tr>
+          <td>Cloud sync across devices</td>
+          <td class="col-rad cell-design">By design: No</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-no">✗</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Media &amp; Files</td></tr>
+        <tr>
+          <td>File sharing (including large files)</td>
+          <td class="col-rad cell-yes">✓</td>
+          <td class="cell-no">✗</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-no">✗</td>
+        </tr>
+        <tr>
+          <td>Stickers / GIFs / rich media</td>
+          <td class="col-rad cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Message Management</td></tr>
+        <tr>
+          <td>Message editing</td>
+          <td class="col-rad cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+        <tr>
+          <td>Message deletion (for all parties)</td>
+          <td class="col-rad cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+        <tr>
+          <td>Disappearing messages</td>
+          <td class="col-rad cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Platform Availability</td></tr>
+        <tr>
+          <td>Desktop applications</td>
+          <td class="col-rad cell-no">✗</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+        </tr>
+        <tr>
+          <td>Web client</td>
+          <td class="col-rad cell-partial" title="Matrix integration provides web access via external homeserver">≈</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-yes">✓</td>
+          <td class="cell-no">✗</td>
+        </tr>
+
+        <!-- Score row -->
+        <tr class="score-row">
+          <td><strong>Section Score (higher is better)</strong></td>
+          <td class="col-rad"><strong style="color:var(--accent-teal)">10 / 14</strong></td>
+          <td><strong>11 / 14</strong></td>
+          <td><strong>14 / 14</strong></td>
+          <td><strong>10 / 14</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footnote-box">
+    <p>
+      <strong>Why Radar still scores below Telegram on conventional features:</strong> Radar is offline-first and serverless — multi-device sync, desktop clients, and cloud storage are absent by architectural design, not oversight. The four features added since this matrix was first drafted (voice/video calls, message editing, disappearing messages, stickers &amp; GIFs) bring Radar to 10/14, matching Signal. The remaining gaps are the privacy guarantees.
+    </p>
+  </div>
+</section>
+
+<!-- ── LIMITATIONS MATRIX ── -->
+<section class="surv-section">
+  <div class="kicker kicker--amber">Section 2 — Structural Limitations</div>
+  <h2>8 trade-offs every platform makes</h2>
+  <p class="section-lead">
+    In this table, <span style="color:#25d366">green (✓)</span> means the platform is free from that limitation.
+    <span style="color:var(--accent-warn)">Red (✗)</span> means the limitation applies.
+    Lower scores (fewer limitations) are better.
+  </p>
+
+  <div class="matrix-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="th-feat">Limitation</th>
+          <th class="th-rad">Radar</th>
+          <th class="th-wa">WhatsApp</th>
+          <th class="th-tg">Telegram</th>
+          <th class="th-sig">Signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="group-hdr"><td colspan="5">Identity &amp; Account</td></tr>
+        <tr>
+          <td>Requires a phone number to register</td>
+          <td class="col-rad cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-yes">✗</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Scale &amp; Capacity</td></tr>
+        <tr>
+          <td>Limited group size vs. competitors</td>
+          <td class="col-rad cell-lim-yes">✗</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Data Portability &amp; Sync</td></tr>
+        <tr>
+          <td>No true cloud message sync across devices</td>
+          <td class="col-rad cell-design" title="By design — no servers means no sync; this is intentional">By design</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+        </tr>
+        <tr>
+          <td>File size limits are restrictive</td>
+          <td class="col-rad cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Power Users &amp; Automation</td></tr>
+        <tr>
+          <td>Advanced automation / bots limited</td>
+          <td class="col-rad cell-lim-yes">✗</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+        </tr>
+        <tr>
+          <td>Channels / broadcast features limited</td>
+          <td class="col-rad cell-lim-yes">✗</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Cross-Platform Experience</td></tr>
+        <tr>
+          <td>Multi-device experience has limitations</td>
+          <td class="col-rad cell-lim-yes">✗</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+        </tr>
+
+        <tr class="group-hdr"><td colspan="5">Philosophy</td></tr>
+        <tr>
+          <td>Feature set prioritises privacy over flexibility</td>
+          <td class="col-rad cell-lim-yes">✗</td>
+          <td class="cell-lim-no">✓</td>
+          <td class="cell-lim-yes">✗</td>
+          <td class="cell-lim-yes">✗</td>
+        </tr>
+
+        <!-- Score row -->
+        <tr class="score-row">
+          <td><strong>Section Score (lower is better)</strong></td>
+          <td class="col-rad"><strong style="color:var(--accent-teal)">5 / 8</strong></td>
+          <td><strong style="color:var(--accent-warn)">7 / 8</strong></td>
+          <td><strong style="color:#25d366">1 / 8</strong></td>
+          <td><strong style="color:var(--accent-warn)">7 / 8</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footnote-box">
+    <p>
+      <strong>Telegram's anomaly:</strong> Telegram scores exceptionally well here precisely because it sacrifices privacy for features.
+      Cloud sync, unlimited group size, bots, and channels are only possible because Telegram stores all your data on its servers
+      unencrypted by default. The <em>absence</em> of these "limitations" is a direct consequence of having <em>no meaningful privacy</em>.
+      Telegram is the most feature-rich platform in this comparison and simultaneously the least private.
+    </p>
+  </div>
+</section>
+
+<!-- ── FULL COMPARISON MATRIX ── -->
+<section class="surv-section">
+  <div class="kicker kicker--teal">Section 3 — Full Feature Comparison</div>
+  <h2>Radar vs WhatsApp vs Telegram vs Signal vs Discord</h2>
+  <p class="section-lead">
+    The complete feature-by-feature breakdown across every category — identity, messaging, privacy, offline capability,
+    location, media, voice/video, emergency features, and platform support. Radar is highlighted.
+    Features marked <span class="bsoon">Roadmap</span> are planned; <span class="bprem">Premium</span> requires a subscription.
+  </p>
+
+  <div class="big-legend">
+    <span><span class="by">✓</span> Available</span>
+    <span><span class="bn">✗</span> Not available</span>
+    <span><span class="bp">Partial</span> Limited / conditional</span>
+    <span><span class="bsoon">Roadmap</span> Planned</span>
+    <span><span class="bprem">Premium</span> Subscription required</span>
+  </div>
+
+  <div class="big-wrap">
+  <table class="big-table" aria-label="Full feature comparison: Radar vs WhatsApp, Telegram, Signal, Discord">
+    <colgroup>
+      <col class="bc-feat"/><col class="bc-rad"/><col class="bc-wa"/><col class="bc-tg"/><col class="bc-sig"/><col class="bc-dc"/>
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="bh-feat"></th>
+        <th><div class="bc-app bh-rad"><span class="bc-emoji">📡</span><span class="bc-name">Radar</span><span class="bc-tag">DAL Technology</span></div></th>
+        <th><div class="bc-app bh-wa"><span class="bc-emoji">💬</span><span class="bc-name">WhatsApp</span><span class="bc-tag">Meta</span></div></th>
+        <th><div class="bc-app bh-tg"><span class="bc-emoji">✈️</span><span class="bc-name">Telegram</span><span class="bc-tag">Telegram FZ-LLC</span></div></th>
+        <th><div class="bc-app bh-sig"><span class="bc-emoji">🔒</span><span class="bc-name">Signal</span><span class="bc-tag">Signal Foundation</span></div></th>
+        <th><div class="bc-app bh-dc"><span class="bc-emoji">🎮</span><span class="bc-name">Discord</span><span class="bc-tag">Discord Inc.</span></div></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- IDENTITY -->
+      <tr class="bs-row"><td>👤 Identity &amp; Registration</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Phone number required</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-wa"><span class="by">✓</span></td>
+        <td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Email address required</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td>
+        <td class="bc-tg"><span class="bn">✗</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Truly anonymous — no personal info required<small>Account is a random UUID; no PII collected at sign-up</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td>
+        <td class="bc-tg"><span class="bn">✗</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Custom display name &amp; profile photo</td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="by">✓</span></td>
+        <td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Username / handle (shareable without phone number)</td>
+        <td class="bc-rad"><span class="bp">UUID / QR</span></td>
+        <td class="bc-wa"><span class="bp">Link only</span></td>
+        <td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Biometric app lock (fingerprint / face)</td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="by">✓</span></td>
+        <td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- DIRECT MESSAGING -->
+      <tr class="bs-row"><td>💬 Direct Messaging</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Send &amp; receive text messages</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Typing indicators</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Read receipts</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td>
+        <td class="bc-tg"><span class="bp">Secret chats only</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Emoji reactions to messages</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Reply to a specific message (quoted reply)</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Pin messages in a chat</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Delete message for everyone</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Edit sent messages</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Disappearing / timed messages</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td>
+        <td class="bc-tg"><span class="bp">Secret chats only</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Starred / saved messages</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Forward messages to another chat</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">SMS &amp; MMS integration<small>Send/receive standard SMS alongside encrypted messages</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td>
+        <td class="bc-sig"><span class="bp">Android only</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">In-chat message search</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Mute notifications per chat</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+
+      <!-- GROUPS & COMMUNITIES -->
+      <tr class="bs-row"><td>👥 Groups &amp; Communities</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Group chats</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Maximum group size</td>
+        <td class="bc-rad"><span class="bp">Mesh range limited<br/><span class="bsub">no hard cap</span></span></td>
+        <td class="bc-wa"><span class="bp">1,024 members</span></td>
+        <td class="bc-tg"><span class="bp">200,000 members</span></td>
+        <td class="bc-sig"><span class="bp">1,000 members</span></td>
+        <td class="bc-dc"><span class="bp">Unlimited servers</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Channels / broadcast lists<small>One-to-many announcements</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Announcement lists<small>Fan-out to individual private chats — recipients never see each other</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="bp">Broadcast lists</span></td>
+        <td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Roles &amp; permissions management</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-wa"><span class="bp">Admin only</span></td>
+        <td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Threaded replies / message threads</td>
+        <td class="bc-rad"><span class="bn">✗</span></td><td class="bc-wa"><span class="bn">✗</span></td>
+        <td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Bots &amp; automated integrations</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-wa"><span class="bp">Business API only</span></td>
+        <td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Matrix federated chat rooms<small>Connect to any Matrix / Element homeserver</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- PRIVACY & SECURITY -->
+      <tr class="bs-row"><td>🔒 Privacy &amp; Security</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">End-to-end encryption (on by default)</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td>
+        <td class="bc-tg"><span class="bn">✗</span><span class="bsub">Secret Chats only</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Sealed-sender / metadata protection<small>Server cannot determine who is sending to whom</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Messages not stored on server<small>Content never persisted beyond relay / delivery</small></td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">Encrypted relay; 7-day max; UUID-only — no identity link possible</span></td>
+        <td class="bc-wa"><span class="bn">✗</span><span class="bsub">Backup to cloud</span></td>
+        <td class="bc-tg"><span class="bn">✗</span><span class="bsub">Cloud-stored</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Encrypted local database on device</td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="bp">Optional backup encryption</span></td>
+        <td class="bc-tg"><span class="bn">✗</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">No advertising — ever</td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-wa"><span class="bn">✗</span><span class="bsub">Meta ecosystem</span></td>
+        <td class="bc-tg"><span class="bp">Sponsored channels</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bp">Ads on free tier</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Data sold to third parties</td>
+        <td class="bc-rad"><span class="bn">✗</span><span class="bsub">Never</span></td>
+        <td class="bc-wa"><span class="bp">Meta data sharing</span></td>
+        <td class="bc-tg"><span class="bn">✗</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Open source code</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td>
+        <td class="bc-tg"><span class="bp">Client only</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Screen security (block screenshots)</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td>
+        <td class="bc-tg"><span class="bp">Secret chats only</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Block contacts</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+
+      <!-- SURVEILLANCE RESISTANCE -->
+      <tr class="bs-row"><td>🕵️ Surveillance Resistance &amp; Government Intercept</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Contact list harvested / social graph built<small>Address book uploaded — maps who knows whom; subpoenable</small></td>
+        <td class="bc-rad"><span class="bn">✗</span><span class="bsub">Contacts found via BLE proximity; no address book uploaded</span></td>
+        <td class="bc-wa"><span class="by">✓</span><span class="bsub">Uploaded &amp; shared across Meta; non-users profiled</span></td>
+        <td class="bc-tg"><span class="bp">Partial<br/><span class="bsub">Phone-number matching reveals contact graph</span></span></td>
+        <td class="bc-sig"><span class="bp">Minimal<br/><span class="bsub">Private contact discovery; Signal sees nothing</span></span></td>
+        <td class="bc-dc"><span class="bp">Optional<br/><span class="bsub">Phone / social sync encouraged</span></span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Zero-knowledge architecture<small>Operator mathematically prevented from reading messages regardless of legal compulsion</small></td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">E2E + sealed sender + UUID only; encrypted relay; nothing meaningful to hand over</span></td>
+        <td class="bc-wa"><span class="bn">✗</span><span class="bsub">Content E2E but metadata &amp; contact graph retained; cloud backups accessible</span></td>
+        <td class="bc-tg"><span class="bn">✗</span><span class="bsub">Standard chats readable server-side; only Secret Chats have E2E</span></td>
+        <td class="bc-sig"><span class="by">✓</span><span class="bsub">Proven 2021: only registration date &amp; last connection disclosed</span></td>
+        <td class="bc-dc"><span class="bn">✗</span><span class="bsub">Full message history stored; Discord has complete read access</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">What authorities can obtain with a valid warrant</td>
+        <td class="bc-rad"><span class="bp">Almost nothing<br/><span class="bsub">No PII; encrypted content; sealed sender; relay deletes after 7 days</span></span></td>
+        <td class="bc-wa"><span class="bp">Significant<br/><span class="bsub">Metadata, contact lists, call logs, unencrypted cloud backups</span></span></td>
+        <td class="bc-tg"><span class="bp">IP &amp; phone number<br/><span class="bsub">Post-2024: also content from standard chats</span></span></td>
+        <td class="bc-sig"><span class="bp">Almost nothing<br/><span class="bsub">Registration date &amp; last login only — demonstrated to US grand jury</span></span></td>
+        <td class="bc-dc"><span class="by">✓</span><span class="bsub">Full message history, IP, email, payment info; regular cooperation</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Censorship resistance — works when app is government-blocked</td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">BLE &amp; Wi-Fi Aware bypass all internet infrastructure</span></td>
+        <td class="bc-wa"><span class="bn">✗</span><span class="bsub">Blocked in China, Iran, Cuba</span></td>
+        <td class="bc-tg"><span class="bp">Partial<br/><span class="bsub">MTProto obfuscation; some circumvention</span></span></td>
+        <td class="bc-sig"><span class="bp">Partial<br/><span class="bsub">Censorship-circumvention mode; proxies available</span></span></td>
+        <td class="bc-dc"><span class="bn">✗</span><span class="bsub">Blocked in China; no circumvention</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Can operate with no internet infrastructure at all<small>Functions when ISPs, cell towers, and DNS are entirely offline</small></td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">BLE + Wi-Fi Aware + LAN mesh; fully offline-capable</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Legal jurisdiction</td>
+        <td class="bc-rad"><span class="bp">🇬🇧 UK<br/><span class="bsub">UK GDPR; no CLOUD Act exposure</span></span></td>
+        <td class="bc-wa"><span class="bp">🇺🇸 USA<br/><span class="bsub">CLOUD Act: US agencies can compel Meta data globally</span></span></td>
+        <td class="bc-tg"><span class="bp">🇦🇪 UAE/BVI<br/><span class="bsub">Complex multi-jurisdiction; cooperating with French authorities</span></span></td>
+        <td class="bc-sig"><span class="bp">🇺🇸 USA<br/><span class="bsub">Non-profit; minimal data held; strong non-disclosure precedent</span></span></td>
+        <td class="bc-dc"><span class="bp">🇺🇸 USA<br/><span class="bsub">CLOUD Act; cooperates with law enforcement regularly</span></span></td>
+      </tr>
+
+      <!-- OFFLINE & CONNECTIVITY -->
+      <tr class="bs-row"><td>📶 Offline &amp; Connectivity</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Works without any internet connection</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Bluetooth LE (BLE) peer delivery</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Wi-Fi Aware / direct peer-to-peer (NAN)</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Local area network (LAN) delivery</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Mesh store-and-forward relay<small>Messages hop peer-to-peer until they reach the recipient</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Multi-channel fallback delivery<small>Tries BLE → Wi-Fi Aware → LAN → web relay automatically</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Wi-Fi Access Point mode (device acts as hotspot relay)</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- MEDIA & FILES -->
+      <tr class="bs-row"><td>📷 Media &amp; Files</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Send photos &amp; images</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Send videos</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Send arbitrary files (documents, ZIP, etc.)</td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">Auto-chunked; no size limit</span></td>
+        <td class="bc-wa"><span class="by">✓</span><span class="bsub">up to 2 GB</span></td>
+        <td class="bc-tg"><span class="by">✓</span><span class="bsub">up to 2 GB</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="by">✓</span><span class="bsub">up to 25 MB free</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Voice messages (audio notes)</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Stickers &amp; GIFs<small>Tenor GIF search + built-in sticker packs</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">View-once / self-destructing media</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Status / Stories</td>
+        <td class="bc-rad"><span class="bn">✗</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- VOICE & VIDEO -->
+      <tr class="bs-row"><td>📞 Voice &amp; Video Calls</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">1-to-1 voice calls</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">1-to-1 video calls</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Group / conference calls</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Screen sharing during calls</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td>
+        <td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Always-on voice channels</td>
+        <td class="bc-rad"><span class="bn">✗</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td>
+        <td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">E2E encrypted calls</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td>
+        <td class="bc-tg"><span class="bp">Secret calls only</span></td>
+        <td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- LOCATION & MAP -->
+      <tr class="bs-row"><td>🗺️ Location &amp; Map</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Share a static location in a message</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td>
+        <td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Live / real-time location sharing</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td>
+        <td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Nearby peers shown on interactive map<small>See all reachable contacts in real time</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Live radar sweep with RSSI distance estimation</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Live aircraft positions on map<small>Real-time ADS-B flight data overlay</small></td>
+        <td class="bc-rad"><span class="bprem">Premium</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Wi-Fi AP heatmap (WiGLE)<small>Crowd-sourced Wi-Fi network positions on map</small></td>
+        <td class="bc-rad"><span class="bprem">Premium</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Earthquake &amp; seismic event alerts on map</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Offline maps (downloadable cached tiles)</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- EMERGENCY -->
+      <tr class="bs-row"><td>🆘 Emergency Features</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">SOS broadcast to all reachable peers<small>GPS coordinates sent across all channels simultaneously</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">SOS delivery when cell networks are down</td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">BLE / Wi-Fi Aware</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">In-app emergency checklist</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Emergency contacts &amp; local services directory<small>Hospitals, pharmacies, national emergency numbers</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Personal distress alarm &amp; SOS Morse torch</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Internet radio player<small>Streams nearby stations via Radio Browser; no FM hardware required</small></td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">Stations within 100 km of your GPS position</span></td>
+        <td class="bc-wa"><span class="bn">✗</span></td><td class="bc-tg"><span class="bn">✗</span></td><td class="bc-sig"><span class="bn">✗</span></td><td class="bc-dc"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- PLATFORMS -->
+      <tr class="bs-row"><td>💻 Platforms</td><td class="bc-rad"></td><td class="bc-wa"></td><td class="bc-tg"></td><td class="bc-sig"></td><td class="bc-dc"></td></tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Android</td>
+        <td class="bc-rad"><span class="by">✓</span></td><td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">iOS (iPhone &amp; iPad)<small>Apple platform restrictions prevent BLE mesh, Wi-Fi Aware, and background radio</small></td>
+        <td class="bc-rad"><span class="bn">✗</span><span class="bsub">Technically not feasible</span></td>
+        <td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Desktop app (Windows / macOS / Linux)</td>
+        <td class="bc-rad"><span class="bsoon">Roadmap</span></td>
+        <td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Web browser client</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Linked / multiple devices simultaneously</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+      <tr class="bf-row">
+        <td class="bc-feat-name">Message history sync across devices</td>
+        <td class="bc-rad"><span class="bp">Matrix rooms only</span></td>
+        <td class="bc-wa"><span class="by">✓</span></td><td class="bc-tg"><span class="by">✓</span></td><td class="bc-sig"><span class="by">✓</span></td><td class="bc-dc"><span class="by">✓</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div><!-- /big-wrap -->
+
+  <div class="footnote-box">
+    <p>
+      <strong>Where Radar stands alone:</strong> No other platform in this comparison can operate without any internet infrastructure.
+      Radar's BLE, Wi-Fi Aware, LAN mesh, and AP bridging transports mean it delivers messages, location, and SOS signals even when
+      ISPs, cell towers, and DNS are entirely offline. Radar is also the only platform with no personal identifier at registration —
+      a UUID cannot link you to a real-world identity even if the relay server were subpoenaed.
+      The encrypted relay stores messages for a maximum of 7 days; content is E2E encrypted and sealed-sender,
+      making it cryptographically impossible to identify which UUID belongs to which human.
+    </p>
+  </div>
+</section>
+
+<!-- ── VERDICT ── -->
+<section class="surv-section">
+  <div class="kicker kicker--teal">Section 4 — Platform Verdict</div>
+  <h2>Summary</h2>
+  <p class="section-lead">
+    No platform is universally best. The right tool depends on your threat model.
+    Here is an honest assessment of when each platform is the correct choice.
+  </p>
+
+  <div class="verdict-grid">
+
+    <div class="verdict-card verdict-card--wa">
+      <div class="v-name">WhatsApp</div>
+      <div class="v-rating vc-wa">Best for: Reach</div>
+      <div class="v-sub">2.5 billion users, E2E by default, familiar UX — the lowest-friction option for everyday communication with non-technical contacts.</div>
+      <ul>
+        <li><span class="li-icon">✓</span> E2E encrypted by default</li>
+        <li><span class="li-icon">✓</span> Universal adoption</li>
+        <li><span class="li-icon">✓</span> Reliable multi-device</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> Extensive metadata collection</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> Meta ownership</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> Phone number required</li>
+      </ul>
+    </div>
+
+    <div class="verdict-card verdict-card--tg">
+      <div class="v-name">Telegram</div>
+      <div class="v-rating vc-tg">Best for: Features</div>
+      <div class="v-sub">The most feature-rich platform by far — excellent for communities, large groups, and automation. Do not use it for private communication.</div>
+      <ul>
+        <li><span class="li-icon">✓</span> Unlimited group size</li>
+        <li><span class="li-icon">✓</span> Full cloud sync</li>
+        <li><span class="li-icon">✓</span> Bots and automation</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> No E2E encryption by default</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> All messages server-stored</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> Proven government handover</li>
+      </ul>
+    </div>
+
+    <div class="verdict-card verdict-card--sig">
+      <div class="v-name">Signal</div>
+      <div class="v-rating vc-sig">Best for: Conventional Privacy</div>
+      <div class="v-sub">The gold standard for centralised private messaging. Minimal metadata, strong encryption, transparent. Recommended over WhatsApp and Telegram for sensitive communication.</div>
+      <ul>
+        <li><span class="li-icon">✓</span> Best-in-class encryption</li>
+        <li><span class="li-icon">✓</span> Minimal data production under subpoena</li>
+        <li><span class="li-icon">✓</span> Open source, audited</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> Phone number identity linkage</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> US jurisdiction single point</li>
+        <li><span class="li-icon" style="color:var(--accent-warn)">✗</span> Push notification metadata</li>
+      </ul>
+    </div>
+
+    <div class="verdict-card verdict-card--rad">
+      <div class="v-name">Radar</div>
+      <div class="v-rating vc-rad">Best for: Real Privacy</div>
+      <div class="v-sub">The only platform in this comparison with zero server-stored data, no identity linkage, and full offline capability. The ceiling, not the compromise.</div>
+      <ul>
+        <li><span class="li-icon">✓</span> Zero data retention by architecture</li>
+        <li><span class="li-icon">✓</span> No phone number or account</li>
+        <li><span class="li-icon">✓</span> Offline mesh — no infrastructure needed</li>
+        <li><span class="li-icon">✓</span> No subpoenable server-side data</li>
+        <li><span class="li-icon" style="color:var(--accent-amber)">≈</span> Fewer conventional features</li>
+        <li><span class="li-icon" style="color:var(--accent-amber)">≈</span> Android only (current release)</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CLOSING BANNER ── -->
+<section class="closing-banner">
+  <div class="cta-row">
+    <a class="btn btn-primary" href="compare_privacy.html">Privacy Matrix →</a>
+    <a class="btn btn-secondary" href="index.html">About Radar</a>
+  </div>
+</section>
+
+</body>
+</html>

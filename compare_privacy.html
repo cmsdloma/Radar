@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Privacy Comparison Matrix – WhatsApp vs Telegram vs Signal vs Radar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="A comprehensive side-by-side privacy and security comparison of WhatsApp, Telegram, Signal, and Radar — scored across 10 positive properties and 17 risk factors." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent-warn:  #ff6868;
+      --accent-amber: #ffe16b;
+      --accent-teal:  #4ab5ff;
+      --accent-pink:  #ff71c8;
+      --col-wa:   rgba(37,211,102,0.10);
+      --col-tg:   rgba(40,167,229,0.10);
+      --col-sig:  rgba(74,181,255,0.08);
+      --col-rad:  rgba(74,181,255,0.16);
+      --col-rad-border: rgba(74,181,255,0.5);
+    }
+
+    /* ── Sticky site nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(74,181,255,0.08); color: var(--accent-teal); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero-surv {
+      padding: 5rem 1.25rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-surv .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      border: 1px solid rgba(74,181,255,0.35);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-surv h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-surv h1 em       { font-style: normal; color: var(--accent-teal); }
+    .hero-surv h1 em.warn  { color: var(--accent-warn); }
+    .hero-surv .lead {
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      line-height: 1.75;
+    }
+
+    /* ── SECTION WRAPPERS ── */
+    .surv-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .surv-section .kicker { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 0.6rem; }
+    .kicker--teal  { color: var(--accent-teal); }
+    .kicker--amber { color: var(--accent-amber); }
+    .kicker--red   { color: var(--accent-warn); }
+    .kicker--pink  { color: var(--accent-pink); }
+    .surv-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin: 0 0 0.8rem; line-height: 1.25; }
+    .surv-section .section-lead { color: var(--muted); font-size: 0.97rem; max-width: 680px; margin-bottom: 2.5rem; line-height: 1.75; }
+
+    /* ── PLATFORM SCORE CARDS ── */
+    .platform-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    @media (max-width: 800px) { .platform-cards { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .platform-cards { grid-template-columns: 1fr; } }
+
+    .platform-card {
+      border-radius: var(--card-radius);
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255,255,255,0.03);
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+    .platform-card:hover { transform: translateY(-3px); }
+    .platform-card.winner {
+      border-color: var(--col-rad-border);
+      background: var(--col-rad);
+      box-shadow: 0 0 40px rgba(74,181,255,0.12);
+    }
+    .platform-card .winner-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-teal);
+      color: #050814;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .platform-card .pname {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .platform-card .score-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .score-pill {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .score-pill.good  { background: rgba(74,181,255,0.12); color: var(--accent-teal);  border: 1px solid rgba(74,181,255,0.25); }
+    .score-pill.bad   { background: rgba(255,104,104,0.12); color: var(--accent-warn);  border: 1px solid rgba(255,104,104,0.25); }
+    .score-pill.net-pos { background: rgba(74,181,255,0.18); color: var(--accent-teal); border: 1px solid rgba(74,181,255,0.4); font-size: 0.9rem; }
+    .score-pill.net-neg { background: rgba(255,104,104,0.18); color: var(--accent-warn); border: 1px solid rgba(255,104,104,0.4); font-size: 0.9rem; }
+    .platform-card .net-label { font-size: 0.72rem; color: var(--muted); margin-top: 0.4rem; }
+    .platform-card .verdict-line {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.9rem;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* ── COMPARISON MATRIX TABLE ── */
+    .matrix-wrap {
+      overflow-x: auto;
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 2rem;
+    }
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 620px;
+    }
+    .matrix-table thead tr {
+      background: rgba(255,255,255,0.04);
+    }
+    .matrix-table th {
+      padding: 1rem 1.1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+    .matrix-table th.col-feature {
+      text-align: left;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      min-width: 220px;
+    }
+    .matrix-table th.col-wa   { color: #25d366; background: var(--col-wa); }
+    .matrix-table th.col-tg   { color: #29a7e0; background: var(--col-tg); }
+    .matrix-table th.col-sig  { color: var(--accent-teal); background: var(--col-sig); }
+    .matrix-table th.col-rad  { color: var(--accent-teal); background: var(--col-rad); border-left: 2px solid var(--col-rad-border); border-right: 2px solid var(--col-rad-border); }
+
+    .matrix-table td {
+      padding: 0.8rem 1.1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.87rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .matrix-table td.feature-label {
+      text-align: left;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .matrix-table td.col-wa  { background: rgba(37,211,102,0.04); }
+    .matrix-table td.col-tg  { background: rgba(40,167,229,0.04); }
+    .matrix-table td.col-sig { background: rgba(74,181,255,0.03); }
+    .matrix-table td.col-rad {
+      background: rgba(74,181,255,0.07);
+      border-left: 2px solid rgba(74,181,255,0.25);
+      border-right: 2px solid rgba(74,181,255,0.25);
+    }
+    .matrix-table tr:last-child td { border-bottom: none; }
+    .matrix-table tr:hover td { filter: brightness(1.08); }
+
+    /* Score footer row */
+    .matrix-table tr.score-row td {
+      background: rgba(255,255,255,0.04);
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 1rem 1.1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .matrix-table tr.score-row td.col-rad { background: rgba(74,181,255,0.12); }
+
+    /* Cell badges */
+    .cell-yes {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--accent-teal);
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+    .cell-yes::before { content: "✓"; font-size: 1rem; }
+
+    .cell-no {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: rgba(160,163,194,0.4);
+      font-size: 0.82rem;
+    }
+    .cell-no::before { content: "✗"; font-size: 1rem; }
+
+    /* Bad matrix */
+    .cell-risk {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--accent-warn);
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+    .cell-risk::before { content: "✗"; font-size: 1rem; }
+
+    .cell-safe {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--accent-teal);
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+    .cell-safe::before { content: "✓"; font-size: 1rem; }
+
+    .cell-partial {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--accent-amber);
+      font-size: 0.82rem;
+    }
+    .cell-partial::before { content: "~"; font-size: 1rem; font-weight: 700; }
+
+    /* Radar column highlight badge on score row */
+    .radar-score-badge {
+      display: inline-block;
+      background: var(--accent-teal);
+      color: #050814;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+    }
+
+    /* ── RADAR DEEP DIVE ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.1rem;
+    }
+    .feature-card {
+      background: rgba(74,181,255,0.04);
+      border: 1px solid rgba(74,181,255,0.15);
+      border-radius: var(--card-radius);
+      padding: 1.4rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .feature-card:hover {
+      background: rgba(74,181,255,0.08);
+      border-color: rgba(74,181,255,0.35);
+    }
+    .feature-card .ficon { font-size: 1.5rem; margin-bottom: 0.65rem; display: block; }
+    .feature-card h3 { font-size: 0.94rem; font-weight: 700; margin: 0 0 0.45rem; color: var(--accent-teal); }
+    .feature-card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .feature-card p strong { color: var(--text); }
+
+    /* ── QUOTE ── */
+    blockquote.inline-quote {
+      margin: 2.5rem 0;
+      padding: 1.4rem 1.75rem;
+      border-left: 3px solid;
+      border-radius: 0 10px 10px 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    blockquote.inline-quote.teal  { border-color: var(--accent-teal);  background: rgba(74,181,255,0.05); }
+    blockquote.inline-quote.red   { border-color: var(--accent-warn);  background: rgba(255,104,104,0.06); }
+    blockquote.inline-quote.amber { border-color: var(--accent-amber); background: rgba(255,225,107,0.05); }
+    blockquote.inline-quote cite  { display: block; margin-top: 0.65rem; font-style: normal; font-size: 0.8rem; opacity: 0.7; }
+    blockquote.inline-quote.teal  cite { color: var(--accent-teal); }
+    blockquote.inline-quote.red   cite { color: var(--accent-warn); }
+    blockquote.inline-quote.amber cite { color: var(--accent-amber); }
+
+    /* ── SECTION DIVIDER / LABEL ── */
+    .matrix-section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .matrix-section-label .label-text {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .matrix-section-label .label-text.good  { color: var(--accent-teal); }
+    .matrix-section-label .label-text.bad   { color: var(--accent-warn); }
+    .matrix-section-label hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid var(--border-subtle);
+      margin: 0;
+    }
+
+    /* ── CLOSING BANNER ── */
+    .closing-banner {
+      max-width: var(--max-width);
+      margin: 2rem auto 4rem;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, rgba(74,181,255,0.08), rgba(255,225,107,0.04), rgba(255,113,200,0.03));
+      border: 1px solid rgba(74,181,255,0.25);
+      border-radius: var(--card-radius);
+      text-align: center;
+    }
+    .closing-banner h2 { font-size: clamp(1.4rem,3vw,2rem); font-weight: 800; margin: 0 0 1rem; }
+    .closing-banner p  { color: var(--muted); max-width: 640px; margin: 0 auto 1.5rem; font-size: 0.97rem; line-height: 1.75; }
+    .closing-banner .disclaimer { font-size: 0.77rem; color: rgba(160,163,194,0.55); margin-top: 1.5rem; font-style: italic; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+    /* ── FOOTER ── */
+    footer.surv-footer {
+      text-align: center;
+      padding: 2rem 1.25rem;
+      font-size: 0.78rem;
+      color: rgba(160,163,194,0.45);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 600px) { .matrix-wrap { border-radius: 0; margin-left: -1.25rem; margin-right: -1.25rem; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html">Signal</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+      <li><a href="compare_privacy.html" class="nav-active">Compare Privacy</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+    </ul>
+  </div>
+</nav>
+
+  <main>
+
+    <!-- ── HERO ── -->
+    <div class="hero-surv">
+      <span class="eyebrow">Privacy Comparison · WhatsApp · Telegram · Signal · Radar</span>
+      <h1>How they <em>actually</em> compare —<br>scored across <em class="warn">27 criteria</em>.</h1>
+      <p class="lead">
+        Most platform comparisons are written by marketers.  This one is written from
+        technical architecture and documented legal record.  Every platform is measured
+        against the same 10 positive privacy properties and 17 known risk factors —
+        with no credit given for intentions, only for demonstrated design.
+        The results are unambiguous.
+      </p>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 1 — SCORE CARDS
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="scores">
+      <div class="kicker kicker--teal">Overall Assessment · All Four Platforms</div>
+      <h2>The scoreboard</h2>
+      <p class="section-lead">
+        Each platform is rated on 10 positive privacy properties (higher is better) and
+        17 risk factors (lower is better).  The net score is the difference.
+        Only one platform achieves a positive score in both dimensions simultaneously.
+      </p>
+
+      <div class="platform-cards">
+
+        <div class="platform-card">
+          <div class="pname">📱 WhatsApp</div>
+          <div class="score-row">
+            <span class="score-pill good">✓ 4 / 10</span>
+            <span class="score-pill bad">✗ 13 / 17</span>
+          </div>
+          <div class="score-row"><span class="score-pill net-neg">Net: −9</span></div>
+          <div class="net-label">Good score − Risk count</div>
+          <div class="verdict-line">Strong E2E encryption for content, but a surveillance ecosystem built around the metadata. Owned by Meta.</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="pname">✈️ Telegram</div>
+          <div class="score-row">
+            <span class="score-pill good">✓ 2 / 10</span>
+            <span class="score-pill bad">✗ 14 / 17</span>
+          </div>
+          <div class="score-row"><span class="score-pill net-neg">Net: −12</span></div>
+          <div class="net-label">Good score − Risk count</div>
+          <div class="verdict-line">The worst-scoring platform despite its privacy reputation. Not E2E encrypted by default. Founder arrested 2024.</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="pname">🔵 Signal</div>
+          <div class="score-row">
+            <span class="score-pill good">✓ 10 / 10</span>
+            <span class="score-pill bad">✗ 2 / 17</span>
+          </div>
+          <div class="score-row"><span class="score-pill net-pos">Net: +8</span></div>
+          <div class="net-label">Good score − Risk count</div>
+          <div class="verdict-line">Excellent privacy by design. Structural limitations remain: centralised, phone-number-anchored, jurisdiction-exposed.</div>
+        </div>
+
+        <div class="platform-card winner">
+          <div class="winner-badge">Best Score</div>
+          <div class="pname">📡 Radar</div>
+          <div class="score-row">
+            <span class="score-pill good">✓ 10 / 10</span>
+            <span class="score-pill bad">✗ 1 / 17</span>
+          </div>
+          <div class="score-row"><span class="score-pill net-pos">Net: +9</span></div>
+          <div class="net-label">Good score − Risk count</div>
+          <div class="verdict-line">Privacy-first, decentralised, serverless by default. No central infrastructure to subpoena, breach, or block.</div>
+        </div>
+
+      </div>
+
+      <blockquote class="inline-quote teal">
+        "Only one platform in this comparison achieves a perfect score on positive
+        privacy properties while also presenting the minimum possible number of risk factors.
+        That platform operates without central servers, without phone number registration,
+        and without any infrastructure that can be compelled, breached, or blocked
+        by any government, corporation, or adversary."
+        <cite>— DAL Technology Research Brief, 2026</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 2 — GOOD MATRIX
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="good-matrix">
+      <div class="kicker kicker--teal">Privacy Strengths · 10 Positive Properties</div>
+      <h2>What each platform<br>gets right</h2>
+      <p class="section-lead">
+        Ten positive privacy and security properties, assessed against each platform's
+        documented architecture and default behaviour.  Partial credit where a feature
+        exists but is not the default or is structurally limited.
+      </p>
+
+      <div class="matrix-section-label">
+        <span class="label-text good">✓ Strengths Matrix — higher is better</span>
+        <hr />
+      </div>
+
+      <div class="matrix-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-feature">Privacy Property</th>
+              <th class="col-wa">WhatsApp</th>
+              <th class="col-tg">Telegram</th>
+              <th class="col-sig">Signal</th>
+              <th class="col-rad">Radar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-label">End-to-end encryption by default</td>
+              <td class="col-wa"><span class="cell-yes">Yes</span></td>
+              <td class="col-tg"><span class="cell-no">No</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Strong, widely vetted encryption protocol</td>
+              <td class="col-wa"><span class="cell-yes">Yes</span></td>
+              <td class="col-tg"><span class="cell-no">No</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Minimal metadata collection</td>
+              <td class="col-wa"><span class="cell-no">No</span></td>
+              <td class="col-tg"><span class="cell-no">No</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">No central storage of message content</td>
+              <td class="col-wa"><span class="cell-yes">Yes</span></td>
+              <td class="col-tg"><span class="cell-no">No</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">No advertising / tracking ecosystem</td>
+              <td class="col-wa"><span class="cell-no">No</span></td>
+              <td class="col-tg"><span class="cell-partial">Partial</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">No cross-platform data sharing</td>
+              <td class="col-wa"><span class="cell-no">No</span></td>
+              <td class="col-tg"><span class="cell-yes">Yes</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">No behavioural profiling</td>
+              <td class="col-wa"><span class="cell-no">No</span></td>
+              <td class="col-tg"><span class="cell-no">No</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Open source transparency (core systems)</td>
+              <td class="col-wa"><span class="cell-no">No</span></td>
+              <td class="col-tg"><span class="cell-partial">Partial</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">No server-side access to message content</td>
+              <td class="col-wa"><span class="cell-yes">Yes</span></td>
+              <td class="col-tg"><span class="cell-no">No</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Privacy-first architecture design</td>
+              <td class="col-wa"><span class="cell-no">No</span></td>
+              <td class="col-tg"><span class="cell-no">No</span></td>
+              <td class="col-sig"><span class="cell-yes">Yes</span></td>
+              <td class="col-rad"><span class="cell-yes">Yes</span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="score-row">
+              <td class="feature-label" style="font-weight:700;color:var(--text)">GOOD Score (out of 10)</td>
+              <td class="col-wa" style="color:var(--accent-amber);font-size:1rem">4 / 10</td>
+              <td class="col-tg" style="color:var(--accent-warn);font-size:1rem">2 / 10</td>
+              <td class="col-sig" style="color:var(--accent-teal);font-size:1rem">10 / 10</td>
+              <td class="col-rad"><span class="radar-score-badge">10 / 10</span></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 3 — BAD MATRIX
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="bad-matrix">
+      <div class="kicker kicker--red">Risk Factors · 17 Known Vulnerabilities</div>
+      <h2>Where each platform<br>exposes you</h2>
+      <p class="section-lead">
+        Seventeen documented privacy and security risks, assessed against each platform's
+        default architecture.  A red cell is a confirmed risk.  A green cell means the
+        platform's design eliminates or structurally prevents that risk.
+        Lower scores are better.
+      </p>
+
+      <div class="matrix-section-label">
+        <span class="label-text bad">✗ Risk Matrix — lower is better</span>
+        <hr />
+      </div>
+
+      <div class="matrix-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-feature">Risk / Weakness</th>
+              <th class="col-wa">WhatsApp</th>
+              <th class="col-tg">Telegram</th>
+              <th class="col-sig">Signal</th>
+              <th class="col-rad">Radar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-label">Centralised infrastructure — single point of data control, failure &amp; censorship</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-risk">Risk</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Extensive metadata collection</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Social graph / contact network mapping</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Contact list harvesting</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Cross-platform identity linking</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-safe">Safe</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Data used for advertising / commercial monetisation</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-safe">Safe</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Message content accessible to provider (default use)</td>
+              <td class="col-wa"><span class="cell-safe">Safe</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Encryption not enabled by default</td>
+              <td class="col-wa"><span class="cell-safe">Safe</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Cloud storage of messages by default</td>
+              <td class="col-wa"><span class="cell-safe">Safe</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Vulnerability via cloud backups (iCloud / Google Drive)</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Business / third-party API data exposure risk</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Legal pressure exposure — IPA, PRISM-type compelled access</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-risk">Risk</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Metadata accessible to authorities under lawful process</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Potential for large-scale behavioural profiling</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">High-value surveillance / data aggregation target</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Proprietary or partially closed systems — unverifiable</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-safe">Safe</span></td>
+              <td class="col-rad"><span class="cell-safe">Safe</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Endpoint / device vulnerability — universal risk for all software</td>
+              <td class="col-wa"><span class="cell-risk">Risk</span></td>
+              <td class="col-tg"><span class="cell-risk">Risk</span></td>
+              <td class="col-sig"><span class="cell-risk">Risk</span></td>
+              <td class="col-rad"><span class="cell-risk">Risk</span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="score-row">
+              <td class="feature-label" style="font-weight:700;color:var(--text)">BAD Score (risks present — lower is better)</td>
+              <td class="col-wa" style="color:var(--accent-warn);font-size:1rem">13 / 17</td>
+              <td class="col-tg" style="color:var(--accent-warn);font-size:1rem">14 / 17</td>
+              <td class="col-sig" style="color:var(--accent-amber);font-size:1rem">2 / 17</td>
+              <td class="col-rad"><span class="radar-score-badge">1 / 17</span></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <blockquote class="inline-quote amber">
+        "Note: The single risk Radar shares with all other platforms is device-level
+        endpoint vulnerability — a universal property of any software running on a
+        physical device.  It cannot be eliminated by any messaging architecture.
+        Every other risk in this matrix is structurally eliminated by Radar's design."
+        <cite>— DAL Technology Research Brief, 2026</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 4 — RADAR ARCHITECTURE DEEP DIVE
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="radar-architecture">
+      <div class="kicker kicker--teal">Radar Architecture · Why the Scores Are Earned</div>
+      <h2>How Radar achieves what<br>centralised platforms cannot</h2>
+      <p class="section-lead">
+        Radar's privacy properties are not the result of better policy or stronger
+        intentions — they are the result of a fundamentally different technical architecture.
+        The features below are not optional settings or trust commitments.
+        They are structural consequences of how the system is built.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="ficon">🔁</span>
+          <h3>No Central Servers — By Design</h3>
+          <p>Radar is a <strong>peer-to-peer application</strong>.  There are no Radar servers
+          routing your messages, storing your conversations, or aggregating your behavioural
+          data.  Communication happens directly between devices over Bluetooth LE, WiFi Aware,
+          local network, or optional internet relay.  There is no central point of failure,
+          no infrastructure to subpoena, and no server operator to compel.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">📡</span>
+          <h3>Works Fully Offline</h3>
+          <p>Radar operates <strong>without internet connectivity</strong>.  Discovery and
+          messaging function entirely over local radio transports (BLE, WiFi Aware 802.11mc,
+          mDNS).  There is no cloud dependency, no registration server, and no session that
+          generates internet-level metadata.  A network-level adversary watching your internet
+          connection sees nothing, because nothing is sent.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">🆔</span>
+          <h3>No Phone Number Registration</h3>
+          <p>Radar requires <strong>no phone number, email address, or government-linked
+          identifier</strong> to create an identity or begin communicating.  Every other
+          platform in this comparison anchors its identity system to a phone number, which
+          in most countries is tied to a real identity via SIM registration law.  Radar's
+          identity is device-based and user-controlled.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">🔐</span>
+          <h3>End-to-End Encryption — Always</h3>
+          <p>All Radar messages are <strong>end-to-end encrypted by default</strong>, with no
+          unencrypted mode.  Because there is no central server, there is no server key to
+          compromise, no operator capable of performing a man-in-the-middle attack, and no
+          infrastructure whose key management practices need to be trusted.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">🗺️</span>
+          <h3>Multi-Transport Mesh Routing</h3>
+          <p>Radar uses <strong>four independent communication transports</strong> — Bluetooth LE,
+          WiFi Aware (802.11mc NAN), mDNS local network scanning, and optional internet relay.
+          Messages are automatically routed over whatever channels are available.
+          Mesh store-and-forward relaying extends range beyond direct radio reach.
+          Blocking one transport does not silence communication.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">📊</span>
+          <h3>Zero Metadata Aggregation</h3>
+          <p>Because Radar has no central servers, it collects <strong>no metadata at scale</strong>.
+          There is no server-side record of who communicated with whom, when, or how frequently.
+          The social graph of Radar users does not exist anywhere outside users' own devices.
+          There is nothing to hand over under a subpoena because there is nothing held.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">🛰️</span>
+          <h3>Radar — Proximity-Aware by Architecture</h3>
+          <p>Radar visualises nearby peers on a <strong>radar-style display</strong>, using GPS
+          and radio signal strength to show relative position and distance.  This proximity
+          model is inherently local — it requires no cloud lookups, no location servers, and
+          no sharing of your position with any central infrastructure.  Location is shared
+          peer-to-peer, on-device, in real time.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">⚡</span>
+          <h3>No App Store Kill Switch</h3>
+          <p>Because Radar operates over local radio transports that function independently
+          of internet connectivity, <strong>removing Radar from an app store does not
+          silence existing users</strong>.  Unlike Signal — which can be blocked by instructing
+          Apple and Google to remove it — a local-radio mesh cannot be disabled by any
+          centralised platform decision.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">🔒</span>
+          <h3>No Government Access — Structurally</h3>
+          <p>Radar cannot comply with a subpoena for user data because <strong>Radar holds
+          no user data</strong>.  There are no servers to seize, no databases to query, no
+          metadata logs to produce.  The legal compulsion mechanism that works against every
+          other platform in this comparison has nothing to act upon with Radar.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">🌐</span>
+          <h3>Jurisdiction-Independent</h3>
+          <p>Platforms with central servers have a legal domicile — a jurisdiction whose laws
+          they must comply with.  Radar's peer-to-peer architecture means there is
+          <strong>no single legal entity holding your data</strong> that can be compelled
+          by any national legal framework.  Communication between two Radar devices is
+          a private interaction between two people, not a transaction through a regulated
+          corporate infrastructure.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">📵</span>
+          <h3>No Push Notification Metadata</h3>
+          <p>WhatsApp, Telegram, and Signal all route notification alerts through Apple's APNs
+          or Google's FCM — creating metadata that Apple and Google can observe and disclose.
+          <strong>Radar does not use push notifications from Apple or Google</strong> for its
+          core local-radio messaging function.  Local device discovery happens without any
+          internet gateway.</p>
+        </div>
+        <div class="feature-card">
+          <span class="ficon">🤝</span>
+          <h3>No Single Point of Trust</h3>
+          <p>Every other platform in this comparison requires you to trust one entity: Meta,
+          Telegram, or the Signal Foundation.  If that entity is compromised, pressured, or
+          changes its mission, your privacy is at risk.  <strong>Radar requires no such
+          trust</strong> — its privacy guarantees are cryptographic and architectural, not
+          dependent on any operator's continued good will or resistance to legal pressure.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION 5 — BEYOND CENTRALISED
+    ══════════════════════════════════════════════════ -->
+    <section class="surv-section" id="beyond">
+      <div class="kicker kicker--teal">The Fundamental Divide</div>
+      <h2>Centralised versus decentralised —<br>why the architecture is everything</h2>
+      <p class="section-lead">
+        Signal is the best centralised messaging platform in existence.  Its privacy
+        credentials are genuine.  But it shares one property with WhatsApp and Telegram
+        that no amount of cryptographic excellence can overcome: it is centralised.
+        That single property creates every risk that Radar structurally eliminates.
+      </p>
+
+      <div class="matrix-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-feature">Property</th>
+              <th class="col-sig" colspan="3">Any Centralised Platform<br><span style="font-size:0.72rem;opacity:0.7">(WhatsApp / Telegram / Signal)</span></th>
+              <th class="col-rad">Radar<br><span style="font-size:0.72rem;opacity:0.7">(Decentralised P2P)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-label">Can be subpoenaed for user data</td>
+              <td class="col-sig" colspan="3"><span class="cell-risk">Yes — operator holds or can access data</span></td>
+              <td class="col-rad"><span class="cell-safe">No — no data held centrally</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Can be blocked at national level</td>
+              <td class="col-sig" colspan="3"><span class="cell-risk">Yes — IP blocking, app store removal</span></td>
+              <td class="col-rad"><span class="cell-safe">Resistant — local radio operates independently</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Dependent on operator's continued integrity</td>
+              <td class="col-sig" colspan="3"><span class="cell-risk">Yes — policy can change (see: Telegram 2024)</span></td>
+              <td class="col-rad"><span class="cell-safe">No — architecture, not policy, provides privacy</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Single point of infrastructure failure</td>
+              <td class="col-sig" colspan="3"><span class="cell-risk">Yes — outage disables all users simultaneously</span></td>
+              <td class="col-rad"><span class="cell-safe">No — each device is autonomous</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Identity anchored to phone number / real ID</td>
+              <td class="col-sig" colspan="3"><span class="cell-risk">Yes — all three require phone number registration</span></td>
+              <td class="col-rad"><span class="cell-safe">No — device-based, user-controlled identity</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Push notification metadata via Apple / Google</td>
+              <td class="col-sig" colspan="3"><span class="cell-risk">Yes — APNs / FCM metadata exists and is disclosable</span></td>
+              <td class="col-rad"><span class="cell-safe">No — local radio requires no internet notification path</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Jurisdiction-specific legal exposure</td>
+              <td class="col-sig" colspan="3"><span class="cell-risk">Yes — each platform has a legal domicile</span></td>
+              <td class="col-rad"><span class="cell-safe">No — no central legal entity holds user data</span></td>
+            </tr>
+            <tr>
+              <td class="feature-label">Future legislative compulsion possible</td>
+              <td class="col-sig" colspan="3"><span class="cell-risk">Yes — EARN IT, Chat Control, Online Safety Act</span></td>
+              <td class="col-rad"><span class="cell-safe">Resistant — no server to mandate backdoor on</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <blockquote class="inline-quote teal">
+        "Radar: privacy-first, decentralised, point-to-point messaging with minimal
+        metadata, no central aggregation, and architecture designed from the ground up
+        to resist profiling and surveillance — by making the data that enables it
+        structurally impossible to collect."
+        <cite>— DAL Technology Research Brief, 2026</cite>
+      </blockquote>
+    </section>
+
+
+    <!-- ── CLOSING BANNER ── -->
+    <div class="closing-banner">
+      <h2>The numbers tell the story.<br>Architecture is destiny.</h2>
+      <p>
+        WhatsApp scores −9.  Telegram scores −12.  Signal scores +8.  Radar scores +9.
+        The gap between Signal and Radar is one point on the overall score — but it represents
+        the entire category of risks that only decentralisation can eliminate: compelled legal
+        access, infrastructure blocking, jurisdictional exposure, phone number identity linkage,
+        and dependence on a single operator's willingness to resist state pressure.
+        Signal resists because it wants to.  Radar resists because it has nothing to hand over.
+      </p>
+      <p class="disclaimer">
+        This matrix reflects publicly known technical architecture, published policies, and
+        documented legal capabilities across all four platforms.  Scoring methodology applies
+        identical criteria to each platform based on confirmed default behaviour, not marketing
+        claims.  The single risk all platforms share — device-level endpoint vulnerability —
+        is a universal property of client software and cannot be eliminated by any messaging
+        architecture.  All other risk assessments are structural.
+      </p>
+    </div>
+
+  </main>
+
+  <footer class="surv-footer">
+    &copy; 2026 DAL Technology Ltd &nbsp;·&nbsp;
+    <a href="surveillance.html" style="color:var(--accent-teal);opacity:0.7">Surveillance Overview</a>
+    &nbsp;·&nbsp;
+    <a href="signal.html" style="color:var(--accent-teal);opacity:0.7">Signal Analysis</a>
+    &nbsp;·&nbsp;
+    <a href="telegram.html" style="color:var(--accent-teal);opacity:0.7">Telegram Analysis</a>
+    &nbsp;·&nbsp;
+    <a href="index.html" style="color:var(--accent-teal);opacity:0.7">Radar App</a>
+  </footer>
+
+</div>
+</body>
+</html>
