@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emergency Preparedness Guide – Be Ready Before You Need To Be</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="A practical prepper's guide: go bag essentials, water storage, food stockpiles, off-grid communications, medical kits, power backup and the skills that matter when the grid goes down." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ══════════════════════════════════════
+       RED / WHITE EMERGENCY THEME
+    ══════════════════════════════════════ */
+    :root {
+      --red:        #ff3333;
+      --red-mid:    #ff5555;
+      --red-bright: #ff2020;
+      --red-soft:   rgba(255,50,50,0.10);
+      --red-border: rgba(255,50,50,0.30);
+      --white:      #ffffff;
+      --white-dim:  rgba(255,255,255,0.75);
+      --green:      #4ade80;
+      --green-soft: rgba(74,222,128,0.10);
+      --green-border: rgba(74,222,128,0.30);
+    }
+
+    /* ─── Hazard stripe pattern (reusable) ─── */
+    .hazard {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(180,0,0,0.18) 0px,
+        rgba(180,0,0,0.18) 12px,
+        transparent      12px,
+        transparent      24px
+      );
+    }
+
+    /* ─── Top emergency ticker ─── */
+    .emergency-ticker {
+      background: var(--red);
+      overflow: hidden; height: 28px;
+      display: flex; align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    .ticker-track {
+      display: flex; gap: 3rem;
+      animation: ticker 28s linear infinite;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #fff;
+    }
+    .ticker-sep { color: rgba(255,255,255,0.45); }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 50;
+      background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9));
+      backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--red);
+    }
+    .nav-inner {
+      max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em;
+      color: #4ab5ff; text-decoration: none; flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; gap: 0.25rem; list-style: none;
+      margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap;
+    }
+    .nav-links a {
+      padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap;
+      color: var(--muted); transition: background 0.18s, color 0.18s;
+    }
+    .nav-links a:hover, .nav-links a.nav-active {
+      background: var(--red-soft); color: var(--red-mid);
+    }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 6rem 1.25rem 4rem;
+      max-width: var(--max-width); margin: 0 auto; text-align: center;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--red-mid); border: 1px solid var(--red-border);
+      border-radius: 999px; padding: 0.3rem 0.9rem; margin-bottom: 1.6rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+      font-weight: 800; line-height: 1.1; margin: 0 0 1.4rem;
+      letter-spacing: -0.025em;
+    }
+    .hero h1 em { font-style: normal; color: var(--red); }
+    .hero .lead {
+      font-size: clamp(1rem, 2vw, 1.18rem); color: var(--muted);
+      max-width: 680px; margin: 0 auto 2.5rem; line-height: 1.75;
+    }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: 0.55rem; justify-content: center;
+    }
+    .hero-pill {
+      font-size: 0.76rem; font-weight: 600;
+      padding: 0.3rem 0.85rem; border-radius: 999px;
+      border: 1px solid var(--red-border);
+      color: var(--red-mid); background: var(--red-soft);
+    }
+
+    /* ── SECTION IMAGE BANNERS ── */
+    .alert-banner {
+      position: relative; overflow: hidden;
+      height: 220px;
+      background-color: #0a0404;
+      background-size: cover;
+      background-position: center;
+      display: flex; align-items: flex-end;
+      margin: 2.5rem 0 0;
+    }
+    .alert-banner::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(4,2,2,0.93) 0%, rgba(4,2,2,0.72) 45%, rgba(4,2,2,0.22) 100%),
+        linear-gradient(to top,  rgba(4,2,2,0.85) 0%, transparent 55%);
+      z-index: 1;
+    }
+    .alert-banner::after {
+      content: "";
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--red);
+      box-shadow: 0 0 22px rgba(255,40,40,0.75);
+      z-index: 2;
+    }
+    .alert-banner-inner {
+      position: relative; z-index: 3;
+      max-width: var(--max-width); width: 100%; margin: 0 auto;
+      padding: 0 1.5rem 1.75rem 2rem;
+      display: flex; align-items: flex-end; gap: 1rem;
+    }
+    .alert-banner-icon {
+      font-size: 2.4rem; flex-shrink: 0; line-height: 1;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
+    }
+    .alert-banner h2 {
+      font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 800;
+      letter-spacing: -0.015em; color: #fff; margin: 0 0 0.3rem;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.8); line-height: 1.15;
+    }
+    .alert-banner span {
+      font-size: 0.88rem; color: rgba(255,255,255,0.65); display: block;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+    }
+
+    /* ── HERO WRAPPER (full-bleed background image) ── */
+    .hero-wrapper {
+      position: relative; overflow: hidden;
+      background-image: url('images/mountaineer_prepper.png');
+      background-size: cover;
+      background-position: center 30%;
+    }
+    .hero-wrapper::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(5,8,20,0.35) 0%, rgba(5,8,20,0.88) 70%),
+        linear-gradient(to bottom, rgba(5,8,20,0.25) 0%, rgba(5,8,20,0.96) 100%);
+    }
+
+    /* ── INLINE PHOTO FIGURE ── */
+    .photo-figure {
+      margin: 2.5rem 0; border-radius: 14px; overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,50,50,0.15);
+    }
+    .photo-figure img {
+      width: 100%; display: block;
+      object-fit: cover; max-height: 400px;
+      filter: brightness(0.88) contrast(1.06);
+    }
+    .photo-figure figcaption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.65rem 1rem;
+      background: linear-gradient(to top, rgba(4,2,2,0.88), transparent);
+      font-size: 0.75rem; color: rgba(255,255,255,0.55); font-style: italic;
+    }
+    .photo-figure-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin: 2rem 0; align-items: start;
+    }
+    .photo-figure-split .photo-figure { margin: 0; }
+    @media (max-width: 700px) { .photo-figure-split { grid-template-columns: 1fr; } }
+
+    /* ── RULE OF THREES STRIP ── */
+    .threes-strip {
+      background: linear-gradient(135deg, rgba(255,30,30,0.07) 0%, rgba(5,8,20,0) 60%);
+      border-top: 1px solid var(--red-border);
+      border-bottom: 1px solid rgba(255,50,50,0.12);
+      padding: 3rem 1.25rem;
+    }
+    .threes-inner { max-width: var(--max-width); margin: 0 auto; }
+    .threes-kicker {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.22em;
+      color: var(--red-mid); margin-bottom: 0.4rem;
+    }
+    .threes-title {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 800;
+      margin: 0 0 0.4rem;
+    }
+    .threes-sub {
+      font-size: 0.88rem; color: var(--muted); max-width: 600px;
+      margin-bottom: 2rem; line-height: 1.7;
+    }
+    .threes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .three-card {
+      background: rgba(11,16,32,0.9);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 3px solid var(--red-border);
+      border-radius: 14px; padding: 1.3rem 1.2rem;
+      position: relative; overflow: hidden;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .three-card:hover { border-color: var(--red-border); transform: translateY(-2px); }
+    .three-card .rule-num {
+      font-size: 2.8rem; font-weight: 900; line-height: 1;
+      margin-bottom: 0.2rem; letter-spacing: -0.04em;
+    }
+    .three-card .rule-unit {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--muted); margin-bottom: 0.6rem;
+    }
+    .three-card h3 { font-size: 0.92rem; font-weight: 700; margin: 0 0 0.35rem; }
+    .three-card p  { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
+    .c-air     { border-left-color: #ff3333; } .c-air     .rule-num { color: #ff3333; }
+    .c-shelter { border-left-color: #a78bfa; } .c-shelter .rule-num { color: #a78bfa; }
+    .c-water   { border-left-color: #38bdf8; } .c-water   .rule-num { color: #38bdf8; }
+    .c-food    { border-left-color: #ff8c42; } .c-food    .rule-num { color: #ff8c42; }
+    .c-community { border-left-color: var(--green); } .c-community .rule-num { color: var(--green); }
+
+    /* ── SECTION WRAPPER ── */
+    .prep-section {
+      max-width: var(--max-width); margin: 0 auto;
+      padding: 4rem 1.25rem 2rem;
+    }
+    .prep-section + .prep-section { padding-top: 0; }
+
+    /* ── SECTION HEADER with red bar ── */
+    .section-header {
+      display: flex; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-bar {
+      width: 4px; border-radius: 2px;
+      background: var(--red);
+      flex-shrink: 0; min-height: 3.5rem;
+      box-shadow: 0 0 12px rgba(255,50,50,0.5);
+    }
+    .section-bar-content { flex: 1; }
+    .kicker {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.22em;
+      color: var(--red-mid); margin-bottom: 0.35rem; display: block;
+    }
+    .section-heading {
+      font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800;
+      margin: 0;
+    }
+    .section-intro {
+      color: var(--muted); font-size: 0.97rem; max-width: 700px;
+      line-height: 1.75; margin-bottom: 2.2rem;
+    }
+
+    /* ── CATEGORY CARDS ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .cat-card {
+      background: rgba(11,16,32,0.9);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .cat-card:hover {
+      border-color: var(--red-border);
+      box-shadow: 0 0 0 1px rgba(255,50,50,0.1), 0 12px 32px rgba(0,0,0,0.55);
+      transform: translateY(-2px);
+    }
+    .cat-card.critical {
+      border-left: 3px solid var(--red);
+      background: radial-gradient(circle at top left, rgba(255,30,30,0.06), transparent 50%),
+                  rgba(11,16,32,0.9);
+    }
+    .cat-icon { font-size: 1.8rem; display: block; margin-bottom: 0.6rem; }
+    .cat-card h3 {
+      font-size: 0.82rem; font-weight: 700; color: #fff;
+      margin: 0 0 0.65rem; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .check-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .check-list li {
+      font-size: 0.83rem; color: var(--muted); line-height: 1.5;
+      padding-left: 1.3rem; position: relative;
+    }
+    .check-list li::before {
+      content: "✓"; position: absolute; left: 0;
+      color: var(--red-mid); font-size: 0.72rem; top: 0.05rem;
+    }
+    .check-list li strong { color: var(--text); }
+    .check-list li.note {
+      color: rgba(160,163,194,0.5); font-size: 0.76rem; font-style: italic; padding-left: 0;
+    }
+    .check-list li.note::before { content: none; }
+
+    /* ── PRIORITY BADGES ── */
+    .priority-badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.14em; padding: 0.2rem 0.6rem;
+      border-radius: 4px; margin-bottom: 0.65rem;
+    }
+    .p-critical {
+      background: var(--red); color: #fff;
+      box-shadow: 0 0 8px rgba(255,50,50,0.4);
+    }
+    .p-critical .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: #fff; animation: blink 1.2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
+    .p-high   { background: rgba(255,140,66,0.2); border: 1px solid rgba(255,140,66,0.5); color: #ff9955; }
+    .p-medium { background: var(--green-soft); border: 1px solid var(--green-border); color: var(--green); }
+
+    /* ── INFO BOXES ── */
+    .info-box {
+      background: var(--red-soft);
+      border: 1px solid var(--red-border);
+      border-left: 3px solid var(--red);
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.75rem 0; font-size: 0.88rem; line-height: 1.7;
+    }
+    .info-box strong { color: #fff; }
+    .info-box.green-box {
+      background: var(--green-soft); border-color: var(--green-border);
+      border-left-color: var(--green);
+    }
+    .info-box.green-box strong { color: var(--green); }
+    .info-box.white-box {
+      background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.15);
+      border-left-color: rgba(255,255,255,0.5);
+    }
+    .info-box.white-box strong { color: #fff; }
+
+    /* ── TWO COLUMN ── */
+    .detail-two {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;
+    }
+    @media (max-width: 680px) { .detail-two { grid-template-columns: 1fr; } }
+    .detail-block h4 {
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #fff;
+      margin: 0 0 0.65rem; padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* ── DIVIDER STRIP ── */
+    .divider-strip {
+      position: relative; overflow: hidden;
+      border-top: 1px solid rgba(255,50,50,0.15);
+      border-bottom: 1px solid rgba(255,50,50,0.15);
+      background: rgba(10,4,4,0.65);
+      padding: 3.75rem 1.25rem;
+      margin: 1rem 0;
+    }
+    .divider-strip::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+    .divider-inner { max-width: var(--max-width); margin: 0 auto; }
+
+    /* ── FOOD TIER ROWS ── */
+    .tier-row {
+      display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;
+    }
+    .tier {
+      display: grid; grid-template-columns: 90px 1fr; gap: 1rem; align-items: flex-start;
+      padding: 1.2rem; background: rgba(11,16,32,0.9);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 3px solid var(--red-border);
+      border-radius: 12px; transition: border-color 0.2s;
+    }
+    .tier:hover { border-color: var(--red-border); border-left-color: var(--red); }
+    .tier-label {
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--red-mid);
+      text-align: center; padding-top: 0.2rem;
+    }
+    .tier-label span { display: block; font-size: 1.5rem; margin-bottom: 0.2rem; }
+    .tier h4 { font-size: 0.9rem; font-weight: 700; color: #fff; margin: 0 0 0.3rem; }
+    .tier p  { font-size: 0.82rem; color: var(--muted); margin: 0 0 0.5rem; line-height: 1.6; }
+    .tier .item-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tier .item-list span {
+      font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 4px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+    }
+
+    /* ── SKILL CARDS ── */
+    .skill-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .skill-card {
+      background: rgba(11,16,32,0.9); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 1.1rem 1.2rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .skill-card:hover { border-color: var(--red-border); transform: translateY(-1px); }
+    .skill-num {
+      font-size: 1.6rem; font-weight: 900; color: rgba(255,50,50,0.25);
+      line-height: 1; flex-shrink: 0; min-width: 2rem; text-align: right;
+    }
+    .skill-card h4 { font-size: 0.88rem; font-weight: 700; color: #fff; margin: 0 0 0.25rem; }
+    .skill-card p  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; margin: 0; }
+
+    /* ── COMMS TABLE ── */
+    .comms-table {
+      width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 1.5rem;
+    }
+    .comms-table th {
+      text-align: left; font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); padding: 0.5rem 0.6rem;
+      border-bottom: 2px solid rgba(255,50,50,0.25);
+    }
+    .comms-table td {
+      padding: 0.6rem 0.6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      color: var(--muted); vertical-align: top; line-height: 1.5;
+    }
+    .comms-table td:first-child { color: var(--text); font-weight: 600; }
+    .comms-table tr:last-child td { border-bottom: none; }
+    .comms-table tbody tr:hover td { background: rgba(255,50,50,0.03); }
+    .comms-table .good { color: var(--green); font-weight: 600; }
+    .comms-table .bad  { color: #ff8080; font-weight: 600; }
+
+    /* ── BARTER GRID ── */
+    .barter-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.65rem; margin-top: 1.25rem;
+    }
+    .barter-pill {
+      background: rgba(11,16,32,0.9); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px; padding: 0.65rem 0.8rem;
+      text-align: center; font-size: 0.8rem; color: var(--muted);
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .barter-pill:hover { border-color: var(--red-border); background: var(--red-soft); color: #fff; }
+    .barter-pill span { display: block; font-size: 1.5rem; margin-bottom: 0.2rem; }
+
+    /* ── TOC ── */
+    .toc-box {
+      max-width: var(--max-width); margin: 0 auto 1rem;
+      background: rgba(255,50,50,0.04);
+      border: 1px solid var(--red-border);
+      border-top: 3px solid var(--red);
+      border-radius: 0 0 14px 14px;
+      padding: 1.4rem 1.6rem 1.2rem;
+    }
+    .toc-box h2 {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.2em;
+      color: var(--red-mid); margin: 0 0 0.9rem;
+    }
+    .toc-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.3rem 1.5rem; list-style: none; padding: 0; margin: 0;
+    }
+    .toc-grid li a {
+      font-size: 0.84rem; color: var(--muted); padding: 0.2rem 0; display: block;
+      transition: color 0.15s; border-bottom: 1px solid transparent;
+    }
+    .toc-grid li a:hover { color: var(--red-mid); border-color: var(--red-border); }
+    .toc-grid li a::before { content: "→ "; color: var(--red); font-size: 0.7rem; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      max-width: var(--max-width); margin: 4rem auto;
+      padding: 3.5rem 2rem; text-align: center;
+      position: relative; overflow: hidden;
+      background: radial-gradient(circle at 50% 0%, rgba(255,30,30,0.12), transparent 65%),
+                  rgba(11,16,32,0.8);
+      border: 1px solid var(--red-border);
+      border-top: 3px solid var(--red);
+      border-radius: var(--card-radius);
+    }
+    .cta-banner::after {
+      content: "";
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+    .cta-banner h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin: 0 0 0.8rem; }
+    .cta-banner p  { color: var(--muted); max-width: 580px; margin: 0 auto 2rem; font-size: 0.97rem; line-height: 1.75; }
+    .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; padding: 0.75rem 1.75rem; border-radius: 6px;
+      font-weight: 700; font-size: 0.9rem;
+      background: linear-gradient(135deg, #cc0000, #ff3333);
+      box-shadow: 0 8px 28px rgba(255,50,50,0.4);
+      color: #fff; text-decoration: none;
+      transition: box-shadow 0.2s, transform 0.15s;
+      letter-spacing: 0.04em;
+    }
+    .btn-primary:hover { box-shadow: 0 12px 36px rgba(255,50,50,0.55); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block; padding: 0.75rem 1.75rem; border-radius: 6px;
+      font-weight: 700; font-size: 0.9rem;
+      border: 1px solid var(--red-border); color: var(--red-mid);
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover { background: var(--red-soft); transform: translateY(-2px); }
+
+    footer {
+      text-align: center; padding: 2rem 1.25rem;
+      font-size: 0.78rem; color: rgba(160,163,194,0.45);
+      border-top: 1px solid var(--border-subtle);
+    }
+    footer a { color: rgba(160,163,194,0.55); }
+
+    /* ── SECTION DIVIDER LINE ── */
+    .red-rule {
+      max-width: var(--max-width); margin: 0 auto;
+      height: 1px; background: linear-gradient(90deg, var(--red), transparent);
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── EMERGENCY TICKER ── -->
+<div class="emergency-ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">⚠ Emergency Preparedness Guide</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">🎒 Build Your Go Bag</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">💧 Store Water Now</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">⚡ Plan for Power Failure</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">📡 Off-Grid Communications</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">🩺 Know First Aid</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">🛠️ Skills Over Kit</span>
+    <span class="ticker-sep">///</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">⚠ Emergency Preparedness Guide</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">🎒 Build Your Go Bag</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">💧 Store Water Now</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">⚡ Plan for Power Failure</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">📡 Off-Grid Communications</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">🩺 Know First Aid</span>
+    <span class="ticker-sep">///</span>
+    <span class="ticker-item">🛠️ Skills Over Kit</span>
+    <span class="ticker-sep">///</span>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="prepper.html" class="nav-active">Prepper Guide</a></li>
+      <li><a href="censorship.html">Censorship</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html">Signal</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero-wrapper">
+<section class="hero">
+  <div class="hero-eyebrow">⚠ Emergency Preparedness</div>
+  <h1>Be Ready Before<br><em>You Need To Be</em></h1>
+  <p class="lead">
+    Prepping isn't paranoia — it's prudence. Disasters, blackouts, civil unrest and supply-chain
+    failures are real events that happen to ordinary people. This guide covers everything from
+    a 72-hour go bag to long-term resilience: water, food, power, comms and the skills that
+    actually matter when the grid goes down.
+  </p>
+  <div class="hero-pills">
+    <span class="hero-pill">🎒 Go Bag</span>
+    <span class="hero-pill">💧 Water Storage</span>
+    <span class="hero-pill">🥫 Food Stockpile</span>
+    <span class="hero-pill">⚡ Power Backup</span>
+    <span class="hero-pill">📡 Off-Grid Comms</span>
+    <span class="hero-pill">🩺 Medical Kit</span>
+    <span class="hero-pill">🛠️ Skills</span>
+    <span class="hero-pill">💷 Financial Resilience</span>
+  </div>
+</section>
+</div><!-- /.hero-wrapper -->
+
+<!-- ── TOC ── -->
+<div class="toc-box">
+  <h2>On This Page</h2>
+  <ul class="toc-grid">
+    <li><a href="#rule-of-threes">The Rule of Threes</a></li>
+    <li><a href="#go-bag">Go Bag / Bug Out Bag</a></li>
+    <li><a href="#water">Water Storage &amp; Purification</a></li>
+    <li><a href="#food">Food Storage</a></li>
+    <li><a href="#power">Power &amp; Light</a></li>
+    <li><a href="#comms">Communications</a></li>
+    <li><a href="#medical">Medical &amp; First Aid</a></li>
+    <li><a href="#financial">Financial Preparedness</a></li>
+    <li><a href="#no-phone">Life Without Your Phone</a></li>
+    <li><a href="#skills">Skills to Learn</a></li>
+    <li><a href="#radar">Radar When the Grid Falls</a></li>
+  </ul>
+</div>
+
+<!-- ════════════════════════════════════════
+     RULE OF THREES
+════════════════════════════════════════ -->
+<div class="alert-banner" id="rule-of-threes" style="margin-top:2rem; background-image: url('images/mountaineer_prepper.png'); background-position: center 65%">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">🚨</span>
+    <div>
+      <h2>Survival Priority Framework — The Rule of Threes</h2>
+      <span>Master this hierarchy before you buy a single piece of kit</span>
+    </div>
+  </div>
+</div>
+
+<div class="threes-strip">
+  <div class="threes-inner">
+    <p class="threes-sub" style="margin-top:0;">
+      Every prepper starts here. Before you buy a single piece of kit, understand the order in which
+      threats kill you. Use this hierarchy to decide where to spend your time and money first.
+    </p>
+    <div class="threes-grid">
+      <div class="three-card c-air">
+        <div class="rule-num">3</div>
+        <div class="rule-unit">Minutes</div>
+        <h3>Without Air</h3>
+        <p>Airway obstruction, cardiac arrest, toxic atmosphere. CPR and basic first aid take priority over everything else.</p>
+      </div>
+      <div class="three-card c-shelter">
+        <div class="rule-num">3</div>
+        <div class="rule-unit">Hours</div>
+        <h3>Without Shelter</h3>
+        <p>In extreme cold, heat, or wet conditions, hypothermia and heat stroke kill fast. Shelter and dry clothing are second.</p>
+      </div>
+      <div class="three-card c-water">
+        <div class="rule-num">3</div>
+        <div class="rule-unit">Days</div>
+        <h3>Without Water</h3>
+        <p>Dehydration becomes lethal surprisingly quickly, especially with exertion, heat or diarrhoea. Water is your third priority.</p>
+      </div>
+      <div class="three-card c-food">
+        <div class="rule-num">3</div>
+        <div class="rule-unit">Weeks</div>
+        <h3>Without Food</h3>
+        <p>The body is remarkably resilient without calories. Don't let food anxiety distract you from the priorities above.</p>
+      </div>
+      <div class="three-card c-community">
+        <div class="rule-num">3</div>
+        <div class="rule-unit">Months</div>
+        <h3>Without Community</h3>
+        <p>In a prolonged crisis, isolated individuals fail. Your network of trusted people is your most valuable long-term resource.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     GO BAG
+════════════════════════════════════════ -->
+<div class="alert-banner" id="go-bag" style="background-image: url('images/go_bag.png')">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">🎒</span>
+    <div>
+      <h2>Bug Out Bag — The Go Bag</h2>
+      <span>Grab it in under 90 seconds. Pack it to last 72 hours.</span>
+    </div>
+  </div>
+</div>
+
+<section class="prep-section" style="padding-top:2.5rem;">
+  <p class="section-intro">
+    A go bag (also called a bug-out bag or BOB) is a pre-packed bag you can grab in under 90 seconds
+    if you need to leave home in a hurry. Aim for a waterproof 50–65L rucksack weighing no more than
+    you can carry comfortably for four hours. Pack it as if you won't return home for 72 hours.
+  </p>
+
+  <div class="info-box">
+    <strong>Golden rule:</strong> Rotate perishables (food, water, medications, batteries) every
+    6–12 months. A go bag only works if everything in it is actually usable when you need it.
+    Set a calendar reminder.
+  </div>
+
+  <div class="cat-grid">
+
+    <div class="cat-card critical">
+      <span class="cat-icon">💧</span>
+      <span class="priority-badge p-critical"><span class="dot"></span> Critical</span>
+      <h3>Water &amp; Hydration</h3>
+      <ul class="check-list">
+        <li><strong>1L stainless steel or BPA-free water bottle</strong></li>
+        <li><strong>Sawyer Mini or LifeStraw</strong> portable filter</li>
+        <li><strong>Aquatabs or iodine purification tablets</strong> (x30 minimum)</li>
+        <li><strong>2L collapsible water bladder</strong> for bulk carrying</li>
+        <li>Electrolyte sachets (oral rehydration salts)</li>
+        <li class="note">Target 2L per person per day minimum</li>
+      </ul>
+    </div>
+
+    <div class="cat-card critical">
+      <span class="cat-icon">🥫</span>
+      <span class="priority-badge p-critical"><span class="dot"></span> Critical</span>
+      <h3>Food (72-hour supply)</h3>
+      <ul class="check-list">
+        <li><strong>High-calorie energy bars</strong> (aim for 500–600 kcal per bar)</li>
+        <li><strong>2–3 freeze-dried meal pouches</strong> (just-add-boiling-water)</li>
+        <li>Trail mix, nuts, dried fruit</li>
+        <li>Hard sweets / glucose tablets</li>
+        <li>Compact camp stove (MSR, Jetboil) + gas canister</li>
+        <li>Lightweight titanium pot, spork</li>
+        <li>Lighter × 2 + waterproof matches</li>
+        <li class="note">~1,800–2,200 kcal/day target per adult</li>
+      </ul>
+    </div>
+
+    <div class="cat-card critical">
+      <span class="cat-icon">🏕️</span>
+      <span class="priority-badge p-critical"><span class="dot"></span> Critical</span>
+      <h3>Shelter &amp; Warmth</h3>
+      <ul class="check-list">
+        <li><strong>Emergency mylar "space" blanket</strong> × 2 (retain 90% body heat)</li>
+        <li><strong>Lightweight bivy sack</strong> (waterproof emergency sleeping bag)</li>
+        <li><strong>Compact poncho / rain cover</strong></li>
+        <li>Thermal base layer + wool socks (packed dry in a bag)</li>
+        <li><strong>Paracord</strong> 30m minimum (550-rated)</li>
+        <li>Lightweight tarp 2×3m + 6 pegs</li>
+        <li>Work gloves (leather palm)</li>
+        <li class="note">Hypothermia is a risk even at 10°C / 50°F in wet conditions</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🧭</span>
+      <span class="priority-badge p-high">● High</span>
+      <h3>Navigation &amp; Signalling</h3>
+      <ul class="check-list">
+        <li><strong>Paper map of your region</strong> (laminated or in a waterproof case)</li>
+        <li><strong>Liquid-filled baseplate compass</strong></li>
+        <li><strong>Whistle</strong> (Fox 40 or similar — heard from 1km+)</li>
+        <li>Signal mirror (visible for miles on a clear day)</li>
+        <li>Glow sticks × 4 (green for safe, red for help)</li>
+        <li class="note">Don't rely on GPS — batteries die, satellites can be disrupted</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🔦</span>
+      <span class="priority-badge p-high">● High</span>
+      <h3>Light</h3>
+      <ul class="check-list">
+        <li><strong>Headtorch with spare batteries</strong> (or USB-rechargeable)</li>
+        <li>Small backup EDC torch</li>
+        <li>Solar + hand-crank LED lantern</li>
+        <li>Candles × 6 with a small tin for wind protection</li>
+        <li class="note">Red-mode headtorches preserve night vision; useful for map reading</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">📡</span>
+      <span class="priority-badge p-high">● High</span>
+      <h3>Communications</h3>
+      <ul class="check-list">
+        <li><strong>Hand-crank + solar AM/FM/shortwave radio</strong></li>
+        <li><strong>PMR446 (UK/EU) or FRS walkie-talkies</strong> paired with family</li>
+        <li>Fully charged <strong>20,000 mAh power bank</strong></li>
+        <li>20W foldable solar panel for recharging</li>
+        <li>Smartphone (with offline maps pre-downloaded; keep in a Faraday sleeve)</li>
+        <li>Written contact list — don't rely on phone memory alone</li>
+      </ul>
+    </div>
+
+    <div class="cat-card critical">
+      <span class="cat-icon">🩺</span>
+      <span class="priority-badge p-critical"><span class="dot"></span> Critical</span>
+      <h3>Medical &amp; First Aid</h3>
+      <ul class="check-list">
+        <li><strong>CAT or SOFTT-W tourniquet</strong></li>
+        <li><strong>Israeli pressure bandage</strong> (wound dressing)</li>
+        <li>Haemostatic gauze (QuikClot or Celox)</li>
+        <li>Wound closure strips + butterfly stitches</li>
+        <li>Nitrile gloves × 6 pairs</li>
+        <li>Antiseptic wipes + cream, burn gel sachet</li>
+        <li>Pain relief (paracetamol, ibuprofen)</li>
+        <li>Antihistamines, Imodium, rehydration sachets</li>
+        <li><strong>30-day supply of personal prescription medications</strong></li>
+        <li>Printed copies of prescriptions and medical history</li>
+        <li>Basic dental repair kit (temporary filling paste)</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🪪</span>
+      <span class="priority-badge p-high">● High</span>
+      <h3>Documents &amp; Money</h3>
+      <ul class="check-list">
+        <li><strong>Laminated photocopies</strong>: passport, driving licence, insurance, birth certificate</li>
+        <li>Emergency contacts list (printed, not just on your phone)</li>
+        <li><strong>Cash in small denomination notes</strong> (£200 / $200 minimum)</li>
+        <li>USB drive with <strong>encrypted backups</strong> of key documents</li>
+        <li class="note">Banks and ATMs may be offline during a grid event</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🔧</span>
+      <span class="priority-badge p-medium">● Medium</span>
+      <h3>Tools &amp; Fire</h3>
+      <ul class="check-list">
+        <li><strong>Multi-tool</strong> (Leatherman Wave+ or Victorinox)</li>
+        <li><strong>Fixed-blade knife</strong> (full tang, in sheath)</li>
+        <li>Ferro rod / fire steel + tinder (cotton wool + Vaseline)</li>
+        <li>Disposable lighters × 3</li>
+        <li>Duct tape (small flattened roll)</li>
+        <li>Zip ties, cable ties (assorted)</li>
+        <li>Heavy-duty bin bags × 5 (shelter, waterproofing, waste)</li>
+        <li>Sewing kit (needles, thread, safety pins)</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🧼</span>
+      <span class="priority-badge p-medium">● Medium</span>
+      <h3>Hygiene &amp; Sanitation</h3>
+      <ul class="check-list">
+        <li>Hand sanitiser 100ml</li>
+        <li>Wet wipes (large pack — personal hygiene without water)</li>
+        <li>Compressed toilet paper tablets</li>
+        <li>Travel soap bar, microfibre towel</li>
+        <li>Toothbrush + toothpaste tablets</li>
+        <li>Feminine hygiene products if applicable</li>
+        <li>Nappy sacks / biodegradable waste bags</li>
+        <li class="note">Disease spreads rapidly in camps — sanitation saves lives</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🎒</span>
+      <span class="priority-badge p-medium">● Medium</span>
+      <h3>The Bag Itself</h3>
+      <ul class="check-list">
+        <li><strong>50–65L waterproof rucksack</strong> with padded hip belt</li>
+        <li>External rain cover (most bags include one)</li>
+        <li>Pack weight: <strong>10–15% of your body weight</strong> is sustainable</li>
+        <li>Store heavy items close to your back, high in the pack</li>
+        <li>Test it: wear it loaded for 4 hours before you need it</li>
+        <li class="note">Quality brands: Osprey, Deuter, Berghaus, Karrimor</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">👨‍👩‍👦</span>
+      <span class="priority-badge p-high">● High</span>
+      <h3>For Families &amp; Children</h3>
+      <ul class="check-list">
+        <li>Age-appropriate <strong>child go bag</strong> (school backpack with their essentials)</li>
+        <li>Nappies, formula, baby food if applicable</li>
+        <li>Child's favourite comfort item (reduces panic)</li>
+        <li>Copies of medical records, vaccination history</li>
+        <li>Contact details for school, close family, doctor</li>
+        <li>Activity book / cards (managing downtime reduces stress)</li>
+        <li>Pet kit: food, water bowl, leash, vaccination records, carrier</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     WATER
+════════════════════════════════════════ -->
+<div class="alert-banner" id="water" style="background-image: url('images/stream_water_filter.png'); background-position: center 40%">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">💧</span>
+    <div>
+      <h2>Water Storage &amp; Purification</h2>
+      <span>Without it you have 3 days. With it, you have everything.</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider-strip" style="padding-top:2.5rem;">
+  <div class="divider-inner">
+    <p class="section-intro" style="margin-bottom:1.5rem;">
+      Water is non-negotiable. Your body can survive weeks without food; it cannot survive days without
+      clean water. The average adult needs at least 2 litres per day for drinking — more with heat,
+      exertion, or illness. Planning for sanitation, cooking, and hygiene, budget at least 4 litres
+      (1 gallon) per person per day.
+    </p>
+    <div class="detail-two">
+      <div class="detail-block">
+        <h4>💾 Home Storage</h4>
+        <ul class="check-list">
+          <li><strong>Minimum target:</strong> 3-day supply (72-hour kit)</li>
+          <li><strong>Ideal target:</strong> 2-week supply per household member</li>
+          <li>Use <strong>HDPE food-grade containers</strong> (blue water barrels, Jerry cans)</li>
+          <li>Store in a <strong>cool, dark location</strong> — sunlight promotes algae</li>
+          <li>Add <strong>2 drops of unscented bleach per litre</strong> to untreated tap water</li>
+          <li><strong>Rotate every 6–12 months</strong> — set a calendar reminder</li>
+          <li>Know the location of your nearest river, stream, or canal as a backup source</li>
+          <li>Swimming pools (diluted chlorine) and water heaters are emergency reserves</li>
+        </ul>
+      </div>
+      <div class="detail-block">
+        <h4>🔬 Purification Methods</h4>
+        <ul class="check-list">
+          <li><strong>Boiling:</strong> 1 minute at a rolling boil (3 minutes above 2,000m). Kills bacteria, viruses, protozoa.</li>
+          <li><strong>Chemical — Aquatabs (NaDCC):</strong> 1 tablet per litre, wait 30 minutes. Compact, cheap, essential.</li>
+          <li><strong>Chemical — Iodine tablets:</strong> Effective backup; not for pregnant women or prolonged use.</li>
+          <li><strong>Filtration — Sawyer Mini:</strong> Removes bacteria and protozoa (not viruses). Combine with chemical treatment.</li>
+          <li><strong>Filtration — LifeStraw:</strong> Drink-through filter; same caveat re: viruses.</li>
+          <li><strong>Gravity filter — Berkey / Doulton:</strong> For home use; removes most contaminants including some viruses.</li>
+          <li><strong>Solar disinfection (SODIS):</strong> Clear PET bottles left in full sun for 6+ hours. Last resort.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box">
+      <strong>Virus risk:</strong> Most portable filters do NOT remove viruses. In the UK and Western Europe,
+      viral contamination of natural water sources is relatively uncommon, so filtration alone is often
+      sufficient. In disaster zones or developing-world scenarios, combine filtration with chemical treatment.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FOOD STORAGE
+════════════════════════════════════════ -->
+<div class="alert-banner" id="food" style="background-image: url('images/survivors_pantry.png')">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">🥫</span>
+    <div>
+      <h2>Building a Food Stockpile</h2>
+      <span>Three tiers — short, medium, and long-term. Start with what you already eat.</span>
+    </div>
+  </div>
+</div>
+
+<section class="prep-section" style="padding-top:2.5rem;">
+  <p class="section-intro">
+    The best food storage strategy is to simply buy a bit more of what you already eat. Rotate your
+    stock on a first-in-first-out basis and nothing goes to waste. Build in layers — short term first,
+    then extend to medium and long term as budget allows.
+  </p>
+
+  <div class="tier-row">
+    <div class="tier">
+      <div class="tier-label"><span>🥫</span>Short<br>1–2 Weeks</div>
+      <div>
+        <h4>Everyday Pantry — Buy More of What You Already Eat</h4>
+        <p>These items need no special storage and are used in your normal cooking. Just keep a rolling surplus.</p>
+        <div class="item-list">
+          <span>Canned tuna / sardines</span><span>Canned beans &amp; lentils</span>
+          <span>Canned tomatoes</span><span>Peanut butter</span>
+          <span>Crackers / rice cakes</span><span>Dried pasta &amp; rice</span>
+          <span>Oats / porridge</span><span>UHT milk</span>
+          <span>Coffee &amp; tea</span><span>Sugar, salt, honey</span>
+          <span>Olive oil</span><span>Multivitamins</span>
+        </div>
+      </div>
+    </div>
+    <div class="tier">
+      <div class="tier-label"><span>🏔️</span>Medium<br>1–3 Months</div>
+      <div>
+        <h4>Freeze-Dried &amp; Dehydrated — Longer Shelf Life, Just Add Water</h4>
+        <p>Freeze-dried meals typically last 25+ years sealed. Dehydrated goods last 5–10 years in cool, dry storage.</p>
+        <div class="item-list">
+          <span>Freeze-dried meal pouches (Mountain House, Wise Foods)</span>
+          <span>Dehydrated vegetables</span><span>Dehydrated fruit</span>
+          <span>Powdered milk &amp; eggs</span><span>Powdered butter / coconut milk</span>
+          <span>Protein powder</span><span>Instant mashed potato</span>
+          <span>Dried mushrooms &amp; herbs</span>
+        </div>
+      </div>
+    </div>
+    <div class="tier">
+      <div class="tier-label"><span>🌾</span>Long<br>1–5 Years+</div>
+      <div>
+        <h4>Bulk Staples — Stored in Mylar Bags Inside Food-Grade Buckets</h4>
+        <p>Add oxygen absorbers and seal. Stored correctly, most bulk staples last decades. Label with date packed.</p>
+        <div class="item-list">
+          <span>White rice (30-year shelf life)</span><span>Rolled oats (30+ years)</span>
+          <span>Hard white wheat / flour</span><span>Dried beans, lentils, chickpeas</span>
+          <span>Honey (indefinite)</span><span>Salt (indefinite)</span>
+          <span>White sugar</span><span>White vinegar</span>
+          <span>Baking soda &amp; baking powder</span>
+          <span>Hardtack biscuits (homemade, multi-year)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box" style="margin-top:2rem;">
+    <strong>FIFO — First In, First Out:</strong> Always use the oldest items first and restock from the back.
+    Store food in a cool (below 15°C / 60°F), dark, dry location. Every 5°C lower doubles the shelf life.
+    Never store food directly on a concrete floor — moisture migrates through.
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     POWER & LIGHT
+════════════════════════════════════════ -->
+<div class="alert-banner" id="power" style="background-image: url('images/solar_power_bank.png'); background-position: center 60%">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">⚡</span>
+    <div>
+      <h2>Power When the Grid Fails</h2>
+      <span>From power banks to solar — a layered approach to energy independence.</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider-strip" style="padding-top:2.5rem;">
+  <div class="divider-inner">
+    <p class="section-intro" style="margin-bottom:1.5rem;">
+      Most UK/US household power outages last hours to days. Extended blackouts — from severe storms,
+      infrastructure attack, or prolonged grid failure — require a layered approach to both energy
+      and lighting.
+    </p>
+    <div class="detail-two">
+      <div class="detail-block">
+        <h4>⚡ Power Sources (Cheapest → Most Capable)</h4>
+        <ul class="check-list">
+          <li><strong>Power banks (20,000 mAh+):</strong> Immediate, portable, no noise. Enough for several phone charges. Keep at ≥80% charge.</li>
+          <li><strong>Solar panel (20–40W foldable):</strong> Slow but free recharging for power banks and small devices. Works on cloudy days at reduced output.</li>
+          <li><strong>Portable power station (Jackery, EcoFlow, Bluetti):</strong> 500–2,000Wh. Run a CPAP, LED lights, laptop, fridge for short periods. Recharge via solar or mains.</li>
+          <li><strong>Petrol / diesel generator:</strong> High power, noisy, requires fuel storage (add stabiliser, rotate). Never run indoors — CO kills.</li>
+          <li><strong>12V / 24V solar system:</strong> Longer-term solution with deep-cycle (AGM or lithium) batteries. Powers essential circuits indefinitely.</li>
+        </ul>
+      </div>
+      <div class="detail-block">
+        <h4>🕯️ Lighting &amp; Heat</h4>
+        <ul class="check-list">
+          <li><strong>LED headtorches (AA):</strong> AA batteries are universally available and last years in storage. Carry spares.</li>
+          <li><strong>Hand-crank LED lanterns:</strong> No batteries needed for basic lighting. 1 min crank ≈ 15 min light.</li>
+          <li><strong>Solar garden lights:</strong> Charge outdoors, bring inside at night. Surprisingly effective for ambient light.</li>
+          <li><strong>Candles:</strong> Long burn time; store 50+ for extended outages. Use in a closed tin for stability.</li>
+          <li><strong>Camping gas stove:</strong> Cooking and boiling water. Store 6+ gas canisters.</li>
+          <li><strong>Kelly kettle / rocket stove:</strong> Boils water on twigs in minutes. No fuel cost.</li>
+          <li><strong>Wood stove:</strong> Heat and cooking. Ideal if you have a fireplace. Stock 1–2 face-cords of wood.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     COMMUNICATIONS
+════════════════════════════════════════ -->
+<div class="alert-banner" id="comms" style="background-image: url('images/ham_radio.png'); background-position: center 35%">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">📡</span>
+    <div>
+      <h2>Staying Connected When Networks Fail</h2>
+      <span>Cell towers have 4–8 hours of backup power. What happens after that?</span>
+    </div>
+  </div>
+</div>
+
+<section class="prep-section" style="padding-top:2.5rem;">
+  <div class="info-box">
+    <strong>Make a plan first:</strong> Agree a meeting point, a check-in time, and a rally location
+    with your household <em>before</em> anything happens. Write it down. Tape it inside a cupboard.
+    No technology required.
+  </div>
+
+  <table class="comms-table">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Range</th>
+        <th>Licence?</th>
+        <th>Works Offline?</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Hand-crank / solar emergency radio</td>
+        <td>Receive only</td>
+        <td><span class="good">No</span></td>
+        <td><span class="good">Yes</span></td>
+        <td>Receive national emergency broadcasts, BBC Radio 4 LW, shortwave. Essential for situational awareness.</td>
+      </tr>
+      <tr>
+        <td>PMR446 walkie-talkies (UK/EU)</td>
+        <td>~2km open, less in buildings</td>
+        <td><span class="good">No</span></td>
+        <td><span class="good">Yes</span></td>
+        <td>FRS / GMRS in the US. Pair with family members. Buy identical models for simplicity. Great for group coordination.</td>
+      </tr>
+      <tr>
+        <td>Digital mobile radios (DMR / D-STAR)</td>
+        <td>5–30km with repeaters</td>
+        <td><span class="bad">Yes (amateur)</span></td>
+        <td><span class="good">Yes</span></td>
+        <td>Much better range and audio quality than PMR. Local amateur repeaters often stay on-air with generators during disasters.</td>
+      </tr>
+      <tr>
+        <td>Amateur (ham) radio — HF</td>
+        <td>Worldwide</td>
+        <td><span class="bad">Yes (full licence)</span></td>
+        <td><span class="good">Yes</span></td>
+        <td>The gold standard for off-grid global communications. UK Foundation licence is a weekend course. No mains power needed with a 12V setup.</td>
+      </tr>
+      <tr>
+        <td>Satellite communicator (Garmin inReach)</td>
+        <td>Global</td>
+        <td><span class="good">No</span></td>
+        <td><span class="good">Yes</span></td>
+        <td>Two-way messaging and SOS via Iridium satellite. Subscription required (~£15/month). Works anywhere on Earth.</td>
+      </tr>
+      <tr>
+        <td>Radar app (BLE / Wi-Fi mesh)</td>
+        <td>BLE ~100m; relayed further via mesh</td>
+        <td><span class="good">No</span></td>
+        <td><span class="good">Yes — fully off-grid</span></td>
+        <td>Peer-to-peer encrypted comms with no SIM, no internet, no infrastructure. See the group on a live radar screen. Ideal when everything else is down.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════════════════════════════════════════
+     MEDICAL
+════════════════════════════════════════ -->
+<div class="alert-banner" id="medical" style="background-image: url('images/medical_kit.png')">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">🩺</span>
+    <div>
+      <h2>Medical &amp; First Aid</h2>
+      <span>Ambulances may not come. Be prepared to treat until help arrives — or doesn't.</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider-strip" style="padding-top:2.5rem;">
+  <div class="divider-inner">
+    <div class="detail-two">
+      <div class="detail-block">
+        <h4>🩸 Trauma / IFAK (Individual First Aid Kit)</h4>
+        <ul class="check-list">
+          <li><strong>CAT or SOFTT-W tourniquet</strong> (learn to apply one-handed)</li>
+          <li><strong>Israeli pressure bandage</strong> (emergency wound dressing)</li>
+          <li>Haemostatic gauze (QuikClot or Celox) for severe bleeding</li>
+          <li>Chest seal (Hyfin vented) for penetrating chest wounds</li>
+          <li>Wound closure strips + butterfly stitches</li>
+          <li>Trauma shears</li>
+          <li>Nitrile gloves × 6 pairs</li>
+          <li class="note">Take a Stop the Bleed or first aid with CPR course</li>
+        </ul>
+      </div>
+      <div class="detail-block">
+        <h4>💊 General Medical Kit</h4>
+        <ul class="check-list">
+          <li>Assorted adhesive dressings, sterile gauze pads</li>
+          <li>Triangular bandage (sling), SAM splints × 2</li>
+          <li>Medical tape (Micropore + zinc oxide)</li>
+          <li>Antiseptic wipes + cream, burn gel dressings</li>
+          <li>Eye wash (sterile saline pods)</li>
+          <li>Digital thermometer, blood pressure cuff</li>
+          <li>Paracetamol, ibuprofen, aspirin</li>
+          <li>Antihistamines (cetirizine or chlorphenamine)</li>
+          <li>Loperamide (Imodium), antacids, oral rehydration sachets</li>
+          <li><strong>30–90 day supply of personal prescription medications</strong></li>
+          <li>Dental repair kit (temporary filling paste, clove oil)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box green-box" style="margin-top:1.75rem;">
+      <strong>Key skills to learn:</strong> First Aid + CPR (Red Cross, St John Ambulance),
+      Wilderness First Aid (WAFA or equivalent) — specifically designed for scenarios where help
+      is hours or days away, not minutes. These courses are inexpensive, widely available, and
+      genuinely life-saving.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FINANCIAL
+════════════════════════════════════════ -->
+<div class="alert-banner" id="financial">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">💷</span>
+    <div>
+      <h2>Financial &amp; Barter Preparedness</h2>
+      <span>ATMs and card terminals go down with the grid. Cash is king in an emergency.</span>
+    </div>
+  </div>
+</div>
+
+<section class="prep-section" style="padding-top:2.5rem;">
+  <div class="detail-two">
+    <div class="detail-block">
+      <h4>💵 Cash &amp; Documentation</h4>
+      <ul class="check-list">
+        <li><strong>Keep at least £200–£500 / $200–$500 in small notes</strong> at home — secured but accessible</li>
+        <li>Include coins for parking, machines, and small transactions</li>
+        <li>Consider gold or silver coins for long-term, high-inflation scenarios (1oz silver coins are highly liquid)</li>
+        <li>Diversify savings across <strong>at least two financial institutions</strong></li>
+        <li>Store <strong>copies of account numbers, bank details, and insurance policies</strong> securely off-site or encrypted</li>
+        <li>Consider a <strong>fireproof / waterproof document safe</strong> at home</li>
+      </ul>
+    </div>
+    <div class="detail-block">
+      <h4>🤝 Barter Goods</h4>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.6;">
+        In prolonged shortages, people trade what others need. Store modest quantities of high-value barter items:
+      </p>
+      <div class="barter-grid">
+        <div class="barter-pill"><span>🥃</span>Alcohol (spirits)</div>
+        <div class="barter-pill"><span>🚬</span>Cigarettes / tobacco</div>
+        <div class="barter-pill"><span>☕</span>Coffee &amp; tea</div>
+        <div class="barter-pill"><span>🔋</span>Batteries (AA/AAA)</div>
+        <div class="barter-pill"><span>💊</span>Pain relief (sealed)</div>
+        <div class="barter-pill"><span>🕯️</span>Candles &amp; lighters</div>
+        <div class="barter-pill"><span>🌿</span>Seeds (vegetable)</div>
+        <div class="barter-pill"><span>🧴</span>Soap &amp; hygiene</div>
+        <div class="barter-pill"><span>🪡</span>Needles &amp; thread</div>
+        <div class="barter-pill"><span>🔧</span>Tools (basic)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     LIFE WITHOUT YOUR PHONE
+════════════════════════════════════════ -->
+<div class="alert-banner" id="no-phone" style="background-image: url('images/phone_dead.png'); background-position: center 55%">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">📵</span>
+    <div>
+      <h2>What Would You Do Without Your Phone?</h2>
+      <span>Modern life is built on a single device. What happens when it's gone?</span>
+    </div>
+  </div>
+</div>
+
+<section class="prep-section" style="padding-top:2.5rem;">
+  <p class="section-intro">
+    Your smartphone is no longer just a communication device — it is your bank, your identity,
+    your keys, your diary, your two-factor authenticator, and your emergency contact list.
+    A lost, broken, or stolen phone — or simply a prolonged loss of mobile signal and internet —
+    can leave you cut off from almost everything that matters. This section covers what you stand
+    to lose and, more importantly, what you can do about it now.
+  </p>
+
+  <!-- ── WHAT YOU LOSE ── -->
+  <div class="section-header" style="margin-bottom:1rem;">
+    <div class="section-bar"></div>
+    <div class="section-bar-content">
+      <span class="kicker">The Problem</span>
+      <h3 class="section-heading" style="font-size:1.3rem;">What You Stand to Lose</h3>
+    </div>
+  </div>
+
+  <div class="cat-grid" style="margin-bottom:2.5rem;">
+
+    <div class="cat-card critical">
+      <span class="cat-icon">🔐</span>
+      <span class="priority-badge p-critical"><span class="dot"></span> Critical</span>
+      <h3>2FA &amp; Authenticator Apps</h3>
+      <ul class="check-list">
+        <li><strong>Google Authenticator, Authy, Microsoft Authenticator</strong> — lose your phone, lose access to every account that uses them</li>
+        <li>Email, banking, work systems, social media, cloud storage — all locked behind a code only your lost device can generate</li>
+        <li>Recovery process can take days or weeks; often requires identity verification you can't complete without the account you're locked out of</li>
+        <li class="note">This is the single most disruptive thing most people will face when they lose a phone</li>
+      </ul>
+    </div>
+
+    <div class="cat-card critical">
+      <span class="cat-icon">🏦</span>
+      <span class="priority-badge p-critical"><span class="dot"></span> Critical</span>
+      <h3>Banking &amp; Financial Apps</h3>
+      <ul class="check-list">
+        <li><strong>Mobile banking apps</strong> — can't check balances, transfer money, or approve payments</li>
+        <li><strong>Transaction approval</strong> — many banks now require in-app approval for online card purchases; without your phone, your card is effectively frozen for online use</li>
+        <li>Contactless mobile payments (Apple Pay, Google Pay) cease immediately</li>
+        <li><strong>Crypto wallets</strong> — if your wallet app is only on your phone and you have no seed phrase backup, your funds may be permanently inaccessible</li>
+        <li class="note">Hardware wallets (Ledger, Trezor) and written seed phrases stored offline are essential</li>
+      </ul>
+    </div>
+
+    <div class="cat-card critical">
+      <span class="cat-icon">📧</span>
+      <span class="priority-badge p-critical"><span class="dot"></span> Critical</span>
+      <h3>Email &amp; Gmail</h3>
+      <ul class="check-list">
+        <li>Loss of access to incoming messages — bills, notifications, correspondence</li>
+        <li>Gmail is often used as a <strong>password reset address</strong> for dozens of other services — lose it, lose everything downstream</li>
+        <li>Inability to respond to urgent communications from employers, family, or emergency services</li>
+        <li>Shared family calendars, documents, and Drive files become inaccessible</li>
+        <li class="note">Memorise your email password and ensure you can log in from any browser</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">📒</span>
+      <span class="priority-badge p-high">● High</span>
+      <h3>Contacts, Notes &amp; Messages</h3>
+      <ul class="check-list">
+        <li>Most people can't recall more than 2–3 phone numbers by memory — everyone else is gone</li>
+        <li>Years of <strong>WhatsApp, Signal, Telegram message history</strong> — gone or inaccessible</li>
+        <li>Notes apps (Apple Notes, Google Keep, Samsung Notes) holding passwords, addresses, account numbers, PINs — lost</li>
+        <li><strong>Security risk:</strong> if your phone is stolen or found, an unlocked or easily guessed device gives a stranger access to everything listed above</li>
+        <li class="note">Unencrypted notes containing passwords or financial data are a serious vulnerability</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">☁️</span>
+      <span class="priority-badge p-high">● High</span>
+      <h3>Cloud Backups &amp; iCloud</h3>
+      <ul class="check-list">
+        <li><strong>iCloud / Google Photos</strong> — years of photos and videos inaccessible if your account is locked or internet is down</li>
+        <li>App data, saved games, and app settings — not restored on a new device until you regain access</li>
+        <li>iCloud Keychain passwords unavailable if your Apple ID is locked or you're offline</li>
+        <li>Shared family albums and memories at risk if the primary account holder is unreachable</li>
+        <li class="note">Cloud backups require internet to be useful — offline physical backups are essential</li>
+      </ul>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🏠</span>
+      <span class="priority-badge p-high">● High</span>
+      <h3>Home Automation</h3>
+      <ul class="check-list">
+        <li><strong>Smart heating (Nest, Hive, Tado)</strong> — can't adjust temperature or schedules remotely; app-only controls become useless</li>
+        <li><strong>Smart security cameras (Ring, Arlo, Eufy)</strong> — no live view, no alerts, no recorded footage review</li>
+        <li><strong>Smart locks (Yale, August)</strong> — app-only access codes may be unworkable; know your physical key override</li>
+        <li><strong>Smart lighting, plugs, and appliances</strong> — automation routines fail if hub or internet is lost</li>
+        <li>Smart doorbells, alarm monitoring apps, and CCTV alerts all go dark</li>
+        <li class="note">Always test the manual override for every smart home device you own</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ── BRIDGE VISUAL ── -->
+  <div class="photo-figure-split" style="margin: 2.5rem 0;">
+    <figure class="photo-figure" style="margin:0;">
+      <img src="images/phone_dead.png"
+           alt="A blank dead phone screen held in the dark — no signal, no access"
+           loading="lazy" />
+      <figcaption>Every service you rely on disappears the moment this screen goes dark.</figcaption>
+    </figure>
+    <figure class="photo-figure" style="margin:0;">
+      <img src="images/handwritten_contacts_list.png"
+           alt="A handwritten contacts list and printed backup codes in a notebook"
+           loading="lazy" />
+      <figcaption>The analogue fallback: a written phone book and printed backup codes take 30 minutes to prepare and last forever.</figcaption>
+    </figure>
+  </div>
+
+  <!-- ── WHAT TO DO ABOUT IT ── -->
+  <div class="section-header" style="margin-bottom:1rem;">
+    <div class="section-bar"></div>
+    <div class="section-bar-content">
+      <span class="kicker">The Solution</span>
+      <h3 class="section-heading" style="font-size:1.3rem;">How to Prepare — Practical Steps</h3>
+    </div>
+  </div>
+
+  <div class="tier-row">
+
+    <div class="tier">
+      <div class="tier-label"><span>🔐</span>2FA &amp;<br>Accounts</div>
+      <div>
+        <h4>Back Up Your 2FA Access Before You Lose It</h4>
+        <p>This is the highest-priority step. Do it this week.</p>
+        <ul class="check-list" style="margin-top:0.5rem;">
+          <li>For every service using an authenticator app, <strong>print or handwrite the backup / recovery codes</strong> provided when you enrolled — store them in a fireproof safe or sealed envelope off-site</li>
+          <li>Consider switching to <strong>Authy</strong> instead of Google Authenticator — Authy supports encrypted cloud sync and multi-device access, so you can recover on a new phone</li>
+          <li>Consider a <strong>hardware security key (YubiKey)</strong> as a second 2FA method on critical accounts (Gmail, banking, work) — it works offline, has no battery, and survives a phone loss</li>
+          <li>Write down the <strong>account recovery email address and phone number</strong> registered on each major account, and keep this list physically secured</li>
+          <li class="note">Google, Microsoft, Apple, and most banks all have account recovery processes — but they take time. Backup codes are instant.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label"><span>🏦</span>Banking &amp;<br>Crypto</div>
+      <div>
+        <h4>Ensure You Can Access Money Without Your Phone</h4>
+        <ul class="check-list" style="margin-top:0.5rem;">
+          <li><strong>Write down key bank account numbers and sort codes</strong> — stored separately from cards, in a physical safe or secured at a trusted family member's address</li>
+          <li>Know your <strong>bank's telephone banking number and your telephone banking PIN / passphrase</strong> — phone banking bypasses app requirements entirely</li>
+          <li>Carry a physical card with a memorised PIN; know which card doesn't require an app for transactions</li>
+          <li>For crypto: <strong>write your seed phrase (12 or 24 words) on paper or metal</strong> — store in two physically separate secure locations; never digitally</li>
+          <li>Consider a <strong>hardware wallet (Ledger, Trezor)</strong> — these work independently of any phone or app</li>
+          <li class="note">If your crypto seed phrase only exists on your phone, you don't own your crypto — you're borrowing it until the phone dies</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label"><span>📒</span>Contacts &amp;<br>Numbers</div>
+      <div>
+        <h4>The Written Phone Book — Don't Dismiss It</h4>
+        <ul class="check-list" style="margin-top:0.5rem;">
+          <li><strong>Print or handwrite the 20–30 most critical phone numbers</strong>: immediate family, close friends, GP, dentist, insurance, workplace, breakdown cover, neighbours</li>
+          <li>Laminate it or put it in a plastic sleeve and tape it inside a kitchen cupboard or to the back of your router</li>
+          <li>Include <strong>full postal addresses</strong> for the people you'd need to reach in person if communications failed</li>
+          <li>Give a copy to each adult in your household and to a trusted person outside it</li>
+          <li class="note">In an evacuation, you will not have time to try to remember numbers. Have them on paper in your go bag.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label"><span>🔑</span>Passwords &amp;<br>Notes</div>
+      <div>
+        <h4>Offline Password Management and Secure Notes</h4>
+        <ul class="check-list" style="margin-top:0.5rem;">
+          <li>Use a <strong>password manager (Bitwarden, 1Password, KeePass)</strong> — do not store passwords in phone notes apps or browser autofill alone</li>
+          <li><strong>KeePass</strong> stores your vault as an encrypted local file — back this up to a USB drive (not just to cloud); you can access it offline on any computer</li>
+          <li>Print a <strong>"break glass" sheet</strong> with your 10 most critical passwords (email, banking, work) — store in a fireproof safe; update it annually</li>
+          <li><strong>Never store PINs, bank details, or passwords in unencrypted phone notes</strong> — Notes, Notepad, and standard SMS are all plaintext</li>
+          <li>Use <strong>Standard Notes</strong> (end-to-end encrypted) or the encrypted notes section of your password manager for sensitive information</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label"><span>📸</span>Photos &amp;<br>Backups</div>
+      <div>
+        <h4>Physical and Offline Backups for Irreplaceable Data</h4>
+        <ul class="check-list" style="margin-top:0.5rem;">
+          <li>Run <strong>regular backups to a physical hard drive or USB</strong> — not just iCloud or Google Photos, which require internet and an active account to access</li>
+          <li>Print the <strong>most important photos</strong> — a physical print survives a cloud account being hacked, suspended, or an internet outage</li>
+          <li>Keep a USB drive in your go bag with a copy of key documents, photos, and your KeePass vault</li>
+          <li>Export and save contacts as a <strong>.vcf file</strong> periodically; store it on the USB drive alongside your documents</li>
+          <li class="note">Cloud backups are excellent for convenience — but they are not a substitute for a physical copy of irreplaceable data</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label"><span>🏠</span>Smart<br>Home</div>
+      <div>
+        <h4>Test Your Manual Overrides — Right Now</h4>
+        <ul class="check-list" style="margin-top:0.5rem;">
+          <li><strong>Smart heating:</strong> locate and test the physical thermostat controls; know how to set a manual programme without the app</li>
+          <li><strong>Smart locks:</strong> confirm you have a working physical key for every smart lock in your home; test it; keep a spare with a trusted person</li>
+          <li><strong>Security cameras:</strong> configure local SD card recording where possible — so footage is captured even if the cloud subscription or internet goes down</li>
+          <li><strong>Smart alarms:</strong> confirm the alarm has a manual PIN keypad and that every household member knows the code without looking it up on their phone</li>
+          <li>Know how to <strong>disable your smart home hub</strong> safely during a power cut (incorrect shutdown sequences can corrupt some hubs)</li>
+          <li class="note">Smart home devices are convenient. In an emergency, convenience becomes a liability if there's no physical fallback.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label"><span>📱</span>Spare<br>Device</div>
+      <div>
+        <h4>Consider a Backup Phone</h4>
+        <ul class="check-list" style="margin-top:0.5rem;">
+          <li>Keep an <strong>old smartphone in a drawer</strong>, factory-reset and charged — it can connect to Wi-Fi even without a SIM and run apps, authenticators, and cameras</li>
+          <li>A cheap <strong>prepaid SIM card</strong> (£5–£10 with credit) on a different network gives you a second number and data connection if your primary network is down</li>
+          <li>A basic <strong>feature phone ("dumb phone")</strong> — Nokia 3310 style — makes calls and sends texts on minimal power for days; useful when a smartphone would be dead</li>
+          <li>If evacuating, grab your charger cable and power bank instinctively — a dead phone is worse than no phone</li>
+          <li class="note">In a regional emergency, one network often goes down while others remain up. Having a SIM on a second carrier is genuine redundancy.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- end tier-row -->
+
+  <div class="info-box" style="margin-top:2rem;">
+    <strong>The 30-minute exercise:</strong> Put your phone in a drawer. Now try to do the following: call your partner,
+    log into your bank account, access your email from a different device, turn on your heating, and unlock your front door.
+    Every step you couldn't complete is a gap you need to close — and now you have a list.
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SKILLS
+════════════════════════════════════════ -->
+<div class="alert-banner" id="skills" style="background-image: url('images/war_room.png'); background-position: center 40%">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">🛠️</span>
+    <div>
+      <h2>Skills Matter More Than Kit</h2>
+      <span>Equipment can be lost, broken, or looted. Skills travel with you.</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider-strip" style="padding-top:2.5rem;">
+  <div class="divider-inner">
+    <p class="section-intro" style="margin-bottom:1.5rem;">
+      A well-prepared person with modest kit and solid skills will consistently outperform a
+      poorly-skilled person with expensive gear. Invest in knowledge and practice before buying more stuff.
+    </p>
+    <div class="skill-grid">
+      <div class="skill-card"><div class="skill-num">01</div><div><h4>First Aid &amp; CPR</h4><p>Take a certified course (St John Ambulance, Red Cross). Learn Wilderness First Aid for extended-care scenarios.</p></div></div>
+      <div class="skill-card"><div class="skill-num">02</div><div><h4>Fire Starting</h4><p>Practice starting a fire in wet, cold conditions with a ferro rod and natural tinder before relying on it in an emergency.</p></div></div>
+      <div class="skill-card"><div class="skill-num">03</div><div><h4>Map &amp; Compass Navigation</h4><p>Take a navigation course. Practice on local walks. GPS fails; paper maps and a compass do not run out of battery.</p></div></div>
+      <div class="skill-card"><div class="skill-num">04</div><div><h4>Water Purification</h4><p>Know how to find, collect, filter, and chemically treat water from natural sources. Practice before you need to.</p></div></div>
+      <div class="skill-card"><div class="skill-num">05</div><div><h4>Food Preservation</h4><p>Learn to preserve food by canning, dehydrating, fermenting (sourdough, kimchi, sauerkraut), and pickling. These skills massively extend your food supply.</p></div></div>
+      <div class="skill-card"><div class="skill-num">06</div><div><h4>Growing Food</h4><p>A vegetable patch or even a window box of salad greens reduces dependency on supply chains. Know which plants grow in your climate.</p></div></div>
+      <div class="skill-card"><div class="skill-num">07</div><div><h4>Basic Carpentry &amp; Repairs</h4><p>Know how to fix a door, patch a roof, board a window, and make basic shelters. A hammer, saw, and screwdriver are invaluable.</p></div></div>
+      <div class="skill-card"><div class="skill-num">08</div><div><h4>Amateur Radio</h4><p>The UK Foundation licence is a 2-day course and opens up enormous communication capability. In the US, the Technician licence covers most practical needs.</p></div></div>
+      <div class="skill-card"><div class="skill-num">09</div><div><h4>12V Solar Electrical</h4><p>Learn to wire a basic 12V system: solar panel → charge controller → battery → inverter. Powers lights, phone chargers, and small appliances indefinitely.</p></div></div>
+      <div class="skill-card"><div class="skill-num">10</div><div><h4>Community Building</h4><p>Know your neighbours. Identify useful skills locally: medics, mechanics, farmers. A trusted network of five people is worth more than a tonne of tinned food.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     RADAR CTA
+════════════════════════════════════════ -->
+<div class="alert-banner" id="radar">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-icon">📱</span>
+    <div>
+      <h2>Radar — When the Grid Falls, Stay Connected</h2>
+      <span>No internet. No SIM. No infrastructure. Just your group.</span>
+    </div>
+  </div>
+</div>
+
+<section class="prep-section" style="padding-top:2.5rem; padding-bottom:0;">
+  <p class="section-intro">
+    Every item in this guide becomes more effective when you can coordinate with the people
+    around you. Radar is an Android app that creates a fully off-grid, peer-to-peer mesh network
+    using Bluetooth LE and Wi-Fi Direct — no SIM card, no internet, no cell tower, no infrastructure
+    of any kind required.
+  </p>
+
+  <figure class="photo-figure" style="margin-bottom:2.5rem; max-height:320px; overflow:hidden;">
+    <img src="images/war_room.png"
+         alt="A group planning around a paper map with radios and notebooks on the table"
+         loading="lazy"
+         style="max-height:320px;" />
+    <figcaption>Your network of trusted, prepared people is your most valuable resource when the grid goes down.</figcaption>
+  </figure>
+
+  <div class="cat-grid" style="margin-bottom:4rem;">
+    <div class="cat-card">
+      <span class="cat-icon">🌐</span>
+      <h3>Truly Off-Grid</h3>
+      <ul class="check-list">
+        <li>Works without any internet connection</li>
+        <li>Works without a SIM card or phone signal</li>
+        <li>No servers, no infrastructure, no single point of failure</li>
+        <li>Peer-to-peer encrypted communications</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">📍</span>
+      <h3>Radar View</h3>
+      <ul class="check-list">
+        <li>See your group on a live radar-style display</li>
+        <li>Track positions of family and team members nearby</li>
+        <li>Works in urban environments, woodland, buildings</li>
+        <li>No GPS lock required for relative positioning</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">💬</span>
+      <h3>Encrypted Messaging</h3>
+      <ul class="check-list">
+        <li>Send text messages and files peer-to-peer</li>
+        <li>End-to-end encrypted with no central relay</li>
+        <li>Supports voice and video calls over local Wi-Fi</li>
+        <li>SOS and emergency alert broadcasting</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <h2>Prepare Your Team with <em style="color:var(--red);font-style:normal;">Radar</em></h2>
+  <p>
+    Download Radar for Android and set it up with your household, team, or community group before
+    you need it. Like a fire extinguisher, the best time to install it is before the fire starts.
+  </p>
+  <div class="cta-row">
+    <a class="btn-primary" href="index.html">Learn About Radar →</a>
+    <a class="btn-ghost" href="emergency.html">Emergency Features</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 DAL Technology Ltd &nbsp;·&nbsp;
+     <a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp;
+     <a href="index.html">Radar Home</a>
+  </p>
+  <p style="margin-top:0.5rem;font-size:0.72rem;opacity:0.6;">
+    This guide is for general information only. Always follow official emergency guidance from your local authorities.
+  </p>
+</footer>
+
+</div><!-- .page -->
+</body>
+</html>
