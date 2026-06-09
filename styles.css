@@ -12,7 +12,8 @@
   --border-subtle: #20253b;
   --card-radius: 18px;
   --shadow-soft: 0 22px 45px rgba(0, 0, 0, 0.65);
-  --max-width: 1120px;
+  --max-width: 2400px;
+  --page-pad: max(1.25rem, 3vw);
 }
 
 * {
@@ -63,7 +64,7 @@ header {
 .nav-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem var(--page-pad);
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -18,11 +18,15 @@
       --col-sig:  rgba(74,181,255,0.08);
       --col-rad:  rgba(74,181,255,0.16);
       --col-rad-border: rgba(74,181,255,0.5);
+
+      /* Override global max-width: let this wide table fill the viewport */
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
     }
 
     /* ── Sticky site nav ── */
     .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
-    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
     .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
     .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
@@ -31,7 +35,7 @@
 
     /* ── HERO ── */
     .hero-surv {
-      padding: 5rem 1.25rem 4rem;
+      padding: 5rem var(--page-pad) 4rem;
       max-width: var(--max-width);
       margin: 0 auto;
       text-align: center;
@@ -68,7 +72,7 @@
     .surv-section {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 3.5rem 1.25rem;
+      padding: 3.5rem var(--page-pad);
       border-top: 1px solid var(--border-subtle);
     }
     .surv-section .kicker { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 0.6rem; }
@@ -163,6 +167,8 @@
       border-collapse: collapse;
       min-width: 620px;
     }
+    .th-logo { width: 26px; height: 26px; object-fit: contain; border-radius: 5px; vertical-align: middle; margin-right: 5px; }
+    .trademark-notice { font-size: 0.72rem; color: rgba(160,163,194,0.55); margin-top: 0.5rem; }
     .matrix-table thead tr {
       background: rgba(255,255,255,0.04);
     }
@@ -362,13 +368,13 @@
     /* ── FOOTER ── */
     footer.surv-footer {
       text-align: center;
-      padding: 2rem 1.25rem;
+      padding: 2rem var(--page-pad);
       font-size: 0.78rem;
       color: rgba(160,163,194,0.45);
       border-top: 1px solid var(--border-subtle);
     }
 
-    @media (max-width: 600px) { .matrix-wrap { border-radius: 0; margin-left: -1.25rem; margin-right: -1.25rem; } }
+    @media (max-width: 600px) { .matrix-wrap { border-radius: 0; margin-left: calc(-1 * var(--page-pad)); margin-right: calc(-1 * var(--page-pad)); } }
   </style>
 </head>
 <body>
@@ -512,10 +518,10 @@
           <thead>
             <tr>
               <th class="col-feature">Privacy Property</th>
-              <th class="col-wa">WhatsApp</th>
-              <th class="col-tg">Telegram</th>
-              <th class="col-sig">Signal</th>
-              <th class="col-rad">Radar</th>
+              <th class="col-wa"><img src="assets/logos/whatsapp-logo.avif" class="th-logo" alt="WhatsApp logo"> WhatsApp</th>
+              <th class="col-tg"><img src="assets/logos/telegram-logo.webp" class="th-logo" alt="Telegram logo"> Telegram</th>
+              <th class="col-sig"><img src="assets/logos/signal-logo.jpg" class="th-logo" alt="Signal logo"> Signal</th>
+              <th class="col-rad"><img src="assets/logos/App_Icon_blueradar.png" class="th-logo" alt="Radar logo"> Radar</th>
             </tr>
           </thead>
           <tbody>
@@ -627,10 +633,10 @@
           <thead>
             <tr>
               <th class="col-feature">Risk / Weakness</th>
-              <th class="col-wa">WhatsApp</th>
-              <th class="col-tg">Telegram</th>
-              <th class="col-sig">Signal</th>
-              <th class="col-rad">Radar</th>
+              <th class="col-wa"><img src="assets/logos/whatsapp-logo.avif" class="th-logo" alt="WhatsApp logo"> WhatsApp</th>
+              <th class="col-tg"><img src="assets/logos/telegram-logo.webp" class="th-logo" alt="Telegram logo"> Telegram</th>
+              <th class="col-sig"><img src="assets/logos/signal-logo.jpg" class="th-logo" alt="Signal logo"> Signal</th>
+              <th class="col-rad"><img src="assets/logos/App_Icon_blueradar.png" class="th-logo" alt="Radar logo"> Radar</th>
             </tr>
           </thead>
           <tbody>
@@ -994,8 +1000,7 @@
         identical criteria to each platform based on confirmed default behaviour, not marketing
         claims.  The single risk all platforms share — device-level endpoint vulnerability —
         is a universal property of client software and cannot be eliminated by any messaging
-        architecture.  All other risk assessments are structural.
-      </p>
+        architecture.  All other risk assessments are structural. WhatsApp is a trademark of Meta Platforms, Inc. Signal is a trademark of the Signal Foundation. Telegram is a trademark of Telegram Messenger LLP. Radar is not affiliated with or endorsed by any of these companies. All logos are the property of their respective owners. </p>
     </div>
 
   </main>

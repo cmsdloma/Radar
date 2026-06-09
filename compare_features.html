@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -18,11 +18,15 @@
       --col-sig:  rgba(74,181,255,0.08);
       --col-rad:  rgba(74,181,255,0.22);
       --col-rad-border: rgba(74,181,255,0.75);
+
+      /* Override global max-width: let this wide table fill the viewport */
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
     }
 
     /* ── Sticky site nav ── */
     .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
-    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
     .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
     .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
@@ -31,7 +35,7 @@
 
     /* ── HERO ── */
     .hero-surv {
-      padding: 5rem 1.25rem 4rem;
+      padding: 5rem var(--page-pad) 4rem;
       max-width: var(--max-width);
       margin: 0 auto;
       text-align: center;
@@ -68,7 +72,7 @@
     .surv-section {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 3.5rem 1.25rem;
+      padding: 3.5rem var(--page-pad);
       border-top: 1px solid var(--border-subtle);
     }
     .surv-section .kicker { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 0.6rem; }
@@ -273,7 +277,7 @@
     /* ── CLOSING BANNER ── */
     .closing-banner {
       text-align: center;
-      padding: 5rem 1.25rem;
+      padding: 5rem var(--page-pad);
       border-top: 1px solid var(--border-subtle);
     }
     .closing-banner h2 {
@@ -330,6 +334,8 @@
     .bc-app { display: flex; flex-direction: column; align-items: center; padding: 14px 10px 10px; gap: 3px; position: relative; }
     .bc-app::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:0; }
     .bc-emoji { font-size: 1.3rem; }
+    .bc-logo  { width: 36px; height: 36px; object-fit: contain; border-radius: 7px; display: block; }
+    .trademark-notice { font-size: 0.72rem; color: var(--muted); opacity: 0.65; margin-top: 0.6rem !important; }
     .bc-name  { font-size: 0.78rem; font-weight: 800; }
     .bc-tag   { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; }
 
@@ -404,6 +410,7 @@
       <li><a href="censorship.html">Censorship</a></li>
       <li><a href="matrix.html">Matrix</a></li>
       <li><a href="compare_features.html" class="nav-active">Compare Features</a></li>
+      <li><a href="compare_life360.html">vs Life360</a></li>
       <li><a href="compare_privacy.html">Compare Privacy</a></li>
       <li><a href="privacy-policy.html">Privacy Policy</a></li>
       <li><a href="release-notes.html">Releases</a></li>
@@ -539,11 +546,11 @@
     <thead>
       <tr>
         <th class="bh-feat"></th>
-        <th><div class="bc-app bh-rad"><span class="bc-emoji">📡</span><span class="bc-name">Radar</span><span class="bc-tag">DAL Technology</span></div></th>
-        <th><div class="bc-app bh-wa"><span class="bc-emoji">💬</span><span class="bc-name">WhatsApp</span><span class="bc-tag">Meta</span></div></th>
-        <th><div class="bc-app bh-tg"><span class="bc-emoji">✈️</span><span class="bc-name">Telegram</span><span class="bc-tag">Telegram FZ-LLC</span></div></th>
-        <th><div class="bc-app bh-sig"><span class="bc-emoji">🔒</span><span class="bc-name">Signal</span><span class="bc-tag">Signal Foundation</span></div></th>
-        <th><div class="bc-app bh-dc"><span class="bc-emoji">🎮</span><span class="bc-name">Discord</span><span class="bc-tag">Discord Inc.</span></div></th>
+        <th><div class="bc-app bh-rad"><img src="assets/logos/App_Icon_blueradar.png" class="bc-logo" alt="Radar logo"><span class="bc-name">Radar</span><span class="bc-tag">DAL Technology</span></div></th>
+        <th><div class="bc-app bh-wa"><img src="assets/logos/whatsapp-logo.avif" class="bc-logo" alt="WhatsApp logo"><span class="bc-name">WhatsApp</span><span class="bc-tag">Meta</span></div></th>
+        <th><div class="bc-app bh-tg"><img src="assets/logos/telegram-logo.webp" class="bc-logo" alt="Telegram logo"><span class="bc-name">Telegram</span><span class="bc-tag">Telegram FZ-LLC</span></div></th>
+        <th><div class="bc-app bh-sig"><img src="assets/logos/signal-logo.jpg" class="bc-logo" alt="Signal logo"><span class="bc-name">Signal</span><span class="bc-tag">Signal Foundation</span></div></th>
+        <th><div class="bc-app bh-dc"><img src="assets/logos/discord-icon.avif" class="bc-logo" alt="Discord logo"><span class="bc-name">Discord</span><span class="bc-tag">Discord Inc.</span></div></th>
       </tr>
     </thead>
     <tbody>
@@ -1142,6 +1149,12 @@
       </ul>
     </div>
 
+  </div>
+  <div class="footnote-box" style="margin-top:0.5rem;">
+    <p class="trademark-notice">
+      WhatsApp is a trademark of Meta Platforms, Inc. Signal is a trademark of the Signal Foundation. Telegram is a trademark of Telegram Messenger LLP. Discord is a trademark of Discord, Inc.
+      Radar is not affiliated with or endorsed by any of these companies. All logos are the property of their respective owners and are used here solely for identification and comparison purposes.
+    </p>
   </div>
 </section>
 

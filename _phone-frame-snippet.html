@@ -1,0 +1,155 @@
+<!--
+  ══════════════════════════════════════════════════════════════════
+  PHONE FRAME SNIPPET  —  _phone-frame-snippet.html
+  ══════════════════════════════════════════════════════════════════
+
+  HOW TO USE
+  ──────────
+  1. Copy the <style> block (marked STEP 1) into the <head> of your page.
+     Only needed once per page, no matter how many frames you add.
+
+  2. Copy one or more of the HTML blocks (marked STEP 2) wherever you
+     want a phone to appear.
+
+  3. Replace YOUR_SCREENSHOT.png with the real image path.
+     Or leave the <div class="phone-screen-placeholder"> in place
+     as a grey-screen stand-in.
+
+  RESIZING
+  ────────
+  Default width is 280 px.  To change it, set --phone-w on the wrapper:
+
+    <div class="phone-wrap" style="--phone-w: 360px;">
+
+  You can also reduce --phone-r to match a less-rounded model:
+
+    <div class="phone-wrap" style="--phone-w: 320px; --phone-r: 36px;">
+
+  ══════════════════════════════════════════════════════════════════
+-->
+
+
+<!-- ── STEP 1 · CSS  (paste once into <head>) ───────────────────────────── -->
+<style>
+  /* ── Phone frame ──────────────────────────────────────────────────────── */
+  .phone-wrap {
+    --phone-w:   280px;
+    --phone-r:   46px;
+    --bezel-h:   10px;
+    --bezel-v:   10px;
+    --btn-w:     3px;
+    --btn-color: #2e2e34;
+
+    display: inline-block;
+    position: relative;
+    padding: 0 calc(var(--btn-w) + 2px);
+  }
+
+  .phone-body {
+    width: var(--phone-w);
+    aspect-ratio: 9 / 22;
+    border-radius: var(--phone-r);
+    position: relative;
+    box-sizing: border-box;
+    padding: var(--bezel-h) var(--bezel-v);
+    background: linear-gradient(160deg,
+      #2c2c32 0%, #1e1e24 35%, #141418 70%, #0e0e12 100%);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.13),
+      0 0 0 2.5px #000,
+      0 50px 100px rgba(0,0,0,0.7),
+      0 20px 40px  rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.09),
+      inset 0 -1px 0 rgba(255,255,255,0.04);
+  }
+
+  .phone-screen {
+    width: 100%; height: 100%;
+    border-radius: calc(var(--phone-r) - var(--bezel-v) - 2px);
+    overflow: hidden; position: relative; background: #000;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.6);
+  }
+
+  .phone-screen-img {
+    display: block; width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+  }
+
+  .phone-screen-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.6rem;
+    background: linear-gradient(180deg, #0d1020 0%, #090d1a 100%);
+    color: #3a3e58; font-size: 0.72rem; font-family: system-ui, sans-serif;
+    text-align: center; padding: 1rem;
+  }
+  .phone-screen-placeholder svg { opacity: 0.3; }
+
+  .phone-camera {
+    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+    width: 11px; height: 11px; border-radius: 50%; background: #000;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 4px rgba(100,180,255,0.25);
+    z-index: 10; pointer-events: none;
+  }
+
+  .phone-home-bar {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 36%; height: 4px; border-radius: 999px;
+    background: rgba(255,255,255,0.28);
+    z-index: 10; pointer-events: none;
+  }
+
+  .phone-btn {
+    position: absolute; background: var(--btn-color); border-radius: 2px;
+    width: var(--btn-w);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.5);
+  }
+  .phone-btn-vol-up { left:  calc(-1*(var(--btn-w)+1px)); top: 20%; height:  8%; }
+  .phone-btn-vol-dn { left:  calc(-1*(var(--btn-w)+1px)); top: 31%; height: 10%; }
+  .phone-btn-power  { right: calc(-1*(var(--btn-w)+1px)); top: 24%; height:  9%; }
+
+  .phone-body::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: linear-gradient(140deg, rgba(255,255,255,0.04) 0%, transparent 45%);
+    pointer-events: none;
+  }
+</style>
+
+
+<!-- ── STEP 2 · HTML  (paste wherever a phone frame is needed) ──────────── -->
+
+<!-- Option A: placeholder screen (no image yet) -->
+<div class="phone-wrap">
+  <div class="phone-body">
+    <div class="phone-screen">
+      <div class="phone-camera"></div>
+      <div class="phone-screen-placeholder">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        Screenshot
+      </div>
+      <div class="phone-home-bar"></div>
+    </div>
+    <div class="phone-btn phone-btn-vol-up"></div>
+    <div class="phone-btn phone-btn-vol-dn"></div>
+    <div class="phone-btn phone-btn-power"></div>
+  </div>
+</div>
+
+<!-- Option B: with a real screenshot -->
+<div class="phone-wrap">
+  <div class="phone-body">
+    <div class="phone-screen">
+      <div class="phone-camera"></div>
+      <img class="phone-screen-img" src="YOUR_SCREENSHOT.png" alt="App screenshot" />
+      <div class="phone-home-bar"></div>
+    </div>
+    <div class="phone-btn phone-btn-vol-up"></div>
+    <div class="phone-btn phone-btn-vol-dn"></div>
+    <div class="phone-btn phone-btn-power"></div>
+  </div>
+</div>

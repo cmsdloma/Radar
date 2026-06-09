@@ -13,11 +13,14 @@
       --accent-warn:  #ff6868;
       --accent-pink:  #ff71c8;
       --premium-glow: rgba(255,225,107,0.12);
+
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
     }
 
     /* ── Sticky nav ── */
     .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
-    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
     .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
     .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
@@ -25,7 +28,7 @@
     @media (max-width: 900px) { .nav-links { display: none; } }
 
     /* ── Hero ── */
-    .pm-hero { max-width: 860px; margin: 0 auto; padding: 3rem 1.25rem 2rem; text-align: center; }
+    .pm-hero { max-width: 860px; margin: 0 auto; padding: 3rem var(--page-pad) 2rem; text-align: center; }
     .pm-hero .eyebrow { display: inline-block; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-amber); border: 1px solid rgba(255,225,107,0.3); border-radius: 999px; padding: 0.28rem 0.8rem; margin-bottom: 1rem; }
     .pm-hero h1 { font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 800; margin: 0 0 0.5rem; }
     .pm-hero h1 em { font-style: normal; color: var(--accent-amber); }
@@ -44,7 +47,7 @@
     .pill-sub { font-size: 0.7rem; color: var(--muted); display: block; margin-top: 3px; }
 
     /* ── Wrap ── */
-    .pm-wrap { max-width: 960px; margin: 0 auto; padding: 0 1.25rem 4rem; }
+    .pm-wrap { max-width: 960px; margin: 0 auto; padding: 0 var(--page-pad) 4rem; }
 
     /* ── Comparison table ── */
     .compare-table {
@@ -94,7 +97,7 @@
     /* ── Feature rows ── */
     .compare-table tbody tr.feature-row { border-top: 1px solid var(--border-subtle); }
     .compare-table tbody tr.feature-row:hover td { background: rgba(255,255,255,0.015); }
-    .compare-table tbody tr.feature-row td { padding: 0.85rem 1.1rem; vertical-align: middle; font-size: 0.86rem; }
+    .compare-table tbody tr.feature-row td { padding: 0.5rem 1.1rem; vertical-align: middle; font-size: 0.86rem; }
 
     .feature-name { font-weight: 500; color: var(--text); line-height: 1.4; }
     .feature-name small { display: block; font-size: 0.74rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
@@ -147,8 +150,17 @@
     .faq-q { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text); }
     .faq-a { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
 
+
+    /* ── Diff filter ── */
+    .diff-filter-bar { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem; }
+    .diff-filter-bar label { font-size: 0.82rem; color: var(--muted); cursor: pointer; user-select: none; display: flex; align-items: center; gap: 0.45rem; }
+    .diff-filter-bar input[type=checkbox] { accent-color: var(--accent-amber); width: 1rem; height: 1rem; cursor: pointer; flex-shrink: 0; }
+    .compare-table.hide-common tr[data-common="true"] { display: none; }
+    /* Keep section-rows visible even when their block is all-common */
+    .compare-table.hide-common .section-row { display: table-row; }
+
     /* ── Footer ── */
-    .pm-footer { text-align: center; font-size: 0.76rem; color: rgba(160,163,194,0.5); padding: 1.5rem 1.25rem 2rem; border-top: 1px solid var(--border-subtle); }
+    .pm-footer { text-align: center; font-size: 0.76rem; color: rgba(160,163,194,0.5); padding: 1.5rem var(--page-pad) 2rem; border-top: 1px solid var(--border-subtle); }
 
     @media (max-width: 640px) {
       .compare-table tbody tr.feature-row td { padding: 0.7rem 0.65rem; font-size: 0.8rem; }
@@ -177,6 +189,7 @@
       <li><a href="compare_privacy.html">Compare Privacy</a></li>
       <li><a href="privacy-policy.html">Privacy Policy</a></li>
       <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="feeds.html">Feeds</a></li>
       <li><a href="premium.html" class="nav-active">Premium</a></li>
       <li><a href="ios-limitations.html">iOS</a></li>
       <li><a href="whatsapp.html">WhatsApp</a></li>
@@ -213,7 +226,13 @@
     <!-- ══════════════════════════════════════════════
          COMPARISON TABLE
     ══════════════════════════════════════════════ -->
-    <table class="compare-table" aria-label="Free vs Premium feature comparison">
+    <div class="diff-filter-bar">
+      <label>
+        <input type="checkbox" id="diffOnly" onchange="toggleDiff(this)">
+        Only show differences
+      </label>
+    </div>
+    <table class="compare-table" id="compareTable" aria-label="Free vs Premium feature comparison">
       <colgroup>
         <col class="col-feature" />
         <col class="col-free" />
@@ -244,57 +263,57 @@
         <tr class="section-row">
           <td>💬 Messaging</td><td class="free-cell"></td><td class="premium-cell"></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Receive messages from anyone<small>Including first-contact inbound chats</small></td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Reply to existing chats</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="false">
           <td class="feature-name">Start a chat with a new contact<small>Initiate first contact with a peer you haven't spoken to before</small></td>
           <td class="cell-free"><span class="cross">✕</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Group messaging</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">End-to-end encryption (all messages)</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Emoji reactions</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Read receipts &amp; typing indicators</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Delete for me / Delete for everyone</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Pin messages</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">SMS &amp; MMS integration</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Matrix federated chat</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
@@ -304,27 +323,27 @@
         <tr class="section-row">
           <td>📶 Connectivity &amp; Delivery</td><td class="free-cell"></td><td class="premium-cell"></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Bluetooth LE (BLE) delivery</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Wi-Fi Aware (peer-to-peer) delivery</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">LAN / Ethernet delivery</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Internet web relay</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Offline mesh networking<small>Store-and-forward relay across up to 5 hops without internet</small></td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
@@ -334,32 +353,32 @@
         <tr class="section-row">
           <td>🗺️ Radar Map</td><td class="free-cell"></td><td class="premium-cell"></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Nearby Radar contacts on map</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">BLE &amp; Wi-Fi Aware peers on map</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Earthquakes &amp; seismic events on map</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="false">
           <td class="feature-name">Points of interest (POI)<small>Basic: taps open in Google Maps</small></td>
           <td class="cell-free"><span class="limited">Basic</span></td>
           <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Rich details</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="false">
           <td class="feature-name">Live aircraft on map (OpenSky)<small>Real-time flight positions</small></td>
           <td class="cell-free"><span class="cross">✕</span></td>
           <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="false">
           <td class="feature-name">WiGLE Wi-Fi AP lookup on map<small>Crowd-sourced Wi-Fi access points near you</small></td>
           <td class="cell-free"><span class="cross">✕</span></td>
           <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
@@ -369,27 +388,27 @@
         <tr class="section-row">
           <td>🔒 Privacy &amp; Security</td><td class="free-cell"></td><td class="premium-cell"></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Sealed-sender encryption</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Encrypted local database (SQLCipher)</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Pseudonymous identity (UUID only)<small>No email or phone number required</small></td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">Auto-deletion of relayed messages<small>Server purges within 7 days or on confirmed receipt</small></td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">No advertising — ever</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
@@ -399,7 +418,7 @@
         <tr class="section-row">
           <td>🆘 Emergency Features</td><td class="free-cell"></td><td class="premium-cell"></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">SOS broadcast to all reachable peers<small>Sends GPS coordinates across all channels simultaneously</small></td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
@@ -409,17 +428,67 @@
         <tr class="section-row">
           <td>💬 Support</td><td class="free-cell"></td><td class="premium-cell"></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="true">
           <td class="feature-name">In-app support request</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row">
+        <tr class="feature-row" data-common="false">
           <td class="feature-name">Priority support response</td>
           <td class="cell-free"><span class="cross">✕</span></td>
           <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
         </tr>
 
+
+        <!-- ── LIVE FEEDS ── -->
+        <tr class="section-row">
+          <td>📡 Live Feeds &amp; Alerts</td><td class="free-cell"></td><td class="premium-cell"></td>
+        </tr>
+        <tr class="feature-row" data-common="true">
+          <td class="feature-name">Built-in curated feeds<small>Earthquakes, wildfires, floods, cyclones and volcanoes on the map</small></td>
+          <td class="cell-free"><span class="tick">✔</span></td>
+          <td class="cell-premium"><span class="tick">✔</span></td>
+        </tr>
+        <tr class="feature-row" data-common="true">
+          <td class="feature-name">GeoRSS feeds<small>Geographic RSS &amp; Geo-Atom — coordinates auto-pinned to map</small></td>
+          <td class="cell-free"><span class="tick">✔</span></td>
+          <td class="cell-premium"><span class="tick">✔</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">CAP alert feeds<small>Common Alerting Protocol — official government &amp; agency warnings worldwide</small></td>
+          <td class="cell-free"><span class="limited">Basic</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Full catalog</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">GeoJSON feeds<small>Structured geographic data — boundaries, disaster zones, conflict areas</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">RSS / news intelligence feeds<small>Aviation incidents, cyber threats, disease outbreaks, conflict news</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Full feed catalog (250+ feeds)<small>50+ countries · 12 hazard categories · all 5 feed formats</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Add custom feed URLs<small>Point Radar at any GeoRSS, CAP, GeoJSON or RSS endpoint</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Per-feed enable / disable &amp; refresh interval<small>Granular control over which feeds run and how often</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">CAP polygon overlays on map<small>Hazard zone polygons drawn directly on the Radar map</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
       </tbody>
     </table>
 
@@ -474,5 +543,10 @@
 </footer>
 
 </div>
+<script>
+function toggleDiff(cb) {
+  document.getElementById('compareTable').classList.toggle('hide-common', cb.checked);
+}
+</script>
 </body>
 </html>

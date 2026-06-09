@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -13,11 +13,14 @@
       --accent-amber: #ffe16b;
       --accent-teal:  #4ab5ff;
       --accent-pink:  #ff71c8;
+
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
     }
 
     /* ── Sticky site nav ── */
     .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
-    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
     .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
     .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
@@ -26,7 +29,7 @@
 
     /* HERO */
     .hero-surv {
-      padding: 5rem 1.25rem 4rem;
+      padding: 5rem var(--page-pad) 4rem;
       max-width: var(--max-width);
       margin: 0 auto;
       text-align: center;
@@ -89,7 +92,7 @@
     .surv-section {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 3.5rem 1.25rem;
+      padding: 3.5rem var(--page-pad);
       border-top: 1px solid var(--border-subtle);
     }
     .surv-section .kicker {
@@ -415,7 +418,7 @@
     /* FOOTER */
     footer.surv-footer {
       text-align: center;
-      padding: 2rem 1.25rem;
+      padding: 2rem var(--page-pad);
       font-size: 0.78rem;
       color: rgba(160,163,194,0.45);
       border-top: 1px solid var(--border-subtle);
@@ -1035,6 +1038,12 @@
         significant; its limitations are structural and not a criticism of its mission or engineering.
       </p>
     </div>
+  <div class="footnote-box" style="margin-top:0.5rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+    <p class="trademark-notice" style="font-size:0.72rem; color:rgba(160,163,194,0.55);">
+      WhatsApp is a trademark of Meta Platforms, Inc. Signal is a trademark of the Signal Foundation. Telegram is a trademark of Telegram Messenger LLP.
+      Radar is not affiliated with or endorsed by any of these companies.
+    </p>
+  </div>
 
   </main>
 

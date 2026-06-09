@@ -12,11 +12,14 @@
       --accent-amber: #ffe16b;
       --accent-warn:  #ff6868;
       --accent-pink:  #ff71c8;
+
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
     }
 
     /* ── Sticky nav ── */
     .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
-    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
     .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
     .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
@@ -24,14 +27,14 @@
     @media (max-width: 900px) { .nav-links { display: none; } }
 
     /* ── Hero ── */
-    .ios-hero { max-width: 820px; margin: 0 auto; padding: 3rem 1.25rem 2rem; text-align: center; }
+    .ios-hero { max-width: 820px; margin: 0 auto; padding: 3rem var(--page-pad) 2rem; text-align: center; }
     .ios-hero .eyebrow { display: inline-block; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-warn); border: 1px solid rgba(255,104,104,0.3); border-radius: 999px; padding: 0.28rem 0.8rem; margin-bottom: 1rem; }
     .ios-hero h1 { font-size: clamp(1.7rem,3.2vw,2.5rem); font-weight: 800; margin: 0 0 0.75rem; line-height: 1.15; }
     .ios-hero h1 em { font-style: normal; color: var(--accent-warn); }
     .ios-hero p { color: var(--muted); font-size: 0.95rem; max-width: 600px; margin: 0 auto; line-height: 1.7; }
 
     /* ── Wrap ── */
-    .ios-wrap { max-width: 820px; margin: 0 auto; padding: 0 1.25rem 4rem; }
+    .ios-wrap { max-width: 820px; margin: 0 auto; padding: 0 var(--page-pad) 4rem; }
 
     /* ── Summary banner ── */
     .summary-banner {
@@ -117,7 +120,7 @@
     .closing-note a { color: var(--accent-teal); }
 
     /* ── Footer ── */
-    .ios-footer { text-align: center; font-size: 0.76rem; color: rgba(160,163,194,0.5); padding: 1.5rem 1.25rem 2rem; border-top: 1px solid var(--border-subtle); }
+    .ios-footer { text-align: center; font-size: 0.76rem; color: rgba(160,163,194,0.5); padding: 1.5rem var(--page-pad) 2rem; border-top: 1px solid var(--border-subtle); }
   </style>
 </head>
 <body>

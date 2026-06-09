@@ -21,6 +21,9 @@
       --mx-teal:         #0dbd8b;
       --mx-teal-soft:    rgba(13,189,139,0.1);
       --mx-teal-border:  rgba(13,189,139,0.28);
+
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
     }
 
     /* ── Nav ── */
@@ -30,7 +33,7 @@
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(0,255,65,0.18);
     }
-    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
     .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
     .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
@@ -52,7 +55,7 @@
     .hero-content {
       position: relative; z-index: 2;
       max-width: var(--max-width); margin: 0 auto;
-      padding: 5.5rem 1.25rem 4.5rem;
+      padding: 5.5rem var(--page-pad) 4.5rem;
       text-align: center;
     }
     .hero-eyebrow {
@@ -89,7 +92,7 @@
       background: rgba(0,20,8,0.5);
       border-top: 1px solid rgba(0,255,65,0.1);
       border-bottom: 1px solid rgba(0,255,65,0.1);
-      padding: 2rem 1.25rem;
+      padding: 2rem var(--page-pad);
     }
     .server-inner {
       max-width: var(--max-width); margin: 0 auto;
@@ -124,7 +127,7 @@
     ═══════════════════════════════════════════════ */
     .mx-section {
       max-width: var(--max-width); margin: 0 auto;
-      padding: 4rem 1.25rem 0;
+      padding: 4rem var(--page-pad) 0;
     }
     .mx-section.last { padding-bottom: 4rem; }
 
@@ -199,7 +202,7 @@
       background: rgba(0,20,8,0.4);
       border-top: 1px solid rgba(0,255,65,0.1);
       border-bottom: 1px solid rgba(0,255,65,0.1);
-      padding: 4rem 1.25rem;
+      padding: 4rem var(--page-pad);
       margin-top: 4rem;
     }
     .rooms-inner { max-width: var(--max-width); margin: 0 auto; }
@@ -283,7 +286,7 @@
     .btn-ghost:hover { background: var(--mx-green-soft); transform: translateY(-2px); }
 
     footer {
-      text-align: center; padding: 2rem 1.25rem;
+      text-align: center; padding: 2rem var(--page-pad);
       font-size: 0.78rem; color: rgba(160,163,194,0.45);
       border-top: 1px solid var(--border-subtle);
     }

@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Offline &amp; Mesh Chat App Comparison – Bluetooth, LoRa &amp; Beyond | Radar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="A comprehensive comparison of offline, mesh, and Bluetooth chat apps — Briar, Bridgefy, Meshtastic, BitChat, Serval, FireChat, Berty, and more — scored on openness, development status, offline capability, and integration potential. Includes a deep-dive into why Bluetooth and Android's stack makes offline chat so difficult to build." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent-warn:  #ff6868;
+      --accent-amber: #ffe16b;
+      --accent-teal:  #4ab5ff;
+      --accent-pink:  #ff71c8;
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
+      --card-bg:   rgba(255,255,255,0.03);
+      --border-subtle: #20253b;
+    }
+
+    /* ── Sticky site nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(74,181,255,0.08); color: var(--accent-teal); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero-surv { padding: 5rem var(--page-pad) 4rem; max-width: var(--max-width); margin: 0 auto; text-align: center; }
+    .hero-surv .eyebrow { display: inline-block; font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-teal); border: 1px solid rgba(74,181,255,0.35); border-radius: 999px; padding: 0.3rem 0.9rem; margin-bottom: 1.5rem; }
+    .hero-surv h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.12; margin: 0 0 1.5rem; letter-spacing: -0.02em; }
+    .hero-surv h1 em       { font-style: normal; color: var(--accent-teal); }
+    .hero-surv h1 em.warn  { color: var(--accent-warn); }
+    .hero-surv .lead { font-size: clamp(1rem, 2vw, 1.18rem); color: var(--muted); max-width: 760px; margin: 0 auto 3rem; line-height: 1.75; }
+
+    /* ── SECTION WRAPPERS ── */
+    .surv-section { max-width: var(--max-width); margin: 0 auto; padding: 3.5rem var(--page-pad); border-top: 1px solid var(--border-subtle); }
+    .surv-section .kicker { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 0.6rem; }
+    .kicker--teal  { color: var(--accent-teal); }
+    .kicker--amber { color: var(--accent-amber); }
+    .kicker--red   { color: var(--accent-warn); }
+    .kicker--pink  { color: var(--accent-pink); }
+    .surv-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin: 0 0 0.8rem; line-height: 1.25; }
+    .surv-section .section-lead { color: var(--muted); font-size: 0.97rem; max-width: 760px; margin-bottom: 2.5rem; line-height: 1.75; }
+
+    /* ── APP OVERVIEW CARDS ── */
+    .app-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 1100px) { .app-cards { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 720px)  { .app-cards { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 440px)  { .app-cards { grid-template-columns: 1fr; } }
+
+    .acard {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.25rem 1.15rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .acard.dead { opacity: 0.7; }
+    .acard.dead::after { content: 'DEAD'; position: absolute; top: 0.9rem; right: 0.9rem; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; background: rgba(255,104,104,0.15); color: #ff6868; border: 1px solid rgba(255,104,104,0.4); border-radius: 999px; padding: 0.15rem 0.5rem; }
+    .acard.active::after { content: 'ACTIVE'; position: absolute; top: 0.9rem; right: 0.9rem; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; background: rgba(37,211,102,0.12); color: #25d366; border: 1px solid rgba(37,211,102,0.35); border-radius: 999px; padding: 0.15rem 0.5rem; }
+    .acard.experimental::after { content: 'EXPERIMENTAL'; position: absolute; top: 0.9rem; right: 0.9rem; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; background: rgba(255,225,107,0.12); color: var(--accent-amber); border: 1px solid rgba(255,225,107,0.35); border-radius: 999px; padding: 0.15rem 0.5rem; }
+    .acard.stalled::after { content: 'STALLED'; position: absolute; top: 0.9rem; right: 0.9rem; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; background: rgba(255,225,107,0.12); color: var(--accent-amber); border: 1px solid rgba(255,225,107,0.35); border-radius: 999px; padding: 0.15rem 0.5rem; }
+    .acard.api-only::after { content: 'API ONLY'; position: absolute; top: 0.9rem; right: 0.9rem; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; background: rgba(74,181,255,0.1); color: var(--accent-teal); border: 1px solid rgba(74,181,255,0.3); border-radius: 999px; padding: 0.15rem 0.5rem; }
+
+    /* Per-app top border colours */
+    .acard--rad  { border-top: 3px solid #4ab5ff; box-shadow: 0 0 18px rgba(74,181,255,0.1); }
+    .acard--br   { border-top: 3px solid #4caf50; }
+    .acard--bty  { border-top: 3px solid #06b6d4; }
+    .acard--btc  { border-top: 3px solid #7c3aed; }
+    .acard--brf  { border-top: 3px solid #f97316; }
+    .acard--msh  { border-top: 3px solid #22c55e; }
+    .acard--srv  { border-top: 3px solid #d97706; }
+    .acard--fc   { border-top: 3px solid #6b7280; }
+    .acard--mng  { border-top: 3px solid #3b82f6; }
+    .acard--goog { border-top: 3px solid #4285f4; }
+    .acard--air  { border-top: 3px solid #9ca3af; }
+    .acard--mtx  { border-top: 3px solid #0dbd8b; }
+
+    .acard .aicon { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
+    .acard .aname { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.25rem; padding-right: 5rem; }
+    .acard .adesc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.9rem; }
+    .acard .arow  { display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.77rem; padding: 0.22rem 0; border-bottom: 1px solid var(--border-subtle); gap: 0.5rem; }
+    .acard .arow:last-child { border-bottom: none; }
+    .acard .arow .albl { color: var(--muted); flex-shrink: 0; }
+    .acard .arow .aval { font-weight: 600; text-align: right; }
+    .aval--good  { color: #25d366; }
+    .aval--warn  { color: #ff6868; }
+    .aval--amber { color: var(--accent-amber); }
+    .aval--teal  { color: var(--accent-teal); }
+    .aval--muted { color: var(--muted); }
+
+    /* transport tags */
+    .ttags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 0.8rem; }
+    .ttag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 5px; padding: 2px 7px; }
+    .ttag--ble   { background: rgba(74,181,255,0.12); color: #4ab5ff; border: 1px solid rgba(74,181,255,0.3); }
+    .ttag--wifi  { background: rgba(37,211,102,0.10); color: #25d366; border: 1px solid rgba(37,211,102,0.25); }
+    .ttag--lora  { background: rgba(34,197,94,0.10); color: #22c55e; border: 1px solid rgba(34,197,94,0.25); }
+    .ttag--tor   { background: rgba(124,58,237,0.12); color: #a78bfa; border: 1px solid rgba(124,58,237,0.3); }
+    .ttag--lan   { background: rgba(59,130,246,0.10); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+    .ttag--inet  { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border-subtle); }
+    .ttag--none  { background: rgba(255,104,104,0.08); color: #ff6868; border: 1px solid rgba(255,104,104,0.2); }
+
+    /* ── STAT BAND ── */
+    .stat-band { background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; margin: 2.5rem 0; }
+    @media (max-width: 700px) { .stat-band { grid-template-columns: 1fr 1fr; } }
+    .stat-item .stat-n { font-size: 2rem; font-weight: 800; color: var(--accent-teal); line-height: 1; }
+    .stat-item .stat-n.warn { color: var(--accent-warn); }
+    .stat-item .stat-n.amber { color: var(--accent-amber); }
+    .stat-item .stat-l { font-size: 0.8rem; color: var(--muted); margin-top: 0.35rem; line-height: 1.4; }
+
+    /* ── BIG COMPARISON TABLE ── */
+    .big-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border-subtle); margin-bottom: 2rem; }
+    .big-table { width: 100%; min-width: 1100px; border-collapse: collapse; font-size: 0.80rem; }
+
+    .big-table thead th { padding: 0; border-bottom: 1px solid var(--border-subtle); vertical-align: bottom; }
+    .big-table thead th:first-child { background: transparent; }
+    .bc-app { display: flex; flex-direction: column; align-items: center; padding: 12px 8px 8px; gap: 2px; position: relative; }
+    .bc-app::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:0; }
+    .bc-emoji { font-size: 1.3rem; line-height: 1; }
+    .bc-name  { font-size: 0.7rem; font-weight: 800; text-align: center; }
+    .bc-tag   { font-size: 0.55rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55; text-align: center; }
+    .bc-sbadge { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 999px; padding: 1px 5px; margin-top: 2px; }
+    .bc-sbadge--dead { background: rgba(255,104,104,0.15); color: #ff6868; border: 1px solid rgba(255,104,104,0.3); }
+    .bc-sbadge--active { background: rgba(37,211,102,0.12); color: #25d366; border: 1px solid rgba(37,211,102,0.3); }
+    .bc-sbadge--exp { background: rgba(255,225,107,0.12); color: var(--accent-amber); border: 1px solid rgba(255,225,107,0.3); }
+    .bc-sbadge--stalled { background: rgba(255,225,107,0.10); color: #d97706; border: 1px solid rgba(255,225,107,0.25); }
+    .bc-sbadge--api { background: rgba(74,181,255,0.1); color: var(--accent-teal); border: 1px solid rgba(74,181,255,0.25); }
+
+    .bh-feat { background: transparent; text-align: left !important; padding: 12px 16px !important; min-width: 200px; white-space: normal !important; font-size: 0.8rem; color: var(--muted); }
+    .bh-rad  { background: rgba(74,181,255,0.18); border-left: 2px solid rgba(74,181,255,0.65); border-right: 2px solid rgba(74,181,255,0.5); border-top: 3px solid #4ab5ff; color: #4ab5ff; box-shadow: 0 0 20px rgba(74,181,255,0.22), inset 0 0 14px rgba(74,181,255,0.08); }
+    .bh-rad::after  { background: #4ab5ff; }
+    .bh-br   { background: rgba(76,175,80,0.08);  border-left: 1px solid rgba(76,175,80,0.18);  color: #4caf50; }
+    .bh-br::after   { background: #4caf50; }
+    .bh-bty  { background: rgba(6,182,212,0.08);  border-left: 1px solid rgba(6,182,212,0.18);  color: #06b6d4; }
+    .bh-bty::after  { background: #06b6d4; }
+    .bh-btc  { background: rgba(124,58,237,0.08); border-left: 1px solid rgba(124,58,237,0.2);  color: #a78bfa; }
+    .bh-btc::after  { background: #7c3aed; }
+    .bh-brf  { background: rgba(249,115,22,0.08); border-left: 1px solid rgba(249,115,22,0.2);  color: #fb923c; }
+    .bh-brf::after  { background: #f97316; }
+    .bh-msh  { background: rgba(34,197,94,0.08);  border-left: 1px solid rgba(34,197,94,0.18);  color: #22c55e; }
+    .bh-msh::after  { background: #22c55e; }
+    .bh-srv  { background: rgba(217,119,6,0.08);  border-left: 1px solid rgba(217,119,6,0.2);   color: #fbbf24; }
+    .bh-srv::after  { background: #d97706; }
+    .bh-fc   { background: rgba(107,114,128,0.06); border-left: 1px solid rgba(107,114,128,0.15); color: #9ca3af; }
+    .bh-fc::after   { background: #6b7280; }
+    .bh-mng  { background: rgba(59,130,246,0.08); border-left: 1px solid rgba(59,130,246,0.18); color: #60a5fa; }
+    .bh-mng::after  { background: #3b82f6; }
+    .bh-goog { background: rgba(66,133,244,0.08); border-left: 1px solid rgba(66,133,244,0.18); color: #6fa8f8; }
+    .bh-goog::after { background: #4285f4; }
+    .bh-air  { background: rgba(156,163,175,0.06); border-left: 1px solid rgba(156,163,175,0.15); color: #d1d5db; }
+    .bh-air::after  { background: #9ca3af; }
+
+    /* table body */
+    .big-table tbody tr.bs-row td {
+      background: rgba(255,255,255,0.06); color: var(--text);
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em;
+      padding: 10px 14px;
+      border-top: 2px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .big-table tbody tr.bs-row td:first-child { text-align: left; font-size: 0.95rem; }
+    .big-table tbody tr.bs-row td.bc-rad { background: rgba(74,181,255,0.13); border-left: 2px solid rgba(74,181,255,0.5); border-right: 2px solid rgba(74,181,255,0.3); }
+    .big-table tbody tr.bf-row { border-bottom: 1px solid var(--border-subtle); }
+    .big-table tbody tr.bf-row:last-child { border-bottom: none; }
+    .big-table tbody tr.bf-row:hover td { background: rgba(255,255,255,0.02) !important; }
+    .big-table tbody td { padding: 6px 8px; text-align: center; vertical-align: middle; }
+    .big-table tbody td.bc-feat-name { text-align: left; padding: 6px 16px; font-size: 0.8rem; color: var(--text); min-width: 200px; }
+    .big-table tbody td.bc-feat-name small { display: block; font-size: 0.68rem; color: var(--muted); font-weight: 400; margin-top: 1px; line-height: 1.35; }
+    .big-table tbody td.bc-rad  { background: rgba(74,181,255,0.10); border-left: 2px solid rgba(74,181,255,0.4); border-right: 2px solid rgba(74,181,255,0.4); }
+    .big-table tbody td.bc-br   { background: rgba(76,175,80,0.03);  border-left: 1px solid rgba(76,175,80,0.08); }
+    .big-table tbody td.bc-bty  { background: rgba(6,182,212,0.03);  border-left: 1px solid rgba(6,182,212,0.08); }
+    .big-table tbody td.bc-btc  { background: rgba(124,58,237,0.03); border-left: 1px solid rgba(124,58,237,0.08); }
+    .big-table tbody td.bc-brf  { background: rgba(249,115,22,0.03); border-left: 1px solid rgba(249,115,22,0.08); }
+    .big-table tbody td.bc-msh  { background: rgba(34,197,94,0.03);  border-left: 1px solid rgba(34,197,94,0.08); }
+    .big-table tbody td.bc-srv  { background: rgba(217,119,6,0.03);  border-left: 1px solid rgba(217,119,6,0.08); }
+    .big-table tbody td.bc-fc   { background: rgba(107,114,128,0.02); border-left: 1px solid rgba(107,114,128,0.06); opacity: 0.75; }
+    .big-table tbody td.bc-mng  { background: rgba(59,130,246,0.03); border-left: 1px solid rgba(59,130,246,0.08); }
+    .big-table tbody td.bc-goog { background: rgba(66,133,244,0.03); border-left: 1px solid rgba(66,133,244,0.08); }
+    .big-table tbody td.bc-air  { background: rgba(156,163,175,0.02); border-left: 1px solid rgba(156,163,175,0.06); }
+
+    .by  { color: #25d366; font-size: 1rem; font-weight: 700; }
+    .bn  { color: #b85555; font-size: 0.9rem; }
+    .bp  { display: block; color: var(--accent-amber); font-size: 0.7rem; font-weight: 700; line-height: 1.3; }
+    .bx  { color: var(--muted); font-size: 0.72rem; }
+    .bsub{ display: block; font-size: 0.65rem; color: var(--muted); line-height: 1.3; margin-top: 1px; }
+
+    .big-legend { display:flex; flex-wrap:wrap; gap:12px; font-size:0.78rem; margin-bottom:1.5rem; }
+    .big-legend span { display:flex; align-items:center; gap:5px; color:var(--muted); }
+
+    /* ── FOOTNOTE BOXES ── */
+    .footnote-box { background: rgba(74,181,255,0.05); border: 1px solid rgba(74,181,255,0.2); border-radius: 10px; padding: 1.1rem 1.4rem; margin-top: 1.5rem; }
+    .footnote-box p { font-size: 0.82rem; color: var(--muted); margin: 0; line-height: 1.7; }
+    .footnote-box strong { color: var(--accent-teal); }
+    .footnote-box--warn { background: rgba(255,104,104,0.05); border-color: rgba(255,104,104,0.2); }
+    .footnote-box--warn strong { color: var(--accent-warn); }
+    .footnote-box--amber { background: rgba(255,225,107,0.05); border-color: rgba(255,225,107,0.2); }
+    .footnote-box--amber strong { color: var(--accent-amber); }
+
+    /* ── TWO & THREE COL PROSE ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1.5rem; }
+    @media (max-width: 900px) { .three-col { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .three-col { grid-template-columns: 1fr; } }
+    .prose-block h3 { font-size: 1rem; font-weight: 700; margin: 0 0 0.6rem; }
+    .prose-block p  { font-size: 0.87rem; color: var(--muted); line-height: 1.75; margin: 0 0 0.8rem; }
+    .prose-block p:last-child { margin-bottom: 0; }
+    .prose-block ul { padding-left: 1.2rem; margin: 0.4rem 0 0; }
+    .prose-block ul li { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.3rem; }
+
+    /* ── LIMIT CARDS (BT limitations) ── */
+    .limit-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    @media (max-width: 900px) { .limit-cards { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .limit-cards { grid-template-columns: 1fr; } }
+    .lcard { background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.25rem 1.15rem; }
+    .lcard.lcard--warn { border-color: rgba(255,104,104,0.2); }
+    .lcard.lcard--amber { border-color: rgba(255,225,107,0.2); }
+    .lcard .licon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .lcard h4 { font-size: 0.88rem; font-weight: 700; margin: 0 0 0.5rem; color: var(--text); }
+    .lcard.lcard--warn h4 { color: var(--accent-warn); }
+    .lcard.lcard--amber h4 { color: var(--accent-amber); }
+    .lcard ul { padding-left: 1.1rem; margin: 0; }
+    .lcard ul li { font-size: 0.80rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.25rem; }
+
+    /* ── STANDARDS GRID ── */
+    .standards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 1.75rem; }
+    @media (max-width: 700px) { .standards-grid { grid-template-columns: 1fr; } }
+    .sg-card { background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.4rem 1.25rem; position: relative; }
+    .sg-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 12px 12px 0 0; }
+    .sg-card--no::before  { background: linear-gradient(90deg, #ff6868, transparent); }
+    .sg-card--partial::before { background: linear-gradient(90deg, var(--accent-amber), transparent); }
+    .sg-card--yes::before { background: linear-gradient(90deg, #25d366, transparent); }
+    .sg-card .sg-kicker { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .sg-card--no .sg-kicker  { color: var(--accent-warn); }
+    .sg-card--partial .sg-kicker { color: var(--accent-amber); }
+    .sg-card--yes .sg-kicker { color: #25d366; }
+    .sg-card h4 { font-size: 0.95rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .sg-card p  { font-size: 0.83rem; color: var(--muted); line-height: 1.65; margin: 0; }
+
+    /* ── CLOSING BANNER ── */
+    .closing-banner { text-align: center; padding: 5rem var(--page-pad); border-top: 1px solid var(--border-subtle); }
+    .closing-banner h2 { font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 800; max-width: 750px; margin: 0 auto 1.25rem; line-height: 1.2; }
+    .closing-banner h2 em { font-style: normal; color: var(--accent-teal); }
+    .closing-banner p { color: var(--muted); max-width: 620px; margin: 0 auto 2rem; font-size: 1rem; line-height: 1.75; }
+    .closing-banner .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* trademark notice */
+    .trademark-notice { font-size: 0.72rem; color: var(--muted); opacity: 0.65; margin-top: 0.6rem !important; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="prepper.html">Prepper Guide</a></li>
+      <li><a href="censorship.html">Censorship</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+      <li><a href="compare_mesh_chat.html" class="nav-active">Mesh Chat Landscape</a></li>
+      <li><a href="compare_life360.html">vs Life360</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section>
+  <div class="hero-surv">
+    <span class="eyebrow">Offline &amp; Mesh Chat — 2025 Landscape</span>
+    <h1>The fragmented world of<br><em>Bluetooth &amp; mesh chat.</em><br><em class="warn">No standard. No interop. No easy answers.</em></h1>
+    <p class="lead">
+      A dozen projects have attempted to build chat that works without the internet — using Bluetooth, Wi-Fi Direct, LoRa,
+      or peer-to-peer mesh networking. Most are dead. Several are open source but abandoned. A few are alive but proprietary.
+      None interoperate with each other. This page maps the landscape: what each project does, how open it is,
+      whether it is still maintained, and why the fundamental constraints of Android and Bluetooth make this
+      category so extraordinarily difficult to build well.
+    </p>
+  </div>
+</section>
+
+<!-- ── APP OVERVIEW CARDS ── -->
+<section class="surv-section" style="padding-top:0; border-top:none;">
+  <div class="kicker kicker--teal">App-by-App Overview</div>
+  <h2>Who built what — and are they still building it?</h2>
+  <p class="section-lead">
+    Every card below represents a project that has claimed, at some point, to support Bluetooth or offline/mesh communication.
+    Status badges reflect the state of development as of mid-2025. "Dead" means the app has been removed from stores, the repository
+    has been archived, or the company behind it has ceased operations.
+  </p>
+
+  <div class="app-cards">
+
+    <!-- Radar -->
+    <div class="acard acard--rad active">
+      <span class="aicon">📡</span>
+      <div class="aname">Radar — DAL Technology</div>
+      <div class="adesc">BLE + Wi-Fi Aware + LAN mesh chat with offline SOS, maps, and privacy-first design. Proprietary E2E encrypted relay for internet fallback. Relay traffic can be routed via Tor using Orbot (option in Web Services settings). Android only.</div>
+      <div class="ttags">
+        <span class="ttag ttag--ble">BLE</span>
+        <span class="ttag ttag--wifi">Wi-Fi Aware</span>
+        <span class="ttag ttag--lan">LAN</span>
+        <span class="ttag ttag--inet">E2E Relay</span>
+        <span class="ttag ttag--tor">Tor (Orbot)</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--amber">Relay only¹</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--good">Yes</span></div>
+      <div class="arow"><span class="albl">Hardware required</span><span class="aval aval--good">No</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--warn">No — not possible²</span></div>
+    </div>
+
+    <!-- Briar -->
+    <div class="acard acard--br active">
+      <span class="aicon">🌿</span>
+      <div class="aname">Briar</div>
+      <div class="adesc">Security-focused messenger using Bluetooth, Wi-Fi, and Tor. Designed for activists and journalists. GPL-licensed. Fully audited protocol.</div>
+      <div class="ttags">
+        <span class="ttag ttag--ble">Bluetooth</span>
+        <span class="ttag ttag--wifi">Wi-Fi Direct</span>
+        <span class="ttag ttag--tor">Tor</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--good">Yes (GPL)</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--good">Yes (documented)</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--good">Yes (all transports)</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--good">Yes</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--warn">No (BT limits on iOS)</span></div>
+    </div>
+
+    <!-- Berty -->
+    <div class="acard acard--bty active">
+      <span class="aicon">🔗</span>
+      <div class="aname">Berty</div>
+      <div class="adesc">P2P messenger built on libp2p and OrbitDB. Uses BLE for proximity discovery and Wi-Fi Direct for data transfer. Cross-platform; small team.</div>
+      <div class="ttags">
+        <span class="ttag ttag--ble">BLE</span>
+        <span class="ttag ttag--wifi">Wi-Fi Direct</span>
+        <span class="ttag ttag--inet">libp2p / IPFS</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--good">Yes (MIT)</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--amber">Partial (libp2p)</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--good">Yes</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--amber">Limited (BLE)</span></div>
+      <div class="arow"><span class="albl">Third-party SDK</span><span class="aval aval--good">Yes (gomobile-ipfs)</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--amber">Yes (BLE limited in bg)</span></div>
+    </div>
+
+    <!-- BitChat -->
+    <div class="acard acard--btc experimental">
+      <span class="aicon">⚡</span>
+      <div class="aname">BitChat</div>
+      <div class="adesc">BLE-based decentralised chat using the Nostr protocol for identity. Announced by Jack Dorsey in 2025. Very early stage; not production-ready.</div>
+      <div class="ttags">
+        <span class="ttag ttag--ble">BLE</span>
+        <span class="ttag ttag--inet">Nostr Relay</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--good">Yes (GitHub)</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--amber">Partial (Nostr NIPs)</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--amber">Partial (Nostr keys)</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--amber">BLE only (early)</span></div>
+      <div class="arow"><span class="albl">Production ready</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--amber">In development</span></div>
+    </div>
+
+    <!-- Bridgefy -->
+    <div class="acard acard--brf active">
+      <span class="aicon">🌉</span>
+      <div class="aname">Bridgefy</div>
+      <div class="adesc">Commercial BLE mesh SDK. Used at protests and disaster areas. Entire cryptography was broken in 2020 (CVE). Rebuilt post-2020, but protocol remains proprietary and unaudited.</div>
+      <div class="ttags">
+        <span class="ttag ttag--ble">BLE Mesh</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--amber">Claims yes (post-2020)</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--good">Yes (BLE mesh)</span></div>
+      <div class="arow"><span class="albl">SDK integration</span><span class="aval aval--amber">Commercial terms</span></div>
+      <div class="arow"><span class="albl">Security audit</span><span class="aval aval--warn">Fully compromised 2020</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--good">Yes</span></div>
+    </div>
+
+    <!-- Meshtastic -->
+    <div class="acard acard--msh active">
+      <span class="aicon">🗺️</span>
+      <div class="aname">Meshtastic</div>
+      <div class="adesc">LoRa-based long-range mesh. BLE only connects phone to the LoRa hardware device — messages travel over LoRa radio. Requires dedicated hardware (~$30–$100+). Range: 10–50 km.</div>
+      <div class="ttags">
+        <span class="ttag ttag--lora">LoRa Radio</span>
+        <span class="ttag ttag--ble">BLE (control only)</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--good">Yes (GPL)</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--good">Yes (Protobuf spec)</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--good">Yes (AES-256)</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--good">Yes (core design)</span></div>
+      <div class="arow"><span class="albl">Hardware required</span><span class="aval aval--warn">Yes (~$30–$100+)</span></div>
+      <div class="arow"><span class="albl">Range per hop</span><span class="aval aval--good">10–50 km typical</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--good">Yes (app + hardware)</span></div>
+    </div>
+
+    <!-- Serval -->
+    <div class="acard acard--srv stalled">
+      <span class="aicon">📻</span>
+      <div class="aname">Serval Mesh / Serval Chat</div>
+      <div class="adesc">Academic Wi-Fi mesh project (Flinders University). Uses Wi-Fi ad-hoc mode — no BLE. Largely inactive since ~2018; removed from Play Store. Source available but unmaintained.</div>
+      <div class="ttags">
+        <span class="ttag ttag--wifi">Wi-Fi Ad-hoc</span>
+        <span class="ttag ttag--none">No BLE</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--good">Yes (GPL)</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--amber">Partial (Rhizome)</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--amber">Partial</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--amber">Yes (Wi-Fi mesh only)</span></div>
+      <div class="arow"><span class="albl">Last active commit</span><span class="aval aval--warn">~2018–2020</span></div>
+      <div class="arow"><span class="albl">Play Store listing</span><span class="aval aval--warn">Removed</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--warn">No</span></div>
+    </div>
+
+    <!-- FireChat -->
+    <div class="acard acard--fc dead">
+      <span class="aicon">🔥</span>
+      <div class="aname">FireChat</div>
+      <div class="adesc">One of the earliest mesh chat apps. BLE + Wi-Fi Direct (iOS Multipeer). Company (Open Garden) folded ~2020; app removed from all stores. No encryption was ever implemented.</div>
+      <div class="ttags">
+        <span class="ttag ttag--ble">BLE</span>
+        <span class="ttag ttag--wifi">Wi-Fi Direct</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--warn">No (source never released)</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--warn">Was yes — now dead</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--warn">Was yes — now dead</span></div>
+      <div class="arow"><span class="albl">Company status</span><span class="aval aval--warn">Defunct</span></div>
+      <div class="arow"><span class="albl">App downloadable</span><span class="aval aval--warn">No</span></div>
+    </div>
+
+    <!-- Meshenger -->
+    <div class="acard acard--mng active">
+      <span class="aicon">📞</span>
+      <div class="aname">Meshenger</div>
+      <div class="adesc">Peer-to-peer voice and video calling over a local Wi-Fi network. Not a BLE or mesh app — requires an existing Wi-Fi access point. Useful for LAN calling without internet.</div>
+      <div class="ttags">
+        <span class="ttag ttag--lan">LAN / Wi-Fi</span>
+        <span class="ttag ttag--none">No BLE / No Mesh</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--good">Yes (GPL)</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--good">Yes</span></div>
+      <div class="arow"><span class="albl">Works without Wi-Fi AP</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">BLE / mesh capable</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--warn">No</span></div>
+    </div>
+
+    <!-- Google Nearby Connections -->
+    <div class="acard acard--goog api-only">
+      <span class="aicon">🔵</span>
+      <div class="aname">Google Nearby Connections</div>
+      <div class="adesc">A Google Play Services API (not a standalone app). Enables BLE + Wi-Fi Direct + LAN peer discovery. Completely closed; apps using it cannot discover each other across implementations.</div>
+      <div class="ttags">
+        <span class="ttag ttag--ble">BLE</span>
+        <span class="ttag ttag--wifi">Wi-Fi Direct</span>
+        <span class="ttag ttag--lan">LAN</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--warn">No (Google binary)</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--amber">Transport only (app must add)</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--good">Yes (local devices)</span></div>
+      <div class="arow"><span class="albl">Requires Google Play</span><span class="aval aval--warn">Yes (mandatory)</span></div>
+      <div class="arow"><span class="albl">Cross-app interop</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">Integration possible</span><span class="aval aval--amber">API only, closed terms</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--warn">No (Android only)</span></div>
+    </div>
+
+    <!-- AirDrop -->
+    <div class="acard acard--air api-only">
+      <span class="aicon">🍎</span>
+      <div class="aname">Apple AirDrop</div>
+      <div class="adesc">File sharing between Apple devices. BLE for discovery, Wi-Fi Direct for transfer. Completely proprietary; no third-party access. Not a chat application — files/media only.</div>
+      <div class="ttags">
+        <span class="ttag ttag--ble">BLE (discovery)</span>
+        <span class="ttag ttag--wifi">Wi-Fi Direct</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--amber">Yes (TLS, Apple keys)</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--amber">Yes (files only)</span></div>
+      <div class="arow"><span class="albl">Android support</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">Third-party integration</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">Chat capable</span><span class="aval aval--warn">No (files only)</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--good">Yes (iOS/macOS only)</span></div>
+    </div>
+
+    <!-- Matrix -->
+    <div class="acard acard--mtx active">
+      <span class="aicon">🧩</span>
+      <div class="aname">Matrix / Element</div>
+      <div class="adesc">Open, federated real-time communication protocol. Not a BLE or mesh app — requires internet for federation. Included here as the gold standard for what an open protocol looks like, and because Radar integrates with Matrix for federated chat rooms.</div>
+      <div class="ttags">
+        <span class="ttag ttag--inet">HTTPS Federation</span>
+        <span class="ttag ttag--none">No BLE / No Mesh</span>
+      </div>
+      <div class="arow"><span class="albl">Open source</span><span class="aval aval--good">Yes (Apache 2.0)</span></div>
+      <div class="arow"><span class="albl">Open protocol</span><span class="aval aval--good">Yes (full spec at matrix.org)</span></div>
+      <div class="arow"><span class="albl">E2E encrypted</span><span class="aval aval--good">Yes (Megolm / Double Ratchet)</span></div>
+      <div class="arow"><span class="albl">Works offline</span><span class="aval aval--warn">No (internet required)</span></div>
+      <div class="arow"><span class="albl">BLE / mesh capable</span><span class="aval aval--warn">No</span></div>
+      <div class="arow"><span class="albl">Third-party integrations</span><span class="aval aval--good">Yes (extensive ecosystem)</span></div>
+      <div class="arow"><span class="albl">Radar integration</span><span class="aval aval--good">Yes (federated rooms)</span></div>
+      <div class="arow"><span class="albl">iOS support</span><span class="aval aval--good">Yes</span></div>
+    </div>
+
+  </div><!-- /app-cards -->
+
+  <div class="stat-band">
+    <div class="stat-item"><div class="stat-n warn">2</div><div class="stat-l">Apps fully dead — no longer downloadable from any store (FireChat, Serval Chat)</div></div>
+    <div class="stat-item"><div class="stat-n amber">0</div><div class="stat-l">Open, documented interoperability standards shared between any two of these apps</div></div>
+    <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Apps that are both open source AND actively maintained AND work with no internet (Briar, Berty, Meshtastic)</div></div>
+    <div class="stat-item"><div class="stat-n warn">1</div><div class="stat-l">App with confirmed major cryptographic compromise: Bridgefy (2020 CVE — all messages were readable)</div></div>
+  </div>
+
+</section>
+
+<!-- ���─ FULL COMPARISON TABLE ── -->
+<section class="surv-section">
+  <div class="kicker kicker--teal">Full Feature Matrix</div>
+  <h2>Side-by-side comparison across all dimensions</h2>
+  <p class="section-lead">
+    Every project compared on transport technology, openness, security, platform support, and offline capability.
+    Radar is highlighted. Features in grey rows are section headers. Scroll horizontally on smaller screens.
+  </p>
+
+  <div class="big-legend">
+    <span><span class="by">✓</span> Yes / supported</span>
+    <span><span class="bn">✗</span> No / not supported</span>
+    <span><span class="bp">Partial</span> Conditional or limited</span>
+    <span><span class="bx">—</span> N/A or unknown</span>
+  </div>
+
+  <div class="big-wrap">
+  <table class="big-table" aria-label="Offline and mesh chat app comparison matrix">
+    <colgroup>
+      <col style="width:18%; min-width:190px"/>
+      <col style="width:7.5%"/><col style="width:7.5%"/><col style="width:7.5%"/><col style="width:7.5%"/>
+      <col style="width:7.5%"/><col style="width:7.5%"/><col style="width:7.5%"/><col style="width:7.5%"/>
+      <col style="width:7.5%"/><col style="width:7.5%"/><col style="width:7.5%"/>
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="bh-feat">Feature / Dimension</th>
+        <th><div class="bc-app bh-rad">
+          <span class="bc-emoji">📡</span>
+          <span class="bc-name">Radar</span>
+          <span class="bc-tag">DAL Technology</span>
+          <span class="bc-sbadge bc-sbadge--active">Active</span>
+        </div></th>
+        <th><div class="bc-app bh-br">
+          <span class="bc-emoji">🌿</span>
+          <span class="bc-name">Briar</span>
+          <span class="bc-tag">Briar Project</span>
+          <span class="bc-sbadge bc-sbadge--active">Active</span>
+        </div></th>
+        <th><div class="bc-app bh-bty">
+          <span class="bc-emoji">🔗</span>
+          <span class="bc-name">Berty</span>
+          <span class="bc-tag">Berty Technologies</span>
+          <span class="bc-sbadge bc-sbadge--active">Active</span>
+        </div></th>
+        <th><div class="bc-app bh-btc">
+          <span class="bc-emoji">⚡</span>
+          <span class="bc-name">BitChat</span>
+          <span class="bc-tag">Dorsey / Nostr</span>
+          <span class="bc-sbadge bc-sbadge--exp">Experimental</span>
+        </div></th>
+        <th><div class="bc-app bh-brf">
+          <span class="bc-emoji">🌉</span>
+          <span class="bc-name">Bridgefy</span>
+          <span class="bc-tag">Bridgefy Inc.</span>
+          <span class="bc-sbadge bc-sbadge--active">Active</span>
+        </div></th>
+        <th><div class="bc-app bh-msh">
+          <span class="bc-emoji">🗺️</span>
+          <span class="bc-name">Meshtastic</span>
+          <span class="bc-tag">Open Source</span>
+          <span class="bc-sbadge bc-sbadge--active">Active</span>
+        </div></th>
+        <th><div class="bc-app bh-srv">
+          <span class="bc-emoji">📻</span>
+          <span class="bc-name">Serval</span>
+          <span class="bc-tag">Flinders Uni</span>
+          <span class="bc-sbadge bc-sbadge--stalled">Stalled</span>
+        </div></th>
+        <th><div class="bc-app bh-fc">
+          <span class="bc-emoji">🔥</span>
+          <span class="bc-name">FireChat</span>
+          <span class="bc-tag">Open Garden</span>
+          <span class="bc-sbadge bc-sbadge--dead">Dead</span>
+        </div></th>
+        <th><div class="bc-app bh-mng">
+          <span class="bc-emoji">📞</span>
+          <span class="bc-name">Meshenger</span>
+          <span class="bc-tag">Open Source</span>
+          <span class="bc-sbadge bc-sbadge--active">Active</span>
+        </div></th>
+        <th><div class="bc-app bh-goog">
+          <span class="bc-emoji">🔵</span>
+          <span class="bc-name">Nearby API</span>
+          <span class="bc-tag">Google</span>
+          <span class="bc-sbadge bc-sbadge--api">API Only</span>
+        </div></th>
+        <th><div class="bc-app bh-air">
+          <span class="bc-emoji">🍎</span>
+          <span class="bc-name">AirDrop</span>
+          <span class="bc-tag">Apple</span>
+          <span class="bc-sbadge bc-sbadge--api">Proprietary</span>
+        </div></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- RADIO TRANSPORT -->
+      <tr class="bs-row"><td>📶 Radio Transport</td><td class="bc-rad"></td><td class="bc-br"></td><td class="bc-bty"></td><td class="bc-btc"></td><td class="bc-brf"></td><td class="bc-msh"></td><td class="bc-srv"></td><td class="bc-fc"></td><td class="bc-mng"></td><td class="bc-goog"></td><td class="bc-air"></td></tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">BLE advertising / scanning<small>Bluetooth Low Energy beacons for peer discovery</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-br"><span class="by">✓</span></td>
+        <td class="bc-bty"><span class="by">✓</span></td>
+        <td class="bc-btc"><span class="by">✓</span></td>
+        <td class="bc-brf"><span class="by">✓</span></td>
+        <td class="bc-msh"><span class="bp">Control only</span><span class="bsub">LoRa carries data</span></td>
+        <td class="bc-srv"><span class="bn">✗</span><span class="bsub">Wi-Fi only</span></td>
+        <td class="bc-fc"><span class="by">✓</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="by">✓</span></td>
+        <td class="bc-air"><span class="bp">Discovery only</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">BLE GATT data transfer<small>Bluetooth connections for actual message delivery</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-br"><span class="by">✓</span></td>
+        <td class="bc-bty"><span class="by">✓</span></td>
+        <td class="bc-btc"><span class="by">✓</span></td>
+        <td class="bc-brf"><span class="by">✓</span></td>
+        <td class="bc-msh"><span class="bn">✗</span></td>
+        <td class="bc-srv"><span class="bn">✗</span></td>
+        <td class="bc-fc"><span class="by">✓</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="by">✓</span></td>
+        <td class="bc-air"><span class="bn">✗</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Wi-Fi Direct / Wi-Fi Aware (NAN)<small>Peer-to-peer Wi-Fi without a router</small></td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">Wi-Fi Aware (NAN)</span></td>
+        <td class="bc-br"><span class="by">✓</span><span class="bsub">Wi-Fi Direct</span></td>
+        <td class="bc-bty"><span class="by">✓</span><span class="bsub">Wi-Fi Direct</span></td>
+        <td class="bc-btc"><span class="bn">✗</span></td>
+        <td class="bc-brf"><span class="bn">✗</span></td>
+        <td class="bc-msh"><span class="bn">✗</span></td>
+        <td class="bc-srv"><span class="bp">Wi-Fi Ad-hoc</span></td>
+        <td class="bc-fc"><span class="by">✓</span><span class="bsub">iOS Multipeer</span></td>
+        <td class="bc-mng"><span class="bn">✗</span><span class="bsub">Needs AP</span></td>
+        <td class="bc-goog"><span class="by">✓</span></td>
+        <td class="bc-air"><span class="by">✓</span><span class="bsub">File transfer only</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Local Area Network (LAN / Wi-Fi AP)<small>Delivery over a shared Wi-Fi network or hotspot</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-br"><span class="bn">✗</span></td>
+        <td class="bc-bty"><span class="bp">Partial</span></td>
+        <td class="bc-btc"><span class="bn">✗</span></td>
+        <td class="bc-brf"><span class="bn">✗</span></td>
+        <td class="bc-msh"><span class="bn">✗</span></td>
+        <td class="bc-srv"><span class="by">✓</span></td>
+        <td class="bc-fc"><span class="bn">✗</span></td>
+        <td class="bc-mng"><span class="by">✓</span></td>
+        <td class="bc-goog"><span class="by">✓</span></td>
+        <td class="bc-air"><span class="bn">✗</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">LoRa long-range radio<small>Sub-GHz dedicated radio hardware; 10–50 km range</small></td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-br"><span class="bn">✗</span></td>
+        <td class="bc-bty"><span class="bn">✗</span></td>
+        <td class="bc-btc"><span class="bn">✗</span></td>
+        <td class="bc-brf"><span class="bn">✗</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">Primary transport</span></td>
+        <td class="bc-srv"><span class="bn">✗</span></td>
+        <td class="bc-fc"><span class="bn">✗</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="bn">✗</span></td>
+        <td class="bc-air"><span class="bn">✗</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Tor / internet relay fallback<small>Encrypted relay over the internet when local fails</small></td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">E2E relay + Tor via Orbot</span></td>
+        <td class="bc-br"><span class="by">✓</span><span class="bsub">Tor onion (native)</span></td>
+        <td class="bc-bty"><span class="by">✓</span><span class="bsub">libp2p / IPFS</span></td>
+        <td class="bc-btc"><span class="bp">Nostr relay</span></td>
+        <td class="bc-brf"><span class="bn">✗</span></td>
+        <td class="bc-msh"><span class="bn">✗</span></td>
+        <td class="bc-srv"><span class="bn">✗</span></td>
+        <td class="bc-fc"><span class="bn">✗</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="bn">✗</span></td>
+        <td class="bc-air"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- OPENNESS -->
+      <tr class="bs-row"><td>🔓 Openness &amp; Transparency</td><td class="bc-rad"></td><td class="bc-br"></td><td class="bc-bty"></td><td class="bc-btc"></td><td class="bc-brf"></td><td class="bc-msh"></td><td class="bc-srv"></td><td class="bc-fc"></td><td class="bc-mng"></td><td class="bc-goog"></td><td class="bc-air"></td></tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Source code open / auditable<small>Can security researchers independently audit the code?</small></td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-br"><span class="by">✓</span><span class="bsub">GPL-3.0</span></td>
+        <td class="bc-bty"><span class="by">✓</span><span class="bsub">MIT/Apache</span></td>
+        <td class="bc-btc"><span class="by">✓</span><span class="bsub">MIT</span></td>
+        <td class="bc-brf"><span class="bn">✗</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">GPL-3.0</span></td>
+        <td class="bc-srv"><span class="by">✓</span><span class="bsub">GPL (unmaintained)</span></td>
+        <td class="bc-fc"><span class="bn">✗</span></td>
+        <td class="bc-mng"><span class="by">✓</span><span class="bsub">GPL-3.0</span></td>
+        <td class="bc-goog"><span class="bn">✗</span><span class="bsub">Closed binary</span></td>
+        <td class="bc-air"><span class="bn">✗</span><span class="bsub">Proprietary</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Wire protocol publicly documented<small>Can a third party independently implement a compatible client?</small></td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-br"><span class="by">✓</span><span class="bsub">Full protocol spec</span></td>
+        <td class="bc-bty"><span class="bp">Partial</span><span class="bsub">Uses libp2p standards</span></td>
+        <td class="bc-btc"><span class="bp">Nostr NIPs</span><span class="bsub">BLE layer undocumented</span></td>
+        <td class="bc-brf"><span class="bn">✗</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">Protobuf schema</span></td>
+        <td class="bc-srv"><span class="bp">Partial</span><span class="bsub">Rhizome spec exists</span></td>
+        <td class="bc-fc"><span class="bn">✗</span></td>
+        <td class="bc-mng"><span class="by">✓</span><span class="bsub">Simple / readable</span></td>
+        <td class="bc-goog"><span class="bn">✗</span></td>
+        <td class="bc-air"><span class="bn">✗</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Third-party integration possible<small>Can other developers build on top of this project?</small></td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-br"><span class="by">✓</span><span class="bsub">Fork / extend source</span></td>
+        <td class="bc-bty"><span class="by">✓</span><span class="bsub">gomobile-ipfs SDK</span></td>
+        <td class="bc-btc"><span class="by">✓</span><span class="bsub">Open source, early</span></td>
+        <td class="bc-brf"><span class="bp">SDK</span><span class="bsub">Commercial; API key; closed</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">Excellent API/SDK</span></td>
+        <td class="bc-srv"><span class="bp">Source available</span><span class="bsub">Unmaintained risk</span></td>
+        <td class="bc-fc"><span class="bn">✗</span><span class="bsub">Dead, no source</span></td>
+        <td class="bc-mng"><span class="by">✓</span><span class="bsub">Open source</span></td>
+        <td class="bc-goog"><span class="bp">API only</span><span class="bsub">Play Services required; closed terms</span></td>
+        <td class="bc-air"><span class="bn">✗</span><span class="bsub">Apple only; zero access</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Interoperable with other apps<small>Can two different apps on this list talk to each other?</small></td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-br"><span class="bn">✗</span></td>
+        <td class="bc-bty"><span class="bn">✗</span></td>
+        <td class="bc-btc"><span class="bp">Potential (Nostr)</span></td>
+        <td class="bc-brf"><span class="bn">✗</span></td>
+        <td class="bc-msh"><span class="bn">✗</span></td>
+        <td class="bc-srv"><span class="bn">✗</span></td>
+        <td class="bc-fc"><span class="bn">✗</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="bn">✗</span></td>
+        <td class="bc-air"><span class="bn">✗</span></td>
+      </tr>
+
+      <!-- PLATFORM & STATUS -->
+      <tr class="bs-row"><td>📱 Platform &amp; Development Status</td><td class="bc-rad"></td><td class="bc-br"></td><td class="bc-bty"></td><td class="bc-btc"></td><td class="bc-brf"></td><td class="bc-msh"></td><td class="bc-srv"></td><td class="bc-fc"></td><td class="bc-mng"></td><td class="bc-goog"></td><td class="bc-air"></td></tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Android support</td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-br"><span class="by">✓</span></td>
+        <td class="bc-bty"><span class="by">✓</span></td>
+        <td class="bc-btc"><span class="by">✓</span><span class="bsub">In development</span></td>
+        <td class="bc-brf"><span class="by">✓</span></td>
+        <td class="bc-msh"><span class="by">✓</span></td>
+        <td class="bc-srv"><span class="bp">Old APK only</span></td>
+        <td class="bc-fc"><span class="bn">✗</span><span class="bsub">Removed</span></td>
+        <td class="bc-mng"><span class="by">✓</span></td>
+        <td class="bc-goog"><span class="by">✓</span></td>
+        <td class="bc-air"><span class="bn">✗</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">iOS support<small>Full mesh / BLE features — not just internet fallback</small></td>
+        <td class="bc-rad"><span class="bn">✗</span><span class="bsub">Platform prevents BLE mesh</span></td>
+        <td class="bc-br"><span class="bp">Partial</span><span class="bsub">In development; BT limited on iOS</span></td>
+        <td class="bc-bty"><span class="by">✓</span><span class="bsub">BLE limited in background</span></td>
+        <td class="bc-btc"><span class="by">✓</span><span class="bsub">In development</span></td>
+        <td class="bc-brf"><span class="by">✓</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">App; BLE to hardware</span></td>
+        <td class="bc-srv"><span class="bn">✗</span></td>
+        <td class="bc-fc"><span class="bn">✗</span><span class="bsub">Removed</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="bn">✗</span></td>
+        <td class="bc-air"><span class="by">✓</span><span class="bsub">Apple only</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Actively maintained (2024–2025)<small>Regular commits, releases, bug fixes</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-br"><span class="by">✓</span></td>
+        <td class="bc-bty"><span class="by">✓</span><span class="bsub">Small team</span></td>
+        <td class="bc-btc"><span class="by">✓</span><span class="bsub">Very new (2025)</span></td>
+        <td class="bc-brf"><span class="by">✓</span><span class="bsub">Commercial roadmap</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">Very active</span></td>
+        <td class="bc-srv"><span class="bn">✗</span><span class="bsub">Dormant ~2018+</span></td>
+        <td class="bc-fc"><span class="bn">✗</span><span class="bsub">Company folded</span></td>
+        <td class="bc-mng"><span class="by">✓</span><span class="bsub">Hobbyist pace</span></td>
+        <td class="bc-goog"><span class="by">✓</span><span class="bsub">Google product</span></td>
+        <td class="bc-air"><span class="by">✓</span><span class="bsub">Apple OS-level</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Requires additional hardware beyond a smartphone</td>
+        <td class="bc-rad"><span class="bn">✗</span></td>
+        <td class="bc-br"><span class="bn">✗</span></td>
+        <td class="bc-bty"><span class="bn">✗</span></td>
+        <td class="bc-btc"><span class="bn">✗</span></td>
+        <td class="bc-brf"><span class="bn">✗</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">LoRa board required</span></td>
+        <td class="bc-srv"><span class="bn">✗</span></td>
+        <td class="bc-fc"><span class="bn">✗</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="bn">✗</span><span class="bsub">Needs Play Services</span></td>
+        <td class="bc-air"><span class="bn">✗</span><span class="bsub">Apple device only</span></td>
+      </tr>
+
+      <!-- SECURITY -->
+      <tr class="bs-row"><td>🔒 Security</td><td class="bc-rad"></td><td class="bc-br"></td><td class="bc-bty"></td><td class="bc-btc"></td><td class="bc-brf"></td><td class="bc-msh"></td><td class="bc-srv"></td><td class="bc-fc"></td><td class="bc-mng"></td><td class="bc-goog"></td><td class="bc-air"></td></tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">End-to-end encrypted messages<small>Messages encrypted before leaving sender; only recipient can read</small></td>
+        <td class="bc-rad"><span class="bp">Web relay only</span><span class="bsub">BLE/WiFi = physically bounded cleartext</span></td>
+        <td class="bc-br"><span class="by">✓</span><span class="bsub">Over all transports</span></td>
+        <td class="bc-bty"><span class="by">✓</span></td>
+        <td class="bc-btc"><span class="bp">Partial</span><span class="bsub">Nostr keys; BLE layer varies</span></td>
+        <td class="bc-brf"><span class="bp">Claims yes</span><span class="bsub">Previously broken (2020 CVE)</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">AES-256</span></td>
+        <td class="bc-srv"><span class="bp">Partial</span></td>
+        <td class="bc-fc"><span class="bn">✗</span><span class="bsub">Plaintext messages</span></td>
+        <td class="bc-mng"><span class="by">✓</span></td>
+        <td class="bc-goog"><span class="bp">Transport layer only</span><span class="bsub">App must add own E2E</span></td>
+        <td class="bc-air"><span class="by">✓</span><span class="bsub">TLS; Apple controls keys</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">No phone number or account required<small>Can the user communicate without registering a real-world identity?</small></td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">Random UUID; zero PII</span></td>
+        <td class="bc-br"><span class="by">✓</span><span class="bsub">Nickname only</span></td>
+        <td class="bc-bty"><span class="by">✓</span></td>
+        <td class="bc-btc"><span class="by">✓</span><span class="bsub">Nostr keypair</span></td>
+        <td class="bc-brf"><span class="by">✓</span></td>
+        <td class="bc-msh"><span class="by">✓</span></td>
+        <td class="bc-srv"><span class="by">✓</span></td>
+        <td class="bc-fc"><span class="bp">Nickname only</span><span class="bsub">Social graph visible</span></td>
+        <td class="bc-mng"><span class="by">✓</span></td>
+        <td class="bc-goog"><span class="bp">No; but Google account linkable</span></td>
+        <td class="bc-air"><span class="bn">✗</span><span class="bsub">Apple ID / device identity</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Publicly disclosed security CVEs / vulnerabilities</td>
+        <td class="bc-rad"><span class="bn">✗</span><span class="bsub">None disclosed</span></td>
+        <td class="bc-br"><span class="bn">✗</span><span class="bsub">Audited, none significant</span></td>
+        <td class="bc-bty"><span class="bn">✗</span></td>
+        <td class="bc-btc"><span class="bx">— <span class="bsub">Too new to audit</span></span></td>
+        <td class="bc-brf"><span class="by">✓</span><span class="bsub">2020: entire crypto broken; messages readable</span></td>
+        <td class="bc-msh"><span class="bp">Minor</span><span class="bsub">Default channel key shared</span></td>
+        <td class="bc-srv"><span class="bx">—</span></td>
+        <td class="bc-fc"><span class="by">✓</span><span class="bsub">No encryption; social graph harvesting reported</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="bx">—</span><span class="bsub">Closed; unknown</span></td>
+        <td class="bc-air"><span class="bp">UWB tracking</span><span class="bsub">2021: PrivateDrop research</span></td>
+      </tr>
+
+      <!-- OFFLINE CAPABILITY -->
+      <tr class="bs-row"><td>📶 Offline &amp; Mesh Capability</td><td class="bc-rad"></td><td class="bc-br"></td><td class="bc-bty"></td><td class="bc-btc"></td><td class="bc-brf"></td><td class="bc-msh"></td><td class="bc-srv"></td><td class="bc-fc"></td><td class="bc-mng"></td><td class="bc-goog"></td><td class="bc-air"></td></tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Functions with zero internet or cellular<small>No internet infrastructure at all — BLE, Wi-Fi P2P, or LoRa only</small></td>
+        <td class="bc-rad"><span class="by">✓</span></td>
+        <td class="bc-br"><span class="by">✓</span></td>
+        <td class="bc-bty"><span class="bp">Partial</span><span class="bsub">BLE works; some features need internet</span></td>
+        <td class="bc-btc"><span class="bp">BLE only</span><span class="bsub">Relay features require internet</span></td>
+        <td class="bc-brf"><span class="by">✓</span><span class="bsub">BLE mesh mode</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">Core design</span></td>
+        <td class="bc-srv"><span class="by">✓</span><span class="bsub">Wi-Fi mesh</span></td>
+        <td class="bc-fc"><span class="by">✓</span><span class="bsub">BLE / Wi-Fi Direct</span></td>
+        <td class="bc-mng"><span class="bp">LAN only</span><span class="bsub">Needs a Wi-Fi AP</span></td>
+        <td class="bc-goog"><span class="by">✓</span></td>
+        <td class="bc-air"><span class="by">✓</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Multi-hop store-and-forward mesh<small>Messages relay peer-to-peer to reach out-of-range recipients</small></td>
+        <td class="bc-rad"><span class="by">✓</span><span class="bsub">BLE + WiFi Aware hops</span></td>
+        <td class="bc-br"><span class="by">✓</span></td>
+        <td class="bc-bty"><span class="bp">Partial</span></td>
+        <td class="bc-btc"><span class="bp">Basic</span><span class="bsub">Early implementation</span></td>
+        <td class="bc-brf"><span class="by">✓</span></td>
+        <td class="bc-msh"><span class="by">✓</span><span class="bsub">Core design; excellent</span></td>
+        <td class="bc-srv"><span class="by">✓</span><span class="bsub">Rhizome bundle routing</span></td>
+        <td class="bc-fc"><span class="by">✓</span></td>
+        <td class="bc-mng"><span class="bn">✗</span></td>
+        <td class="bc-goog"><span class="bn">✗</span><span class="bsub">Direct connections only</span></td>
+        <td class="bc-air"><span class="bn">✗</span></td>
+      </tr>
+
+      <tr class="bf-row">
+        <td class="bc-feat-name">Typical range per radio hop<small>Approximate real-world range under normal conditions</small></td>
+        <td class="bc-rad"><span class="bp">BLE: ~10–30 m<br/>Wi-Fi Aware: ~50–80 m</span></td>
+        <td class="bc-br"><span class="bp">BLE: ~10–30 m<br/>Wi-Fi: ~50 m</span></td>
+        <td class="bc-bty"><span class="bp">BLE: ~10–30 m<br/>Wi-Fi: ~50 m</span></td>
+        <td class="bc-btc"><span class="bp">BLE: ~10–30 m</span></td>
+        <td class="bc-brf"><span class="bp">BLE: ~10–30 m</span></td>
+        <td class="bc-msh"><span class="by">10–50 km</span><span class="bsub">LoRa; depends on terrain</span></td>
+        <td class="bc-srv"><span class="bp">Wi-Fi: ~50–100 m</span></td>
+        <td class="bc-fc"><span class="bp">BLE: ~10–30 m</span></td>
+        <td class="bc-mng"><span class="bp">LAN: full building</span></td>
+        <td class="bc-goog"><span class="bp">BLE: ~30 m<br/>Wi-Fi: ~80 m</span></td>
+        <td class="bc-air"><span class="bp">Wi-Fi Direct: ~9 m</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div><!-- /big-wrap -->
+
+  <div class="footnote-box">
+    <p>
+      <strong>¹ BLE/Wi-Fi Aware messages in Radar</strong> are sent as physically-bounded cleartext — they never leave the local radio environment,
+      but they are not encrypted on the wire. Messages via the web relay are end-to-end encrypted with sealed-sender metadata protection.
+      This is an inherent consequence of how BLE GATT works: establishing a full encryption handshake over BLE
+      adds significant overhead and latency. The local physical constraint (a message cannot be intercepted
+      beyond radio range without physical presence) is the security boundary for the P2P channel.
+    </p>
+  </div>
+
+  <div class="footnote-box" style="margin-top:0.75rem;">
+    <p>
+      <strong>Interoperability: zero across all apps.</strong> Every single project in this table — including every open-source one —
+      uses a proprietary or incompatible protocol for its local radio layer. A Briar user and a Radar user standing side by side
+      cannot exchange a message over Bluetooth. A Berty user and a Meshtastic user are equally isolated.
+      This is not a deliberate design choice by any one developer — it is the consequence of having
+      <strong>no open standard for BLE-based mesh chat</strong>. That standard does not exist.
+    </p>
+  </div>
+  <div class="footnote-box" style="margin-top:0.75rem;">
+    <p class="trademark-notice">
+      All product names, logos, and brands mentioned in this comparison are the property of their respective owners and are used here solely for informational and comparative purposes.
+      Radar is not affiliated with, endorsed by, or sponsored by any of the projects listed above.
+    </p>
+  </div>
+
+</section>
+
+<!-- ── THE STANDARDS VACUUM ── -->
+<section class="surv-section">
+  <div class="kicker kicker--amber">The Standards Problem</div>
+  <h2>There is no open standard for Bluetooth mesh chat</h2>
+  <p class="section-lead">
+    Every app in this comparison has independently invented its own discovery protocol, peer addressing scheme,
+    message routing algorithm, and encryption model. The result is a completely fragmented ecosystem
+    where every implementation is an island. Understanding <em>why</em> no standard exists
+    is essential to understanding the limitations of every app in this space — including Radar.
+  </p>
+
+  <div class="standards-grid">
+
+    <div class="sg-card sg-card--no">
+      <div class="sg-kicker">Does not exist</div>
+      <h4>No standard for BLE P2P chat</h4>
+      <p>
+        The IETF has published no RFC for Bluetooth Low Energy peer-to-peer messaging.
+        There is no equivalent of XMPP, Matrix, or SIP for the BLE transport layer.
+        Every developer building a BLE chat app starts from scratch on the protocol design.
+        This means years of work, bespoke security models, and zero interoperability between apps.
+      </p>
+    </div>
+
+    <div class="sg-card sg-card--no">
+      <div class="sg-kicker">Not designed for this</div>
+      <h4>Bluetooth Mesh (Bluetooth SIG, 2017) is for IoT, not chat</h4>
+      <p>
+        Bluetooth SIG does have a Mesh Networking specification — but it was designed for smart lighting,
+        building automation, and sensor networks. It uses controlled flooding and managed flooding
+        algorithms optimised for short, infrequent, broadcast-style sensor readings.
+        It is not designed for unicast two-party conversations, large payloads,
+        or the privacy requirements of personal messaging. No mainstream chat app uses it.
+      </p>
+    </div>
+
+    <div class="sg-card sg-card--no">
+      <div class="sg-kicker">Vendor lock-in by design</div>
+      <h4>Google and Apple restrict what the OS exposes</h4>
+      <p>
+        Both Android and iOS severely limit what third-party applications can do with Bluetooth.
+        Google's Nearby Connections API hides its entire protocol behind a closed black box — it works,
+        but only within the same app. Apps cannot discover each other across different Nearby implementations.
+        Apple's Multipeer Connectivity and AirDrop are even more tightly locked. Developers cannot
+        build standards-compatible software because the platforms themselves prevent it.
+      </p>
+    </div>
+
+    <div class="sg-card sg-card--partial">
+      <div class="sg-kicker">Partial progress</div>
+      <h4>Meshtastic comes closest — but requires hardware</h4>
+      <p>
+        Meshtastic has a fully documented, open, cross-implementable protocol over LoRa.
+        Third parties have built independent implementations, and the ecosystem is genuinely open.
+        But it requires purchasing dedicated LoRa hardware and is therefore not a "phone-only" solution.
+        For pure smartphone BLE mesh, nothing comparable exists.
+        Briar documents its protocol fully but does not provide a public SDK,
+        making integration laborious even for motivated developers.
+      </p>
+    </div>
+
+    <div class="sg-card sg-card--no">
+      <div class="sg-kicker">Commercial incentives against openness</div>
+      <h4>Companies that built mesh SDKs (Bridgefy) kept them closed</h4>
+      <p>
+        Bridgefy, which marketed itself as a developer platform for offline mesh, charged per-API-key
+        and published no protocol specification. The most widely deployed "mesh chat SDK" in the world —
+        used at the 2019 Hong Kong protests, the 2020 US demonstrations, and multiple disaster zones —
+        was undocumented, proprietary, and subsequently found to have completely broken encryption.
+        The crisis it was trusted to handle is the exact one where its weaknesses were most dangerous.
+      </p>
+    </div>
+
+    <div class="sg-card sg-card--no">
+      <div class="sg-kicker">Consequence for users</div>
+      <h4>You cannot mix apps. Every project is its own island.</h4>
+      <p>
+        If your contact uses Briar and you use Radar, you cannot message them over Bluetooth.
+        If half a community uses Meshtastic hardware and the other half has only phones,
+        the phone users can only talk to each other via an internet relay if one is available.
+        The offline "mesh" only works when everyone uses the same app — which is rarely the case
+        in the emergencies these tools are designed for.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ── ANDROID & BLUETOOTH LIMITATIONS ── -->
+<section class="surv-section">
+  <div class="kicker kicker--red">Technical Reality</div>
+  <h2>Android and the Bluetooth stack: what developers cannot control</h2>
+  <p class="section-lead">
+    Building reliable BLE-based chat on Android is one of the most constrained software engineering problems
+    in mobile development. The Android Bluetooth stack imposes hard limits that no third-party app can override,
+    regardless of how much engineering effort is applied. These are not implementation bugs — they are
+    fundamental architectural constraints enforced at the OS and hardware level.
+    Users and reviewers often attribute these limitations to developer error.
+    <strong>They are not.</strong>
+  </p>
+
+  <div class="limit-cards">
+
+    <div class="lcard lcard--warn">
+      <div class="licon">📣</div>
+      <h4>BLE Advertising: 31 bytes, one slot, no content changes</h4>
+      <ul>
+        <li>Legacy BLE advertising payloads are capped at <strong>31 bytes total</strong>. After the 3 advertising flag bytes, there are only 28 bytes available for all data — flags, service UUIDs, manufacturer data, and device name combined.</li>
+        <li>On most devices, only <strong>one advertising set can run at a time</strong>. Apps cannot rotate between beacon formats while advertising. To change what the beacon says, advertising must be stopped and restarted — causing a gap where the device is temporarily invisible.</li>
+        <li>Developers <strong>cannot choose a custom advertising interval</strong>. Android offers three named modes (low power ≈1000 ms, balanced ≈250 ms, low latency ≈100 ms) which are hints to the OS, not guaranteed values. The actual timing is hardware and vendor dependent.</li>
+        <li>No developer can send multiple simultaneous beacons with different payloads. One app, one beacon format at a time.</li>
+      </ul>
+    </div>
+
+    <div class="lcard lcard--warn">
+      <div class="licon">🔍</div>
+      <h4>BLE Scanning: throttled, restricted, and OS-controlled</h4>
+      <ul>
+        <li>Android <strong>throttles apps that start five or more scans within 30 seconds</strong> — scan results stop being delivered until the throttle lifts. This is a platform-level defence against battery abuse that affects all apps equally.</li>
+        <li>Background scanning (when the app is not in the foreground) is heavily restricted in Android 8 and above. On some devices and battery profiles, scan results are batched and delivered only every 15–30 minutes rather than in real time.</li>
+        <li>SCAN_MODE_LOW_POWER scans the radio for only ~512 ms per 5,120 ms cycle. On this mode, a nearby device must be advertising during that narrow window to be discovered. This is why apps like Radar use duty-cycled scan bursts — but even a burst can miss a peer if their advertising gap happens to coincide with the scan gap.</li>
+        <li>Android 10+ requires <code>ACCESS_FINE_LOCATION</code> to scan. Android 12+ added three new dedicated Bluetooth permissions. Users can deny any of these, silently breaking discovery.</li>
+      </ul>
+    </div>
+
+    <div class="lcard lcard--warn">
+      <div class="licon">🔗</div>
+      <h4>GATT connections: serial, fragile, and device-limited</h4>
+      <ul>
+        <li>Bluetooth GATT operations are <strong>fully serial per connection</strong>. You cannot write two characteristics simultaneously. Every message must queue behind the previous one. This is a protocol constraint, not an OS constraint.</li>
+        <li>The default MTU (Maximum Transmission Unit) is <strong>23 bytes — leaving only 3 bytes of usable payload</strong>. A message larger than 3 bytes requires MTU negotiation, which must succeed before anything useful can be sent. On failure, the connection is effectively useless for messaging.</li>
+        <li>Most Android devices support a maximum of <strong>7–10 concurrent GATT connections</strong>. A mesh chat app in a crowd has no way to remain simultaneously connected to 50 nearby people. It must manage a constantly cycling pool of connections, with the latency and reliability penalties that entails.</li>
+        <li>Bluetooth connections drop without warning. Radio interference, the other device moving out of range, power saving, and OS-level connection management all cause drops. There is no persistent-session guarantee.</li>
+      </ul>
+    </div>
+
+    <div class="lcard lcard--warn">
+      <div class="licon">📵</div>
+      <h4>Battery optimisation kills background operation</h4>
+      <ul>
+        <li>Android's Doze mode (introduced in Android 6) suspends background app activity, network access, and alarms when the device is idle. A foreground service is required to keep the BLE stack alive — and even foreground services can be killed by aggressive OEM battery savers (particularly on Xiaomi, Huawei, Oppo, and Vivo devices).</li>
+        <li>App Standby Buckets (Android 9+) restrict background wakeups for apps that haven't been recently used. A mesh chat app that hasn't been opened today may receive dramatically fewer scan callbacks than one that was recently active.</li>
+        <li>Vendor-specific battery "optimisation" from Samsung (Device Care), Xiaomi (MIUI Battery Saver), and others operates <em>outside</em> Android's own battery management system and can kill foreground services without developer recourse.</li>
+        <li>There is no mechanism for a developer to guarantee background BLE operation across all Android devices. It is one of the most common sources of user complaints ("the app stopped working when the screen turned off") and is outside developer control.</li>
+      </ul>
+    </div>
+
+    <div class="lcard lcard--amber">
+      <div class="licon">📡</div>
+      <h4>Wi-Fi Aware (NAN): powerful but patchy</h4>
+      <ul>
+        <li>Wi-Fi Aware — the technology enabling true peer-to-peer Wi-Fi without a hotspot — requires <strong>Android 8.0 (API 26) and explicit hardware support</strong>. Many low-end and mid-range devices do not support it, even if they run a qualifying Android version.</li>
+        <li>Wi-Fi Aware sessions must be bootstrapped over a pre-existing BLE connection. If BLE discovery fails, Wi-Fi Aware never starts, even if both devices support it and are in range.</li>
+        <li>NAN (Neighbour Awareness Networking) data paths can be unstable on devices with aggressive power management. A Wi-Fi Aware socket that appeared healthy can silently die without triggering any callback.</li>
+        <li>The technology is largely unknown to most Android users. There is no user-visible switch to enable it; it is entirely dependent on chipset firmware and Android HAL support, which varies by device.</li>
+      </ul>
+    </div>
+
+    <div class="lcard lcard--amber">
+      <div class="licon">🍎</div>
+      <h4>iOS: Bluetooth chat is essentially impossible</h4>
+      <ul>
+        <li>On iOS, <strong>CoreBluetooth suspends BLE advertising and scanning when the app enters the background</strong>. An iOS app cannot maintain continuous Bluetooth presence. It can only advertise when the user is actively using the app.</li>
+        <li>Apple's Multipeer Connectivity framework (used by AirDrop and some apps) works around this — but it is Apple-proprietary, iOS-only, and cannot interoperate with Android BLE.</li>
+        <li>Apple does not expose Wi-Fi Aware (NAN) to third-party developers at all. There is no public API for it on iOS.</li>
+        <li>This is why Radar does not have an iOS version. It is not a commercial decision or lack of effort — the features that define Radar (persistent BLE mesh, Wi-Fi Aware, background offline operation) are <strong>technically impossible to implement on iOS under Apple's platform rules</strong>. The iOS limitations page documents this in detail.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footnote-box footnote-box--warn" style="margin-top:2rem;">
+    <p>
+      <strong>Why these constraints matter for Radar specifically:</strong>
+      Radar's BLE behaviour — discovery delays, occasional missed peers, the need for the app to be running in the foreground, and limitations on how many concurrent peers can be connected — is a direct consequence of the constraints described above.
+      The developer cannot make BLE discovery instantaneous. The developer cannot make background scanning completely reliable.
+      The developer cannot maintain simultaneously active connections to more than ~7–10 peers.
+      The developer cannot send the same beacon in multiple formats at once.
+      Every Bluetooth chat app on Android faces exactly the same constraints.
+      <strong>Briar, Berty, Bridgefy, and BitChat all encounter these same limitations</strong> — they simply have fewer users reporting them.
+    </p>
+  </div>
+
+</section>
+
+<!-- ── WHY BT CHAT IS HARD ── -->
+<section class="surv-section">
+  <div class="kicker kicker--pink">Developer Reality</div>
+  <h2>Why building Bluetooth chat is genuinely hard</h2>
+  <p class="section-lead">
+    Every app that has tried to solve offline mesh chat has either abandoned the effort, kept their implementation closed,
+    or found that BLE alone is insufficient for reliable messaging. The following explains the fundamental
+    engineering problems that make this category so difficult — and why the "just fix it" framing
+    applied to app reviews misunderstands the nature of the problem.
+  </p>
+
+  <div class="two-col">
+
+    <div class="prose-block">
+      <h3>🔄 The discovery problem: timing is everything</h3>
+      <p>
+        For two devices to communicate over BLE, one must be advertising and the other must be scanning —
+        and they must overlap in time. The advertising device broadcasts a beacon every 100–1000 ms.
+        The scanning device listens for ~5 seconds, then rests for ~25 seconds (to save battery).
+        If the scan window doesn't coincide with an advertising burst, the devices never discover each other.
+      </p>
+      <p>
+        Increasing the scan frequency kills battery life. Reducing it increases discovery latency.
+        There is no configuration that makes discovery both instant and battery-efficient.
+        Apps must choose a point on the trade-off curve and live with the consequences.
+        No amount of engineering eliminates this fundamental constraint.
+      </p>
+    </div>
+
+    <div class="prose-block">
+      <h3>🔐 The security problem: encryption over BLE is expensive</h3>
+      <p>
+        Adding end-to-end encryption to a BLE message requires key exchange (adds round-trips),
+        larger payloads (challenges the 497-byte MTU limit), and computational overhead.
+        On a messaging transport that already has strict bandwidth and connection constraints,
+        every extra byte and every extra round-trip has a real cost.
+      </p>
+      <p>
+        Bridgefy's 2020 failure is the starkest illustration of this: the team took shortcuts
+        on cryptography precisely because implementing proper E2E encryption on BLE is non-trivial.
+        Briar, which does implement strong E2E encryption over Bluetooth, took years of engineering
+        and is still Android-only after nearly a decade of development.
+      </p>
+    </div>
+
+    <div class="prose-block">
+      <h3>🌐 The routing problem: who delivers to whom?</h3>
+      <p>
+        In a mesh, a message to a recipient who is out of direct radio range must be relayed
+        through intermediate nodes. But intermediate nodes don't know who is "out there" or where the recipient is.
+        Without internet infrastructure, there is no global directory.
+        Store-and-forward routing — carrying a message until you encounter someone closer to the recipient —
+        requires every relay node to store potentially many messages, use battery to keep BLE active,
+        and have some mechanism for the message to expire when it cannot be delivered.
+      </p>
+      <p>
+        Routing in Bluetooth mesh is an unsolved problem at scale. It works in small crowds.
+        It degrades poorly as network size grows, message volume increases, or relay nodes go offline.
+      </p>
+    </div>
+
+    <div class="prose-block">
+      <h3>⚡ The power problem: BLE and battery</h3>
+      <p>
+        "Low Energy" in Bluetooth Low Energy refers to the advertising and connection establishment phases.
+        Continuous BLE scanning — the kind needed to discover new peers in real time — can consume
+        10–30% of battery per hour depending on scan parameters and device hardware.
+        Running BLE advertising simultaneously adds more.
+        Add Wi-Fi Aware, foreground service overhead, GPS, and encryption, and a mesh chat app
+        running in full "active mesh" mode can drain a phone in 3–6 hours.
+      </p>
+      <p>
+        Apps that reduce battery drain (by scanning less frequently, using lower-power modes,
+        or disabling features) are criticised for being slow to discover peers.
+        Apps that prioritise speed are criticised for draining the battery.
+        The physics does not offer a middle path.
+      </p>
+    </div>
+
+    <div class="prose-block">
+      <h3>📶 The range problem: Bluetooth is short-range by design</h3>
+      <p>
+        BLE Class 2 devices (the kind in every smartphone) have a nominal range of ~10 metres indoors,
+        ~30 metres in open space. Real-world range is often less due to human body shielding,
+        walls, interference from other 2.4 GHz devices (Wi-Fi, microwave ovens), and the way Android
+        reduces transmit power to save battery.
+      </p>
+      <p>
+        Wi-Fi Aware extends this to ~50–80 metres but requires both devices to support it.
+        Neither transport approaches the range needed for city-scale or disaster-zone communication.
+        Meshtastic's LoRa approach (10–50 km per hop) is the only realistic long-range solution —
+        but it requires dedicated hardware and is therefore not a replacement for phone-native mesh.
+      </p>
+    </div>
+
+    <div class="prose-block">
+      <h3>📋 The testing problem: mesh behaviour is hard to reproduce</h3>
+      <p>
+        A bug in a conventional server-based app can be reproduced with one device and one server.
+        A bug in a mesh app may only appear when three or more devices are arranged in specific proximity,
+        with specific Android versions, specific hardware chipsets, specific battery levels,
+        and specific OS background-activity configurations.
+      </p>
+      <p>
+        The BLE stack itself behaves differently across device manufacturers. A Samsung Galaxy,
+        a Pixel, and a Xiaomi running the same Android version will exhibit subtly different
+        scanning behaviour, connection timing, and MTU negotiation results.
+        End-to-end testing of a mesh chat app is a fundamentally more difficult engineering problem
+        than testing a conventional centralised messenger.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="footnote-box" style="margin-top:2.5rem;">
+    <p>
+      <strong>The bottom line for Radar:</strong>
+      Radar is one of only a handful of apps in the world that has successfully implemented
+      multi-transport offline mesh chat (BLE + Wi-Fi Aware + LAN) in a single Android application,
+      with a full feature set including maps, SOS, group chat, and an encrypted internet relay fallback.
+      The limitations users encounter — occasional discovery delays, range constraints, the absence of iOS support,
+      inability to connect to more than ~10 peers simultaneously — are not the result of development shortcuts.
+      They are the consequence of building on top of an OS and a radio protocol
+      that were not designed for what Radar uses them to do.
+      Every other app in this landscape faces the same constraints.
+      The ones that appear not to have these problems either use dedicated radio hardware (Meshtastic),
+      rely on internet connectivity as their primary channel, or no longer exist.
+    </p>
+  </div>
+
+</section>
+
+<!-- ── ABOUT RADAR'S CONSTRAINTS ── -->
+<section class="surv-section">
+  <div class="kicker kicker--teal">Context</div>
+  <h2>Where Radar sits in this landscape</h2>
+  <p class="section-lead">
+    Given the fragmented state of this ecosystem and the hard limits described above,
+    Radar's design decisions — and its current limitations — can be understood in their proper context.
+  </p>
+
+  <div class="three-col">
+
+    <div class="sg-card sg-card--yes" style="border-radius:12px; padding:1.4rem 1.25rem;">
+      <div class="sg-kicker">What Radar achieves</div>
+      <h4>Multi-transport offline mesh</h4>
+      <p>
+        Radar is one of the only consumer Android apps that implements BLE GATT messaging,
+        Wi-Fi Aware (NAN) high-bandwidth transfer, LAN delivery, and encrypted internet relay
+        within a single application — with automatic fallback between channels.
+        Most apps in this space support at most one or two transports.
+        Building and maintaining all four simultaneously, across the full diversity of Android hardware,
+        represents a substantial engineering achievement.
+      </p>
+    </div>
+
+    <div class="sg-card sg-card--partial" style="border-radius:12px; padding:1.4rem 1.25rem;">
+      <div class="sg-kicker">Why it's closed source</div>
+      <h4>Proprietary protocol is a trade-off, not a red flag</h4>
+      <p>
+        Radar's protocol is not published as an open specification, and Radar's source is not open.
+        This limits auditability compared to Briar — a real trade-off worth acknowledging.
+        In this context it is worth noting that the two major commercial predecessors in the space
+        (FireChat and Bridgefy) were also closed — and one had its entire encryption broken.
+        Closed source is not evidence of insecurity, but open source is stronger evidence of the opposite.
+        Radar's BLE/Wi-Fi messages are explicitly labelled with a yellow padlock to indicate they
+        are not encrypted, which is honest and auditable behaviour at the application layer.
+      </p>
+    </div>
+
+    <div class="sg-card sg-card--no" style="border-radius:12px; padding:1.4rem 1.25rem;">
+      <div class="sg-kicker">The un-fixable limitations</div>
+      <h4>Beyond the developer's control</h4>
+      <p>
+        Discovery latency, range, the lack of iOS support, concurrent connection limits,
+        and background scanning reliability are all constraints imposed by Android, Bluetooth,
+        Apple, and physics — not by Radar's implementation choices.
+        There is no software fix for the 31-byte BLE payload limit.
+        There is no app-level workaround for Apple blocking background BLE advertising on iOS.
+        There is no way to make Bluetooth reach 1 km without hardware.
+        Reviewers and users who attribute these constraints to developer shortcomings are,
+        however understandably, misidentifying where the ceiling is.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ── CLOSING BANNER ── -->
+<section class="closing-banner">
+  <h2>Looking for the full feature comparison?<br><em>See how Radar stacks up against mainstream messengers.</em></h2>
+  <p>
+    The mainstream comparison — Radar vs WhatsApp, Telegram, Signal, and Discord across 83 categories
+    including privacy, offline capability, emergency tools, and surveillance resistance.
+  </p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="compare_features.html">Full Feature Matrix →</a>
+    <a class="btn btn-secondary" href="ios-limitations.html">iOS Limitations →</a>
+    <a class="btn btn-secondary" href="index.html">About Radar</a>
+  </div>
+</section>
+
+</body>
+</html>

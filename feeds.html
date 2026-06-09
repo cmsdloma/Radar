@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Radar – Live Feeds</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="Radar supports GeoRSS, CAP, GeoJSON, RSS and KML feeds — geo coordinates are automatically extracted and placed as live POI on your map. Includes hundreds of curated feeds from USGS, NOAA, JMA, BOM, GDACS and many more. Add your own." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ══════════════════════════════════════
+       TEAL / GREEN ACCENT THEME
+    ══════════════════════════════════════ */
+    :root {
+      --teal:        #00c896;
+      --teal-mid:    #2dd4a8;
+      --teal-soft:   rgba(0,200,150,0.12);
+      --teal-border: rgba(0,200,150,0.28);
+      --amber:       #ffe16b;
+      --amber-soft:  rgba(255,225,107,0.12);
+
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
+    }
+
+    /* ── Nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0,200,150,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo  { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(0,200,150,0.1); color: var(--teal-mid); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── HERO WRAPPER ── */
+    .hero-wrapper {
+      position: relative; overflow: hidden;
+      background-image: url('images/war_room.png');
+      background-size: cover;
+      background-position: center 35%;
+    }
+    .hero-wrapper::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(5,8,20,0.2) 0%, rgba(5,8,20,0.82) 65%),
+        linear-gradient(to bottom, rgba(5,8,20,0.1) 0%, rgba(5,8,20,0.97) 100%);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 6rem var(--page-pad) 4.5rem;
+      max-width: var(--max-width); margin: 0 auto;
+      text-align: center; position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--teal-mid); border: 1px solid var(--teal-border);
+      border-radius: 999px; padding: 0.3rem 0.9rem; margin-bottom: 1.6rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+      font-weight: 800; line-height: 1.1; margin: 0 0 1.4rem;
+      letter-spacing: -0.025em;
+    }
+    .hero h1 em { font-style: normal; color: var(--teal); }
+    .hero .lead {
+      font-size: clamp(1rem, 2vw, 1.18rem); color: var(--muted);
+      max-width: 680px; margin: 0 auto 2.5rem; line-height: 1.75;
+    }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 0.55rem; justify-content: center; }
+    .hero-pill {
+      font-size: 0.76rem; font-weight: 600;
+      padding: 0.3rem 0.85rem; border-radius: 999px;
+      border: 1px solid var(--teal-border);
+      color: var(--teal-mid); background: var(--teal-soft);
+    }
+
+    /* ══ STAT STRIP ══ */
+    .stat-strip {
+      background: rgba(0,20,15,0.65);
+      border-top: 1px solid rgba(0,200,150,0.2);
+      border-bottom: 1px solid rgba(0,200,150,0.18);
+      padding: 2rem var(--page-pad);
+    }
+    .stat-inner {
+      max-width: var(--max-width); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    }
+    @media (max-width: 720px) { .stat-inner { grid-template-columns: repeat(2, 1fr); } }
+    .stat-card {
+      background: rgba(0,200,150,0.06); border: 1px solid var(--teal-border);
+      border-top: 2px solid rgba(0,200,150,0.22); border-radius: 14px;
+      padding: 1.2rem 1rem; text-align: center;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .stat-card:hover { background: rgba(0,200,150,0.12); transform: translateY(-2px); box-shadow: 0 0 20px rgba(0,200,150,0.18), 0 8px 24px rgba(0,0,0,0.4); }
+    .stat-icon { font-size: 2rem; margin-bottom: 0.45rem; display: block; }
+    .stat-num  { font-size: 1.6rem; font-weight: 800; color: var(--teal-mid); line-height: 1; }
+    .stat-label{ font-size: 0.82rem; font-weight: 700; color: var(--teal-mid); margin-top: 0.2rem; }
+    .stat-sub  { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.4; }
+
+    /* ══ SECTION WRAPPER ══ */
+    .fd-section {
+      max-width: var(--max-width); margin: 0 auto;
+      padding: 4rem var(--page-pad);
+    }
+    .fd-section + .fd-section { padding-top: 0; }
+
+    .kicker {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.22em;
+      color: var(--teal); margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .kicker::before {
+      content: ""; display: inline-block; width: 18px; height: 2px;
+      background: var(--teal); box-shadow: 0 0 6px rgba(0,200,150,0.6); flex-shrink: 0;
+    }
+    .section-heading {
+      font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; margin: 0 0 0.6rem;
+    }
+    .section-intro {
+      color: var(--muted); font-size: 0.97rem; max-width: 680px;
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+
+    /* ══ FEED TYPE CARDS GRID ══ */
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+    .type-card {
+      background: rgba(11,16,32,0.85); border: 1px solid rgba(0,200,150,0.18);
+      border-radius: var(--card-radius); padding: 1.6rem 1.5rem;
+      position: relative; transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .type-card:hover {
+      border-color: rgba(0,200,150,0.42); box-shadow: 0 10px 32px rgba(0,0,0,0.55);
+      transform: translateY(-2px); border-left: 3px solid var(--teal);
+      padding-left: calc(1.5rem - 2px);
+    }
+    .type-badge {
+      display: inline-block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+    .badge-geo   { background: rgba(0,200,150,0.18); border: 1px solid var(--teal-border); color: var(--teal-mid); }
+    .badge-cap   { background: rgba(255,107,107,0.18); border: 1px solid rgba(255,107,107,0.3); color: #ff6b6b; }
+    .badge-json  { background: rgba(107,183,255,0.18); border: 1px solid rgba(107,183,255,0.3); color: #6bb7ff; }
+    .badge-rss   { background: rgba(255,183,77,0.18); border: 1px solid rgba(255,183,77,0.3); color: #ffb74d; }
+    .badge-kml   { background: rgba(190,107,255,0.18); border: 1px solid rgba(190,107,255,0.3); color: #be6bff; }
+
+    .type-icon { font-size: 2rem; margin-bottom: 0.65rem; display: block; }
+    .type-card h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.5rem; color: var(--teal-mid); }
+    .type-card.cap-card h3 { color: #ff8888; }
+    .type-card.json-card h3 { color: #6bb7ff; }
+    .type-card.rss-card h3 { color: #ffb74d; }
+    .type-card.kml-card h3 { color: #be6bff; }
+    .type-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.65; margin: 0 0 0.85rem; }
+    .type-card p:last-child { margin-bottom: 0; }
+    .type-card p strong { color: var(--text); }
+
+    .detail-list { list-style: none; padding: 0; margin: 0 0 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .detail-list li { font-size: 0.84rem; color: var(--muted); line-height: 1.5; padding-left: 1.1rem; position: relative; }
+    .detail-list li::before { content: "›"; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    .detail-list li strong { color: var(--text); }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.85rem; }
+    .tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.65rem; border-radius: 999px; }
+    .tag-teal  { background: var(--teal-soft); border: 1px solid var(--teal-border); color: var(--teal-mid); }
+    .tag-amber { background: var(--amber-soft); border: 1px solid rgba(255,225,107,0.3); color: var(--amber); }
+    .tag-muted { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--muted); }
+    .tag-red   { background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); color: #ff8888; }
+    .tag-blue  { background: rgba(107,183,255,0.1); border: 1px solid rgba(107,183,255,0.3); color: #6bb7ff; }
+    .tag-orange{ background: rgba(255,183,77,0.1);  border: 1px solid rgba(255,183,77,0.3);  color: #ffb74d; }
+
+    /* ══ HOW IT WORKS / MAP POI STRIP ══ */
+    .hw-strip {
+      position: relative; overflow: hidden;
+      background-image: url('images/war_room.png');
+      background-size: cover; background-position: center 60%;
+      border-top: 1px solid rgba(0,200,150,0.18);
+      border-bottom: 1px solid rgba(0,200,150,0.18);
+      padding: 3.5rem var(--page-pad);
+    }
+    .hw-strip::before {
+      content: ""; position: absolute; inset: 0; background: rgba(2,10,8,0.9); z-index: 0;
+    }
+    .hw-inner { max-width: var(--max-width); margin: 0 auto; position: relative; z-index: 1; }
+    .hw-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.1rem; margin-top: 2rem;
+    }
+    .hw-card {
+      background: rgba(11,16,32,0.8); border: 1px solid rgba(0,200,150,0.14);
+      border-left: 2px solid rgba(0,200,150,0.25); border-radius: var(--card-radius);
+      padding: 1.4rem; transition: border-color 0.2s, transform 0.15s;
+    }
+    .hw-card:hover { border-left-color: var(--teal); transform: translateY(-2px); }
+    .hw-card h3 { font-size: 0.92rem; font-weight: 700; color: var(--teal-mid); margin: 0 0 0.4rem; letter-spacing: -0.01em; }
+    .hw-card p  { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .hw-card p strong { color: var(--text); }
+
+    /* ══ CURATED FEEDS ══ */
+    .cat-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.85rem; margin-bottom: 2.5rem;
+    }
+    .cat-pill {
+      background: rgba(0,200,150,0.05); border: 1px solid rgba(0,200,150,0.15);
+      border-radius: 12px; padding: 0.85rem 1rem;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .cat-pill:hover { background: rgba(0,200,150,0.1); border-color: rgba(0,200,150,0.3); }
+    .cat-pill-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
+    .cat-pill-head .ci { font-size: 1.2rem; }
+    .cat-pill-head strong { font-size: 0.88rem; color: var(--text); }
+    .cat-pill p { font-size: 0.76rem; color: var(--muted); line-height: 1.45; margin: 0; }
+
+    .type-disclosure {
+      background: rgba(5,8,20,0.9); border: 1px solid rgba(0,200,150,0.15);
+      border-radius: 10px; margin-bottom: 0.2rem; overflow: hidden;
+    }
+    .type-disclosure summary {
+      cursor: pointer; list-style: none; padding: 0.45rem 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 1.05rem; font-weight: 700; color: var(--text);
+      transition: background 0.18s;
+      user-select: none;
+    }
+    .type-disclosure summary:hover { background: rgba(0,200,150,0.06); }
+    .type-disclosure summary::-webkit-details-marker { display: none; }
+    .type-disclosure summary::before { content: "▶"; color: var(--teal); font-size: 1.4rem; line-height: 1; display: inline-block; flex-shrink: 0; transition: transform 0.15s; }
+    .type-disclosure[open] summary::before { content: "▼"; color: var(--teal); font-size: 1.4rem; display: inline-block; flex-shrink: 0; transform: none; }
+    .type-disclosure[open] { border-color: rgba(0,200,150,0.3); }
+    .disclosure-badge { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 999px; margin-left: auto; }
+    .disclosure-body { padding: 0.5rem 1.25rem 1.25rem; }
+
+    .feed-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .feed-table th { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding: 0.35rem 0.5rem; text-align: left; border-bottom: 1px solid rgba(0,200,150,0.12); }
+    .feed-table td { padding: 0.18rem 0.5rem; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: top; }
+    .feed-table td:first-child { color: var(--text); font-weight: 600; }
+    .feed-table tr:last-child td { border-bottom: none; }
+    .feed-table tr:hover td { background: rgba(0,200,150,0.04); }
+    .feed-scope { font-size: 0.65rem; padding: 0.12rem 0.4rem; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; white-space: nowrap; }
+    .scope-global { background: rgba(0,200,150,0.15); color: var(--teal-mid); border: 1px solid var(--teal-border); }
+    .scope-region { background: rgba(107,183,255,0.12); color: #6bb7ff; border: 1px solid rgba(107,183,255,0.25); }
+    .scope-country{ background: rgba(255,183,77,0.12); color: #ffb74d; border: 1px solid rgba(255,183,77,0.25); }
+
+    /* ══ MANAGE YOUR FEEDS ══ */
+    .manage-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.1rem;
+    }
+    .manage-card {
+      background: rgba(11,16,32,0.85); border: 1px solid rgba(0,200,150,0.14);
+      border-radius: var(--card-radius); padding: 1.4rem;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .manage-card:hover { border-color: rgba(0,200,150,0.35); transform: translateY(-2px); }
+    .manage-card h3 { font-size: 0.92rem; font-weight: 700; color: var(--teal-mid); margin: 0 0 0.45rem; }
+    .manage-card p  { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .manage-card p strong { color: var(--text); }
+
+    /* ══ CTA ══ */
+    .cta-banner {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(0,200,150,0.14), transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(0,200,150,0.06), transparent 50%),
+        rgba(11,16,32,0.8);
+      border-top: 2px solid rgba(0,200,150,0.35);
+      padding: 4.5rem 2rem; text-align: center;
+    }
+    .cta-banner h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin: 0 0 0.8rem; }
+    .cta-banner p  { color: var(--muted); max-width: 560px; margin: 0 auto 2rem; font-size: 0.97rem; line-height: 1.75; }
+    .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; padding: 0.75rem 1.75rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.9rem;
+      background: linear-gradient(135deg, #009b74, #00c896);
+      box-shadow: 0 8px 28px rgba(0,200,150,0.4);
+      color: #030a07; text-decoration: none;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { box-shadow: 0 12px 36px rgba(0,200,150,0.55); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block; padding: 0.75rem 1.75rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.9rem;
+      border: 1px solid rgba(0,200,150,0.45); color: var(--teal-mid);
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover { background: var(--teal-soft); transform: translateY(-2px); }
+
+    footer {
+      text-align: center; padding: 2rem var(--page-pad);
+      font-size: 0.78rem; color: rgba(160,163,194,0.45);
+      border-top: 1px solid var(--border-subtle);
+    }
+    footer a { color: rgba(160,163,194,0.55); }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
+</head>
+<body>
+<div class="page">
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="prepper.html">Prepper Guide</a></li>
+      <li><a href="censorship.html">Censorship</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="feeds.html" class="nav-active">Feeds</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html">Signal</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <div class="hero-wrapper">
+  <div class="hero">
+    <div class="hero-eyebrow">📡 Live Intelligence Feeds</div>
+    <h1>The world's alerts,<br>live on your <em>map</em>.</h1>
+    <p class="lead">
+      Radar aggregates hundreds of real-world data feeds — earthquakes, wildfires, floods,
+      tropical cyclones, government alerts, disease outbreaks and more.
+      Geo-coordinates are automatically extracted and placed as <strong>live POI directly on
+      your map</strong>, so you can see what is happening and where, right now.
+    </p>
+    <div class="hero-pills">
+      <span class="hero-pill">5 Feed Formats</span>
+      <span class="hero-pill">250+ Curated Sources</span>
+      <span class="hero-pill">50+ Countries</span>
+      <span class="hero-pill">Live Map POI</span>
+      <span class="hero-pill">Add Your Own</span>
+    </div>
+  </div>
+  </div><!-- /.hero-wrapper -->
+
+  <!-- ── STAT STRIP ── -->
+  <div class="stat-strip">
+    <div class="stat-inner">
+      <div class="stat-card">
+        <span class="stat-icon">🌐</span>
+        <div class="stat-num">250+</div>
+        <div class="stat-label">Curated Feeds</div>
+        <div class="stat-sub">Included out of the box, ready to enable</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🗂️</span>
+        <div class="stat-num">5</div>
+        <div class="stat-label">Feed Formats</div>
+        <div class="stat-sub">GeoRSS, CAP, GeoJSON, RSS, KML</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📍</span>
+        <div class="stat-num">Auto</div>
+        <div class="stat-label">Map POI</div>
+        <div class="stat-sub">Geo coordinates extracted &amp; pinned automatically</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🔄</span>
+        <div class="stat-num">Live</div>
+        <div class="stat-label">Auto-refresh</div>
+        <div class="stat-sub">Per-feed refresh intervals, as fast as 1 minute</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FEED TYPES ── -->
+  <div class="fd-section">
+    <div class="kicker">Supported Formats</div>
+    <h2 class="section-heading">Five feed formats, one unified map</h2>
+    <p class="section-intro">
+      Radar understands five distinct feed formats, each with its own parsing pipeline.
+      Wherever a feed item carries geographic coordinates — whether embedded in XML tags,
+      GeoJSON geometry, or KML placemarks — those coordinates are extracted and rendered
+      as interactive POI on the live map.
+    </p>
+
+    <div class="type-grid">
+
+      <!-- GeoRSS -->
+      <div class="type-card georss-card">
+        <span class="type-badge badge-geo">GeoRSS</span>
+        <span class="type-icon">🌍</span>
+        <h3>GeoRSS / Geo-Atom</h3>
+        <p>
+          Standard RSS or Atom feeds that embed geographic coordinates directly inside
+          each item — via <strong>georss:point</strong>, <strong>geo:lat/lon</strong>,
+          or GML geometry elements. The most widely used format for open-data
+          geospatial alert feeds from meteorological agencies, fire services,
+          earthquake networks and tsunami centres.
+        </p>
+        <ul class="detail-list">
+          <li>Parses <strong>georss:point</strong>, <strong>georss:polygon</strong>, <strong>geo:lat</strong>/<strong>geo:long</strong></li>
+          <li>Also handles GML <strong>gml:pos</strong> and <strong>gml:coordinates</strong></li>
+          <li>Each geo-tagged item → <strong>interactive POI on the map</strong></li>
+          <li>36 curated sources included</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag tag-teal">Map POI</span>
+          <span class="tag tag-muted">Earthquakes · Fires · Floods</span>
+        </div>
+      </div>
+
+      <!-- CAP -->
+      <div class="type-card cap-card">
+        <span class="type-badge badge-cap">CAP</span>
+        <span class="type-icon">🚨</span>
+        <h3>CAP – Common Alerting Protocol</h3>
+        <p>
+          The international XML standard for emergency alerts, endorsed by WMO and OASIS.
+          CAP messages carry <strong>structured severity, urgency and certainty fields</strong>
+          alongside geographic area definitions — including both point coordinates
+          and <strong>polygon boundaries</strong> that are drawn directly onto the map.
+        </p>
+        <ul class="detail-list">
+          <li>Full CAP 1.2 parsing — severity, urgency, certainty, category</li>
+          <li>Area <strong>polygon boundaries</strong> drawn as map overlays</li>
+          <li>Centroid coordinate → <strong>map POI marker</strong></li>
+          <li>120+ curated feeds covering 50+ countries</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag tag-red">Map POI + Polygons</span>
+          <span class="tag tag-muted">Official Government Alerts</span>
+        </div>
+      </div>
+
+      <!-- GeoJSON -->
+      <div class="type-card json-card">
+        <span class="type-badge badge-json">GeoJSON</span>
+        <span class="type-icon">🗺️</span>
+        <h3>GeoJSON REST APIs</h3>
+        <p>
+          REST API endpoints that return <strong>GeoJSON FeatureCollections</strong>
+          (or wrapped feature arrays). Each feature is parsed by the GeoJSON feed
+          fetcher — the properties become a message entry and,
+          where coordinates are present, a <strong>map POI</strong>. Covers
+          real-time earthquake catalogs, wildfire perimeters, flood boundaries and more.
+        </p>
+        <ul class="detail-list">
+          <li>Parses <strong>GeoJSON Point, LineString, Polygon</strong> geometry</li>
+          <li>Feature properties → structured message with title, time, detail</li>
+          <li>Coordinates → <strong>live map POI</strong> for every feature</li>
+          <li>60+ curated API sources included</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag tag-blue">Map POI</span>
+          <span class="tag tag-muted">Earthquake Catalogs · Fire Perimeters</span>
+        </div>
+      </div>
+
+      <!-- RSS -->
+      <div class="type-card rss-card">
+        <span class="type-badge badge-rss">RSS</span>
+        <span class="type-icon">📰</span>
+        <h3>Standard RSS / Atom</h3>
+        <p>
+          Plain news-style RSS and Atom feeds without embedded coordinates.
+          These deliver <strong>text-based intelligence</strong> — government advisories,
+          cybersecurity bulletins, disease outbreak notifications, humanitarian crisis
+          updates, and aviation or maritime safety reports. Items appear as messages in
+          the feed stream, not as map pins.
+        </p>
+        <ul class="detail-list">
+          <li>Full RSS 2.0 and Atom 1.0 parsing</li>
+          <li>Titles, descriptions, published dates and source links preserved</li>
+          <li>44 curated sources covering cyber, health, government, humanitarian</li>
+          <li>No map POI — intelligence feed only</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag tag-orange">Intelligence Feed</span>
+          <span class="tag tag-muted">Cyber · Health · Government</span>
+        </div>
+      </div>
+
+      <!-- KML -->
+      <div class="type-card kml-card">
+        <span class="type-badge badge-kml">KML</span>
+        <span class="type-icon">📌</span>
+        <h3>KML – Keyhole Markup Language</h3>
+        <p>
+          Keyhole Markup Language files from geographic data portals, national mapping
+          agencies, and open-data platforms. KML placemarks, points and path data are
+          parsed and each placemark coordinate becomes a <strong>map POI</strong>.
+          Add any KML-serving URL via the custom feeds manager.
+        </p>
+        <ul class="detail-list">
+          <li>Parses KML <strong>Placemark</strong> and <strong>Point</strong> elements</li>
+          <li>Coordinates → <strong>interactive map POI</strong></li>
+          <li>Add custom KML sources via the feeds manager</li>
+          <li>Compatible with Google Maps KMZ/KML export format</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag tag-teal" style="border-color:rgba(190,107,255,0.3);background:rgba(190,107,255,0.1);color:#be6bff;">Map POI</span>
+          <span class="tag tag-muted">Custom Data · GIS Portals</span>
+        </div>
+      </div>
+
+    </div><!-- /type-grid -->
+  </div><!-- /fd-section -->
+
+  <!-- ── HOW GEO EXTRACTION WORKS ── -->
+  <div class="hw-strip">
+    <div class="hw-inner">
+      <div class="kicker">Geo Extraction &amp; Map Integration</div>
+      <h2 class="section-heading">From feed item to map pin — automatically</h2>
+      <p class="section-intro">
+        Every geo-capable feed format is parsed end-to-end in the background.
+        You don't configure coordinates — Radar extracts them, normalises
+        them and places them on your live map as interactive POI.
+      </p>
+      <div class="hw-grid">
+        <div class="hw-card">
+          <h3>📡 Feed fetched &amp; parsed</h3>
+          <p>Each enabled feed is polled at its configured interval — as fast as
+          every minute for critical alert feeds. The raw XML, JSON, or KML is
+          parsed by the format-specific fetcher (GeoRSS, CAP, GeoJSON, KML).</p>
+        </div>
+        <div class="hw-card">
+          <h3>📍 Coordinates extracted</h3>
+          <p>The fetcher reads the latitude and longitude from whichever
+          geo field the format uses — <strong>georss:point</strong>, GeoJSON
+          geometry, CAP &lt;area&gt;, or KML Placemark. CAP feeds also extract
+          polygon boundary coordinates for overlay rendering.</p>
+        </div>
+        <div class="hw-card">
+          <h3>🗺️ POI placed on your map</h3>
+          <p>Each geo-tagged item becomes a <strong>live POI marker</strong>
+          on the interactive map, positioned at the extracted coordinates.
+          CAP alerts additionally draw their <strong>polygon boundaries</strong>
+          as shaded area overlays on the map.</p>
+        </div>
+        <div class="hw-card">
+          <h3>ℹ️ Tap a pin for detail</h3>
+          <p>Tap any feed POI to see the <strong>title, source feed name,
+          description</strong> and any severity or metadata the original
+          feed provided. A link to the original source is preserved where available.</p>
+        </div>
+        <div class="hw-card">
+          <h3>🔄 Stale pins auto-removed</h3>
+          <p>Feed markers are managed in real time — items no longer present in
+          the latest fetch are automatically removed from the map. You always see
+          <strong>current data</strong>, not stale markers from hours ago.</p>
+        </div>
+        <div class="hw-card">
+          <h3>📐 Zoom-adaptive icons</h3>
+          <p>Feed POI icons scale with the map zoom level in stepped bands,
+          so the map stays <strong>readable at any zoom</strong> — whether
+          you're looking at a global overview or zoomed in on a neighbourhood.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CURATED FEEDS ── -->
+  <div class="fd-section">
+    <div class="kicker">Curated Feed Library</div>
+    <h2 class="section-heading">Hundreds of trusted sources, included out of the box</h2>
+    <p class="section-intro">
+      Radar ships with a curated library of feeds from national meteorological agencies,
+      seismological networks, fire services, tsunami warning centres, civil protection
+      authorities, humanitarian organisations, and more. All are verified open-data sources.
+      Enable or disable any feed in the feeds manager.
+    </p>
+
+    <!-- Coverage highlights -->
+    <div class="cat-grid">
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🌋</span><strong>Earthquakes</strong></div>
+        <p>USGS, EMSC, BGS, INGV, AFAD, JMA, GNS Science, BMKG, GFZ Potsdam, and 15+ more seismic networks worldwide</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🔥</span><strong>Wildfires</strong></div>
+        <p>NASA FIRMS, CAL FIRE, InciWeb, NSW RFS, VIC CFA, QLD Fire &amp; Rescue, EFFIS Europe</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🌊</span><strong>Floods</strong></div>
+        <p>Environment Agency England, SEPA Scotland, BOM Australia, BoM Flood Warnings, Vigicrues France, EA flood stations</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🌀</span><strong>Tropical Cyclones</strong></div>
+        <p>NOAA NHC (Atlantic, Eastern &amp; Central Pacific), JTWC (West Pacific, Indian Ocean), GDACS cyclones, JMA typhoons</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🌋</span><strong>Volcanoes</strong></div>
+        <p>Smithsonian GVP, USGS Volcano Hazards, VolcanoDiscovery, GeoNet NZ, JMA volcanic warnings, PVMBG Indonesia</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🏛️</span><strong>Government Alerts</strong></div>
+        <p>Met Office UK, NWS NOAA, BOM Australia, DWD Germany, Météo-France, JMA Japan, FEMA, and 40+ national agencies</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🌏</span><strong>Global Disasters</strong></div>
+        <p>GDACS, Copernicus EMS, NASA EONET, ReliefWeb, OCHA, PDC Pacific Disaster Center, WMO SWIC</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🦠</span><strong>Health &amp; Outbreaks</strong></div>
+        <p>WHO Disease Outbreak News, CDC HAN alerts, ProMED, ECDC Disease Threat Reports, UKHSA</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🔐</span><strong>Cyber &amp; Security</strong></div>
+        <p>CISA Advisories, NCSC (UK), US-CERT Alerts, SANS ISC Diary, BleepingComputer, Krebs on Security</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🌊</span><strong>Tsunami</strong></div>
+        <p>PTWC (Pacific Tsunami Warning Center), NOAA Caribbean Tsunami, Pacific Tsunami Alerts, INCOIS India</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">✈️</span><strong>Aviation &amp; Transport</strong></div>
+        <p>AAIB (UK), Aviation Herald, BEA France, NTSB, MAIB, RAIB — safety investigation reports</p>
+      </div>
+      <div class="cat-pill">
+        <div class="cat-pill-head"><span class="ci">🌍</span><strong>Humanitarian</strong></div>
+        <p>OCHA, UNHCR, WFP, ReliefWeb, ACLED conflict events, HOT Tasking Manager, PreventionWeb</p>
+      </div>
+    </div>
+
+    <!-- Full feed catalog, disclosed by type -->
+    <h3 style="font-size:1rem;font-weight:700;margin:0 0 0.5rem;color:var(--muted);">Full catalog — expand by feed type:</h3>
+
+    <!-- GeoRSS -->
+    <details class="type-disclosure">
+      <summary>
+        <span style="font-size:1.1rem;">📡</span>
+        GeoRSS — Geographic RSS &amp; Geo-Atom
+        <span class="disclosure-badge badge-geo">36 feeds</span>
+      </summary>
+      <div class="disclosure-body">
+        <table class="feed-table">
+          <thead><tr><th>Feed</th><th>Description</th><th>Scope</th></tr></thead>
+          <tbody><tr><td>BGS British Isles Earthquakes</td><td>Recent UK and Ireland earthquake GeoRSS</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>BGS Magnitude 2.5+ Earthquakes</td><td>Significant earthquake feed from BGS</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>BGS World Seismology</td><td>BGS worldwide earthquake GeoRSS</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>CAL FIRE Incidents</td><td>California Dept of Forestry active wildfires</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Copernicus Emergency Activations</td><td>EU Copernicus EMS disaster mapping activations</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>EA Flood Warnings England</td><td>Environment Agency flood warnings with area metadata</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>EMSC Earthquakes</td><td>European-Mediterranean earthquake GeoRSS</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>GDACS Disaster Alerts</td><td>Floods, cyclones, tsunamis and volcanoes</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>InciWeb Wildfires</td><td>US wildfire incidents and emergency responses</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>JTWC Tropical Cyclones</td><td>Western Pacific and Indian Ocean typhoons</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>MeteoAlarm Europe</td><td>European severe weather and emergency alerts</td><td><span class="feed-scope scope-region"><span class="fi fi-eu" style="margin-right:0.25rem"></span>Europe</span></td></tr>
+        <tr><td>MeteoAlarm United Kingdom</td><td>UK severe weather warnings</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NASA Earth Observatory</td><td>Natural disaster and environmental monitoring imagery</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NASA EONET Natural Events</td><td>Wildfires, storms, floods, volcanic activity</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NASA FIRMS Active Fires</td><td>Global wildfire and thermal anomaly feed</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NOAA Atlantic Hurricanes</td><td>Atlantic hurricane and tropical storm advisories</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NOAA CAP Alerts</td><td>Emergency weather and civil alerts with polygons</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NOAA Caribbean Tsunami Alerts</td><td>Caribbean and Atlantic tsunami warnings</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NOAA Central Pacific Hurricanes</td><td>Central Pacific tropical cyclone feed</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NOAA Eastern Pacific Hurricanes</td><td>Eastern Pacific tropical cyclone feed</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NOAA Space Weather</td><td>Solar storm and geomagnetic alerts</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NOAA SPC Convective Outlooks</td><td>Tornado, hail and severe storm risk areas</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NOAA SPC Severe Storm Watches</td><td>Tornado and severe storm watches</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NOAA Watches and Warnings</td><td>Weather warning polygons and alert areas</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Pacific Tsunami Alerts</td><td>Pacific and Alaska tsunami warnings</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>PTWC Tsunami Alerts</td><td>Pacific Tsunami Warning Center alerts</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>ReliefWeb Disasters</td><td>Global humanitarian crises and disasters</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>Smithsonian GVP Volcanic Activity</td><td>Global Volcanism Program weekly activity reports</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS All Earthquakes (1 day)</td><td>Global all-magnitude earthquake feed</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS Earthquakes 1.0+</td><td>Global M1.0+ earthquakes</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS Earthquakes 2.5+</td><td>Global M2.5+ earthquakes</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS Earthquakes 4.5+</td><td>Strong global earthquakes</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS Significant Earthquakes</td><td>Major global earthquake alerts</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>VolcanoDiscovery Earthquakes</td><td>Global earthquake and volcanic seismic activity</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>VolcanoDiscovery News</td><td>Global volcano activity and eruption reports</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+      </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- CAP -->
+    <details class="type-disclosure">
+      <summary>
+        <span style="font-size:1.1rem;">⚠️</span>
+        CAP — Common Alerting Protocol
+        <span class="disclosure-badge badge-cap">120+ feeds · 50+ countries</span>
+      </summary>
+      <div class="disclosure-body">
+        <p style="font-size:0.83rem;color:var(--muted);margin:0 0 0.85rem;line-height:1.6;">
+          CAP feeds cover global and country-level emergency alerts from national meteorological services,
+          civil protection agencies, seismic networks, tsunami warning centres, and disaster management authorities.
+          Below is a representative selection — the full library spans every inhabited region.
+        </p>
+        <table class="feed-table">
+          <thead><tr><th>Feed / Agency</th><th>Coverage</th><th>Scope</th></tr></thead>
+          <tbody><tr><td>AEMET Spain / IGN Spain</td><td>Meteorological warnings and seismic alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-es" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>BMKG Indonesia (Earthquake, Weather, Volcanic)</td><td>Multi-hazard feeds for Indonesia</td><td><span class="feed-scope scope-country"><span class="fi fi-id" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>BOM Australia (All, Thunderstorm, Flood, Fire, Cyclone) / Geoscience Australia</td><td>Six national weather and earthquake feeds</td><td><span class="feed-scope scope-country"><span class="fi fi-au" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Central America (6 countries) / Caribbean (7 countries) / Pacific Islands (9 territories)</td><td>Regional civil protection and met feeds</td><td><span class="feed-scope scope-region">🌎 Americas</span></td></tr>
+        <tr><td>CMA China / KMA South Korea / CWA Taiwan / HKO Hong Kong</td><td>East Asian meteorological agency alert feeds</td><td><span class="feed-scope scope-region">🌏 E. Asia</span></td></tr>
+        <tr><td>Copernicus EMS – Rapid Mapping</td><td>EU disaster mapping activations worldwide</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>DWD Germany (Community + District) / BBK NINA</td><td>CAP weather warnings and civil protection alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-de" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>EMSC – World Earthquakes</td><td>Global earthquake CAP/Atom feed</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>EMY Greece / NOA Earthquakes / MGM + AFAD + KOERI Turkey</td><td>SE Europe meteorological and seismic alerts</td><td><span class="feed-scope scope-region"><span class="fi fi-se" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Environment Agency Floods England / SEPA Scotland / NRW Wales</td><td>Active flood alerts for all three nations</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Environment Canada / NAAD / NRCan</td><td>National alerts, CAP feed and earthquake alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-ca" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>FEMA / IPAWS Emergency Alerts</td><td>Official US Integrated Public Alert and Warning System</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>GDACS – All Hazards</td><td>All global disaster event types</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>GDACS – Earthquakes / Cyclones / Floods / Volcanoes / Droughts</td><td>Type-specific GDACS alert feeds (5 feeds)</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>GeoNet NZ (Earthquakes + Volcanoes) / MetService NZ / NEMA</td><td>Earthquake, volcanic and civil defence alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-nz" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>IMD India / NDMA Sachet / IMD Cyclones / INCOIS Tsunami</td><td>National and specialised India alert feeds</td><td><span class="feed-scope scope-country"><span class="fi fi-in" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>IMGW Poland / ČHMÚ Czech / SHMÚ Slovakia / OMSZ Hungary / ANM Romania / NIMH Bulgaria</td><td>Central European met agency CAP warnings</td><td><span class="feed-scope scope-region"><span class="fi fi-eu" style="margin-right:0.25rem"></span>C. Europe</span></td></tr>
+        <tr><td>INGV / Protezione Civile – Italy</td><td>Earthquake, volcano and civil protection alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-it" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>INMET + CEMADEN Brazil</td><td>Meteorological warnings and disaster alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-br" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Israel (IMS + Home Front Command Pikud HaOref) / NCM Saudi / NCM UAE + more</td><td>Middle East weather and security alert feeds</td><td><span class="feed-scope scope-region">🌍 Middle East</span></td></tr>
+        <tr><td>JMA Japan (Earthquake, Tsunami, Weather, Volcanic, Landslide)</td><td>Five JMA alert feed types for Japan</td><td><span class="feed-scope scope-country"><span class="fi fi-jp" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>MET Norway / SMHI Sweden / DMI Denmark / FMI Finland / IMO Iceland</td><td>Nordic national meteorological agency CAP feeds</td><td><span class="feed-scope scope-region">❄️ Nordic</span></td></tr>
+        <tr><td>Met Office – UK Weather Warnings</td><td>Severe weather warnings for England, Scotland, Wales</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Météo-France / Vigicrues</td><td>Vigilance bulletins and flood alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-fr" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NOAA NHC – Atlantic &amp; E. Pacific Hurricanes</td><td>Tropical cyclone advisories and outlooks</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NWS – All US Alerts / Tornado / Flash Flood / Hurricane / Thunderstorm / Winter Storm</td><td>Six event-type feeds for the United States</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>PAGASA + PHIVOLCS Philippines</td><td>Typhoon/flood and seismic/volcanic alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-ph" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>PDC – Pacific Disaster Center</td><td>Near-real-time multi-hazard monitoring</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>PTWC – Pacific Tsunami Warning Center</td><td>Tsunami warnings, watches and advisories</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>SAWS South Africa / KMD Kenya / NiMet Nigeria + 9 more Africa</td><td>Sub-Saharan and North African met agency feeds</td><td><span class="feed-scope scope-region">🌍 Africa</span></td></tr>
+        <tr><td>SENAPRED + DMC + CSN + SERNAGEOMIN Chile</td><td>Disaster, weather, seismic and volcanic feeds</td><td><span class="feed-scope scope-country"><span class="fi fi-cl" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>USGS Earthquakes (Significant, M4.5+, M2.5+)</td><td>7-day and hourly feeds at multiple magnitude thresholds</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>WMO Severe Weather Info Centre</td><td>Aggregated severe weather from national agencies</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+      </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- GeoJSON -->
+    <details class="type-disclosure">
+      <summary>
+        <span style="font-size:1.1rem;">🔷</span>
+        GeoJSON — Geographic JSON API Feeds
+        <span class="disclosure-badge badge-json">60+ feeds</span>
+      </summary>
+      <div class="disclosure-body">
+        <table class="feed-table">
+          <thead><tr><th>Feed</th><th>Description</th><th>Scope</th></tr></thead>
+          <tbody><tr><td>ACLED Conflict Events</td><td>Armed conflict location and event data</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>BGS Earthquakes – British Isles</td><td>BGS recent seismicity as GeoJSON</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>BMKG Indonesia / PVMBG Volcanic Alerts / MET Malaysia</td><td>Indonesian and SE Asian earthquake and volcanic feeds</td><td><span class="feed-scope scope-region"><span class="fi fi-se" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Copernicus EMS Activations / EFFIS Active Fires Europe</td><td>EU emergency activations and wildfire perimeters</td><td><span class="feed-scope scope-region"><span class="fi fi-eu" style="margin-right:0.25rem"></span>Europe</span></td></tr>
+        <tr><td>CSN Chile / SAISP Brazil / SGC Colombia / IGP Peru</td><td>South American seismological catalogs</td><td><span class="feed-scope scope-region">🌎 S. America</span></td></tr>
+        <tr><td>DWD Germany / BRGM France / INGV Italy / IGN Spain / IPMA Portugal / AFAD Turkey / NOA Greece</td><td>European national seismic and weather GeoJSON feeds</td><td><span class="feed-scope scope-region"><span class="fi fi-eu" style="margin-right:0.25rem"></span>Europe</span></td></tr>
+        <tr><td>EA Flood Warnings + Stations England</td><td>Live flood warnings and monitoring station readings</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>EMSC Earthquakes / GFZ Potsdam / INGV</td><td>European and global seismological catalogs</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>GDACS Events Map / Earthquakes / Cyclones / Floods / Volcanoes</td><td>GDACS API event feeds (5 type-specific feeds)</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>Geoscience Australia Earthquakes / NSW RFS / VIC CFA / QLD Fire / BoM Floods</td><td>Australian earthquake and incident feeds</td><td><span class="feed-scope scope-country"><span class="fi fi-au" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>GNS Science NZ Earthquakes + Volcanic Alerts / NEMA Civil Defence NZ</td><td>New Zealand seismic and emergency alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-nz" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>HOT Tasking Manager</td><td>Active humanitarian mapping projects</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>IMD India / NDMA Disaster Alerts India</td><td>Indian seismological and disaster management feeds</td><td><span class="feed-scope scope-country"><span class="fi fi-in" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>JMA Earthquakes + Typhoons Japan / KMA Korea / CWA Taiwan / CENC China / PHIVOLCS Philippines</td><td>East Asian earthquake and weather catalogs</td><td><span class="feed-scope scope-region">🌏 E. Asia</span></td></tr>
+        <tr><td>NASA EONET Natural Events</td><td>Open natural events — storms, wildfires, floods, volcanoes</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>NASA EONET Wildfires / Severe Storms / Volcanoes</td><td>Category-specific EONET event feeds</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>Natural Resources Canada Earthquakes / Canadian Wildfire Perimeters</td><td>Seismic and wildfire data for Canada</td><td><span class="feed-scope scope-country"><span class="fi fi-ca" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NOAA Active Alerts / Extreme Alerts / SPC Tornado Watches / Tsunami Threats</td><td>US NWS alert polygon feeds</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>ReliefWeb Disasters / OCHA ReliefWeb Crises</td><td>Disaster and humanitarian crisis location data</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>SANSA South Africa</td><td>South African seismograph network catalog</td><td><span class="feed-scope scope-country"><span class="fi fi-za" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>UK Power Outages (UKPN) / National Highways Incidents / ONS Flood Zones</td><td>UK infrastructure and risk data</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>US EPA Air Quality Sites / CDC PLACES Health Data</td><td>US environmental and public health GeoJSON</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>USGS Earthquakes – All (1 day)</td><td>All earthquakes worldwide in the past 24 hours</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS Earthquakes – All 7 days / All 30 days</td><td>Full 7-day and 30-day global catalogs</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS Earthquakes – M2.5+ / M4.5+ / Significant (7 days)</td><td>Magnitude-filtered 7-day feeds</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS Volcano Alerts / FEMA Disaster Declarations / NIFC Active Wildfires</td><td>US volcano, federal disaster and wildfire data</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+      </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- RSS -->
+    <details class="type-disclosure">
+      <summary>
+        <span style="font-size:1.1rem;">🗞️</span>
+        RSS — News &amp; Intelligence Feeds
+        <span class="disclosure-badge badge-rss">44 feeds</span>
+      </summary>
+      <div class="disclosure-body">
+        <p style="font-size:0.83rem;color:var(--muted);margin:0 0 0.85rem;line-height:1.6;">
+          Standard RSS/Atom news feeds without geo-coordinates — these deliver intelligence as messages, not map pins.
+          Covers government, cyber, health, humanitarian, environment and transport safety topics.
+        </p>
+        <table class="feed-table">
+          <thead><tr><th>Feed</th><th>Description</th><th>Scope</th></tr></thead>
+          <tbody><tr><td>AAIB Safety Investigations</td><td>UK Air Accidents Investigation Branch reports</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>Aviation Herald Incidents</td><td>Global aviation incident and accident reports</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>BEA Aviation Safety (France)</td><td>French aviation accident and incident reports</td><td><span class="feed-scope scope-country"><span class="fi fi-fr" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>BleepingComputer / Dark Reading / SecurityWeek / The Hacker News / The Register Security</td><td>Cybersecurity incident reporting and threat intelligence</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>Cabinet Office / Home Office / Ministry of Defence (UK)</td><td>UK government press releases and operations</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>CDC Emergency Preparedness / CDC Health Alert Network</td><td>US CDC urgent health alerts and preparedness updates</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>CISA Advisories / US-CERT Alerts</td><td>US cybersecurity advisories and high-priority alerts</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>DEFRA / Environment Agency Flood Blog</td><td>UK environment and flood news</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>ECDC Disease Threat Reports</td><td>EU communicable disease threat reports (weekly)</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>European Environment Agency</td><td>EU environmental monitoring and climate updates</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>FCO Travel Advisories</td><td>UK Foreign Office travel warnings</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>FEMA News</td><td>US FEMA news and disaster declarations</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>FloodList Global Flood News</td><td>Global flood event news and forecasts</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>IAEA News</td><td>International Atomic Energy Agency press releases</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>IMO News</td><td>International Maritime Organization news</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>INTERPOL News</td><td>INTERPOL notices and law enforcement news</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>Krebs on Security / Schneier on Security / SANS ISC Daily Diary</td><td>Expert cybersecurity analysis and incident reporting</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>MAIB / RAIB Safety Reports (UK)</td><td>UK Marine and Rail accident investigation reports</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NCSC Blog / News / Threat Reports (UK)</td><td>National Cyber Security Centre intelligence and advisories</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NRC Nuclear Event Notifications</td><td>US Nuclear Regulatory Commission event notifications</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>NTSB Accident Reports</td><td>US aviation, rail and marine accident reports</td><td><span class="feed-scope scope-country"><span class="fi fi-us" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>OCHA Humanitarian News</td><td>UN humanitarian affairs situation reports</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>PreventionWeb Disasters</td><td>Disaster risk reduction and resilience news</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>ProMED Infectious Disease</td><td>Global outbreak monitoring (ISID)</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>UKHSA Health Security Updates</td><td>UK Health Security Agency disease and health threats</td><td><span class="feed-scope scope-country"><span class="fi fi-gb" style="border-radius:2px"></span></span></td></tr>
+        <tr><td>UNHCR Refugee Emergencies</td><td>UN Refugee Agency displacement crises</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>USGS Natural Hazards News</td><td>Landslides, floods and volcanic activity news</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>WFP Food Crisis Updates</td><td>World Food Programme famine and emergency response</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>WHO Disease Outbreak News</td><td>WHO epidemic and outbreak notifications</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+        <tr><td>WMO Weather and Climate News</td><td>WMO extreme weather and disaster alerts</td><td><span class="feed-scope scope-global">🌍</span></td></tr>
+      </tbody>
+        </table>
+      </div>
+    </details>
+
+  </div><!-- /fd-section -->
+
+  <!-- ── MANAGE YOUR FEEDS ── -->
+  <div class="fd-section" style="padding-top:0;">
+    <div class="kicker">Feeds Manager</div>
+    <h2 class="section-heading">Add your own. Manage everything.</h2>
+    <p class="section-intro">
+      The curated library is just the starting point. Radar's feeds manager lets you
+      add any custom feed URL, enable or disable individual feeds, and control how
+      often each one refreshes.
+    </p>
+    <div class="manage-grid">
+      <div class="manage-card">
+        <h3>➕ Add custom feeds</h3>
+        <p>Paste any GeoRSS, CAP, GeoJSON, RSS or KML URL — Radar auto-detects the
+        format and adds it to your feed list. Perfect for <strong>local emergency services,
+        specialist data portals</strong>, or organisation-specific feeds.</p>
+      </div>
+      <div class="manage-card">
+        <h3>✅ Enable / disable per feed</h3>
+        <p>Each curated and custom feed can be <strong>individually toggled on or off</strong>.
+        Enable only the regions and hazard types relevant to you, or disable feeds when
+        you don't need them to save bandwidth and battery.</p>
+      </div>
+      <div class="manage-card">
+        <h3>🔄 Configure refresh intervals</h3>
+        <p>Each feed has a sensible <strong>default refresh interval</strong> — typically
+        5–15 minutes for critical alert feeds and 30–60 minutes for slower-moving data.
+        High-frequency feeds like Pikud HaOref (Israel) refresh as often as every minute.</p>
+      </div>
+      <div class="manage-card">
+        <h3>🗺️ Geo feeds → live map POI</h3>
+        <p>Any feed carrying coordinates — whether you added it or it came from the
+        curated library — automatically places <strong>interactive POI on your map</strong>.
+        Tap any pin to see the event title, source, and details.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="cta-banner">
+    <h2>Stay informed. See it on the map.</h2>
+    <p>
+      Radar's feed system brings the world's open data directly to your device,
+      geo-referenced and live. Explore the full feature set or compare Radar
+      against other apps across every capability.
+    </p>
+    <div class="cta-row">
+      <a class="btn-primary" href="emergency.html">See emergency features →</a>
+      <a class="btn-ghost" href="compare_features.html">Compare all features</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>
+    &copy; 2026 <strong>Radar</strong> · Developed by DAL Technology
+    (<a href="http://www.daltechnology.co.uk" target="_blank" rel="noreferrer">www.daltechnology.co.uk</a>)
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

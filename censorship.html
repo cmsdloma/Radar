@@ -26,6 +26,9 @@
       --amber-soft: rgba(255,170,51,0.10);
       --teal:       #38bdf8;
       --teal-soft:  rgba(56,189,248,0.10);
+
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
     }
 
     /* ── Nav ── */
@@ -36,7 +39,7 @@
       border-bottom: 1px solid rgba(180,142,255,0.22);
     }
     .nav-inner {
-      max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1.25rem;
+      max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad);
       display: flex; align-items: center; justify-content: space-between; gap: 1rem;
     }
     .nav-logo {
@@ -59,7 +62,7 @@
 
     /* ── HERO ── */
     .hero {
-      padding: 5.5rem 1.25rem 4rem;
+      padding: 5.5rem var(--page-pad) 4rem;
       max-width: var(--max-width); margin: 0 auto; text-align: center;
     }
     .hero-eyebrow {
@@ -124,7 +127,7 @@
 
     /* ── SECTION WRAPPERS ── */
     .cen-section {
-      max-width: var(--max-width); margin: 0 auto; padding: 4rem 1.25rem 2rem;
+      max-width: var(--max-width); margin: 0 auto; padding: 4rem var(--page-pad) 2rem;
     }
     .cen-section + .cen-section { padding-top: 0; }
 
@@ -132,7 +135,7 @@
       border-top: 1px solid rgba(255,255,255,0.03);
       border-bottom: 1px solid rgba(255,255,255,0.03);
       background: rgba(5,8,20,0.6);
-      padding: 3.75rem 1.25rem;
+      padding: 3.75rem var(--page-pad);
       margin: 1rem 0;
     }
     .divider-inner { max-width: var(--max-width); margin: 0 auto; }
@@ -178,7 +181,7 @@
       background: linear-gradient(135deg, rgba(180,142,255,0.06), rgba(5,8,20,0) 70%);
       border-top: 1px solid var(--pur-border);
       border-bottom: 1px solid rgba(180,142,255,0.1);
-      padding: 3.5rem 1.25rem;
+      padding: 3.5rem var(--page-pad);
     }
     .shutdown-inner { max-width: var(--max-width); margin: 0 auto; }
     .stat-row {
@@ -461,7 +464,7 @@
     .btn-ghost:hover { background: var(--pur-soft); transform: translateY(-2px); }
 
     footer {
-      text-align: center; padding: 2rem 1.25rem;
+      text-align: center; padding: 2rem var(--page-pad);
       font-size: 0.78rem; color: rgba(160,163,194,0.45);
       border-top: 1px solid var(--border-subtle);
     }
