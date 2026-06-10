@@ -441,6 +441,38 @@
       .risk-list li { flex-direction: column; gap: 0.3rem; }
     }
   </style>
+<style>
+/* ── Shared bt-footer ── */
+.bt-footer {
+  position: sticky; bottom: 0; z-index: 40;
+  border-top: 1px solid rgba(74,181,255,0.35);
+  background: linear-gradient(to bottom, #0d2860 0%, transparent 100%), #040614;
+  padding: 0.85rem max(1.25rem, 3vw);
+}
+.bt-footer-inner {
+  max-width: 2400px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 0.5rem 1.5rem;
+}
+.bt-footer-badge { flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem; }
+.apple-badge { display: block; transition: opacity 0.2s, transform 0.2s; }
+.apple-badge:hover { opacity: 0.85; transform: translateY(-1px); }
+.apple-badge img { display: block; height: 34px; width: auto; border-radius: 5px; }
+.play-badge { display: block; transition: opacity 0.2s, transform 0.2s; }
+.play-badge:hover { opacity: 0.85; transform: translateY(-1px); }
+.play-badge img { display: block; height: 34px; width: auto; border-radius: 5px; }
+.bt-footer-links {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.1rem;
+  font-size: 0.75rem; color: #fff;
+}
+.bt-footer-links a { color: #fff; padding: 0.15rem 0.45rem; border-radius: 999px; transition: color 0.18s, background 0.18s; white-space: nowrap; }
+.bt-footer-links a:hover { color: #4ab5ff; background: rgba(74,181,255,0.15); }
+.bt-footer-links .sep { color: rgba(255,255,255,0.35); padding: 0 0.1rem; user-select: none; }
+.bt-footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.55); white-space: nowrap; }
+.bt-footer-icon { flex-shrink: 0; display: block; transition: opacity 0.2s, transform 0.2s; }
+.bt-footer-icon:hover { opacity: 0.8; transform: translateY(-1px); }
+.bt-footer-icon img { display: block; height: 30px; width: 30px; border-radius: 8px; }
+</style>
 </head>
 <body>
 <div class="page">
@@ -454,16 +486,21 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
       <li><a href="scenarios.html">Scenarios</a></li>
       <li><a href="emergency.html">Emergency</a></li>
       <li><a href="prepper.html">Prepper Guide</a></li>
       <li><a href="censorship.html">Censorship</a></li>
       <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="feeds.html">Feeds</a></li>
       <li><a href="compare_features.html">Compare Features</a></li>
+      <li><a href="compare_life360.html">vs Life360</a></li>
+      <li><a href="compare_mesh_chat.html">Mesh Chat Landscape</a></li>
       <li><a href="compare_privacy.html">Compare Privacy</a></li>
       <li><a href="privacy-policy.html">Privacy Policy</a></li>
       <li><a href="release-notes.html">Releases</a></li>
       <li><a href="premium.html">Premium</a></li>
+      <li><a href="beta-testing.html">Beta Testing</a></li>
       <li><a href="ios-limitations.html">iOS</a></li>
       <li><a href="whatsapp.html">WhatsApp</a></li>
       <li><a href="telegram.html" class="nav-active">Telegram</a></li>
@@ -1002,16 +1039,36 @@
 
   </main>
 
-  <footer class="surv-footer">
-    &copy; 2026 DAL Technology Ltd &nbsp;·&nbsp;
-    <a href="surveillance.html" style="color:var(--accent-teal);opacity:0.7">Surveillance Overview</a>
-    &nbsp;·&nbsp;
-    <a href="signal.html" style="color:var(--accent-teal);opacity:0.7">Signal Analysis</a>
-    &nbsp;·&nbsp;
-    <a href="privacy-policy.html" style="color:var(--accent-teal);opacity:0.7">Privacy Policy</a>
-    &nbsp;·&nbsp;
-    <a href="index.html" style="color:var(--accent-teal);opacity:0.7">Radar App</a>
-  </footer>
+  <footer class="bt-footer">
+  <div class="bt-footer-inner">
+    <div class="bt-footer-badge">
+      <a class="play-badge"
+         href="https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar"
+         target="_blank" rel="noopener"
+         aria-label="Get Radar on Google Play">
+        <img src="images/play_store_logo.webp" alt="Get it on Google Play" />
+      </a>
+      <a class="apple-badge" href="ios-limitations.html" aria-label="iOS limitations">
+        <img src="images/Not_in_the_Apple_Store.webp" alt="Not in the Apple Store" />
+      </a>
+    </div>
+    <nav class="bt-footer-links" aria-label="Footer navigation">
+      <a href="http://www.daltechnology.co.uk" target="_blank" rel="noopener">DAL Technology</a>
+      <span class="sep">·</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="sep">·</span>
+      <a href="release-notes.html">Release Notes</a>
+      <span class="sep">·</span>
+      <span>&#x1F36A;&nbsp;We don&rsquo;t use cookies</span>
+    </nav>
+    <div class="bt-footer-copy">
+      &copy; 2026 DAL Technology &nbsp;&middot;&nbsp; Android is a trademark of Google LLC
+    </div>
+    <a href="index.html" class="bt-footer-icon" aria-label="Radar home">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" />
+    </a>
+  </div>
+</footer>
 
 </div>
 </body>
