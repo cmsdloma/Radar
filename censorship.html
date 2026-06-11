@@ -1,16 +1,32 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Anti-Censorship Technology – Free Communication in a Restricted World</title>
+  <title>Beating Internet Censorship – VPN, Tor, Mesh &amp; P2P Solutions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--�  <!--viewport-dup-end-->
   <meta name="description"
-        content="How governments and corporations suppress communication — and the technologies built to resist them. DNS poisoning, VPNs, Tor, Matrix, Signal, mesh networking, and truly off-grid peer-to-peer systems explained." />
+        content="How governments and corporations suppress communication � and the technologies built to resist them. DNS poisoning, VPNs, Tor, Matrix, Signal, mesh networking, and truly off-grid peer-to-peer systems explained." />
+  <link rel="canonical" href="https://www.radar-chat.app/censorship.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Radar � Off-Grid Communication App" />
+  <meta property="og:url"         content="https://www.radar-chat.app/censorship.html" />
+  <meta property="og:title"       content="Beating Internet Censorship – VPN, Tor, Mesh &amp; P2P Solutions" />
+  <!-- OLD_OG_TITLE_REMOVED content="Anti-Censorship Technology � Free Communication in a Restricted World" -->
+  <meta property="og:description" content="How governments and corporations suppress communication � and the technologies built to resist them. DNS poisoning, VPNs, Tor, Matrix, Signal, mesh networking, and truly off-grid peer-to-peer systems explained." />
+  <meta property="og:image"       content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="Beating Internet Censorship – VPN, Tor, Mesh &amp; P2P Solutions" />
+  <!--OLD_TWITTER content="Anti-Censorship Technology � Free Communication in a Restricted World" -->
+  <meta name="twitter:description" content="How governments and corporations suppress communication � and the technologies built to resist them. DNS poisoning, VPNs, Tor, Matrix, Signal, mesh networking, and truly off-grid peer-to-peer systems explained." />
+  <meta name="twitter:image"       content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* ══════════════════════════════════════
+    /* --------------------------------------
        PURPLE ACCENT THEME
-    ══════════════════════════════════════ */
+    -------------------------------------- */
     :root {
       --pur:        #b48eff;
       --pur-mid:    #c4a8ff;
@@ -31,7 +47,7 @@
       --page-pad:  max(1.25rem, 3vw);
     }
 
-    /* ── Nav ── */
+    /* -- Nav -- */
     .site-nav {
       position: sticky; top: 0; z-index: 50;
       background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9));
@@ -60,7 +76,7 @@
     }
     @media (max-width: 900px) { .nav-links { display: none; } }
 
-    /* ── HERO ── */
+    /* -- HERO -- */
     .hero {
       padding: 5.5rem var(--page-pad) 4rem;
       max-width: var(--max-width); margin: 0 auto; text-align: center;
@@ -91,7 +107,7 @@
       color: var(--pur-mid); background: var(--pur-soft);
     }
 
-    /* ── TOC ── */
+    /* -- TOC -- */
     .toc-box {
       max-width: var(--max-width); margin: 0 auto 1rem;
       background: var(--pur-soft); border: 1px solid var(--pur-border);
@@ -110,9 +126,9 @@
       display: block; transition: color 0.15s;
     }
     .toc-grid li a:hover { color: var(--pur-mid); }
-    .toc-grid li a::before { content: "→ "; color: var(--pur); font-size: 0.7rem; }
+    .toc-grid li a::before { content: "? "; color: var(--pur); font-size: 0.7rem; }
 
-    /* ── KICKER / HEADING ── */
+    /* -- KICKER / HEADING -- */
     .kicker {
       font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.22em;
       color: var(--pur); margin-bottom: 0.5rem;
@@ -125,7 +141,7 @@
       line-height: 1.75; margin-bottom: 2.2rem;
     }
 
-    /* ── SECTION WRAPPERS ── */
+    /* -- SECTION WRAPPERS -- */
     .cen-section {
       max-width: var(--max-width); margin: 0 auto; padding: 4rem var(--page-pad) 2rem;
     }
@@ -140,7 +156,7 @@
     }
     .divider-inner { max-width: var(--max-width); margin: 0 auto; }
 
-    /* ── CENSORSHIP TYPE CARDS ── */
+    /* -- CENSORSHIP TYPE CARDS -- */
     .type-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
       gap: 1.1rem;
@@ -166,7 +182,7 @@
       padding-left: 1.25rem; position: relative;
     }
     .det-list li::before {
-      content: "›"; position: absolute; left: 0;
+      content: "�"; position: absolute; left: 0;
       color: var(--pur); font-weight: 700;
     }
     .det-list li strong { color: var(--text); }
@@ -176,7 +192,7 @@
     }
     .det-list li.note::before { content: none; }
 
-    /* ── SHUTDOWN STATS BAR ── */
+    /* -- SHUTDOWN STATS BAR -- */
     .shutdown-strip {
       background: linear-gradient(135deg, rgba(180,142,255,0.06), rgba(5,8,20,0) 70%);
       border-top: 1px solid var(--pur-border);
@@ -212,7 +228,7 @@
     .shutdown-card p  { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin: 0; }
     .shutdown-card p strong { color: var(--text); }
 
-    /* ── ARCHITECTURE COMPARISON ── */
+    /* -- ARCHITECTURE COMPARISON -- */
     .arch-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 1.1rem; margin-top: 1.5rem;
@@ -249,7 +265,7 @@
     .dot-green  { background: #4ade80; }
     .dot-purple { background: var(--pur); }
 
-    /* ── FULL COMPARISON TABLE ── */
+    /* -- FULL COMPARISON TABLE -- */
     .comp-table {
       width: 100%; border-collapse: collapse; font-size: 0.84rem;
       margin-top: 1.5rem;
@@ -273,7 +289,7 @@
     .r { color: #ff6868; font-weight: 700; }
     .p { color: var(--pur); font-weight: 700; }
 
-    /* ── TECH DEEP-DIVE CARDS ── */
+    /* -- TECH DEEP-DIVE CARDS -- */
     .tech-card {
       background: rgba(11,16,32,0.9); border: 1px solid rgba(255,255,255,0.06);
       border-radius: var(--card-radius); padding: 2rem 1.8rem;
@@ -347,11 +363,11 @@
       background: repeating-linear-gradient(90deg, var(--red) 0, var(--red) 8px, transparent 8px, transparent 14px);
     }
     .tun-pipe::after {
-      content: "🔒 Encrypted"; position: absolute; top: 50%;
+      content: "?? Encrypted"; position: absolute; top: 50%;
       left: 50%; transform: translate(-50%, calc(-50% - 10px));
       font-size: 0.65rem; color: var(--pur); white-space: nowrap;
     }
-    .tun-pipe.red-pipe::after { color: var(--red); content: "⚠ Visible to ISP"; }
+    .tun-pipe.red-pipe::after { color: var(--red); content: "? Visible to ISP"; }
 
     /* Onion layers */
     .onion-wrap {
@@ -435,7 +451,7 @@
       font-style: normal; font-size: 0.8rem; color: var(--muted);
     }
 
-    /* ── CTA BANNER ── */
+    /* -- CTA BANNER -- */
     .cta-banner {
       max-width: var(--max-width); margin: 4rem auto;
       padding: 3.5rem 2rem; text-align: center;
@@ -471,7 +487,7 @@
     footer a { color: rgba(160,163,194,0.55); }
   </style>
 <style>
-/* ── Shared bt-footer ── */
+/* -- Shared bt-footer -- */
 .bt-footer {
   position: sticky; bottom: 0; z-index: 40;
   border-top: 1px solid rgba(74,181,255,0.35);
@@ -506,7 +522,7 @@
 <body>
 <div class="page">
 
-<!-- ── NAV ── -->
+<!-- -- NAV -- -->
 <nav class="site-nav">
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">
@@ -539,28 +555,28 @@
   </div>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- -- HERO -- -->
 <section class="hero">
-  <div class="hero-eyebrow">🔒 Anti-Censorship Technology</div>
+  <div class="hero-eyebrow">?? Anti-Censorship Technology</div>
   <h1>Who Controls What<br><em>You Can Say?</em></h1>
   <p class="lead">
     Governments block websites. Corporations silence voices. ISPs intercept your queries before
-    they reach their destination. This is how censorship works at a technical level — and these
+    they reach their destination. This is how censorship works at a technical level � and these
     are the tools, protocols, and architectures built to resist it.
   </p>
   <div class="hero-pills">
-    <span class="hero-pill">🔥 Internet Shutdowns</span>
-    <span class="hero-pill">🕸️ Centralized vs Decentralized</span>
-    <span class="hero-pill">☠️ DNS Poisoning</span>
-    <span class="hero-pill">🛡️ VPNs</span>
-    <span class="hero-pill">🧅 Tor</span>
-    <span class="hero-pill">🔗 Federation</span>
-    <span class="hero-pill">📡 Mesh Networks</span>
-    <span class="hero-pill">📴 Offline Comms</span>
+    <span class="hero-pill">?? Internet Shutdowns</span>
+    <span class="hero-pill">??? Centralized vs Decentralized</span>
+    <span class="hero-pill">?? DNS Poisoning</span>
+    <span class="hero-pill">??? VPNs</span>
+    <span class="hero-pill">?? Tor</span>
+    <span class="hero-pill">?? Federation</span>
+    <span class="hero-pill">?? Mesh Networks</span>
+    <span class="hero-pill">?? Offline Comms</span>
   </div>
 </section>
 
-<!-- ── TOC ── -->
+<!-- -- TOC -- -->
 <div class="toc-box">
   <h2>On This Page</h2>
   <ul class="toc-grid">
@@ -577,30 +593,30 @@
   </ul>
 </div>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      HOW CENSORSHIP WORKS
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <section class="cen-section" id="how-censorship-works" style="padding-top:3rem;">
-  <div class="kicker">🔍 The Mechanics</div>
+  <div class="kicker">?? The Mechanics</div>
   <h2 class="section-heading">How Censorship Actually Works</h2>
   <p class="section-intro">
     Censorship is rarely a single action. It's a layered system of technical controls, legal
     pressure, and platform power. Understanding each layer reveals why no single tool defeats
-    all of them — and why defence in depth matters.
+    all of them � and why defence in depth matters.
   </p>
 
   <div class="type-grid">
 
     <div class="type-card">
-      <span class="type-icon">🚧</span>
+      <span class="type-icon">??</span>
       <h3>IP Address Blocking</h3>
       <p>The bluntest instrument. ISPs are instructed to drop all traffic to a specific IP address
       or range. Fast to implement, easy to circumvent with a VPN or proxy. <strong>Collateral damage
-      is common</strong> — one IP may serve thousands of legitimate sites.</p>
+      is common</strong> � one IP may serve thousands of legitimate sites.</p>
     </div>
 
     <div class="type-card">
-      <span class="type-icon">☠️</span>
+      <span class="type-icon">??</span>
       <h3>DNS Poisoning &amp; Hijacking</h3>
       <p>Instead of blocking traffic, the ISP intercepts your domain lookup and returns a false
       IP or an error. You never even reach the real server. Used by the UK, Turkey, Russia, and
@@ -608,25 +624,25 @@
     </div>
 
     <div class="type-card">
-      <span class="type-icon">🔬</span>
+      <span class="type-icon">??</span>
       <h3>Deep Packet Inspection (DPI)</h3>
       <p>Rather than blocking by destination, DPI examines the <em>contents</em> of network
-      packets in real time — scanning for banned keywords, protocol signatures, or file hashes.
+      packets in real time � scanning for banned keywords, protocol signatures, or file hashes.
       <strong>China's Great Firewall</strong> and Iran's national network use DPI at national scale.
       Standard VPN protocols are detectable this way.</p>
     </div>
 
     <div class="type-card">
-      <span class="type-icon">📛</span>
+      <span class="type-icon">??</span>
       <h3>Domain Takedowns</h3>
       <p>Legal pressure on domain registrars (Namecheap, GoDaddy) or the registry operator to
-      suspend or seize a domain name entirely. The site's content remains on its server — but no
+      suspend or seize a domain name entirely. The site's content remains on its server � but no
       one can reach it by name. <strong>.onion domains are immune</strong> to this: they don't
       use DNS at all.</p>
     </div>
 
     <div class="type-card">
-      <span class="type-icon">📱</span>
+      <span class="type-icon">??</span>
       <h3>App Store Removal</h3>
       <p>Both Apple and Google have complied with government demands to remove apps from local
       versions of their stores. Russia forced the removal of Navalny's voting app in 2021.
@@ -636,16 +652,16 @@
     </div>
 
     <div class="type-card">
-      <span class="type-icon">🐌</span>
+      <span class="type-icon">??</span>
       <h3>Throttling</h3>
       <p>Rather than blocking outright, traffic to a service is deliberately slowed to make it
-      unusable — while maintaining plausible deniability. Russia throttled Twitter in 2021 before
+      unusable � while maintaining plausible deniability. Russia throttled Twitter in 2021 before
       partially blocking it. <strong>Hard to prove and hard to circumvent</strong> without
       a VPN or routing around the affected ISP.</p>
     </div>
 
     <div class="type-card">
-      <span class="type-icon">🏢</span>
+      <span class="type-icon">??</span>
       <h3>Platform-Level Content Moderation</h3>
       <p>Social media companies remove posts, suspend accounts, or downrank content under pressure
       from governments or advertisers. Twitter/X, YouTube, Meta, and TikTok all comply with
@@ -654,7 +670,7 @@
     </div>
 
     <div class="type-card">
-      <span class="type-icon">🛤️</span>
+      <span class="type-icon">???</span>
       <h3>BGP Hijacking</h3>
       <p>At the most powerful level, internet routing itself is manipulated. A government instructs
       national ISPs to announce false BGP routes, diverting or dropping traffic to entire
@@ -663,7 +679,7 @@
     </div>
 
     <div class="type-card">
-      <span class="type-icon">⚖️</span>
+      <span class="type-icon">??</span>
       <h3>Legal &amp; Regulatory Pressure</h3>
       <p>Encryption backdoor mandates, "lawful intercept" requirements, and licensing laws force
       service providers to weaken their own security or face shutdown. The UK's <strong>Investigatory
@@ -675,20 +691,20 @@
 
   <blockquote class="pull">
     "The internet interprets censorship as damage and routes around it."
-    <cite>— John Gilmore, EFF co-founder, 1993. Still largely true — but the censors have caught up.</cite>
+    <cite>� John Gilmore, EFF co-founder, 1993. Still largely true � but the censors have caught up.</cite>
   </blockquote>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      INTERNET SHUTDOWNS
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <div class="shutdown-strip" id="shutdowns">
   <div class="shutdown-inner">
-    <div class="kicker">🌍 Internet Shutdowns</div>
+    <div class="kicker">?? Internet Shutdowns</div>
     <h2 class="section-heading">When Governments Pull the Plug</h2>
     <p class="section-intro">
       An internet shutdown is the intentional disruption of internet or electronic communications
-      across a population — usually during elections, protests, or military coups. They are
+      across a population � usually during elections, protests, or military coups. They are
       increasingly common, and increasingly lethal: when communications go dark, so does
       accountability.
     </p>
@@ -708,53 +724,53 @@
       </div>
       <div class="stat-card" style="border-color:var(--pur-border);background:radial-gradient(circle at top,rgba(180,142,255,0.1),transparent 70%);">
         <div class="stat-num" style="color:var(--pur);">73</div>
-        <div class="stat-label"><strong style="color:var(--pur-mid);">Record:</strong> Consecutive days of Iran's 2026 blackout — the longest nationwide shutdown in history<br><span style="font-size:0.7rem;opacity:0.6;">(Al Jazeera, 2026)</span></div>
+        <div class="stat-label"><strong style="color:var(--pur-mid);">Record:</strong> Consecutive days of Iran's 2026 blackout � the longest nationwide shutdown in history<br><span style="font-size:0.7rem;opacity:0.6;">(Al Jazeera, 2026)</span></div>
       </div>
     </div>
 
     <div class="shutdown-grid">
       <div class="shutdown-card">
-        <h4><span class="flag">🇮🇷</span>Iran — 2026 <span style="font-size:0.72rem;background:rgba(180,142,255,0.15);border:1px solid rgba(180,142,255,0.4);border-radius:999px;padding:0.1rem 0.45rem;color:var(--pur-mid);font-weight:700;margin-left:0.3rem;">RECORD</span></h4>
+        <h4><span class="flag">????</span>Iran � 2026 <span style="font-size:0.72rem;background:rgba(180,142,255,0.15);border:1px solid rgba(180,142,255,0.4);border-radius:999px;padding:0.1rem 0.45rem;color:var(--pur-mid);font-weight:700;margin-left:0.3rem;">RECORD</span></h4>
         <p>Following US and Israeli strikes on February 28, 2026, Iran imposed a
-        <strong>73-consecutive-day near-total blackout</strong> — over 1,728 hours — the
+        <strong>73-consecutive-day near-total blackout</strong> � over 1,728 hours � the
         <strong>longest sustained nationwide internet shutdown in recorded history</strong>.
         Global connectivity dropped to roughly 1% of normal levels. Limited, state-approved
         tiered access was introduced for vetted businesses in late April, but the majority
         of the population remained severely cut off throughout. <em>(Al Jazeera, 2026)</em></p>
       </div>
       <div class="shutdown-card">
-        <h4><span class="flag">🇮🇷</span>Iran — November 2019</h4>
+        <h4><span class="flag">????</span>Iran � November 2019</h4>
         <p>A <strong>5-day near-total shutdown</strong> coincided with fuel price protests.
         Subsequent investigations documented over 1,500 deaths. The shutdown prevented
         journalists and citizens from transmitting evidence to the outside world. Iran's
         willingness to repeat and escalate this tactic culminated in the 2026 record blackout above.</p>
       </div>
       <div class="shutdown-card">
-        <h4><span class="flag">🇲🇲</span>Myanmar — 2021 Coup</h4>
+        <h4><span class="flag">????</span>Myanmar � 2021 Coup</h4>
         <p>Following the February 2021 military coup, the junta imposed progressively
         stricter restrictions. Mobile data was cut entirely. <strong>Social media blocks,
         then broadband cuts</strong> followed. Lasted well over a year in various forms.</p>
       </div>
       <div class="shutdown-card">
-        <h4><span class="flag">🇮🇳</span>India — World Leader in Shutdowns</h4>
+        <h4><span class="flag">????</span>India � World Leader in Shutdowns</h4>
         <p>India imposed <strong>more internet shutdowns than any other democracy</strong> for
-        several consecutive years. Kashmir experienced a 552-day shutdown (2019–2021), the
+        several consecutive years. Kashmir experienced a 552-day shutdown (2019�2021), the
         longest ever recorded in a democratic country.</p>
       </div>
       <div class="shutdown-card">
-        <h4><span class="flag">🇷🇺</span>Russia — Partial &amp; Rolling Blocks</h4>
+        <h4><span class="flag">????</span>Russia � Partial &amp; Rolling Blocks</h4>
         <p>Russia blocked Twitter, Facebook, Instagram, and LinkedIn. Foreign VPN providers
         are required to connect to Roskomnadzor's filtering system or be blocked.
         <strong>Domestic VPN use surged 2,000%</strong> after the Ukraine invasion in 2022.</p>
       </div>
       <div class="shutdown-card">
-        <h4><span class="flag">🇨🇳</span>China — The Great Firewall</h4>
+        <h4><span class="flag">????</span>China � The Great Firewall</h4>
         <p>The most sophisticated national censorship system ever built. Blocks Google, Facebook,
         YouTube, Wikipedia, most Western news sites, and thousands more. Uses DPI, IP blocking,
         DNS poisoning and AI content analysis simultaneously. <strong>~800,000 websites blocked.</strong></p>
       </div>
       <div class="shutdown-card">
-        <h4><span class="flag">🇸🇩</span>Sudan — Military Coup 2021</h4>
+        <h4><span class="flag">????</span>Sudan � Military Coup 2021</h4>
         <p>During the October 2021 coup, Sudan experienced <strong>25+ days of near-total
         internet blackout</strong>. NetBlocks and IODA documented the shutdown in real time.
         Protesters coordinated using offline tools and pre-arranged street signals.</p>
@@ -770,25 +786,25 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      CENTRALIZED vs DECENTRALIZED
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <section class="cen-section" id="architecture">
-  <div class="kicker">🏛️ Architecture</div>
+  <div class="kicker">??? Architecture</div>
   <h2 class="section-heading">Centralized vs Decentralized Platforms</h2>
   <p class="section-intro">
     The most important factor in a platform's censorship resistance is its architecture.
     A centralized service has a single operator, a single set of servers, and a single point
-    of legal pressure. A decentralized system has none of those things — and each removes
+    of legal pressure. A decentralized system has none of those things � and each removes
     a lever that governments and corporations use to suppress communication.
   </p>
 
   <div class="arch-grid">
 
     <div class="arch-card bad">
-      <span class="arch-icon">🏭</span>
+      <span class="arch-icon">??</span>
       <div class="arch-name">Centralized</div>
-      <div class="arch-eg">WhatsApp · Facebook · YouTube · TikTok · Gmail</div>
+      <div class="arch-eg">WhatsApp � Facebook � YouTube � TikTok � Gmail</div>
       <div class="arch-row">
         <div class="arch-metric"><span class="dot dot-red"></span> Single company controls everything</div>
         <div class="arch-metric"><span class="dot dot-red"></span> One IP range / domain to block</div>
@@ -800,9 +816,9 @@
     </div>
 
     <div class="arch-card warn">
-      <span class="arch-icon">🔗</span>
+      <span class="arch-icon">??</span>
       <div class="arch-name">Federated</div>
-      <div class="arch-eg">Matrix · Mastodon · XMPP · Email · Diaspora</div>
+      <div class="arch-eg">Matrix � Mastodon � XMPP � Email � Diaspora</div>
       <div class="arch-row">
         <div class="arch-metric"><span class="dot dot-green"></span> No single operator</div>
         <div class="arch-metric"><span class="dot dot-green"></span> Anyone can run a server</div>
@@ -814,9 +830,9 @@
     </div>
 
     <div class="arch-card good">
-      <span class="arch-icon">🔄</span>
+      <span class="arch-icon">??</span>
       <div class="arch-name">Peer-to-Peer (P2P)</div>
-      <div class="arch-eg">BitTorrent · Briar · Session · Nostr · Freenet</div>
+      <div class="arch-eg">BitTorrent � Briar � Session � Nostr � Freenet</div>
       <div class="arch-row">
         <div class="arch-metric"><span class="dot dot-green"></span> No servers to take down</div>
         <div class="arch-metric"><span class="dot dot-green"></span> No single point of censorship</div>
@@ -828,9 +844,9 @@
     </div>
 
     <div class="arch-card best">
-      <span class="arch-icon">📡</span>
+      <span class="arch-icon">??</span>
       <div class="arch-name">Mesh / Off-Grid</div>
-      <div class="arch-eg">Radar · Meshtastic · Briar · Reticulum · Ham APRS</div>
+      <div class="arch-eg">Radar � Meshtastic � Briar � Reticulum � Ham APRS</div>
       <div class="arch-row">
         <div class="arch-metric"><span class="dot dot-purple"></span> No internet required at all</div>
         <div class="arch-metric"><span class="dot dot-purple"></span> Works during total shutdowns</div>
@@ -844,43 +860,43 @@
   </div>
 
   <div class="info-box" style="margin-top:2rem;">
-    <strong>The key insight:</strong> Censorship requires a chokepoint — a single address, server,
+    <strong>The key insight:</strong> Censorship requires a chokepoint � a single address, server,
     or operator that can be pressured or blocked. Every architectural step away from centralization
     removes one of those chokepoints. The most censorship-resistant systems have <em>no chokepoints
-    at all</em> — they operate over physical radio frequencies that no registrar or ISP controls.
+    at all</em> � they operate over physical radio frequencies that no registrar or ISP controls.
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      DNS POISONING
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <div class="divider-strip" id="dns">
   <div class="divider-inner">
-    <div class="kicker">☠️ DNS</div>
-    <h2 class="section-heading">DNS Poisoning — The Internet's Phone Book, Corrupted</h2>
+    <div class="kicker">?? DNS</div>
+    <h2 class="section-heading">DNS Poisoning � The Internet's Phone Book, Corrupted</h2>
     <p class="section-intro">
       Every time you type a website address, your device asks a DNS server to translate that name
-      into an IP address — like looking up a phone number. Governments and ISPs exploit this
+      into an IP address � like looking up a phone number. Governments and ISPs exploit this
       process to silently redirect or block your requests before you ever reach the real site.
     </p>
 
     <h3 style="font-size:0.88rem;font-weight:700;color:var(--pur-mid);margin:0 0 0.75rem;">How Normal DNS Works</h3>
     <div class="dns-flow">
       <div class="dns-node pur">Your Device<span class="dns-label">"Where is bbc.co.uk?"</span></div>
-      <div class="dns-arrow">→</div>
+      <div class="dns-arrow">?</div>
       <div class="dns-node">ISP DNS Server<span class="dns-label">Looks up the answer</span></div>
-      <div class="dns-arrow">→</div>
+      <div class="dns-arrow">?</div>
       <div class="dns-node green">151.101.0.81<span class="dns-label">Correct IP returned</span></div>
-      <div class="dns-arrow">→</div>
-      <div class="dns-node pur">Connected ✓</div>
+      <div class="dns-arrow">?</div>
+      <div class="dns-node pur">Connected ?</div>
     </div>
 
     <h3 style="font-size:0.88rem;font-weight:700;color:var(--red);margin:0 0 0.75rem;">How DNS Poisoning Works</h3>
     <div class="dns-flow">
       <div class="dns-node pur">Your Device<span class="dns-label">"Where is banned-site.com?"</span></div>
-      <div class="dns-arrow">→</div>
+      <div class="dns-arrow">?</div>
       <div class="dns-node red">ISP DNS (Intercepted)<span class="dns-label">Ignores real answer</span></div>
-      <div class="dns-arrow">→</div>
+      <div class="dns-arrow">?</div>
       <div class="dns-node red">Blocked / Wrong IP<span class="dns-label">"Site not found" or block page</span></div>
     </div>
 
@@ -888,20 +904,20 @@
       <div class="tech-col">
         <h4>Real-World Examples</h4>
         <ul class="det-list">
-          <li><strong>UK:</strong> Major ISPs block thousands of sites via DNS — initially The Pirate Bay, now including many more under court orders. UK Sky, BT, Virgin all participate.</li>
+          <li><strong>UK:</strong> Major ISPs block thousands of sites via DNS � initially The Pirate Bay, now including many more under court orders. UK Sky, BT, Virgin all participate.</li>
           <li><strong>Turkey (2014):</strong> Government blocked Twitter via DNS. Citizens spray-painted the IP addresses <strong>8.8.8.8 and 8.8.4.4</strong> on walls to let people bypass it.</li>
           <li><strong>Russia:</strong> Roskomnadzor maintains a national blacklist of millions of domains; ISPs must implement it via DNS blocking.</li>
-          <li><strong>China:</strong> The Great Firewall performs DNS poisoning at the national backbone level — returning deliberately corrupt responses for banned domains.</li>
+          <li><strong>China:</strong> The Great Firewall performs DNS poisoning at the national backbone level � returning deliberately corrupt responses for banned domains.</li>
         </ul>
       </div>
       <div class="tech-col green-col">
         <h4>Defences Against DNS Poisoning</h4>
         <ul class="det-list">
-          <li><strong>DNS-over-HTTPS (DoH):</strong> Encrypts your DNS query inside normal HTTPS traffic. Your ISP sees only that you contacted a DoH server — not which domain you looked up. Built into Firefox, Chrome, and Windows 11.</li>
+          <li><strong>DNS-over-HTTPS (DoH):</strong> Encrypts your DNS query inside normal HTTPS traffic. Your ISP sees only that you contacted a DoH server � not which domain you looked up. Built into Firefox, Chrome, and Windows 11.</li>
           <li><strong>DNS-over-TLS (DoT):</strong> Similar to DoH but uses a dedicated encrypted channel. Port 853.</li>
-          <li><strong>Alternative DNS resolvers:</strong> Cloudflare <code>1.1.1.1</code>, Google <code>8.8.8.8</code>, Quad9 <code>9.9.9.9</code> — bypass ISP-run servers, but the ISP can still block these IPs directly.</li>
+          <li><strong>Alternative DNS resolvers:</strong> Cloudflare <code>1.1.1.1</code>, Google <code>8.8.8.8</code>, Quad9 <code>9.9.9.9</code> � bypass ISP-run servers, but the ISP can still block these IPs directly.</li>
           <li><strong>VPN:</strong> DNS queries are resolved by the VPN server instead of your ISP. Completely bypasses local DNS manipulation.</li>
-          <li><strong>Tor:</strong> Uses its own internal name resolution — .onion domains don't use DNS at all.</li>
+          <li><strong>Tor:</strong> Uses its own internal name resolution � .onion domains don't use DNS at all.</li>
           <li><strong>DNSSEC:</strong> Cryptographically signs DNS records so forgery is detectable. Doesn't prevent blocking, but prevents silent redirection.</li>
         </ul>
       </div>
@@ -909,21 +925,21 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      VPNs
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <section class="cen-section" id="vpn">
-  <div class="kicker">🛡️ VPNs</div>
-  <h2 class="section-heading">What is a VPN — and Why Would You Want One?</h2>
+  <div class="kicker">??? VPNs</div>
+  <h2 class="section-heading">What is a VPN � and Why Would You Want One?</h2>
   <p class="section-intro">
     VPN stands for <strong>Virtual Private Network</strong>. It's one of the most widely used
-    censorship circumvention tools in the world — and one of the most misunderstood.
+    censorship circumvention tools in the world � and one of the most misunderstood.
     Here's what it actually does, and just as importantly, what it doesn't.
   </p>
 
   <div class="tech-card purple-glow">
     <div class="tech-header">
-      <div class="tech-emoji">🛡️</div>
+      <div class="tech-emoji">???</div>
       <div>
         <div class="tech-title">How a VPN Works</div>
         <div class="tech-subtitle">An encrypted tunnel between your device and a server elsewhere in the world</div>
@@ -933,7 +949,7 @@
     <div class="tech-body">
       <p>
         When you connect to a VPN, your device creates an <strong>encrypted tunnel</strong> to a
-        VPN server — typically in another country. All your internet traffic is routed through that
+        VPN server � typically in another country. All your internet traffic is routed through that
         tunnel. From the outside world's perspective, your traffic appears to come from the
         VPN server's IP address, not yours.
       </p>
@@ -961,7 +977,7 @@
       <div class="tech-col green-col">
         <h4>What a VPN Does</h4>
         <ul class="det-list">
-          <li>Encrypts traffic between your device and the VPN server — your ISP sees only an encrypted blob</li>
+          <li>Encrypts traffic between your device and the VPN server � your ISP sees only an encrypted blob</li>
           <li>Bypasses local DNS poisoning (DNS resolved on VPN server's end)</li>
           <li>Bypasses IP-level blocks (your traffic goes to the VPN first, not the blocked destination)</li>
           <li>Hides your real IP address from the sites you visit</li>
@@ -972,7 +988,7 @@
       <div class="tech-col red-col">
         <h4>What a VPN Doesn't Do</h4>
         <ul class="det-list">
-          <li>Make you anonymous — your VPN provider can see and log your activity</li>
+          <li>Make you anonymous � your VPN provider can see and log your activity</li>
           <li>Protect you from website tracking, cookies, or fingerprinting</li>
           <li>Help if the VPN server's IP is itself blocked by the censor</li>
           <li>Help if the VPN protocol is detected and blocked by DPI (China blocks most standard VPN protocols)</li>
@@ -986,7 +1002,7 @@
       detect the <em>fingerprints</em> of VPN protocols (OpenVPN, WireGuard, IPSec). This blocks
       most consumer VPNs. The solution is <strong>obfuscated protocols</strong>: tools like
       <strong>Shadowsocks</strong>, <strong>obfs4</strong>, <strong>Trojan</strong>, and
-      <strong>V2Ray</strong> disguise VPN traffic as ordinary HTTPS — making it almost indistinguishable
+      <strong>V2Ray</strong> disguise VPN traffic as ordinary HTTPS � making it almost indistinguishable
       from normal web browsing. Mullvad and ProtonVPN both offer obfuscated modes.
     </div>
 
@@ -994,60 +1010,60 @@
       <div class="tech-col">
         <h4>Trustworthy VPN Providers</h4>
         <ul class="det-list">
-          <li><strong>Mullvad</strong> — no-log, accepts cash payment, no account email required, Sweden (strong privacy law)</li>
-          <li><strong>ProtonVPN</strong> — Swiss-based, open source, audited, free tier available, offers Tor over VPN</li>
-          <li><strong>IVPN</strong> — privacy-focused, no-log, audited, accepts Monero</li>
-          <li class="note">Avoid free VPNs — most sell your data or inject ads. You pay with privacy instead of money.</li>
+          <li><strong>Mullvad</strong> � no-log, accepts cash payment, no account email required, Sweden (strong privacy law)</li>
+          <li><strong>ProtonVPN</strong> � Swiss-based, open source, audited, free tier available, offers Tor over VPN</li>
+          <li><strong>IVPN</strong> � privacy-focused, no-log, audited, accepts Monero</li>
+          <li class="note">Avoid free VPNs � most sell your data or inject ads. You pay with privacy instead of money.</li>
         </ul>
       </div>
       <div class="tech-col amber-col">
         <h4>Protocols to Know</h4>
         <ul class="det-list">
-          <li><strong>WireGuard</strong> — fast, modern, lightweight. Detectable by DPI but excellent for non-censored environments.</li>
-          <li><strong>OpenVPN</strong> — mature, widely supported. Detectable but can be wrapped in obfuscation layers.</li>
-          <li><strong>Shadowsocks</strong> — designed specifically for censorship circumvention. Looks like HTTPS.</li>
-          <li><strong>obfs4 / Pluggable Transports</strong> — used by Tor; makes traffic look like random noise.</li>
-          <li><strong>Psiphon</strong> — free tool combining VPN, SSH, and HTTP proxies with built-in obfuscation for censored countries.</li>
+          <li><strong>WireGuard</strong> � fast, modern, lightweight. Detectable by DPI but excellent for non-censored environments.</li>
+          <li><strong>OpenVPN</strong> � mature, widely supported. Detectable but can be wrapped in obfuscation layers.</li>
+          <li><strong>Shadowsocks</strong> � designed specifically for censorship circumvention. Looks like HTTPS.</li>
+          <li><strong>obfs4 / Pluggable Transports</strong> � used by Tor; makes traffic look like random noise.</li>
+          <li><strong>Psiphon</strong> � free tool combining VPN, SSH, and HTTP proxies with built-in obfuscation for censored countries.</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      TOR
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <div class="divider-strip" id="tor">
   <div class="divider-inner">
-    <div class="kicker">🧅 Onion Routing</div>
-    <h2 class="section-heading">Tor — Anonymity Through Layered Encryption</h2>
+    <div class="kicker">?? Onion Routing</div>
+    <h2 class="section-heading">Tor � Anonymity Through Layered Encryption</h2>
     <p class="section-intro">
       Tor (The Onion Router) is a free, open-source anonymity network that routes your traffic
       through three or more volunteer-run servers around the world. No single relay knows both
-      who you are and what you're doing. Tor provides <em>anonymity</em>, not just privacy —
+      who you are and what you're doing. Tor provides <em>anonymity</em>, not just privacy �
       a meaningfully stronger guarantee than a VPN.
     </p>
 
     <div class="tech-card">
       <div class="tech-header">
-        <div class="tech-emoji">🧅</div>
+        <div class="tech-emoji">??</div>
         <div>
           <div class="tech-title">How Onion Routing Works</div>
-          <div class="tech-subtitle">Each relay peels one layer of encryption — like an onion</div>
+          <div class="tech-subtitle">Each relay peels one layer of encryption � like an onion</div>
         </div>
       </div>
 
       <div class="tech-body">
-        <p>Your Tor client encrypts your data in <strong>three nested layers</strong> — one for each
+        <p>Your Tor client encrypts your data in <strong>three nested layers</strong> � one for each
         relay it will pass through. Each relay can only decrypt its own layer, revealing only the next
         hop in the chain. No relay ever knows both the origin and destination of a message.</p>
       </div>
 
       <div class="onion-wrap">
         <div class="onion">
-          <div class="onion-ring">📦<br>Your Data</div>
+          <div class="onion-ring">??<br>Your Data</div>
           <div class="onion-ring">Guard Node<br>knows your IP<br>not destination</div>
-          <div class="onion-ring">Middle Node · knows neither · Exit Node knows destination, not your IP</div>
+          <div class="onion-ring">Middle Node � knows neither � Exit Node knows destination, not your IP</div>
         </div>
       </div>
 
@@ -1055,20 +1071,20 @@
         <div class="tech-col green-col">
           <h4>What Tor Provides</h4>
           <ul class="det-list">
-            <li><strong>Strong anonymity</strong> — even Tor cannot identify users if used correctly</li>
-            <li><strong>.onion hidden services</strong> — websites that exist only inside Tor; no IP address to block or seize</li>
-            <li><strong>Censorship circumvention</strong> — access blocked sites via exit nodes in uncensored countries</li>
-            <li><strong>Tor bridges + obfs4</strong> — unlisted entry nodes that bypass Tor blocking in China, Russia, Iran</li>
+            <li><strong>Strong anonymity</strong> � even Tor cannot identify users if used correctly</li>
+            <li><strong>.onion hidden services</strong> � websites that exist only inside Tor; no IP address to block or seize</li>
+            <li><strong>Censorship circumvention</strong> � access blocked sites via exit nodes in uncensored countries</li>
+            <li><strong>Tor bridges + obfs4</strong> � unlisted entry nodes that bypass Tor blocking in China, Russia, Iran</li>
             <li>Free to use; operated by a non-profit (the Tor Project)</li>
           </ul>
         </div>
         <div class="tech-col red-col">
           <h4>Limitations</h4>
           <ul class="det-list">
-            <li><strong>Slow</strong> — three hops adds significant latency; unsuitable for video calls or torrenting</li>
-            <li><strong>Exit node visibility</strong> — the exit node sees your unencrypted traffic if you don't use HTTPS (always use HTTPS)</li>
-            <li><strong>Tor traffic is fingerprinted</strong> — in highly censored countries, the fact you're using Tor is detectable; use bridges</li>
-            <li><strong>Not magic</strong> — anonymity breaks if you log into personal accounts, enable JavaScript recklessly, or download files and open them</li>
+            <li><strong>Slow</strong> � three hops adds significant latency; unsuitable for video calls or torrenting</li>
+            <li><strong>Exit node visibility</strong> � the exit node sees your unencrypted traffic if you don't use HTTPS (always use HTTPS)</li>
+            <li><strong>Tor traffic is fingerprinted</strong> � in highly censored countries, the fact you're using Tor is detectable; use bridges</li>
+            <li><strong>Not magic</strong> � anonymity breaks if you log into personal accounts, enable JavaScript recklessly, or download files and open them</li>
             <li>Some sites block Tor exit node IPs</li>
           </ul>
         </div>
@@ -1076,7 +1092,7 @@
 
       <div class="info-box green-box" style="margin-top:1.5rem;">
         <strong>Tor Bridges:</strong> If Tor itself is blocked (as in China and Russia), you can use
-        "bridges" — unlisted relay addresses not published publicly. Request bridges from
+        "bridges" � unlisted relay addresses not published publicly. Request bridges from
         <strong>bridges.torproject.org</strong> or email bridges@torproject.org. Combined with
         the <strong>obfs4</strong> pluggable transport, your connection looks like random noise to DPI systems.
         The Tor Browser includes bridge support built-in.
@@ -1085,22 +1101,22 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      MATRIX & FEDERATION
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <section class="cen-section" id="matrix">
-  <div class="kicker">🔗 Federation</div>
+  <div class="kicker">?? Federation</div>
   <h2 class="section-heading">Matrix &amp; Federated Communication</h2>
   <p class="section-intro">
     Federation is the middle ground between fully centralized (one company controls everything)
     and fully decentralized (no servers at all). In a federated system, anyone can run a server
-    that interoperates with all other servers — just as any email provider can send mail to any
+    that interoperates with all other servers � just as any email provider can send mail to any
     other. Matrix is the leading open standard for federated real-time communication.
   </p>
 
   <div class="tech-card purple-glow">
     <div class="tech-header">
-      <div class="tech-emoji">🔗</div>
+      <div class="tech-emoji">??</div>
       <div>
         <div class="tech-title">How Federation Works</div>
         <div class="tech-subtitle">Interoperable servers, no single point of control</div>
@@ -1112,7 +1128,7 @@
         Think of it like email. You have an address at your provider (<code>alice@company.com</code>)
         and can email anyone at any other provider (<code>bob@gmail.com</code>). No one company owns
         "email." Matrix works the same way: your account (<code>@alice:matrix.org</code>) can message
-        anyone on any Matrix homeserver — including private self-hosted ones.
+        anyone on any Matrix homeserver � including private self-hosted ones.
       </p>
     </div>
 
@@ -1120,10 +1136,10 @@
       <div class="tech-col green-col">
         <h4>Censorship Resistance</h4>
         <ul class="det-list">
-          <li>No single company controls the whole network — there's no one to pressure</li>
+          <li>No single company controls the whole network � there's no one to pressure</li>
           <li>If your homeserver is blocked or shut down, you can <strong>move to another server</strong> and retain your contacts and room history</li>
-          <li>Anyone can run a homeserver — on a Raspberry Pi at home, a VPS, or a corporate server</li>
-          <li>Room history is replicated across all participating servers — removing it requires taking down every server simultaneously</li>
+          <li>Anyone can run a homeserver � on a Raspberry Pi at home, a VPS, or a corporate server</li>
+          <li>Room history is replicated across all participating servers � removing it requires taking down every server simultaneously</li>
           <li>Used by the <strong>German Federal Government, French Government, GNOME, KDE, Mozilla</strong>, and many universities</li>
         </ul>
       </div>
@@ -1141,7 +1157,7 @@
 
     <div class="info-box" style="margin-top:1.5rem;">
       <strong>Matrix bridges</strong> let you connect to Signal, Telegram, Discord, IRC, Slack,
-      and more — all from one Matrix client. This means you retain your contacts even as
+      and more � all from one Matrix client. This means you retain your contacts even as
       individual platforms come and go. The main Matrix client is <strong>Element</strong>
       (web, Android, iOS, desktop). For maximum censorship resistance, host your own homeserver
       and connect to it via Tor or a VPN.
@@ -1149,22 +1165,22 @@
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      SIGNAL
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <div class="divider-strip" id="signal">
   <div class="divider-inner">
-    <div class="kicker">💬 Encrypted Messaging</div>
-    <h2 class="section-heading">Signal — Privacy by Design</h2>
+    <div class="kicker">?? Encrypted Messaging</div>
+    <h2 class="section-heading">Signal � Privacy by Design</h2>
     <p class="section-intro">
       Signal is widely regarded as the gold standard for private messaging. It uses end-to-end
-      encryption by default for all messages, calls, and file transfers — meaning only the sender
+      encryption by default for all messages, calls, and file transfers � meaning only the sender
       and recipient can read them. Even Signal's own servers cannot.
     </p>
 
     <div class="tech-card">
       <div class="tech-header">
-        <div class="tech-emoji">🔐</div>
+        <div class="tech-emoji">??</div>
         <div>
           <div class="tech-title">The Signal Protocol</div>
           <div class="tech-subtitle">Open source, independently audited, and copied by WhatsApp, Google Messages, and others</div>
@@ -1175,11 +1191,11 @@
         <div class="tech-col green-col">
           <h4>What Makes Signal Stand Out</h4>
           <ul class="det-list">
-            <li><strong>End-to-end encrypted by default</strong> — no opt-in required</li>
-            <li><strong>Minimal metadata collection</strong> — Signal stores almost nothing about users</li>
-            <li><strong>Sealed sender</strong> — even Signal cannot determine who sent a message to whom</li>
-            <li><strong>Open source</strong> — server and client code is publicly audited</li>
-            <li><strong>Signal usernames</strong> — you no longer need to share your phone number with contacts</li>
+            <li><strong>End-to-end encrypted by default</strong> � no opt-in required</li>
+            <li><strong>Minimal metadata collection</strong> � Signal stores almost nothing about users</li>
+            <li><strong>Sealed sender</strong> � even Signal cannot determine who sent a message to whom</li>
+            <li><strong>Open source</strong> � server and client code is publicly audited</li>
+            <li><strong>Signal usernames</strong> � you no longer need to share your phone number with contacts</li>
             <li>Disappearing messages, Note to Self, encrypted group calls up to 40 people</li>
             <li>Subpoena response: when the US DOJ demanded Signal user data in 2021, Signal was able to provide only two data points: account creation date and last connection date</li>
           </ul>
@@ -1187,11 +1203,11 @@
         <div class="tech-col red-col">
           <h4>Honest Limitations</h4>
           <ul class="det-list">
-            <li><strong>Centralized infrastructure</strong> — Signal runs on Amazon AWS servers. If those IPs are blocked, Signal goes down. (Iran and China have done this.)</li>
+            <li><strong>Centralized infrastructure</strong> � Signal runs on Amazon AWS servers. If those IPs are blocked, Signal goes down. (Iran and China have done this.)</li>
             <li><strong>Signal has a domain fronting workaround</strong> for censored countries, but its effectiveness varies</li>
-            <li><strong>Phone number still required for registration</strong> — though usernames decouple it from sharing</li>
-            <li>Not federated — you cannot self-host a Signal server and interoperate</li>
-            <li>US-based non-profit — subject to US legal jurisdiction, though cryptographic design limits what they can provide</li>
+            <li><strong>Phone number still required for registration</strong> � though usernames decouple it from sharing</li>
+            <li>Not federated � you cannot self-host a Signal server and interoperate</li>
+            <li>US-based non-profit � subject to US legal jurisdiction, though cryptographic design limits what they can provide</li>
           </ul>
         </div>
       </div>
@@ -1199,7 +1215,7 @@
       <div class="info-box green-box" style="margin-top:1.5rem;">
         <strong>Who uses Signal's protocol?</strong> The Signal Protocol is open source and has been
         adopted by WhatsApp (1 billion+ users), Google Messages (default for Android RCS),
-        Facebook Messenger (optional), and Skype (optional). The encryption is the same — but
+        Facebook Messenger (optional), and Skype (optional). The encryption is the same � but
         these platforms collect far more metadata, and their server-side infrastructure is not
         open source or independently verified.
       </div>
@@ -1207,15 +1223,15 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      OFFLINE & MESH
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <section class="cen-section" id="offline">
-  <div class="kicker">📴 Beyond the Internet</div>
+  <div class="kicker">?? Beyond the Internet</div>
   <h2 class="section-heading">Offline &amp; Mesh Communication Systems</h2>
   <p class="section-intro">
-    When internet access is cut entirely — during a coup, a natural disaster, or a prolonged
-    infrastructure failure — all the tools above stop working. These systems don't need the
+    When internet access is cut entirely � during a coup, a natural disaster, or a prolonged
+    infrastructure failure � all the tools above stop working. These systems don't need the
     internet at all. They create their own networks from scratch, using radio signals, Bluetooth,
     and Wi-Fi Direct.
   </p>
@@ -1223,11 +1239,11 @@
   <div class="mesh-grid">
 
     <div class="mesh-card">
-      <span class="mesh-icon">📱</span>
+      <span class="mesh-icon">??</span>
       <h3>Radar</h3>
       <p>A fully off-grid Android app that creates a peer-to-peer mesh over
       <strong>Bluetooth LE and Wi-Fi Direct</strong>. See your group on a live radar display,
-      send encrypted messages, make voice and video calls — all with no internet,
+      send encrypted messages, make voice and video calls � all with no internet,
       no SIM, no infrastructure.</p>
       <div class="pill-row">
         <span class="mpill green">No Internet Required</span>
@@ -1238,10 +1254,10 @@
     </div>
 
     <div class="mesh-card">
-      <span class="mesh-icon">📻</span>
+      <span class="mesh-icon">??</span>
       <h3>Meshtastic</h3>
       <p>Open-source mesh networking using <strong>LoRa radio hardware</strong>. Cheap devices
-      (£25–£60) communicate up to 30km line-of-sight without any infrastructure. Encrypted text
+      (�25��60) communicate up to 30km line-of-sight without any infrastructure. Encrypted text
       messages and GPS positions are relayed across the mesh. No licence required in the
       ISM band.</p>
       <div class="pill-row">
@@ -1253,7 +1269,7 @@
     </div>
 
     <div class="mesh-card">
-      <span class="mesh-icon">🌿</span>
+      <span class="mesh-icon">??</span>
       <h3>Briar</h3>
       <p>A P2P messaging app for Android that works over <strong>Tor, Bluetooth, and Wi-Fi Direct</strong>.
       No servers, no central accounts. When the internet is available, it uses Tor for anonymity.
@@ -1268,11 +1284,11 @@
     </div>
 
     <div class="mesh-card">
-      <span class="mesh-icon">🛰️</span>
+      <span class="mesh-icon">???</span>
       <h3>Garmin inReach / Satellite</h3>
-      <p>Two-way messaging via the <strong>Iridium satellite constellation</strong> — truly global,
+      <p>Two-way messaging via the <strong>Iridium satellite constellation</strong> � truly global,
       works anywhere on Earth with a clear sky view. Not dependant on any national internet
-      infrastructure. Requires a subscription (~£15/month) but is the most reliable off-grid
+      infrastructure. Requires a subscription (~�15/month) but is the most reliable off-grid
       long-range option available to civilians.</p>
       <div class="pill-row">
         <span class="mpill green">Global Coverage</span>
@@ -1283,7 +1299,7 @@
     </div>
 
     <div class="mesh-card">
-      <span class="mesh-icon">📡</span>
+      <span class="mesh-icon">??</span>
       <h3>Amateur (Ham) Radio</h3>
       <p>A Foundation licence (a weekend course in the UK, or the Technician exam in the US) gives
       access to a huge range of frequencies. Local repeaters relay voice across a city; HF radios
@@ -1298,11 +1314,11 @@
     </div>
 
     <div class="mesh-card">
-      <span class="mesh-icon">🔊</span>
+      <span class="mesh-icon">??</span>
       <h3>Shortwave Radio (Receive)</h3>
-      <p>A simple shortwave receiver (£30–£80) can pick up broadcasts from the
+      <p>A simple shortwave receiver (�30��80) can pick up broadcasts from the
       <strong>BBC World Service, Radio Free Europe, Voice of America</strong>, and others.
-      No licence, no account, no infrastructure — just a signal from the sky. Historically
+      No licence, no account, no infrastructure � just a signal from the sky. Historically
       the primary tool for information access behind the Iron Curtain.</p>
       <div class="pill-row">
         <span class="mpill green">No Licence</span>
@@ -1313,9 +1329,9 @@
     </div>
 
     <div class="mesh-card">
-      <span class="mesh-icon">⚙️</span>
+      <span class="mesh-icon">??</span>
       <h3>Reticulum Network Stack</h3>
-      <p>An open-source cryptographic networking stack designed to work over any medium —
+      <p>An open-source cryptographic networking stack designed to work over any medium �
       LoRa, packet radio, serial links, TCP, I2P. Provides <strong>end-to-end encrypted,
       self-addressing</strong> communications with no dependency on central infrastructure.
       Used in projects like Nomadnet and Sideband.</p>
@@ -1328,10 +1344,10 @@
     </div>
 
     <div class="mesh-card">
-      <span class="mesh-icon">📶</span>
+      <span class="mesh-icon">??</span>
       <h3>goTenna / Meshtastic Relay</h3>
       <p>Pocket-sized radio devices that create a mesh network between smartphones using
-      <strong>900MHz / 150MHz ISM band</strong> radio. Range of 4–10km per node, with messages
+      <strong>900MHz / 150MHz ISM band</strong> radio. Range of 4�10km per node, with messages
       relaying hop-by-hop across all devices on the network. Encrypted text, GPS positions.</p>
       <div class="pill-row">
         <span class="mpill green">No Infrastructure</span>
@@ -1344,12 +1360,12 @@
   </div>
 </section>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      FULL COMPARISON TABLE
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <div class="divider-strip" id="comparison">
   <div class="divider-inner">
-    <div class="kicker">📊 Summary</div>
+    <div class="kicker">?? Summary</div>
     <h2 class="section-heading">Full Technology Comparison</h2>
     <p class="section-intro">
       No single tool is right for every threat model. Use this table to identify which technologies
@@ -1372,111 +1388,111 @@
       <tbody>
         <tr>
           <td>WhatsApp / Telegram</td>
-          <td><span class="r">✗ No</span></td>
-          <td><span class="r">✗ Low</span></td>
-          <td><span class="r">✗ None</span></td>
-          <td><span class="a">⚠ Moderate</span></td>
-          <td><span class="g">✓ Very Easy</span></td>
-          <td><span class="g">✓ Free</span></td>
+          <td><span class="r">? No</span></td>
+          <td><span class="r">? Low</span></td>
+          <td><span class="r">? None</span></td>
+          <td><span class="a">? Moderate</span></td>
+          <td><span class="g">? Very Easy</span></td>
+          <td><span class="g">? Free</span></td>
         </tr>
         <tr>
           <td>Signal</td>
-          <td><span class="r">✗ No</span></td>
-          <td><span class="a">⚠ Moderate</span></td>
-          <td><span class="a">⚠ Low</span></td>
-          <td><span class="g">✓ Strong</span></td>
-          <td><span class="g">✓ Easy</span></td>
-          <td><span class="g">✓ Free</span></td>
+          <td><span class="r">? No</span></td>
+          <td><span class="a">? Moderate</span></td>
+          <td><span class="a">? Low</span></td>
+          <td><span class="g">? Strong</span></td>
+          <td><span class="g">? Easy</span></td>
+          <td><span class="g">? Free</span></td>
         </tr>
         <tr>
           <td>VPN (standard)</td>
-          <td><span class="r">✗ No</span></td>
-          <td><span class="a">⚠ Moderate</span></td>
-          <td><span class="a">⚠ Partial</span></td>
-          <td><span class="a">⚠ Depends on provider</span></td>
-          <td><span class="g">✓ Easy</span></td>
-          <td><span class="a">⚠ Paid (mostly)</span></td>
+          <td><span class="r">? No</span></td>
+          <td><span class="a">? Moderate</span></td>
+          <td><span class="a">? Partial</span></td>
+          <td><span class="a">? Depends on provider</span></td>
+          <td><span class="g">? Easy</span></td>
+          <td><span class="a">? Paid (mostly)</span></td>
         </tr>
         <tr>
           <td>VPN + Obfuscation (Shadowsocks/obfs4)</td>
-          <td><span class="r">✗ No</span></td>
-          <td><span class="g">✓ Strong</span></td>
-          <td><span class="a">⚠ Partial</span></td>
-          <td><span class="a">⚠ Depends on provider</span></td>
-          <td><span class="a">⚠ Moderate</span></td>
-          <td><span class="a">⚠ Paid</span></td>
+          <td><span class="r">? No</span></td>
+          <td><span class="g">? Strong</span></td>
+          <td><span class="a">? Partial</span></td>
+          <td><span class="a">? Depends on provider</span></td>
+          <td><span class="a">? Moderate</span></td>
+          <td><span class="a">? Paid</span></td>
         </tr>
         <tr>
           <td>Tor Browser</td>
-          <td><span class="r">✗ No</span></td>
-          <td><span class="g">✓ Strong</span></td>
-          <td><span class="g">✓ Strong</span></td>
-          <td><span class="g">✓ Strong</span></td>
-          <td><span class="a">⚠ Moderate</span></td>
-          <td><span class="g">✓ Free</span></td>
+          <td><span class="r">? No</span></td>
+          <td><span class="g">? Strong</span></td>
+          <td><span class="g">? Strong</span></td>
+          <td><span class="g">? Strong</span></td>
+          <td><span class="a">? Moderate</span></td>
+          <td><span class="g">? Free</span></td>
         </tr>
         <tr>
           <td>Matrix (self-hosted)</td>
-          <td><span class="r">✗ No</span></td>
-          <td><span class="g">✓ Strong</span></td>
-          <td><span class="a">⚠ Low–Moderate</span></td>
-          <td><span class="g">✓ Strong (E2EE)</span></td>
-          <td><span class="a">⚠ Moderate</span></td>
-          <td><span class="g">✓ Free</span></td>
+          <td><span class="r">? No</span></td>
+          <td><span class="g">? Strong</span></td>
+          <td><span class="a">? Low�Moderate</span></td>
+          <td><span class="g">? Strong (E2EE)</span></td>
+          <td><span class="a">? Moderate</span></td>
+          <td><span class="g">? Free</span></td>
         </tr>
         <tr>
           <td>DNS-over-HTTPS</td>
-          <td><span class="r">✗ No</span></td>
-          <td><span class="a">⚠ DNS blocks only</span></td>
-          <td><span class="r">✗ None</span></td>
-          <td><span class="a">⚠ Hides DNS queries</span></td>
-          <td><span class="g">✓ Easy (built-in)</span></td>
-          <td><span class="g">✓ Free</span></td>
+          <td><span class="r">? No</span></td>
+          <td><span class="a">? DNS blocks only</span></td>
+          <td><span class="r">? None</span></td>
+          <td><span class="a">? Hides DNS queries</span></td>
+          <td><span class="g">? Easy (built-in)</span></td>
+          <td><span class="g">? Free</span></td>
         </tr>
         <tr>
           <td>Briar (Bluetooth/WiFi)</td>
-          <td><span class="p">✓ Yes — local mesh</span></td>
-          <td><span class="p">✓ Very Strong</span></td>
-          <td><span class="g">✓ Strong (Tor)</span></td>
-          <td><span class="g">✓ Strong</span></td>
-          <td><span class="a">⚠ Moderate</span></td>
-          <td><span class="g">✓ Free</span></td>
+          <td><span class="p">? Yes � local mesh</span></td>
+          <td><span class="p">? Very Strong</span></td>
+          <td><span class="g">? Strong (Tor)</span></td>
+          <td><span class="g">? Strong</span></td>
+          <td><span class="a">? Moderate</span></td>
+          <td><span class="g">? Free</span></td>
         </tr>
         <tr>
           <td>Meshtastic (LoRa)</td>
-          <td><span class="p">✓ Yes — radio mesh</span></td>
-          <td><span class="p">✓ Maximum</span></td>
-          <td><span class="a">⚠ Moderate</span></td>
-          <td><span class="g">✓ Encrypted</span></td>
-          <td><span class="r">✗ Technical</span></td>
-          <td><span class="a">⚠ Hardware cost</span></td>
+          <td><span class="p">? Yes � radio mesh</span></td>
+          <td><span class="p">? Maximum</span></td>
+          <td><span class="a">? Moderate</span></td>
+          <td><span class="g">? Encrypted</span></td>
+          <td><span class="r">? Technical</span></td>
+          <td><span class="a">? Hardware cost</span></td>
         </tr>
         <tr>
           <td>Amateur Radio (HF)</td>
-          <td><span class="p">✓ Yes — no infrastructure</span></td>
-          <td><span class="p">✓ Maximum</span></td>
-          <td><span class="r">✗ Calls are identifiable</span></td>
-          <td><span class="r">✗ Unencrypted by law</span></td>
-          <td><span class="r">✗ Technical + licence</span></td>
-          <td><span class="a">⚠ Licence + hardware</span></td>
+          <td><span class="p">? Yes � no infrastructure</span></td>
+          <td><span class="p">? Maximum</span></td>
+          <td><span class="r">? Calls are identifiable</span></td>
+          <td><span class="r">? Unencrypted by law</span></td>
+          <td><span class="r">? Technical + licence</span></td>
+          <td><span class="a">? Licence + hardware</span></td>
         </tr>
         <tr>
           <td><strong>Radar App</strong></td>
-          <td><span class="p">✓ <strong>Yes — BLE + WiFi mesh</strong></span></td>
-          <td><span class="p">✓ <strong>Maximum</strong></span></td>
-          <td><span class="a">⚠ Pseudonymous</span></td>
-          <td><span class="g">✓ <strong>E2EE by design</strong></span></td>
-          <td><span class="g">✓ <strong>Easy (Android app)</strong></span></td>
-          <td><span class="g">✓ <strong>Free</strong></span></td>
+          <td><span class="p">? <strong>Yes � BLE + WiFi mesh</strong></span></td>
+          <td><span class="p">? <strong>Maximum</strong></span></td>
+          <td><span class="a">? Pseudonymous</span></td>
+          <td><span class="g">? <strong>E2EE by design</strong></span></td>
+          <td><span class="g">? <strong>Easy (Android app)</strong></span></td>
+          <td><span class="g">? <strong>Free</strong></span></td>
         </tr>
         <tr>
           <td>Satellite (Garmin inReach)</td>
-          <td><span class="p">✓ Yes — truly global</span></td>
-          <td><span class="p">✓ Maximum</span></td>
-          <td><span class="a">⚠ Identifiable account</span></td>
-          <td><span class="a">⚠ Provider sees metadata</span></td>
-          <td><span class="g">✓ Easy</span></td>
-          <td><span class="r">✗ Subscription required</span></td>
+          <td><span class="p">? Yes � truly global</span></td>
+          <td><span class="p">? Maximum</span></td>
+          <td><span class="a">? Identifiable account</span></td>
+          <td><span class="a">? Provider sees metadata</span></td>
+          <td><span class="g">? Easy</span></td>
+          <td><span class="r">? Subscription required</span></td>
         </tr>
       </tbody>
     </table>
@@ -1484,9 +1500,9 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
+<!-- ----------------------------------------
      RADAR CTA
-════════════════════════════════════════ -->
+---------------------------------------- -->
 <div class="cta-banner">
   <h2>When the Network is the Weapon,<br><em style="color:var(--pur);font-style:normal;">Use One They Can't Shut Down</em></h2>
   <p>
@@ -1495,7 +1511,7 @@
     corporation can switch off. Available free on Android.
   </p>
   <div class="cta-row">
-    <a class="btn-primary" href="index.html">Learn About Radar →</a>
+    <a class="btn-primary" href="index.html">Learn About Radar ?</a>
     <a class="btn-ghost" href="surveillance.html">Surveillance &amp; Privacy</a>
   </div>
 </div>
@@ -1515,11 +1531,11 @@
     </div>
     <nav class="bt-footer-links" aria-label="Footer navigation">
       <a href="http://www.daltechnology.co.uk" target="_blank" rel="noopener">DAL Technology</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <a href="privacy-policy.html">Privacy Policy</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <a href="release-notes.html">Release Notes</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <span>&#x1F36A;&nbsp;We don&rsquo;t use cookies</span>
     </nav>
     <div class="bt-footer-copy">

@@ -1,0 +1,17 @@
+# robots.txt – Radar App Website
+# https://www.radar-chat.app
+
+User-agent: *
+Allow: /
+
+# Internal / utility pages – no crawling needed
+Disallow: /phone-frame-preview.html
+Disallow: /_phone-frame-snippet.html
+
+# Block common nuisance paths
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://www.radar-chat.app/sitemap.xml
