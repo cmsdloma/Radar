@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Android Radio Technologies – BLE, Bluetooth, Wi-Fi Aware, UWB &amp; NFC Explained</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A precise technical explanation of BLE, Bluetooth Classic, Wi-Fi Aware/NAN, UWB, and NFC on Android — what Radar uses them for, what the real-world limitations are, and why Google imposes certain restrictions." />
+  <link rel="canonical" href="https://radar.daltechnology.co.uk/android-radio-tech.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Radar – Off-Grid Communication App" />
+  <meta property="og:url"         content="https://radar.daltechnology.co.uk/android-radio-tech.html" />
+  <meta property="og:title"       content="Android Radio Technologies – BLE, Bluetooth, Wi-Fi Aware, UWB &amp; NFC Explained" />
+  <meta property="og:description" content="A precise technical explanation of BLE, Bluetooth Classic, Wi-Fi Aware/NAN, UWB, and NFC on Android — capabilities, limitations, and Google's platform restrictions." />
+  <meta property="og:image"       content="https://radar.daltechnology.co.uk/assets/App_Icon_blueradar.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="Android Radio Technologies – BLE, Bluetooth, Wi-Fi Aware, UWB &amp; NFC Explained" />
+  <meta name="twitter:description" content="A precise technical explanation of BLE, Bluetooth Classic, Wi-Fi Aware/NAN, UWB, and NFC on Android — capabilities, limitations, and Google's platform restrictions." />
+  <meta name="twitter:image"       content="https://radar.daltechnology.co.uk/assets/App_Icon_blueradar.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent-teal:  #4ab5ff;
+      --accent-amber: #ffe16b;
+      --accent-warn:  #ff6868;
+      --accent-pink:  #ff71c8;
+      --accent-green: #4affb4;
+
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
+    }
+
+    /* ── Sticky nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(74,181,255,0.08); color: var(--accent-teal); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── Hero ── */
+    .ios-hero { padding: 3rem 1cm 2rem; text-align: center; }
+    .ios-hero .eyebrow { display: inline-block; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-teal); border: 1px solid rgba(74,181,255,0.3); border-radius: 999px; padding: 0.28rem 0.8rem; margin-bottom: 1rem; }
+    .ios-hero h1 { font-size: clamp(1.7rem,3.2vw,2.5rem); font-weight: 800; margin: 0 0 0.75rem; line-height: 1.15; }
+    .ios-hero h1 em { font-style: normal; color: var(--accent-teal); }
+    .ios-hero p { color: var(--muted); font-size: 0.95rem; max-width: 660px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── Wrap ── */
+    .ios-wrap { padding: 0 1cm 4rem; }
+
+    /* ── Summary banner ── */
+    .summary-banner {
+      background: rgba(74,181,255,0.05); border: 1px solid rgba(74,181,255,0.2);
+      border-left: 4px solid var(--accent-teal); border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem; margin-bottom: 2rem;
+    }
+    .summary-banner h2 { font-size: 0.97rem; color: var(--accent-teal); margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.5rem; }
+    .summary-banner p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.5rem; }
+    .summary-banner p:last-child { margin-bottom: 0; }
+    .summary-banner strong { color: var(--text); }
+
+    /* ── Limit card ── */
+    .limit-card {
+      background: rgba(11,16,32,0.7); border: 1px solid var(--border-subtle);
+      border-radius: 14px; padding: 1.5rem 1.75rem; margin-bottom: 1.5rem;
+    }
+    .limit-card .card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+    .card-icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+    .card-title-block h2 { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+    .card-subtitle {
+      font-size: 0.75rem; color: var(--muted); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.07em; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .status-tag {
+      display: inline-block; border-radius: 8px; padding: 1px 8px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: none; white-space: nowrap;
+    }
+    .tag-absent    { background: rgba(255,104,104,0.12); color: var(--accent-warn); border: 1px solid rgba(255,104,104,0.25); }
+    .tag-locked    { background: rgba(255,149,71,0.12);  color: #ff9547;            border: 1px solid rgba(255,149,71,0.25); }
+    .tag-limited   { background: rgba(255,225,107,0.10); color: var(--accent-amber); border: 1px solid rgba(255,225,107,0.2); }
+    .tag-supported { background: rgba(74,255,180,0.10);  color: var(--accent-green); border: 1px solid rgba(74,255,180,0.25); }
+    .tag-partial   { background: rgba(74,181,255,0.10);  color: var(--accent-teal);  border: 1px solid rgba(74,181,255,0.25); }
+
+    /* ── Bullet list (can-do variant – tick) ── */
+    .can-list { list-style: none; padding: 0; margin: 0 0 1rem; }
+    .can-list li {
+      position: relative; padding: 0.55rem 0 0.55rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.875rem; color: var(--muted); line-height: 1.6;
+    }
+    .can-list li:first-child { border-top: none; }
+    .can-list li::before { content: "✓"; position: absolute; left: 0.1rem; top: 0.5rem; color: var(--accent-green); font-size: 1.05rem; font-weight: 900; }
+    .can-list li strong { color: var(--text); }
+
+    /* ── Bullet list (limit/restriction variant – cross) ── */
+    .limit-list { list-style: none; padding: 0; margin: 0; }
+    .limit-list li {
+      position: relative; padding: 0.65rem 0 0.65rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.875rem; color: var(--muted); line-height: 1.6;
+    }
+    .limit-list li:first-child { border-top: none; }
+    .limit-list li::before { content: "✕"; position: absolute; left: 0.1rem; top: 0.6rem; color: var(--accent-warn); font-size: 1.05rem; font-weight: 900; }
+    .limit-list li strong { color: var(--text); }
+    .limit-list li code {
+      background: rgba(74,181,255,0.07); border: 1px solid rgba(74,181,255,0.15);
+      border-radius: 3px; padding: 0 4px; font-family: "SF Mono","Fira Code",monospace;
+      font-size: 0.8rem; color: var(--accent-teal);
+    }
+    .can-list li code {
+      background: rgba(74,181,255,0.07); border: 1px solid rgba(74,181,255,0.15);
+      border-radius: 3px; padding: 0 4px; font-family: "SF Mono","Fira Code",monospace;
+      font-size: 0.8rem; color: var(--accent-teal);
+    }
+    .api-note {
+      display: inline-block; background: rgba(74,181,255,0.1); border: 1px solid rgba(74,181,255,0.25);
+      border-radius: 8px; padding: 1px 7px; font-size: 0.7rem; color: #4ab5ff; font-weight: 600;
+      margin-left: 5px; white-space: nowrap;
+    }
+
+    /* ── Can/Cannot two-column stripe ── */
+    .compare-stripe { display: flex; gap: 0.75rem; margin-top: 1.1rem; flex-wrap: wrap; }
+    .stripe-half { flex: 1 1 200px; border-radius: 10px; padding: 0.85rem 1rem; font-size: 0.8rem; line-height: 1.5; }
+    .stripe-can  { background: rgba(74,255,180,0.04); border: 1px solid rgba(74,255,180,0.18); color: rgba(160,163,194,0.9); }
+    .stripe-cant { background: rgba(255,104,104,0.05); border: 1px solid rgba(255,104,104,0.2); color: rgba(160,163,194,0.9); }
+    .stripe-half strong { display: block; font-weight: 800; margin-bottom: 5px; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .stripe-can  strong { color: var(--accent-green); }
+    .stripe-cant strong { color: var(--accent-warn); }
+    .stripe-half code { font-family: "SF Mono","Fira Code",monospace; font-size: 0.78rem; background: rgba(255,255,255,0.05); border-radius: 3px; padding: 0 3px; }
+
+    /* ── Section divider label ── */
+    .section-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent-teal); margin: 0 0 0.5rem; opacity: 0.7;
+    }
+    .divider-line {
+      border: none; border-top: 1px solid rgba(74,181,255,0.12); margin: 0.85rem 0 0.85rem;
+    }
+
+    /* ── Callout (amber info box) ── */
+    .callout {
+      background: rgba(255,225,107,0.05); border: 1px solid rgba(255,225,107,0.2);
+      border-left: 3px solid var(--accent-amber); border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem; font-size: 0.875rem; color: var(--muted); line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .callout strong { color: var(--text); }
+    .callout code { font-family: "SF Mono","Fira Code",monospace; font-size: 0.82rem; background: rgba(255,255,255,0.05); border-radius: 3px; padding: 0 4px; }
+
+    /* ── Callout warn (red box) ── */
+    .callout-warn {
+      background: rgba(255,104,104,0.05); border: 1px solid rgba(255,104,104,0.2);
+      border-left: 3px solid var(--accent-warn); border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem; font-size: 0.875rem; color: var(--muted); line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .callout-warn strong { color: var(--text); }
+    .callout-warn code { font-family: "SF Mono","Fira Code",monospace; font-size: 0.82rem; background: rgba(255,255,255,0.05); border-radius: 3px; padding: 0 4px; }
+
+    /* ── Closing note ── */
+    .closing-note {
+      background: rgba(74,181,255,0.04); border: 1px solid rgba(74,181,255,0.18);
+      border-left: 3px solid var(--accent-teal); border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem; font-size: 0.875rem; color: var(--muted); line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .closing-note strong { color: var(--text); }
+    .closing-note a { color: var(--accent-teal); }
+
+    /* ── Footer ── */
+    .ios-footer { text-align: center; font-size: 0.76rem; color: rgba(160,163,194,0.5); padding: 1.5rem var(--page-pad) 2rem; border-top: 1px solid var(--border-subtle); }
+
+    /* ── Permission table ── */
+    .perm-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 1rem 0 0.5rem; }
+    .perm-table th { text-align: left; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-teal); padding: 0.4rem 0.6rem; border-bottom: 1px solid rgba(74,181,255,0.18); }
+    .perm-table td { padding: 0.45rem 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--muted); vertical-align: top; }
+    .perm-table td code { font-family: "SF Mono","Fira Code",monospace; font-size: 0.78rem; color: var(--accent-teal); background: rgba(74,181,255,0.07); border: 1px solid rgba(74,181,255,0.15); border-radius: 3px; padding: 0 4px; }
+    .perm-table tr:last-child td { border-bottom: none; }
+  </style>
+<style>
+/* ── Shared bt-footer ── */
+.bt-footer {
+  position: sticky; bottom: 0; z-index: 40;
+  border-top: 1px solid rgba(74,181,255,0.35);
+  background: linear-gradient(to bottom, #0d2860 0%, transparent 100%), #040614;
+  padding: 0.85rem max(1.25rem, 3vw);
+}
+.bt-footer-inner {
+  max-width: 2400px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 0.5rem 1.5rem;
+}
+.bt-footer-badge { flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem; }
+.apple-badge { display: block; transition: opacity 0.2s, transform 0.2s; }
+.apple-badge:hover { opacity: 0.85; transform: translateY(-1px); }
+.apple-badge img { display: block; height: 34px; width: auto; border-radius: 5px; }
+.play-badge { display: block; transition: opacity 0.2s, transform 0.2s; }
+.play-badge:hover { opacity: 0.85; transform: translateY(-1px); }
+.play-badge img { display: block; height: 34px; width: auto; border-radius: 5px; }
+.bt-footer-links {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.1rem;
+  font-size: 0.75rem; color: #fff;
+}
+.bt-footer-links a { color: #fff; padding: 0.15rem 0.45rem; border-radius: 999px; transition: color 0.18s, background 0.18s; white-space: nowrap; }
+.bt-footer-links a:hover { color: #4ab5ff; background: rgba(74,181,255,0.15); }
+.bt-footer-links .sep { color: rgba(255,255,255,0.35); padding: 0 0.1rem; user-select: none; }
+.bt-footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.55); white-space: nowrap; }
+.bt-footer-icon { flex-shrink: 0; display: block; transition: opacity 0.2s, transform 0.2s; }
+.bt-footer-icon:hover { opacity: 0.8; transform: translateY(-1px); }
+.bt-footer-icon img { display: block; height: 30px; width: 30px; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="prepper.html">Prepper Guide</a></li>
+      <li><a href="censorship.html">Censorship</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="feeds.html">Feeds</a></li>
+      <li><a href="android-radio-tech.html" class="nav-active">Radio Tech</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+      <li><a href="compare_life360.html">vs Life360</a></li>
+      <li><a href="compare_mesh_chat.html">Mesh Chat Landscape</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html">Signal</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="beta-testing.html">Beta Testing</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <div class="ios-hero">
+    <span class="eyebrow">Android · BLE · Bluetooth · Wi-Fi Aware · UWB · NFC</span>
+    <h1>Android Radio Technologies:<br><em>Capabilities &amp; Constraints</em></h1>
+    <p>A technical guide to how Bluetooth Low Energy, Bluetooth Classic, Wi-Fi Aware/NAN, Ultra-Wideband, and NFC work on Android — what they enable, where the real-world limits lie, and how Google's platform policies shape what apps can do.</p>
+  </div>
+
+  <div class="ios-wrap">
+
+    <!-- Summary -->
+    <div class="summary-banner">
+      <h2>📡 Radar's wireless stack</h2>
+      <p>
+        Radar is built on five complementary radio technologies that together enable offline
+        peer-to-peer communication, mesh networking, proximity detection, high-bandwidth
+        file transfer, and instant tap-to-connect pairing — all without an internet connection,
+        cellular signal, or Wi-Fi router.
+      </p>
+      <p>
+        Each technology has genuine strengths, but also hard engineering ceilings imposed by
+        the Android platform, Google Play policies, hardware availability, and the underlying
+        radio standards themselves. <strong>Understanding these limits explains both what Radar
+        can do and what it cannot.</strong>
+      </p>
+    </div>
+
+    <!-- ════���═══════════════════════════════════════
+         1. BLE – Bluetooth Low Energy
+    ════════════════════════════════════════════ -->
+    <div class="limit-card">
+      <div class="card-header">
+        <span class="card-icon">📳</span>
+        <div class="card-title-block">
+          <h2>Bluetooth Low Energy (BLE)</h2>
+          <div class="card-subtitle">
+            Mesh beaconing, peer discovery &amp; low-power relay
+            <span class="status-tag tag-supported">Supported — with restrictions</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label">What BLE can do</p>
+      <ul class="can-list">
+        <li>
+          <strong>Continuous background advertising</strong> — Radar uses a foreground service to
+          keep a BLE advertiser running indefinitely, broadcasting a compact presence beacon
+          that contains a peer ID, relay counter, and signal-strength data.
+          <span class="api-note">Android API 21+</span>
+        </li>
+        <li>
+          <strong>Background scanning with callbacks</strong> — The BLE scanner can report
+          nearby advertisements in real time, powering the live peer map and feeding the mesh
+          relay logic. Android 8.0 and later deliver scan results via
+          <code>PendingIntent</code> even when the foreground service is briefly paused.
+          <span class="api-note">Android API 26+</span>
+        </li>
+        <li>
+          <strong>GATT connections for data exchange</strong> — Once two devices discover
+          each other via advertisements, Radar can open a GATT client/server channel to
+          exchange structured messages, routing tables, and compressed payloads at up to
+          ~250 kbps, all without internet.
+        </li>
+        <li>
+          <strong>Bluetooth 5 extended advertising</strong> — On BT 5-capable hardware,
+          Radar can use extended advertisements with payloads up to 254 bytes (versus the
+          31-byte limit of legacy advertisements), enabling richer peer metadata in a single
+          beacon without a GATT connection.
+          <span class="api-note">Android API 26+, BT 5 hardware</span>
+        </li>
+        <li>
+          <strong>Manufacturer-specific data (MSD)</strong> — Unlike some locked-down
+          platforms, Android lets Radar embed arbitrary bytes in the manufacturer-specific
+          data section of BLE advertisements, carrying routing metadata, message fragments,
+          and hash identifiers.
+        </li>
+      </ul>
+
+      <hr class="divider-line" />
+      <p class="section-label">Restrictions &amp; limitations</p>
+      <ul class="limit-list">
+        <li>
+          <strong>Android 8.0+ scan throttling.</strong>
+          Google introduced a hard limit of <strong>5 scan starts per 30-second window</strong>
+          per app. If Radar restarts its scanner too frequently (e.g. due to Bluetooth stack
+          resets), the OS silently blocks subsequent starts until the window resets. Radar
+          works around this with an adaptive back-off strategy, but the constraint is real
+          and cannot be bypassed.
+          <span class="api-note">Android 8.0 / API 26</span>
+        </li>
+        <li>
+          <strong>Background scan de-duplication.</strong>
+          Android de-duplicates BLE advertisements from the same MAC address, reporting a
+          new result only after a configurable interval. If a peer's advertisement payload
+          is static, Radar may not receive updated signal-strength readings for many seconds,
+          reducing proximity accuracy.
+        </li>
+        <li>
+          <strong>Android 10+ location permission required for BLE scanning.</strong>
+          Google tied BLE scanning to <code>ACCESS_FINE_LOCATION</code> because BLE scan
+          results can be used to infer a user's location. Without this permission, the
+          <code>startScan()</code> call silently returns zero results — no error, no warning.
+          On Android 12+, this was split into
+          <code>BLUETOOTH_SCAN</code> and <code>BLUETOOTH_CONNECT</code> permissions.
+          <span class="api-note">Android 10 / API 29 · Android 12 / API 31</span>
+        </li>
+        <li>
+          <strong>MAC address randomisation.</strong>
+          Android 10 enabled random MAC addresses by default for all BLE advertising and
+          scanning. This prevents passive tracking by third parties, but it also means a
+          device's BLE identity changes periodically. Radar uses application-layer peer IDs
+          embedded in the advertisement payload rather than relying on MAC address stability.
+        </li>
+        <li>
+          <strong>Foreground service requirement for sustained scanning.</strong>
+          Android 14 tightened rules around background-started foreground services. Radar
+          must use a foreground service with the correct <code>foregroundServiceType</code>
+          (specifically <code>connectedDevice</code>) to maintain BLE scanning and advertising
+          after the user leaves the app. The persistent notification this requires is
+          mandatory and cannot be suppressed.
+          <span class="api-note">Android 14 / API 34</span>
+        </li>
+        <li>
+          <strong>Effective range is short and environment-dependent.</strong>
+          BLE advertising range in real-world urban or indoor conditions is typically
+          10–40 m, dropping sharply through walls, bodies of water, or dense crowds.
+          Signal-strength (RSSI) readings are noisy — ±5–10 dBm variation is normal —
+          making reliable distance estimation difficult without averaging across many samples.
+        </li>
+        <li>
+          <strong>Throughput ceiling.</strong>
+          The BLE 4.x physical layer tops out at roughly 1 Mbps raw, with a GATT
+          application-layer throughput of approximately 100–250 kbps in practice.
+          Larger payloads (images, voice clips, maps) are transferred over Wi-Fi Aware
+          or Bluetooth Classic instead.
+        </li>
+      </ul>
+
+      <div class="compare-stripe">
+        <div class="stripe-can">
+          <strong>✓ What Radar uses BLE for</strong>
+          Continuous presence beaconing. Real-time peer discovery. Mesh relay of small
+          messages and routing updates. Proximity estimation for the live radar view.
+          Low-power always-on operation while idle.
+        </div>
+        <div class="stripe-cant">
+          <strong>✕ BLE cannot do</strong>
+          High-bandwidth file transfer. Reliable ranging to centimetre accuracy.
+          Background operation without a foreground service and persistent notification.
+          Scanning without location permission on Android 10+.
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         2. Bluetooth Classic (BR/EDR)
+    ════════════════════════════════════════════ -->
+    <div class="limit-card">
+      <div class="card-header">
+        <span class="card-icon">🔵</span>
+        <div class="card-title-block">
+          <h2>Bluetooth Classic (BR/EDR)</h2>
+          <div class="card-subtitle">
+            Higher-bandwidth paired connections &amp; audio relay
+            <span class="status-tag tag-limited">Useful — but pairing required</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label">What Bluetooth Classic can do</p>
+      <ul class="can-list">
+        <li>
+          <strong>RFCOMM serial sockets for reliable data transfer</strong> — Once two
+          devices are paired, Radar can open an RFCOMM channel to exchange files, routing
+          tables, and binary payloads at practical speeds of 1–3 Mbps. This is substantially
+          faster than BLE GATT for large payloads.
+          <span class="api-note">Android API 5+</span>
+        </li>
+        <li>
+          <strong>Discoverability scanning</strong> — Android can query nearby discoverable
+          devices via a classic Bluetooth device discovery scan, useful for bootstrapping
+          connections before switching to BLE or Wi-Fi Aware.
+        </li>
+        <li>
+          <strong>Mature and universally available</strong> — Every Android device since API 5
+          supports Bluetooth Classic. It requires no special hardware beyond the standard
+          Bluetooth radio, and works across all Android versions without additional
+          feature flags.
+        </li>
+      </ul>
+
+      <hr class="divider-line" />
+      <p class="section-label">Restrictions &amp; limitations</p>
+      <ul class="limit-list">
+        <li>
+          <strong>Pairing is mandatory for all data connections.</strong>
+          Unlike BLE advertising — which is connectionless and requires no prior relationship —
+          every Bluetooth Classic data connection requires the two devices to be bonded
+          (paired). Pairing involves a user-facing confirmation dialog on both devices,
+          making it impractical for automatic mesh discovery with unknown nearby peers.
+        </li>
+        <li>
+          <strong>Discoverability is time-limited and user-controlled.</strong>
+          A device only announces itself to classic Bluetooth scans while in "discoverable"
+          mode, which Android limits to a maximum of 300 seconds per activation and requires
+          explicit user consent each time. A device is <em>never</em> discoverable by default.
+          This prevents passive background peer discovery for mesh networking.
+        </li>
+        <li>
+          <strong>Background discovery scanning requires location permission.</strong>
+          Like BLE, classic Bluetooth device discovery requires
+          <code>ACCESS_FINE_LOCATION</code> on Android 9 and below, and
+          <code>BLUETOOTH_SCAN</code> on Android 12+, because nearby device names can
+          infer location.
+        </li>
+        <li>
+          <strong>Higher power consumption than BLE.</strong>
+          BR/EDR radio operation consumes significantly more battery than BLE advertising.
+          Maintaining a classic Bluetooth connection continuously in the background would
+          materially drain the battery of both devices. Radar reserves Classic Bluetooth
+          for short bursts of high-bandwidth transfer rather than persistent connections.
+        </li>
+        <li>
+          <strong>No connectionless advertising or broadcast.</strong>
+          Bluetooth Classic has no equivalent of BLE advertising — there is no way to
+          passively broadcast data to nearby devices without establishing a paired connection
+          first. This makes it unsuitable as a primary mesh discovery channel.
+        </li>
+        <li>
+          <strong>Android 12+ BLUETOOTH_CONNECT permission required to initiate connections.</strong>
+          Google split the legacy <code>BLUETOOTH</code> permission into granular
+          permissions in Android 12. Connecting to a paired device now requires
+          <code>BLUETOOTH_CONNECT</code> to be explicitly granted at runtime — a change that
+          broke some older apps and must be handled carefully.
+          <span class="api-note">Android 12 / API 31</span>
+        </li>
+      </ul>
+
+      <div class="compare-stripe">
+        <div class="stripe-can">
+          <strong>✓ What Radar uses Classic BT for</strong>
+          High-bandwidth transfer of files, images, and audio clips between already-paired
+          devices. Fallback data channel when Wi-Fi Aware is unavailable. Bridging
+          connections bootstrapped via BLE.
+        </div>
+        <div class="stripe-cant">
+          <strong>✕ Classic BT cannot do</strong>
+          Automatic discovery of unknown peers without user interaction. Background mesh
+          beaconing. Connectionless broadcast. Low-power always-on presence.
+        </div>
+      </div>
+    </div>
+
+    <!-- Android 12 BT permission callout -->
+    <div class="callout">
+      💡 <strong>Android 12 Bluetooth permission overhaul.</strong>
+      Google introduced three new granular Bluetooth permissions in Android 12 (API 31):
+      <code>BLUETOOTH_SCAN</code>, <code>BLUETOOTH_CONNECT</code>, and
+      <code>BLUETOOTH_ADVERTISE</code>. Apps targeting API 31+ must request each
+      separately at runtime and cannot fall back to the legacy <code>BLUETOOTH</code>
+      and <code>BLUETOOTH_ADMIN</code> permissions. This change was motivated by privacy
+      — separating scanning (which can infer location) from connecting (which identifies
+      known devices) — but it also means users see more granular permission prompts and
+      can deny individual capabilities.
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         3. Wi-Fi Aware / NAN
+    ════════════════════════════════════════════ -->
+    <div class="limit-card">
+      <div class="card-header">
+        <span class="card-icon">📶</span>
+        <div class="card-title-block">
+          <h2>Wi-Fi Aware (Neighbor Awareness Networking)</h2>
+          <div class="card-subtitle">
+            Offline peer discovery &amp; high-bandwidth data transfer without a router
+            <span class="status-tag tag-partial">Powerful — hardware dependent</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label">What Wi-Fi Aware can do</p>
+      <ul class="can-list">
+        <li>
+          <strong>Peer discovery without any network infrastructure</strong> — Wi-Fi Aware
+          (IEEE 802.11az/NAN) lets devices publish and subscribe to named services. When
+          a subscriber finds a matching publisher, both devices are notified — with no
+          router, hotspot, or internet connection involved.
+          <span class="api-note">Android 8.0 / API 26</span>
+        </li>
+        <li>
+          <strong>Encrypted peer-to-peer data sockets</strong> — After discovery, Radar
+          can negotiate a direct Wi-Fi Aware data path — essentially a private network
+          link between two devices — and open standard TCP/UDP sockets over it. Practical
+          throughput reaches 50–150 Mbps, enabling rapid file transfer completely offline.
+        </li>
+        <li>
+          <strong>Sub-second discovery latency</strong> — The NAN synchronisation protocol
+          keeps participating devices loosely time-synchronised using a shared Discovery
+          Window. Devices wake periodically (typically every 512 ms) to exchange NAN frames,
+          achieving peer discovery in one to a few seconds without constant radio activity.
+        </li>
+        <li>
+          <strong>Background operation via foreground service</strong> — Radar keeps a
+          Wi-Fi Aware publish/subscribe session alive in the background using a foreground
+          service, enabling the live radar view to update continuously while the app is
+          not in focus.
+        </li>
+        <li>
+          <strong>Distance estimation (ranging)</strong> — On Android 9+ with Wi-Fi RTT
+          (Round-Trip Time / 802.11mc) capable hardware, Radar can also query the
+          distance to a Wi-Fi Aware peer to within approximately ±1–2 m.
+          <span class="api-note">Android 9 / API 28, Wi-Fi RTT hardware</span>
+        </li>
+      </ul>
+
+      <hr class="divider-line" />
+      <p class="section-label">Restrictions &amp; limitations</p>
+      <ul class="limit-list">
+        <li>
+          <strong>Hardware support is not universal.</strong>
+          Wi-Fi Aware requires a Wi-Fi chipset and firmware that implements the NAN
+          protocol stack. While all major Android flagship devices since 2019 support it,
+          budget and mid-range devices from many manufacturers do not. Radar falls back
+          to BLE-only mesh when Wi-Fi Aware is unavailable on a device.
+        </li>
+        <li>
+          <strong>Location permission required — and checked at runtime.</strong>
+          Google requires <code>ACCESS_FINE_LOCATION</code> to use Wi-Fi Aware because
+          NAN service names and MAC addresses can reveal a user's location. If the user
+          has denied location permission, Wi-Fi Aware sessions cannot be created. On
+          Android 13+, this must be granted at runtime with the full precision location
+          permission — approximate location is insufficient.
+          <span class="api-note">Android 13 / API 33</span>
+        </li>
+        <li>
+          <strong>Cannot function as a general-purpose mesh relay across more than two hops.</strong>
+          Wi-Fi Aware data paths are point-to-point. To relay a message from device A
+          to device C through device B, device B must actively receive, decode, and
+          re-advertise the data — there is no broadcast or multicast data path. Radar
+          handles multi-hop relay in its application layer, but each hop is a discrete
+          NAN session.
+        </li>
+        <li>
+          <strong>Concurrent NAN sessions are chip-limited.</strong>
+          The number of simultaneous Wi-Fi Aware publish/subscribe instances and active
+          data paths a device can maintain depends on the chipset. Most devices support
+          a handful of concurrent sessions, but there is no guaranteed floor across all
+          hardware. Radar manages session pools carefully to avoid exhausting the limit.
+        </li>
+        <li>
+          <strong>Wi-Fi must be enabled; hotspot mode conflicts.</strong>
+          Wi-Fi Aware requires the Wi-Fi radio to be on. On most Android devices, enabling
+          a Wi-Fi hotspot disables the station-mode Wi-Fi interface, which also disables
+          Wi-Fi Aware. Radar detects this state and relies solely on BLE when the user
+          has a hotspot active.
+        </li>
+        <li>
+          <strong>Android 13 "Nearby Wi-Fi Devices" permission.</strong>
+          Google introduced <code>NEARBY_WIFI_DEVICES</code> in Android 13, separating
+          Wi-Fi peer-discovery from location permission. Apps must request this new
+          permission in addition to (or instead of) location permission when targeting
+          API 33+. Devices running older Android versions ignore this permission, so
+          Radar must handle both code paths.
+          <span class="api-note">Android 13 / API 33</span>
+        </li>
+        <li>
+          <strong>Power management can interrupt NAN sessions.</strong>
+          Aggressive battery optimisation (Doze mode, manufacturer-specific battery
+          optimisers such as MIUI's battery saver, Samsung's Adaptive Battery) can
+          suspend the Wi-Fi radio and terminate NAN sessions without notice. Radar
+          prompts users to whitelist the app from battery optimisation, but cannot
+          programmatically bypass these restrictions.
+        </li>
+      </ul>
+
+      <div class="compare-stripe">
+        <div class="stripe-can">
+          <strong>✓ Wi-Fi Aware is used for</strong>
+          The live radar view — discovering who is physically nearby. High-bandwidth
+          offline file and image transfer. Sub-second peer notification. Offline
+          distance estimation via Wi-Fi RTT.
+        </div>
+        <div class="stripe-cant">
+          <strong>✕ Wi-Fi Aware cannot do</strong>
+          Work without location permission. Function on devices without NAN hardware
+          support. Provide reliable multi-hop broadcast. Operate while a Wi-Fi hotspot
+          is active on the same device.
+        </div>
+      </div>
+    </div>
+
+    <!-- NAN permission table -->
+    <div class="callout">
+      💡 <strong>Permission requirements by Android version — Wi-Fi Aware</strong>
+      <table class="perm-table">
+        <thead>
+          <tr>
+            <th>Android version</th>
+            <th>Required permissions</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>8.0 – 9 (API 26–28)</td>
+            <td><code>ACCESS_FINE_LOCATION</code>, <code>CHANGE_WIFI_STATE</code></td>
+            <td>Runtime location grant required</td>
+          </tr>
+          <tr>
+            <td>10 – 12 (API 29–31)</td>
+            <td><code>ACCESS_FINE_LOCATION</code>, <code>CHANGE_WIFI_STATE</code></td>
+            <td>Background location needed if session starts while backgrounded</td>
+          </tr>
+          <tr>
+            <td>13+ (API 33+)</td>
+            <td><code>NEARBY_WIFI_DEVICES</code>, <code>CHANGE_WIFI_STATE</code></td>
+            <td>Location no longer needed if <code>usesPermissionFlags="neverForLocation"</code> is declared; otherwise both are required</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         4. UWB
+    ════════════════════════════════════════════ -->
+    <div class="limit-card">
+      <div class="card-header">
+        <span class="card-icon">📡</span>
+        <div class="card-title-block">
+          <h2>Ultra-Wideband (UWB)</h2>
+          <div class="card-subtitle">
+            Centimetre-accurate ranging &amp; precise proximity detection
+            <span class="status-tag tag-limited">Emerging — limited device support</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label">What UWB can do</p>
+      <ul class="can-list">
+        <li>
+          <strong>Centimetre-accurate ranging</strong> — UWB (IEEE 802.15.4z) uses
+          time-of-flight measurement of ultra-wideband radio pulses across the 6–8 GHz
+          band to determine the distance between two devices to within ±10–30 cm. This is
+          an order of magnitude more precise than BLE RSSI estimation or Wi-Fi RTT.
+          <span class="api-note">Android 12 / API 31</span>
+        </li>
+        <li>
+          <strong>Angle-of-arrival direction finding</strong> — Devices with multiple UWB
+          antennas (such as the Google Pixel 6 Pro and later, Samsung Galaxy S21+ and later)
+          can report not just distance but also the azimuth and elevation angle to a peer,
+          enabling true 3D relative positioning. This powers a directional pointer compass
+          in Radar, showing which physical direction a peer is in.
+        </li>
+        <li>
+          <strong>Secure ranging sessions</strong> — Android's UWB API requires a
+          two-device handshake (Ranging Controller / Controlee) and a shared session key
+          before ranging begins. This prevents a third party from covertly ranging against
+          your device without mutual consent.
+        </li>
+        <li>
+          <strong>Works in combination with BLE for session setup</strong> — Radar uses
+          BLE to exchange the UWB session parameters (channel, preamble, session key)
+          out-of-band, then starts UWB ranging. This pairing of BLE for control and UWB
+          for ranging is the standard Android pattern.
+          <span class="api-note">UwbManager API, Android 12+</span>
+        </li>
+      </ul>
+
+      <hr class="divider-line" />
+      <p class="section-label">Restrictions &amp; limitations</p>
+      <ul class="limit-list">
+        <li>
+          <strong>Very limited device support.</strong>
+          As of 2025, UWB hardware is only found in flagship Android devices: Google Pixel
+          6 Pro and later (with some model exclusions), Samsung Galaxy S21 Ultra and newer
+          flagships, and a small number of other premium handsets. Mid-range and budget
+          devices universally lack UWB hardware. Radar degrades gracefully to Wi-Fi RTT or
+          BLE RSSI proximity when UWB is unavailable.
+        </li>
+        <li>
+          <strong>UWB_RANGING permission required at runtime.</strong>
+          Google gates UWB access behind the <code>UWB_RANGING</code> runtime permission
+          (introduced in Android 12). Without it, no ranging session can be opened.
+          Unlike BLE, UWB does not require location permission — it is considered a
+          dedicated ranging technology rather than a location inference vector.
+          <span class="api-note">Android 12 / API 31</span>
+        </li>
+        <li>
+          <strong>Both devices must support UWB and have the app installed.</strong>
+          UWB ranging is strictly peer-to-peer with bilateral consent. You cannot range
+          against a device that does not also have Radar running and has not granted the
+          permission. This limits UWB to connected Radar pairs, not the wider mesh.
+        </li>
+        <li>
+          <strong>Short effective range.</strong>
+          UWB ranging in the Android/FiRa (Fine Ranging) profile is reliable up to
+          approximately 20–50 m in line-of-sight conditions. Range drops sharply through
+          walls and dense materials, and multipath reflections in indoor environments
+          can introduce measurement outliers.
+        </li>
+        <li>
+          <strong>No data transfer capability.</strong>
+          Android's UWB API is ranging-only — it reports distance and angle, nothing more.
+          It cannot transfer messages, files, or any application data. All communication
+          still flows over BLE or Wi-Fi Aware; UWB only adds precision location context.
+        </li>
+        <li>
+          <strong>Background ranging is restricted.</strong>
+          A UWB ranging session initiated in the foreground will continue briefly in the
+          background, but Android does not guarantee sustained background ranging without
+          a foreground service. Radar requires an active foreground service to maintain
+          UWB sessions for the live proximity compass while the app is backgrounded.
+        </li>
+        <li>
+          <strong>Google Play's UWB policy and CDD requirements.</strong>
+          The Android Compatibility Definition Document (CDD) defines required
+          UWB behaviour for devices that declare the UWB feature flag. Manufacturers
+          may implement UWB in proprietary ways that differ from the AOSP API contract,
+          meaning Radar must handle device-specific quirks and variations in ranging
+          accuracy and update rate across different chipsets (NXP SR100T, Qorvo DW3000, etc.).
+        </li>
+      </ul>
+
+      <div class="compare-stripe">
+        <div class="stripe-can">
+          <strong>✓ What Radar uses UWB for</strong>
+          Centimetre-precise distance readouts in the peer detail view. Directional
+          compass pointer showing which way a contact is. High-confidence proximity
+          confirmation for the doorbell and alert features.
+        </div>
+        <div class="stripe-cant">
+          <strong>✕ UWB cannot do</strong>
+          Transfer data or messages. Range against devices without UWB hardware.
+          Operate without bilateral session setup and mutual permission grants.
+          Provide mesh relay or broadcast capabilities.
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         5. NFC
+    ════════════════════════════════════════════ -->
+    <div class="limit-card">
+      <div class="card-header">
+        <span class="card-icon">📲</span>
+        <div class="card-title-block">
+          <h2>NFC — Near Field Communication</h2>
+          <div class="card-subtitle">
+            Tap-to-pair, contact exchange &amp; bootstrap handshake
+            <span class="status-tag tag-supported">Supported — foreground only</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label">What NFC can do on Android</p>
+      <ul class="can-list">
+        <li>
+          <strong>Tap-to-connect peer pairing</strong> — Radar uses NFC to bootstrap a
+          trusted relationship between two devices with a single physical tap. The NFC
+          exchange delivers a compact handshake payload containing a peer public key,
+          device ID, and initial session token — the same data that would otherwise require
+          scanning a QR code or manually entering a pairing code.
+          <span class="api-note">Android API 14+</span>
+        </li>
+        <li>
+          <strong>NDEF tag reading and writing</strong> — Android provides full read/write
+          access to NFC Data Exchange Format (NDEF) tags. Radar can write a peer-invite
+          record to an NFC tag (sticker, card, keyring fob) so that any nearby Android
+          device can tap it to join a Radar group without any prior setup.
+          <span class="api-note">Android API 10+</span>
+        </li>
+        <li>
+          <strong>Android Beam / NDEF Push (legacy)</strong> — On devices running Android 9
+          and below, Radar could use NDEF Push (NFC peer-to-peer) to deliver pairing data
+          between two unlocked, screen-on devices held back-to-back. This worked entirely
+          over the NFC radio with no internet or Bluetooth required.
+          <span class="api-note">Android API 14–28 (deprecated Android 10)</span>
+        </li>
+        <li>
+          <strong>Host Card Emulation (HCE) for contactless identity</strong> — Android
+          allows apps to emulate an ISO 14443 contactless card using the device's NFC
+          controller — no SIM or secure element required. Radar can use HCE to present a
+          contactless peer-identity card, enabling a tap-to-identify gesture even when the
+          other device does not have Radar installed (any NFC reader can receive the NDEF
+          record).
+          <span class="api-note">Android API 19+, HCE hardware</span>
+        </li>
+        <li>
+          <strong>Out-of-band key exchange for BLE and UWB sessions</strong> — NFC is
+          an ideal out-of-band channel for securely bootstrapping higher-bandwidth radio
+          sessions. Radar uses a single NFC tap to exchange BLE bonding keys or UWB
+          session parameters, after which the connection migrates to BLE or Wi-Fi Aware
+          for actual data transfer — combining NFC's physical security with the range and
+          throughput of the other radios.
+        </li>
+      </ul>
+
+      <hr class="divider-line" />
+      <p class="section-label">Restrictions &amp; limitations</p>
+      <ul class="limit-list">
+        <li>
+          <strong>NFC requires screen-on and device unlocked for foreground dispatch.</strong>
+          Android's NFC foreground dispatch system — which routes incoming NFC tags or
+          peer touches to the active app — only fires while the screen is on and the
+          device is not locked. Radar cannot receive NFC events in the background or from
+          the lock screen (except via HCE, which has its own restrictions).
+        </li>
+        <li>
+          <strong>Very short range — typically 1–4 cm.</strong>
+          NFC operates at 13.56 MHz with a practical coupling distance of 1–4 cm between
+          antennas. This is not a limitation Radar can work around — it is a fundamental
+          physical property of near-field inductive coupling. It also means NFC cannot
+          substitute for BLE, Wi-Fi Aware, or UWB for distance-based proximity detection.
+        </li>
+        <li>
+          <strong>Android Beam removed in Android 10.</strong>
+          Google deprecated and removed the Android Beam (NDEF Push Protocol) API in
+          Android 10, citing low adoption and the availability of better alternatives
+          (Bluetooth and Wi-Fi). Radar's NFC pairing flow on Android 10+ relies solely
+          on NDEF tag writing and HCE rather than P2P NFC push.
+          <span class="api-note">Removed: Android 10 / API 29</span>
+        </li>
+        <li>
+          <strong>HCE competes with payment apps and the secure element.</strong>
+          Host Card Emulation shares the NFC controller with contactless payment systems
+          (Google Pay, bank apps). When the device screen is off, HCE is generally
+          reserved for the default payment app. Radar's HCE-based identity card only
+          operates while the screen is on, to avoid conflicts with payment flows.
+        </li>
+        <li>
+          <strong>NFC hardware not guaranteed on all Android devices.</strong>
+          While most mid-range and flagship Android devices include NFC, many budget
+          handsets — particularly in price-sensitive markets — omit the NFC controller
+          entirely. Radar checks for <code>PackageManager.FEATURE_NFC</code> at startup and
+          disables NFC features gracefully on devices that lack the hardware.
+        </li>
+        <li>
+          <strong><code>NFC</code> permission and AndroidManifest feature declaration required.</strong>
+          Apps must declare <code>&lt;uses-permission android:name="android.permission.NFC" /&gt;</code>
+          and <code>&lt;uses-feature android:name="android.hardware.nfc" android:required="false" /&gt;</code>
+          (with <code>required="false"</code> to remain installable on non-NFC devices).
+          Unlike Bluetooth or location, NFC does not require a runtime permission grant —
+          the install-time declaration is sufficient — but the user can disable NFC
+          globally in device settings, which silently stops all NFC operations.
+        </li>
+        <li>
+          <strong>Transfer speed is not suitable for bulk data.</strong>
+          NFC ISO 14443 Type A/B operates at 106, 212, or 424 kbps. Even at the highest
+          rate, transferring more than a few kilobytes takes perceptible time. Radar uses
+          NFC exclusively for small handshake payloads (key material, peer IDs, invite
+          tokens) and immediately hands off to BLE or Wi-Fi Aware for any substantial
+          data exchange.
+        </li>
+      </ul>
+
+      <div class="compare-stripe">
+        <div class="stripe-can">
+          <strong>✓ What Radar uses NFC for</strong>
+          Instant tap-to-pair trusted contact exchange. Writing invite tokens to
+          physical NFC tags. Secure out-of-band key handshake for BLE bonding and
+          UWB session setup. HCE-based contactless peer identity card.
+        </div>
+        <div class="stripe-cant">
+          <strong>✕ NFC cannot do</strong>
+          Background or lock-screen operation (except limited HCE). Transfer large
+          files or messages. Work beyond 4 cm. Replace BLE/Wi-Fi Aware for mesh
+          networking. Function on devices without NFC hardware.
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         Google platform policy callout
+    ════════════════════════════════════════════ -->
+    <div class="callout-warn">
+      ⚠️ <strong>Google Play policy and background radio restrictions.</strong>
+      Google has progressively tightened the rules around background radio use across
+      Android versions. Key milestones that directly affect Radar:
+      <br /><br />
+      <strong>Android 8.0 (Oreo):</strong> Background scan throttling for BLE (5 scans/30 s).
+      Apps in the background can no longer start or stop BLE scans at will; they must
+      use <code>PendingIntent</code>-based scanning.<br /><br />
+      <strong>Android 10 (Q):</strong> Background location permission split into foreground
+      and background grants. BLE scanning from a background service requires
+      <code>ACCESS_BACKGROUND_LOCATION</code> — and Google Play will reject apps that
+      request this permission without a compelling, user-visible reason.<br /><br />
+      <strong>Android 12 (S):</strong> Bluetooth permissions overhauled (SCAN / CONNECT /
+      ADVERTISE). Background-started foreground services restricted.<br /><br />
+      <strong>Android 13 (T):</strong> <code>NEARBY_WIFI_DEVICES</code> permission
+      introduced, separating Wi-Fi peer discovery from location access.<br /><br />
+      <strong>Android 14 (U):</strong> Foreground service type <code>connectedDevice</code>
+      mandatory for BLE and classic Bluetooth foreground services. Apps must declare
+      the type at compile time; mismatches cause the service to be killed.
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         Battery optimisation callout
+    ════════════════════════════════════════════ -->
+    <div class="callout">
+      💡 <strong>Manufacturer battery optimisers — the hidden restriction layer.</strong>
+      Beyond Google's own Android restrictions, device manufacturers (Samsung, Xiaomi, OPPO,
+      Huawei, Vivo, OnePlus, and others) layer their own battery management systems on top
+      of AOSP. These systems — sometimes called "Battery Saver", "App Freeze", "Adaptive
+      Battery", or "MIUI optimisation" — can kill foreground services, terminate BLE scanners,
+      and disable Wi-Fi Aware sessions without any notification to the app and without
+      violating Android's documented API contracts.
+      <br /><br />
+      Radar prompts users to disable battery optimisation for the app
+      (<code>ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</code>) and provides
+      manufacturer-specific guidance, but <strong>cannot programmatically override
+      these optimisers</strong>. This is the most common cause of Radar appearing to go
+      offline on some devices when the screen is off.
+    </div>
+
+    <!-- Technology comparison summary -->
+    <div class="limit-card">
+      <div class="card-header">
+        <span class="card-icon">⚖️</span>
+        <div class="card-title-block">
+          <h2>Technology Comparison at a Glance</h2>
+          <div class="card-subtitle">How the five radio technologies complement each other in Radar</div>
+        </div>
+      </div>
+      <table class="perm-table" style="margin-top:0.25rem;">
+        <thead>
+          <tr>
+            <th>Technology</th>
+            <th>Range</th>
+            <th>Speed</th>
+            <th>No hardware needed?</th>
+            <th>Pairing required?</th>
+            <th>Primary use in Radar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>BLE</strong></td>
+            <td>10–40 m</td>
+            <td>~250 kbps</td>
+            <td>✓ Universal</td>
+            <td>✕ No (advertising)</td>
+            <td>Mesh beaconing, presence, relay</td>
+          </tr>
+          <tr>
+            <td><strong>BT Classic</strong></td>
+            <td>10–30 m</td>
+            <td>1–3 Mbps</td>
+            <td>✓ Universal</td>
+            <td>✓ Yes</td>
+            <td>High-bandwidth transfer (paired)</td>
+          </tr>
+          <tr>
+            <td><strong>Wi-Fi Aware</strong></td>
+            <td>30–250 m</td>
+            <td>50–150 Mbps</td>
+            <td>✕ Flagship+ only</td>
+            <td>✕ No (NAN session)</td>
+            <td>Radar view, fast offline file transfer</td>
+          </tr>
+          <tr>
+            <td><strong>UWB</strong></td>
+            <td>20–50 m</td>
+            <td>Range only</td>
+            <td>✕ Limited flagships</td>
+            <td>✓ Session key needed</td>
+            <td>Precise distance &amp; direction</td>
+          </tr>
+          <tr>
+            <td><strong>NFC</strong></td>
+            <td>1–4 cm</td>
+            <td>~424 kbps</td>
+            <td>✓ Most devices</td>
+            <td>✕ No (physical proximity)</td>
+            <td>Tap-to-pair, key exchange, NDEF tags</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Closing note -->
+    <div class="closing-note">
+      <strong>These restrictions exist for real reasons</strong> — battery life,
+      user privacy, and protection from covert tracking are legitimate concerns.
+      Android's progressive tightening of background radio access has made the
+      platform more privacy-respecting over time, even where it has made Radar's
+      engineering more complex.
+      <br /><br />
+      Radar is designed to work within every restriction Android imposes — using foreground
+      services correctly, requesting only the permissions it needs, falling back gracefully
+      when hardware features are absent, and being transparent with users about what is
+      running and why. The result is an app that, on a capable device with the right
+      permissions granted, delivers a genuinely unique offline communication experience
+      unavailable on any other platform.
+      <br /><br />
+      <a href="compare_features.html">→ View the full feature comparison</a> &nbsp;·&nbsp;
+      <a href="scenarios.html">→ See Radar in real-world scenarios</a> &nbsp;·&nbsp;
+      <a href="premium.html">→ Free vs Premium</a>
+    </div>
+
+  </div><!-- /ios-wrap -->
+</main>
+
+<footer class="bt-footer">
+  <div class="bt-footer-inner">
+    <div class="bt-footer-badge">
+      <a class="play-badge"
+         href="https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar"
+         target="_blank" rel="noopener"
+         aria-label="Get Radar on Google Play">
+        <img src="images/play_store_logo.webp" alt="Get it on Google Play" />
+      </a>
+      <a class="apple-badge" href="ios-limitations.html" aria-label="iOS limitations">
+        <img src="images/Not_in_the_Apple_Store.webp" alt="Not in the Apple Store" />
+      </a>
+    </div>
+    <nav class="bt-footer-links" aria-label="Footer navigation">
+      <a href="http://www.daltechnology.co.uk" target="_blank" rel="noopener">DAL Technology</a>
+      <span class="sep">·</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="sep">·</span>
+      <a href="release-notes.html">Release Notes</a>
+      <span class="sep">·</span>
+      <span>&#x1F36A;&nbsp;We don&rsquo;t use cookies</span>
+    </nav>
+    <div class="bt-footer-copy">
+      &copy; 2026 DAL Technology &nbsp;&middot;&nbsp; Android is a trademark of Google LLC
+    </div>
+    <a href="index.html" class="bt-footer-icon" aria-label="Radar home">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" />
+    </a>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
