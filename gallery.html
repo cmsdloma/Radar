@@ -1,17 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Radar App – Gallery</title>
+  <title>Radar App � Gallery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-        content="Screenshot gallery for the Radar app — browse the radar view, chat, maps, emergency tools and more inside a live phone frame."/>
+        content="Screenshot gallery for the Radar app � browse the radar view, chat, maps, emergency tools and more inside a live phone frame."/>
   <link rel="stylesheet" href="styles.css" />
   <style>
 
-    /* ══════════════════════════════════════════════════════════════
+    /* --------------------------------------------------------------
        BLUE ACCENT THEME (matches index.html)
-    ══════════════════════════════════════════════════════════════ */
+    -------------------------------------------------------------- */
     :root {
       --accent:        #4ab5ff;
       --accent-strong: #4ab5ff;
@@ -29,9 +29,9 @@
     .btn-ghost   { border-color: rgba(74,181,255,0.5); }
     .nav-cta     { border-color: rgba(74,181,255,0.4); color: #4ab5ff; box-shadow: 0 0 10px rgba(74,181,255,0.25); }
 
-    /* ══════════════════════════════════════════════════════════════
+    /* --------------------------------------------------------------
        SITE-WIDE NAV (identical to index.html)
-    ═══════════════════════════════════��══════════════════════════ */
+    -----------------------------------??-------------------------- */
     .site-nav {
       position: sticky; top: 0; z-index: 50;
       background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9));
@@ -57,9 +57,9 @@
     }
     @media (max-width: 900px) { .nav-links { display: none; } }
 
-    /* ══════════════════════════════════════════════════════════════
-       PHONE FRAME  (from phone-frame-preview.html — verbatim)
-    ══════════════════════════════════════════════════════════���═══ */
+    /* --------------------------------------------------------------
+       PHONE FRAME  (from phone-frame-preview.html � verbatim)
+    ----------------------------------------------------------???--- */
     .phone-wrap {
       --phone-w:   240px;
       --phone-r:   32px;
@@ -73,11 +73,11 @@
     }
     .phone-body {
       width:  var(--phone-w);
-      /* Exact ratio calculated from screenshot dimensions (1080×2340 = 6:13)
+      /* Exact ratio calculated from screenshot dimensions (1080�2340 = 6:13)
          accounting for the fixed 10 px bezels on all sides:
-           screen-w = phone-w - 2×bezel-v = 240-20 = 220 px
-           screen-h = 220 × (13/6)        = 476.67 px
-           body-h   = 476.67 + 2×10       = 496.67 px  →  ratio 72:149         */
+           screen-w = phone-w - 2�bezel-v = 240-20 = 220 px
+           screen-h = 220 � (13/6)        = 476.67 px
+           body-h   = 476.67 + 2�10       = 496.67 px  ?  ratio 72:149         */
       aspect-ratio: 72 / 149;
       border-radius: var(--phone-r);
       position: relative;
@@ -135,16 +135,16 @@
     /* Mobile: slightly smaller phone
        Exact ratio for 185 px phone:
          screen-w = 185-20 = 165 px
-         screen-h = 165 × (13/6) = 357.5 px
-         body-h   = 357.5 + 20  = 377.5 px  →  ratio 74:151                   */
+         screen-h = 165 � (13/6) = 357.5 px
+         body-h   = 357.5 + 20  = 377.5 px  ?  ratio 74:151                   */
     @media (max-width: 600px) {
       .phone-wrap  { --phone-w: 185px; --phone-r: 26px; }
       .phone-body  { aspect-ratio: 74 / 151; }
     }
 
-    /* ══════════════════════════════════════════════════════════════
+    /* --------------------------------------------------------------
        GALLERY INTRO SECTION
-    ══════════════════════════════════════════════════════════════ */
+    -------------------------------------------------------------- */
     .gallery-intro {
       text-align: center;
       padding-bottom: 2rem;
@@ -178,18 +178,18 @@
     }
     .gallery-hint svg { flex-shrink: 0; opacity: 0.5; }
 
-    /* ══════════════════════════════════════════════════════════════
+    /* --------------------------------------------------------------
        CAROUSEL
-    ═════════════════════════════════════════════════════���═══════�� */
+    -----------------------------------------------------???-------?? */
 
     /*
      * Seamless auto-scroll technique:
-     *   • The track contains every slide TWICE (13 originals + 13 duplicates).
-     *   • The animation translates the track by exactly -50% of its own width,
+     *   � The track contains every slide TWICE (13 originals + 13 duplicates).
+     *   � The animation translates the track by exactly -50% of its own width,
      *     which equals exactly one full set of slides.
-     *   • Because the second half is identical to the first, the visual loop
-     *     is completely invisible — no jump, no gap.
-     *   • Hovering pauses playback so visitors can examine a screenshot.
+     *   � Because the second half is identical to the first, the visual loop
+     *     is completely invisible � no jump, no gap.
+     *   � Hovering pauses playback so visitors can examine a screenshot.
      */
 
     .carousel-outer {
@@ -232,7 +232,7 @@
     .carousel-track {
       display: flex;
       /* Each slide owns its own gap via internal padding, so NO flex gap here.
-         This ensures the track width is exactly: slide_count × slide_width,
+         This ensures the track width is exactly: slide_count � slide_width,
          and -50% always equals exactly one set of slides. */
       width: max-content;
       animation: carousel-scroll 289s linear infinite;
@@ -249,16 +249,16 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* ── Individual slide ──────────────────────────────────── */
+    /* -- Individual slide ------------------------------------ */
     /*
      * Slide width  = phone-wrap width + right gap
-     * phone-wrap   = --phone-w + 2×(--btn-w + 2px) = 240 + 10 = 250px
+     * phone-wrap   = --phone-w + 2�(--btn-w + 2px) = 240 + 10 = 250px
      * right gap    = 46px
      * slide width  = 296px
      *
-     * 13 slides × 296px = 3848px per set
-     * 26 slides × 296px = 7696px total track
-     * -50%              = -3848px  ← exactly one set ✓
+     * 13 slides � 296px = 3848px per set
+     * 26 slides � 296px = 7696px total track
+     * -50%              = -3848px  ? exactly one set ?
      */
     .carousel-slide {
       width: 296px;
@@ -278,9 +278,9 @@
        * right gap  = 35px
        * slide width = 230px
        *
-       * 13 × 230 = 2990px per set
-       * 26 × 230 = 5980px total
-       * -50%     = -2990px ✓
+       * 13 � 230 = 2990px per set
+       * 26 � 230 = 5980px total
+       * -50%     = -2990px ?
        */
       .carousel-slide {
         width: 230px;
@@ -288,7 +288,7 @@
       }
     }
 
-    /* ── Caption beneath each phone ───────────────────────── */
+    /* -- Caption beneath each phone ------------------------- */
     .slide-caption {
       text-align: center;
       display: flex;
@@ -318,9 +318,9 @@
       text-overflow: ellipsis;
     }
 
-    /* ══════════════════════════════════════════════════════════════
+    /* --------------------------------------------------------------
        CAROUSEL GROUP NAVIGATION BAR
-    ══════════════════════════════════════════════════════════════ */
+    -------------------------------------------------------------- */
     .carousel-nav {
       display: flex;
       justify-content: center;
@@ -356,9 +356,9 @@
       color: #4ab5ff;
     }
 
-    /* ══════════════════════════════════════════════════════════════
-       HUB SECTION (navigation) — same as index.html
-    ══════════════════════════════════════════════════════════════ */
+    /* --------------------------------------------------------------
+       HUB SECTION (navigation) � same as index.html
+    -------------------------------------------------------------- */
     .hub-section { padding: 2.25rem var(--page-pad) 2.5rem; border-top: 1px solid rgba(255,255,255,0.03); }
     .hub-inner   { max-width: var(--max-width); margin: 0 auto; }
     .hub-kicker  { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: #4ab5ff; margin-bottom: 0.6rem; }
@@ -379,7 +379,7 @@
     .hub-cta  { font-size: 0.72rem; color: #4ab5ff; margin-top: 0.4rem; }
     .hub-card.amber .hub-cta { color: #ffe16b; }
 
-  /* ── Shared bt-footer ── */
+  /* -- Shared bt-footer -- */
 .bt-footer {
   position: sticky; bottom: 0; z-index: 40;
   border-top: 1px solid rgba(74,181,255,0.35);
@@ -414,9 +414,9 @@
 <body>
 <div class="page">
 
-  <!-- ════════════════════════════════════════════════
+  <!-- ------------------------------------------------
        SITE-WIDE NAV
-  ════════════════════════════════════════════════ -->
+  ------------------------------------------------ -->
   <nav class="site-nav">
     <div class="nav-inner">
       <a class="nav-logo" href="index.html">
@@ -441,6 +441,7 @@
         <li><a href="whatsapp.html">WhatsApp</a></li>
         <li><a href="telegram.html">Telegram</a></li>
         <li><a href="signal.html">Signal</a></li>
+        <li><a href="android-limitations.html">Android</a></li>
         <li><a href="ios-limitations.html">iOS</a></li>
         <li><a href="premium.html">Premium</a></li>
         <li><a href="release-notes.html">Releases</a></li>
@@ -453,22 +454,22 @@
 
   <main>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          GALLERY INTRO
-    ════════════════════════════════════════════════ -->
+    ------------------------------------------------ -->
     <section class="section gallery-intro" id="top">
       <div class="section-kicker">Gallery</div>
       <h1 class="gallery-title">See Radar <span>in action</span></h1>
       <p class="gallery-subtitle">
         Real screenshots from the app. Scroll through the radar view, live maps,
-        secure chat, emergency tools and more — every feature shown inside a live
+        secure chat, emergency tools and more � every feature shown inside a live
         phone frame.
       </p>
     </section>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          AUTO-SCROLLING PHONE FRAME CAROUSEL
-    ════════════════════════════════════════════════ -->
+    ------------------------------------------------ -->
     <!-- Dark mode tagline -->
     <p class="gallery-hint">Dark mode. For people with sensitive skin.</p>
 
@@ -485,11 +486,11 @@
     <div class="carousel-outer" aria-label="App screenshot gallery">
       <div class="carousel-track" role="list">
 
-        <!-- ╔═══════════════════════════════════════════╗
-             ║   SET 1 — original 13 screenshots        ║
-             ╚═══════════════════════════════════════════╝ -->
+        <!-- +-------------------------------------------+
+             �   SET 1 � original 13 screenshots        �
+             +-------------------------------------------+ -->
 
-        <!-- 1 · Radar Screen -->
+        <!-- 1 � Radar Screen -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -509,7 +510,7 @@
           </div>
         </div>
 
-        <!-- 2 · Secure Chat -->
+        <!-- 2 � Secure Chat -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -529,7 +530,7 @@
           </div>
         </div>
 
-        <!-- 3 · Live Map -->
+        <!-- 3 � Live Map -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -549,7 +550,7 @@
           </div>
         </div>
 
-        <!-- 5 · SOS & Emergency -->
+        <!-- 5 � SOS & Emergency -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -569,7 +570,7 @@
           </div>
         </div>
 
-        <!-- 5 · Matrix Rooms -->
+        <!-- 5 � Matrix Rooms -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -589,7 +590,7 @@
           </div>
         </div>
 
-        <!-- 9 · RSS Alerts -->
+        <!-- 9 � RSS Alerts -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -609,7 +610,7 @@
           </div>
         </div>
 
-        <!-- 10 · Radar (busy) -->
+        <!-- 10 � Radar (busy) -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -629,7 +630,7 @@
           </div>
         </div>
 
-        <!-- 7 · Offline Map -->
+        <!-- 7 � Offline Map -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -649,7 +650,7 @@
           </div>
         </div>
 
-        <!-- 8 · Bluetooth Devices -->
+        <!-- 8 � Bluetooth Devices -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -669,7 +670,7 @@
           </div>
         </div>
 
-        <!-- 9 · User Profile -->
+        <!-- 9 � User Profile -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -685,11 +686,11 @@
           </div>
           <div class="slide-caption">
             <span class="slide-title">User Profile</span>
-            <span class="slide-sub">Anonymous — no sign-up needed</span>
+            <span class="slide-sub">Anonymous � no sign-up needed</span>
           </div>
         </div>
 
-        <!-- 10 · Radar Rings -->
+        <!-- 10 � Radar Rings -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -709,7 +710,7 @@
           </div>
         </div>
 
-        <!-- 11 · Settings -->
+        <!-- 11 � Settings -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -729,7 +730,7 @@
           </div>
         </div>
 
-        <!-- 12 · Interests -->
+        <!-- 12 � Interests -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -749,7 +750,7 @@
           </div>
         </div>
 
-        <!-- 13 · WiFi Calibration -->
+        <!-- 13 � WiFi Calibration -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -769,7 +770,7 @@
           </div>
         </div>
 
-        <!-- · Broadcast Chat -->
+        <!-- � Broadcast Chat -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -779,7 +780,7 @@
           <div class="slide-caption"><span class="slide-title">Broadcast Chat</span><span class="slide-sub">Send to everyone nearby</span></div>
         </div>
 
-        <!-- · Chat Attachments -->
+        <!-- � Chat Attachments -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -789,7 +790,7 @@
           <div class="slide-caption"><span class="slide-title">Chat Attachments</span><span class="slide-sub">Share photos, files &amp; more</span></div>
         </div>
 
-        <!-- · Translate Chat -->
+        <!-- � Translate Chat -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -799,7 +800,7 @@
           <div class="slide-caption"><span class="slide-title">Translate Chat</span><span class="slide-sub">Auto-translate messages</span></div>
         </div>
 
-        <!-- · SMS Viewer -->
+        <!-- � SMS Viewer -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -809,7 +810,7 @@
           <div class="slide-caption"><span class="slide-title">SMS Viewer</span><span class="slide-sub">Built-in SMS inbox</span></div>
         </div>
 
-        <!-- · Contacts Browser -->
+        <!-- � Contacts Browser -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -819,7 +820,7 @@
           <div class="slide-caption"><span class="slide-title">Contacts</span><span class="slide-sub">Browse your contacts</span></div>
         </div>
 
-        <!-- · Phone Contact -->
+        <!-- � Phone Contact -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -829,7 +830,7 @@
           <div class="slide-caption"><span class="slide-title">Phone Contact</span><span class="slide-sub">Call or message direct</span></div>
         </div>
 
-        <!-- · Support Contact -->
+        <!-- � Support Contact -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -839,7 +840,7 @@
           <div class="slide-caption"><span class="slide-title">Support</span><span class="slide-sub">In-app support contact</span></div>
         </div>
 
-        <!-- · Matrix Channel -->
+        <!-- � Matrix Channel -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -849,7 +850,7 @@
           <div class="slide-caption"><span class="slide-title">Matrix Channel</span><span class="slide-sub">Federated channel messaging</span></div>
         </div>
 
-        <!-- · Matrix Chat Settings -->
+        <!-- � Matrix Chat Settings -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -859,7 +860,7 @@
           <div class="slide-caption"><span class="slide-title">Matrix Settings</span><span class="slide-sub">Configure your rooms</span></div>
         </div>
 
-        <!-- · RSS Chats -->
+        <!-- � RSS Chats -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -869,7 +870,7 @@
           <div class="slide-caption"><span class="slide-title">RSS Chats</span><span class="slide-sub">Feeds as conversations</span></div>
         </div>
 
-        <!-- · RSS Feeds -->
+        <!-- � RSS Feeds -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -879,7 +880,7 @@
           <div class="slide-caption"><span class="slide-title">RSS Feeds</span><span class="slide-sub">Manage feed subscriptions</span></div>
         </div>
 
-        <!-- · Feed Types Config -->
+        <!-- � Feed Types Config -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -889,7 +890,7 @@
           <div class="slide-caption"><span class="slide-title">Feed Types</span><span class="slide-sub">Configure data sources</span></div>
         </div>
 
-        <!-- · Toggle Map Layers Full -->
+        <!-- � Toggle Map Layers Full -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -899,7 +900,7 @@
           <div class="slide-caption"><span class="slide-title">Map Layers (Full)</span><span class="slide-sub">All overlay options</span></div>
         </div>
 
-        <!-- · Aircraft Tracking -->
+        <!-- � Aircraft Tracking -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -909,7 +910,7 @@
           <div class="slide-caption"><span class="slide-title">Aircraft Tracking</span><span class="slide-sub">Live flights over Manchester</span></div>
         </div>
 
-        <!-- · Aircraft Info -->
+        <!-- � Aircraft Info -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -919,7 +920,7 @@
           <div class="slide-caption"><span class="slide-title">Aircraft Info</span><span class="slide-sub">Live flight details</span></div>
         </div>
 
-        <!-- · Vessel Detail -->
+        <!-- � Vessel Detail -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -929,7 +930,7 @@
           <div class="slide-caption"><span class="slide-title">Vessel Detail</span><span class="slide-sub">Individual vessel info</span></div>
         </div>
 
-        <!-- · Boats & Planes Liverpool 3 -->
+        <!-- � Boats & Planes Liverpool 3 -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -939,7 +940,7 @@
           <div class="slide-caption"><span class="slide-title">Boats &amp; Aircraft</span><span class="slide-sub">Marine &amp; air traffic overlay</span></div>
         </div>
 
-        <!-- · Boats Liverpool -->
+        <!-- � Boats Liverpool -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -949,7 +950,7 @@
           <div class="slide-caption"><span class="slide-title">Liverpool Boats</span><span class="slide-sub">Marine traffic on the Mersey</span></div>
         </div>
 
-        <!-- · Many Named Boats Docked -->
+        <!-- � Many Named Boats Docked -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -959,7 +960,7 @@
           <div class="slide-caption"><span class="slide-title">Docked Vessels</span><span class="slide-sub">Named boats in harbour</span></div>
         </div>
 
-        <!-- · Boat Info -->
+        <!-- � Boat Info -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -969,7 +970,7 @@
           <div class="slide-caption"><span class="slide-title">Vessel Info</span><span class="slide-sub">Live vessel details</span></div>
         </div>
 
-        <!-- · Nearby Hospitals -->
+        <!-- � Nearby Hospitals -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -979,7 +980,7 @@
           <div class="slide-caption"><span class="slide-title">Nearby Hospitals</span><span class="slide-sub">Health services on your map</span></div>
         </div>
 
-        <!-- · Nearby Pharmacies -->
+        <!-- � Nearby Pharmacies -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -989,7 +990,7 @@
           <div class="slide-caption"><span class="slide-title">Nearby Pharmacies</span><span class="slide-sub">Pharmacies near you</span></div>
         </div>
 
-        <!-- · Emergency Alerts -->
+        <!-- � Emergency Alerts -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -999,7 +1000,7 @@
           <div class="slide-caption"><span class="slide-title">Emergency Alerts</span><span class="slide-sub">Live alert feed</span></div>
         </div>
 
-        <!-- · Emergency Contacts -->
+        <!-- � Emergency Contacts -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1009,7 +1010,7 @@
           <div class="slide-caption"><span class="slide-title">Emergency Contacts</span><span class="slide-sub">Quick-dial safety list</span></div>
         </div>
 
-        <!-- · Internet Radio -->
+        <!-- � Internet Radio -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1019,7 +1020,7 @@
           <div class="slide-caption"><span class="slide-title">Internet Radio</span><span class="slide-sub">Emergency broadcast streams</span></div>
         </div>
 
-        <!-- · Network Devices -->
+        <!-- � Network Devices -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1029,7 +1030,7 @@
           <div class="slide-caption"><span class="slide-title">Network Devices</span><span class="slide-sub">All devices on your LAN</span></div>
         </div>
 
-        <!-- · Web Devices -->
+        <!-- � Web Devices -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1039,7 +1040,7 @@
           <div class="slide-caption"><span class="slide-title">Web Devices</span><span class="slide-sub">Web-accessible devices</span></div>
         </div>
 
-        <!-- · WiFi Devices -->
+        <!-- � WiFi Devices -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1049,7 +1050,7 @@
           <div class="slide-caption"><span class="slide-title">WiFi Devices</span><span class="slide-sub">Connected WiFi devices</span></div>
         </div>
 
-        <!-- · Bluetooth Calibration -->
+        <!-- � Bluetooth Calibration -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1059,7 +1060,7 @@
           <div class="slide-caption"><span class="slide-title">BT Calibration</span><span class="slide-sub">Fine-tune BT signal range</span></div>
         </div>
 
-        <!-- · WiFi Aware Calibration -->
+        <!-- � WiFi Aware Calibration -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1069,7 +1070,7 @@
           <div class="slide-caption"><span class="slide-title">WiFi Aware Calibration</span><span class="slide-sub">Tune WiFi NAN distance</span></div>
         </div>
 
-        <!-- · About Page -->
+        <!-- � About Page -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1079,7 +1080,7 @@
           <div class="slide-caption"><span class="slide-title">About</span><span class="slide-sub">App info &amp; version</span></div>
         </div>
 
-        <!-- · Biometric Login -->
+        <!-- � Biometric Login -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1089,7 +1090,7 @@
           <div class="slide-caption"><span class="slide-title">Biometric Login</span><span class="slide-sub">Fingerprint &amp; face auth</span></div>
         </div>
 
-        <!-- · Message Background Colours -->
+        <!-- � Message Background Colours -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1099,7 +1100,7 @@
           <div class="slide-caption"><span class="slide-title">Chat Backgrounds</span><span class="slide-sub">Customise chat colours</span></div>
         </div>
 
-        <!-- · Message Colours -->
+        <!-- � Message Colours -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1109,7 +1110,7 @@
           <div class="slide-caption"><span class="slide-title">Message Colours</span><span class="slide-sub">Personalise your chat</span></div>
         </div>
 
-        <!-- · Privacy Policy -->
+        <!-- � Privacy Policy -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1119,7 +1120,7 @@
           <div class="slide-caption"><span class="slide-title">Privacy Policy</span><span class="slide-sub">Your rights, in-app</span></div>
         </div>
 
-        <!-- · Contact Type Filters -->
+        <!-- � Contact Type Filters -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1129,7 +1130,7 @@
           <div class="slide-caption"><span class="slide-title">Contact Filters</span><span class="slide-sub">Show &amp; hide contact types</span></div>
         </div>
 
-        <!-- · Debug Services -->
+        <!-- � Debug Services -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1139,7 +1140,7 @@
           <div class="slide-caption"><span class="slide-title">Debug Services</span><span class="slide-sub">Developer diagnostics</span></div>
         </div>
 
-        <!-- · Startup Sequence -->
+        <!-- � Startup Sequence -->
         <div class="carousel-slide" role="listitem">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1149,12 +1150,12 @@
           <div class="slide-caption"><span class="slide-title">Startup</span><span class="slide-sub">App launch sequence</span></div>
         </div>
 
-        <!-- ╔═══════════════════════════════════════════╗
-             ║   SET 2 — exact duplicate (enables the   ║
-             ║   seamless loop via translateX(-50%))    ║
-             ╚═══════════════════════════════════════════╝ -->
+        <!-- +-------------------------------------------+
+             �   SET 2 � exact duplicate (enables the   �
+             �   seamless loop via translateX(-50%))    �
+             +-------------------------------------------+ -->
 
-        <!-- 1d · Radar Screen -->
+        <!-- 1d � Radar Screen -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1174,7 +1175,7 @@
           </div>
         </div>
 
-        <!-- 2d · Secure Chat -->
+        <!-- 2d � Secure Chat -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1194,7 +1195,7 @@
           </div>
         </div>
 
-        <!-- 3d · Live Map -->
+        <!-- 3d � Live Map -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1214,7 +1215,7 @@
           </div>
         </div>
 
-        <!-- 5d · SOS & Emergency -->
+        <!-- 5d � SOS & Emergency -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1234,7 +1235,7 @@
           </div>
         </div>
 
-        <!-- 5d · Matrix Rooms -->
+        <!-- 5d � Matrix Rooms -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1254,7 +1255,7 @@
           </div>
         </div>
 
-        <!-- 9d · RSS Alerts -->
+        <!-- 9d � RSS Alerts -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1274,7 +1275,7 @@
           </div>
         </div>
 
-        <!-- 10d · Radar (busy) -->
+        <!-- 10d � Radar (busy) -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1294,7 +1295,7 @@
           </div>
         </div>
 
-        <!-- 7d · Offline Map -->
+        <!-- 7d � Offline Map -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1314,7 +1315,7 @@
           </div>
         </div>
 
-        <!-- 8d · Bluetooth Devices -->
+        <!-- 8d � Bluetooth Devices -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1334,7 +1335,7 @@
           </div>
         </div>
 
-        <!-- 9d · User Profile -->
+        <!-- 9d � User Profile -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1350,11 +1351,11 @@
           </div>
           <div class="slide-caption">
             <span class="slide-title">User Profile</span>
-            <span class="slide-sub">Anonymous — no sign-up needed</span>
+            <span class="slide-sub">Anonymous � no sign-up needed</span>
           </div>
         </div>
 
-        <!-- 10d · Radar Rings -->
+        <!-- 10d � Radar Rings -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1374,7 +1375,7 @@
           </div>
         </div>
 
-        <!-- 11d · Settings -->
+        <!-- 11d � Settings -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1394,7 +1395,7 @@
           </div>
         </div>
 
-        <!-- 12d · Interests -->
+        <!-- 12d � Interests -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1414,7 +1415,7 @@
           </div>
         </div>
 
-        <!-- 13d · WiFi Calibration -->
+        <!-- 13d � WiFi Calibration -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap">
             <div class="phone-body">
@@ -1434,7 +1435,7 @@
           </div>
         </div>
 
-        <!-- ·d Broadcast Chat -->
+        <!-- �d Broadcast Chat -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1444,7 +1445,7 @@
           <div class="slide-caption"><span class="slide-title">Broadcast Chat</span><span class="slide-sub">Send to everyone nearby</span></div>
         </div>
 
-        <!-- ·d Chat Attachments -->
+        <!-- �d Chat Attachments -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1454,7 +1455,7 @@
           <div class="slide-caption"><span class="slide-title">Chat Attachments</span><span class="slide-sub">Share photos, files &amp; more</span></div>
         </div>
 
-        <!-- ·d Translate Chat -->
+        <!-- �d Translate Chat -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1464,7 +1465,7 @@
           <div class="slide-caption"><span class="slide-title">Translate Chat</span><span class="slide-sub">Auto-translate messages</span></div>
         </div>
 
-        <!-- ·d SMS Viewer -->
+        <!-- �d SMS Viewer -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1474,7 +1475,7 @@
           <div class="slide-caption"><span class="slide-title">SMS Viewer</span><span class="slide-sub">Built-in SMS inbox</span></div>
         </div>
 
-        <!-- ·d Contacts Browser -->
+        <!-- �d Contacts Browser -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1484,7 +1485,7 @@
           <div class="slide-caption"><span class="slide-title">Contacts</span><span class="slide-sub">Browse your contacts</span></div>
         </div>
 
-        <!-- ·d Phone Contact -->
+        <!-- �d Phone Contact -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1494,7 +1495,7 @@
           <div class="slide-caption"><span class="slide-title">Phone Contact</span><span class="slide-sub">Call or message direct</span></div>
         </div>
 
-        <!-- ·d Support Contact -->
+        <!-- �d Support Contact -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1504,7 +1505,7 @@
           <div class="slide-caption"><span class="slide-title">Support</span><span class="slide-sub">In-app support contact</span></div>
         </div>
 
-        <!-- ·d Matrix Channel -->
+        <!-- �d Matrix Channel -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1514,7 +1515,7 @@
           <div class="slide-caption"><span class="slide-title">Matrix Channel</span><span class="slide-sub">Federated channel messaging</span></div>
         </div>
 
-        <!-- ·d Matrix Chat Settings -->
+        <!-- �d Matrix Chat Settings -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1524,7 +1525,7 @@
           <div class="slide-caption"><span class="slide-title">Matrix Settings</span><span class="slide-sub">Configure your rooms</span></div>
         </div>
 
-        <!-- ·d RSS Chats -->
+        <!-- �d RSS Chats -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1534,7 +1535,7 @@
           <div class="slide-caption"><span class="slide-title">RSS Chats</span><span class="slide-sub">Feeds as conversations</span></div>
         </div>
 
-        <!-- ·d RSS Feeds -->
+        <!-- �d RSS Feeds -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1544,7 +1545,7 @@
           <div class="slide-caption"><span class="slide-title">RSS Feeds</span><span class="slide-sub">Manage feed subscriptions</span></div>
         </div>
 
-        <!-- ·d Feed Types Config -->
+        <!-- �d Feed Types Config -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1554,7 +1555,7 @@
           <div class="slide-caption"><span class="slide-title">Feed Types</span><span class="slide-sub">Configure data sources</span></div>
         </div>
 
-        <!-- ·d Toggle Map Layers Full -->
+        <!-- �d Toggle Map Layers Full -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1564,7 +1565,7 @@
           <div class="slide-caption"><span class="slide-title">Map Layers (Full)</span><span class="slide-sub">All overlay options</span></div>
         </div>
 
-        <!-- ·d Aircraft Tracking -->
+        <!-- �d Aircraft Tracking -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1574,7 +1575,7 @@
           <div class="slide-caption"><span class="slide-title">Aircraft Tracking</span><span class="slide-sub">Live flights over Manchester</span></div>
         </div>
 
-        <!-- ·d Aircraft Info -->
+        <!-- �d Aircraft Info -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1584,7 +1585,7 @@
           <div class="slide-caption"><span class="slide-title">Aircraft Info</span><span class="slide-sub">Live flight details</span></div>
         </div>
 
-        <!-- ·d Vessel Detail -->
+        <!-- �d Vessel Detail -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1594,7 +1595,7 @@
           <div class="slide-caption"><span class="slide-title">Vessel Detail</span><span class="slide-sub">Individual vessel info</span></div>
         </div>
 
-        <!-- ·d Boats & Planes Liverpool 3 -->
+        <!-- �d Boats & Planes Liverpool 3 -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1604,7 +1605,7 @@
           <div class="slide-caption"><span class="slide-title">Boats &amp; Aircraft</span><span class="slide-sub">Marine &amp; air traffic overlay</span></div>
         </div>
 
-        <!-- ·d Boats Liverpool -->
+        <!-- �d Boats Liverpool -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1614,7 +1615,7 @@
           <div class="slide-caption"><span class="slide-title">Liverpool Boats</span><span class="slide-sub">Marine traffic on the Mersey</span></div>
         </div>
 
-        <!-- ·d Many Named Boats Docked -->
+        <!-- �d Many Named Boats Docked -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1624,7 +1625,7 @@
           <div class="slide-caption"><span class="slide-title">Docked Vessels</span><span class="slide-sub">Named boats in harbour</span></div>
         </div>
 
-        <!-- ·d Boat Info -->
+        <!-- �d Boat Info -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1634,7 +1635,7 @@
           <div class="slide-caption"><span class="slide-title">Vessel Info</span><span class="slide-sub">Live vessel details</span></div>
         </div>
 
-        <!-- ·d Nearby Hospitals -->
+        <!-- �d Nearby Hospitals -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1644,7 +1645,7 @@
           <div class="slide-caption"><span class="slide-title">Nearby Hospitals</span><span class="slide-sub">Health services on your map</span></div>
         </div>
 
-        <!-- ·d Nearby Pharmacies -->
+        <!-- �d Nearby Pharmacies -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1654,7 +1655,7 @@
           <div class="slide-caption"><span class="slide-title">Nearby Pharmacies</span><span class="slide-sub">Pharmacies near you</span></div>
         </div>
 
-        <!-- ·d Emergency Alerts -->
+        <!-- �d Emergency Alerts -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1664,7 +1665,7 @@
           <div class="slide-caption"><span class="slide-title">Emergency Alerts</span><span class="slide-sub">Live alert feed</span></div>
         </div>
 
-        <!-- ·d Emergency Contacts -->
+        <!-- �d Emergency Contacts -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1674,7 +1675,7 @@
           <div class="slide-caption"><span class="slide-title">Emergency Contacts</span><span class="slide-sub">Quick-dial safety list</span></div>
         </div>
 
-        <!-- ·d Internet Radio -->
+        <!-- �d Internet Radio -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1684,7 +1685,7 @@
           <div class="slide-caption"><span class="slide-title">Internet Radio</span><span class="slide-sub">Emergency broadcast streams</span></div>
         </div>
 
-        <!-- ·d Network Devices -->
+        <!-- �d Network Devices -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1694,7 +1695,7 @@
           <div class="slide-caption"><span class="slide-title">Network Devices</span><span class="slide-sub">All devices on your LAN</span></div>
         </div>
 
-        <!-- ·d Web Devices -->
+        <!-- �d Web Devices -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1704,7 +1705,7 @@
           <div class="slide-caption"><span class="slide-title">Web Devices</span><span class="slide-sub">Web-accessible devices</span></div>
         </div>
 
-        <!-- ·d WiFi Devices -->
+        <!-- �d WiFi Devices -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1714,7 +1715,7 @@
           <div class="slide-caption"><span class="slide-title">WiFi Devices</span><span class="slide-sub">Connected WiFi devices</span></div>
         </div>
 
-        <!-- ·d Bluetooth Calibration -->
+        <!-- �d Bluetooth Calibration -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1724,7 +1725,7 @@
           <div class="slide-caption"><span class="slide-title">BT Calibration</span><span class="slide-sub">Fine-tune BT signal range</span></div>
         </div>
 
-        <!-- ·d WiFi Aware Calibration -->
+        <!-- �d WiFi Aware Calibration -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1734,7 +1735,7 @@
           <div class="slide-caption"><span class="slide-title">WiFi Aware Calibration</span><span class="slide-sub">Tune WiFi NAN distance</span></div>
         </div>
 
-        <!-- ·d About Page -->
+        <!-- �d About Page -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1744,7 +1745,7 @@
           <div class="slide-caption"><span class="slide-title">About</span><span class="slide-sub">App info &amp; version</span></div>
         </div>
 
-        <!-- ·d Biometric Login -->
+        <!-- �d Biometric Login -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1754,7 +1755,7 @@
           <div class="slide-caption"><span class="slide-title">Biometric Login</span><span class="slide-sub">Fingerprint &amp; face auth</span></div>
         </div>
 
-        <!-- ·d Message Background Colours -->
+        <!-- �d Message Background Colours -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1764,7 +1765,7 @@
           <div class="slide-caption"><span class="slide-title">Chat Backgrounds</span><span class="slide-sub">Customise chat colours</span></div>
         </div>
 
-        <!-- ·d Message Colours -->
+        <!-- �d Message Colours -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1774,7 +1775,7 @@
           <div class="slide-caption"><span class="slide-title">Message Colours</span><span class="slide-sub">Personalise your chat</span></div>
         </div>
 
-        <!-- ·d Privacy Policy -->
+        <!-- �d Privacy Policy -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1784,7 +1785,7 @@
           <div class="slide-caption"><span class="slide-title">Privacy Policy</span><span class="slide-sub">Your rights, in-app</span></div>
         </div>
 
-        <!-- ·d Contact Type Filters -->
+        <!-- �d Contact Type Filters -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1794,7 +1795,7 @@
           <div class="slide-caption"><span class="slide-title">Contact Filters</span><span class="slide-sub">Show &amp; hide contact types</span></div>
         </div>
 
-        <!-- ·d Debug Services -->
+        <!-- �d Debug Services -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1804,7 +1805,7 @@
           <div class="slide-caption"><span class="slide-title">Debug Services</span><span class="slide-sub">Developer diagnostics</span></div>
         </div>
 
-        <!-- ·d Startup Sequence -->
+        <!-- �d Startup Sequence -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="phone-wrap"><div class="phone-body"><div class="phone-screen">
             <div class="phone-camera"></div>
@@ -1825,43 +1826,43 @@
       Hover over the carousel to pause
     </p>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          QUICK NAVIGATION HUB
-    ════════════════════════════════════════════════ -->
+    ------------------------------------------------ -->
     <div class="hub-section">
       <div class="hub-inner">
         <div class="hub-kicker">Explore more</div>
         <div class="hub-title">Dive deeper into Radar</div>
         <div class="hub-grid">
           <a class="hub-card" href="index.html">
-            <span class="hub-icon">🏠</span>
+            <span class="hub-icon">??</span>
             <span class="hub-name">Home &amp; Features</span>
-            <span class="hub-desc">The full feature overview — communication, privacy, maps, and emergency tools.</span>
-            <span class="hub-cta">Back to Home →</span>
+            <span class="hub-desc">The full feature overview � communication, privacy, maps, and emergency tools.</span>
+            <span class="hub-cta">Back to Home ?</span>
           </a>
           <a class="hub-card" href="scenarios.html">
-            <span class="hub-icon">🌍</span>
+            <span class="hub-icon">??</span>
             <span class="hub-name">Real-World Scenarios</span>
-            <span class="hub-desc">Eight situations where Radar makes a real difference — disasters, cruise ships, underground and more.</span>
-            <span class="hub-cta">Explore Scenarios →</span>
+            <span class="hub-desc">Eight situations where Radar makes a real difference � disasters, cruise ships, underground and more.</span>
+            <span class="hub-cta">Explore Scenarios ?</span>
           </a>
           <a class="hub-card" href="emergency.html">
-            <span class="hub-icon">🚨</span>
+            <span class="hub-icon">??</span>
             <span class="hub-name">Emergency Features</span>
             <span class="hub-desc">Full walkthrough of every SOS and safety tool built into Radar.</span>
-            <span class="hub-cta">View Emergency Guide →</span>
+            <span class="hub-cta">View Emergency Guide ?</span>
           </a>
           <a class="hub-card amber" href="premium.html">
-            <span class="hub-icon">⭐</span>
+            <span class="hub-icon">?</span>
             <span class="hub-name">Basic vs Premium</span>
-            <span class="hub-desc">See exactly what's free and what unlocks with Premium (£0.99/month).</span>
-            <span class="hub-cta">Compare Plans →</span>
+            <span class="hub-desc">See what's included in Basic with no subscription, and what unlocks with Premium (�0.99/month).</span>
+            <span class="hub-cta">Compare Plans ?</span>
           </a>
           <a class="hub-card" href="compare_features.html">
-            <span class="hub-icon">📊</span>
+            <span class="hub-icon">??</span>
             <span class="hub-name">Feature Comparison</span>
             <span class="hub-desc">How Radar stacks up against WhatsApp, Telegram, Signal and more across every feature category.</span>
-            <span class="hub-cta">View Comparison →</span>
+            <span class="hub-cta">View Comparison ?</span>
           </a>
         </div>
       </div>
@@ -1884,11 +1885,11 @@
     </div>
     <nav class="bt-footer-links" aria-label="Footer navigation">
       <a href="http://www.daltechnology.co.uk" target="_blank" rel="noopener">DAL Technology</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <a href="privacy-policy.html">Privacy Policy</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <a href="release-notes.html">Release Notes</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <span>&#x1F36A;&nbsp;We don&rsquo;t use cookies</span>
     </nav>
     <div class="bt-footer-copy">
@@ -1906,11 +1907,11 @@
 (function () {
   'use strict';
 
-  /* ── Constants matching the CSS ─────────────────────────────── */
+  /* -- Constants matching the CSS ------------------------------- */
   var SLIDE_COUNT = 52;   // total slides in one set
   var DURATION    = 289;  // animation-duration in seconds
 
-  /* ── Seek the carousel belt to a given slide index ──────────── */
+  /* -- Seek the carousel belt to a given slide index ------------ */
   function jumpToSlide(idx) {
     var track  = document.querySelector('.carousel-track');
     var first  = document.querySelector('.carousel-slide');
@@ -1921,24 +1922,24 @@
     var setW   = SLIDE_COUNT * slideW;
 
     /* Centre the target slide in the viewport:
-       raw pixel offset of the slide's left edge = idx × slideW
+       raw pixel offset of the slide's left edge = idx � slideW
        subtract half the remaining viewport space so the slide lands
        in the middle rather than at the far-left edge.              */
     var centreOffset = Math.max(0, (window.innerWidth - slideW) / 2);
     var targetX      = Math.max(0, idx * slideW - centreOffset);
 
     /* Negative delay seeks into the animation:
-       at time T the transform is translateX(-T/DURATION × 100%)   */
+       at time T the transform is translateX(-T/DURATION � 100%)   */
     var delay = -(targetX / setW) * DURATION;
 
-    /* Stop → reflow → restart from new delay position */
+    /* Stop ? reflow ? restart from new delay position */
     track.style.animationName  = 'none';
     track.offsetHeight;                   /* force synchronous reflow */
     track.style.animationName  = '';      /* restore CSS value        */
     track.style.animationDelay = delay + 's';
   }
 
-  /* ── Wire up nav buttons ─────────────────────────────────────── */
+  /* -- Wire up nav buttons --------------------------------------- */
   document.querySelectorAll('.carousel-nav-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       jumpToSlide(parseInt(btn.dataset.slide, 10));

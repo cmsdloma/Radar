@@ -229,6 +229,7 @@
       <li><a href="whatsapp.html">WhatsApp</a></li>
       <li><a href="telegram.html">Telegram</a></li>
       <li><a href="signal.html">Signal</a></li>
+      <li><a href="android-limitations.html">Android</a></li>
       <li><a href="ios-limitations.html">iOS</a></li>
       <li><a href="premium.html">Premium</a></li>
       <li><a href="release-notes.html">Releases</a></li>
@@ -271,6 +272,16 @@
 
       <details class="faq-item">
         <summary class="faq-q">
+          <span class="faq-q-text">What is Radar?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Radar is a <strong>privacy-first, off-grid communication app for Android</strong>. It connects you with nearby people using Bluetooth LE and Wi-Fi Aware mesh networking, so you can chat and share your location even when there's no mobile signal, no Wi-Fi, and no internet. When a connection <em>is</em> available, Radar also uses an end-to-end encrypted internet relay to reach users further away. It pairs all this with a live radar-style map, emergency SOS broadcasts, and 250+ real-time data feeds — with no account, phone number, or email required.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
           <span class="faq-q-text">What does Radar do?</span>
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
@@ -296,6 +307,46 @@
         </summary>
         <div class="faq-body">
           <p>No — none whatsoever. Radar generates a random UUID on first launch and that becomes your identity. <strong>No phone number, no email address, no account sign-up, no password.</strong> We deliberately designed it this way to protect your privacy. If you ever want to start fresh, you can reset your identity at any time via Settings → Device Identity Reset.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Do I need to create an account?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>No. There is <strong>no sign-up, no login, and no password</strong>. Just install Radar and open it — you're ready to go immediately. On first launch the app generates a random, anonymous device identity (a UUID) for you behind the scenes. Because there's no account, there's nothing to hack, leak, or hand over, and nothing tying your activity to a real-world identity.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Do I need a phone number to use Radar?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>No. Unlike WhatsApp, Signal, and Telegram, Radar <strong>never asks for a phone number</strong> to register or function. Your identity is a random UUID, not a number. You can even use Radar on a device with no SIM card at all. (The optional SMS/MMS inbox can use your number to send texts if you choose, but that's entirely separate and opt-in.)</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Do I need an email address to use Radar?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>No. <strong>No email address is ever required or stored.</strong> There's no email verification, no marketing list, and no password-reset email — because there's no account to begin with. If you want to contact us for support you can email <a href="mailto:support@daltechnology.co.uk">support@daltechnology.co.uk</a>, but that's optional and unrelated to using the app.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Can I use Radar on multiple devices?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>You can install Radar on as many Android devices as you like, but each device generates its <strong>own independent identity</strong> and appears as a separate peer on the map. Because Radar has no central account, your chats and contacts are stored locally on each device and aren't automatically synced between them. Your <span class="chip chip-premium">Premium</span> subscription, however, is tied to your Google Play account and works across all your devices.</p>
         </div>
       </details>
 
@@ -336,6 +387,56 @@
     ══════════════════════════════════════════════ -->
     <section class="faq-section" id="connectivity">
       <div class="faq-section-heading">Connectivity &amp; How It Works</div>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Does Radar work without the internet?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes — this is the whole point of Radar. <strong>Peer discovery, messaging, and emergency SOS all work fully offline</strong> using Bluetooth LE and Wi-Fi Aware to connect directly to nearby devices, with messages able to hop across up to 5 devices to reach further peers. The internet is only used as an <em>optional</em> extra channel for long-range delivery, map tiles, and live feeds. Pull the plug on the internet and the core radar and chat keep running.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Does Radar work without mobile signal?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes. Radar does not depend on cellular towers, a SIM card, or a mobile data plan. As long as another Radar user is within <strong>Bluetooth or Wi-Fi Aware range</strong> (typically 10–30 metres, extended via the mesh relay), you can find them and message them with <strong>zero bars of signal</strong>. This makes it ideal for dead zones, crowded events where networks are congested, and areas with no coverage at all.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Does Radar work underground, at sea, or in remote areas?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes — anywhere there are other Radar users in range. Underground (subways, basements, bunkers), at sea (boats, ferries), and in remote wilderness, the local Bluetooth/Wi-Fi mesh works exactly the same because it doesn't need any infrastructure. The one limitation off-grid is that <strong>map tiles and live data feeds won't load without internet</strong>, but the communication layer — finding peers, chatting, and SOS — remains fully functional as long as peers are physically near each other.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Does Radar use Bluetooth?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes. <strong>Bluetooth Low Energy (BLE)</strong> is one of Radar's core offline channels. The app advertises its presence and scans for nearby Radar peers over BLE, then exchanges encrypted messages directly device-to-device — no pairing required. BLE is extremely power-efficient (closer to a fitness tracker than a phone call), and Radar duty-cycles the scanner to keep battery use low. Bluetooth needs to be switched on for offline discovery to work.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Does Radar use Wi-Fi Aware?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes, where supported. <strong>Wi-Fi Aware</strong> (also called NAN — Neighbour Awareness Networking) lets devices form direct peer-to-peer Wi-Fi links <em>without</em> any router or access point. Radar uses it alongside Bluetooth to give higher bandwidth for richer content and a more reliable mesh. It requires <strong>Android 10 or later</strong> and hardware support — not every phone has it, in which case Radar falls back to Bluetooth LE. You can toggle it in Settings.</p>
+        </div>
+      </details>
 
       <details class="faq-item">
         <summary class="faq-q">
@@ -447,6 +548,46 @@
 
       <details class="faq-item">
         <summary class="faq-q">
+          <span class="faq-q-text">How do I find people nearby?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Just open the app — the <strong>radar map and the surrounding "sweep" view</strong> automatically show any Radar users within range, with their distance and direction relative to you. Make sure <strong>Bluetooth, Wi-Fi, and location are enabled</strong> for the best discovery, and that the other person also has Radar running. Tap any marker to open their contact card and start a chat. You can adjust your discovery range in Settings if you want to see peers nearer or further away.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Why can't I see anybody nearby?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>The most common reason is simply that <strong>nobody running Radar is physically within range</strong> of you yet — Bluetooth reaches only about 10–30 metres. Other things to check: make sure <strong>Bluetooth, Wi-Fi, and location permissions are granted and switched on</strong>; confirm location sharing isn't disabled in Privacy Settings; verify the background service is running (look for the Radar notification); and check your discovery range isn't set too small. As Radar's user base grows in your area, you'll naturally see more peers.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">How accurate is the distance shown on the radar?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>When peers are sharing GPS positions over the network, distance is calculated from those coordinates and is typically accurate to within a <strong>few metres</strong>, depending on each device's GPS fix. For purely offline Bluetooth discovery, distance is estimated from <strong>signal strength (RSSI)</strong>, which is more approximate — walls, bodies, and interference can make a peer seem nearer or further than they really are. Treat the offline distance as a useful guide rather than a precise measurement.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">How accurate is the direction shown on the radar?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Direction (bearing) is computed from your GPS position and the peer's GPS position, and your phone's <strong>compass</strong> orients the bearing as you turn. It's generally reliable for pointing you the right way, but accuracy depends on a good GPS fix at both ends and a calibrated compass — <strong>nearby metal, magnets, or an uncalibrated sensor</strong> can skew the heading. If the direction seems off, calibrate your compass by moving the phone in a figure-eight motion.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
           <span class="faq-q-text">What encryption does Radar use?</span>
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
@@ -470,6 +611,26 @@
         </summary>
         <div class="faq-body">
           <p>Radar isn't a replacement — it's a different category of tool. WhatsApp, Signal, and Telegram all <strong>require an internet connection and a phone number</strong> to register and function. Radar works without internet or a phone number, using Bluetooth and Wi-Fi mesh networking, making it uniquely valuable when networks are down, censored, or untrustworthy. For everyday internet messaging, those apps are polished and widely adopted. But if you need to communicate when the internet is gone — or when you want zero reliance on centralised servers and phone number registration — Radar stands alone. See the <a href="compare_features.html">full feature comparison</a>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Why should I use Radar instead of WhatsApp?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>WhatsApp <strong>stops working the moment you lose internet</strong>, requires a phone number, and is owned by Meta — meaning your metadata (who you talk to, when, and where) feeds a vast advertising business. Radar needs <strong>no internet, no phone number, and no account</strong>, works device-to-device over Bluetooth and Wi-Fi when networks fail, and collects no advertising data. They solve different problems: WhatsApp is great for everyday online chat, but when the signal drops, the network is censored, or you want true anonymity, Radar keeps you connected where WhatsApp can't. See the <a href="whatsapp.html">Radar vs WhatsApp</a> comparison.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Why should I use Radar instead of Telegram?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Telegram also <strong>requires the internet and a phone number</strong>, stores your chats on its cloud servers, and only end-to-end encrypts "Secret Chats" — normal chats are not E2E encrypted. Radar requires <strong>no phone number and no internet</strong>, end-to-end encrypts relayed messages by default, stores nothing readable on any server, and keeps working offline via its Bluetooth/Wi-Fi mesh. If you value resilience when networks go down and strong default privacy over Telegram's cloud convenience, Radar is the better fit. See the <a href="telegram.html">Radar vs Telegram</a> comparison.</p>
         </div>
       </details>
 
@@ -541,6 +702,76 @@
         </div>
       </details>
 
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Can Radar track my location?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Radar uses your location only to power its features — showing you on the map and computing distances to nearby peers — and you're always in control. <strong>We don't build a history of your movements, sell your location, or use it for advertising.</strong> Your position is shared with nearby peers only while you have location sharing switched on, and you can <strong>turn it off at any time</strong> in Privacy Settings or revoke the permission entirely in Android Settings. With sharing off, you can still browse the map without broadcasting where you are.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Can other users see my exact location?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Only the peers within your discovery range can see your position, and only while you're sharing it. If you'd rather not reveal a precise pin, you can <strong>reduce your location precision</strong> or disable sharing altogether in Privacy Settings, so peers see only an approximate area — or nothing at all. You decide exactly how precisely, and with whom, your position is shared.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Can I hide my location from other users?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes — instantly. Just <strong>turn off location sharing</strong> in Settings → Privacy and you immediately disappear from other users' maps while still being able to use the rest of the app. You can re-enable it whenever you like. This gives you a quick "go invisible" switch whenever you want to stay off the radar.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Can people see my real name?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>No — not unless you choose to put it there. Radar <strong>never asks for your real name</strong>, and there's no way for other users to discover it. The only label other peers see is the <strong>optional nickname</strong> you set yourself, which can be anything (or left blank). Your underlying identity is a random UUID, not a name, number, or email.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Is my messaging encrypted?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes. Messages are <strong>end-to-end encrypted</strong> using <strong>X25519</strong> key exchange and <strong>XChaCha20-Poly1305</strong> authenticated encryption — the same class of cryptography used by Signal. Only you and the recipient hold the keys, so the relay server only ever sees opaque ciphertext it cannot read, and a sealed-sender design hides who is talking to whom. Messages stored on your device are also encrypted at rest with <strong>SQLCipher</strong>. (Standard SMS/MMS sent via the optional inbox uses the carrier network and is not end-to-end encrypted — that's a limitation of SMS itself.)</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Can strangers message me?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>A Radar user near you can start a chat the same way you can start one with them — that's how nearby discovery works. However, you're always in control: you can <strong>block any user instantly</strong>, and because offline messaging is short-range over Bluetooth/Wi-Fi (typically under 30 m), only people physically near you can reach you. To stay completely private, disable location sharing so you don't appear on anyone's map in the first place. Note that initiating first contact with a brand-new peer is a <span class="chip chip-premium">Premium</span> feature.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Can I block other users?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes. You can <strong>block any user instantly</strong> from their contact card or a conversation. Once blocked, you'll no longer receive their messages and they're removed from your active chats. You remain in full control of who you communicate with at all times.</p>
+        </div>
+      </details>
+
     </section>
 
     <!-- ══════════════════════════════════════════════
@@ -548,6 +779,16 @@
     ══════════════════════════════════════════════ -->
     <section class="faq-section" id="data">
       <div class="faq-section-heading">Your Data &amp; Permissions</div>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">What permissions does Radar require?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Radar asks only for what its features genuinely need. <strong>Location</strong> (including background) powers the map and lets nearby peers find you; <strong>Bluetooth / Nearby Devices</strong> enable offline peer discovery and messaging; <strong>Wi-Fi</strong> supports Wi-Fi Aware mesh networking; and <strong>notifications</strong> alert you to incoming messages and SOS. The rest are <strong>optional and opt-in</strong>: Contacts (to merge friends into your contact list, never uploaded), SMS/MMS (for the unified texting inbox), and camera/storage (for sharing photos). You can grant or deny each one and change them anytime in Android Settings.</p>
+        </div>
+      </details>
 
       <details class="faq-item">
         <summary class="faq-q">
@@ -609,11 +850,33 @@
 
       <details class="faq-item">
         <summary class="faq-q">
+          <span class="faq-q-text">Is Radar free?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>No — Radar is a <strong>paid app</strong> that you purchase once from Google Play, and there are no ads.  You can then use it indefinately without charge.</p>
+          <p>After that, you can choose:
+            <ul>
+            <li><span class="chip chip-free">Basic</span> tier that's included with no subscription (the radar map, encrypted messaging, offline Bluetooth/Wi-Fi mesh networking, and emergency SOS & Prepper tools).</li>
+            <li><span class="chip chip-premium">Premium</span> inexpensive subscription that adds live web services like aircraft and marine traffic.  You can also start chats with strangers.</li>
+            </ul>
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
           <span class="faq-q-text">How much does it cost?</span>
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>Radar is <strong>free to download and use</strong>. The core features — radar map, messaging, offline mesh networking, emergency SOS, and the basic feed catalog — are all included at <strong>£0</strong>. A <span class="chip chip-premium">Premium</span> subscription costs <strong>£0.99/month</strong> (cancel anytime via Google Play) and unlocks initiating chats with new contacts, live aircraft on the map, rich POI details, the full catalog of 250+ live data feeds, and more. See <a href="premium.html">Premium vs Free</a> for the full breakdown.</p>
+          <p>You can choose:</p>
+          <ul>
+            <li>Radar is £1.99 via a one-time purchase from Google Play.  Once you own it, the core features — radar map, messaging, offline mesh networking, emergency SOS, and the basic feed catalog — are included in the Basic tier with no subscription.</li>
+            <li>An optional <span class="chip chip-premium">Premium</span> subscription costs £0.99/month (cancel anytime via Google Play) unlocks the live web services like aircraft and marine traffic.  You can also start chats with strangers.
+              See <a href="premium.html">Basic vs Premium</a> for the full breakdown.</li>
+          </ul>
+          <p>The reason for the subscription is that there is a genuine ongoing cost of paying for 3rd party web services.</p>
         </div>
       </details>
 
@@ -623,7 +886,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p><strong>None, ever.</strong> Not in the free tier, not in Premium. There are no adverts, no sponsored content, no ad tracking, and no ad networks integrated into Radar. The app is funded by the optional Premium subscription, not by advertising.</p>
+          <p><strong>None, ever.</strong> Not in Basic, not in Premium. There are no adverts, no sponsored content, no ad tracking, and no ad networks integrated into Radar. The app is funded by the one-time purchase and the optional Premium subscription, not by advertising.</p>
         </div>
       </details>
 
@@ -634,6 +897,16 @@
     ══════════════════════════════════════════════ -->
     <section class="faq-section" id="scenarios">
       <div class="faq-section-heading">Special Scenarios</div>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">Does Radar work during emergencies or disasters?</span>
+          <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="faq-body">
+          <p>Yes — this is exactly what Radar is built for. In emergencies like earthquakes, floods, storms, or power cuts, mobile networks often <strong>overload or go down entirely</strong>, but Radar keeps working because it doesn't depend on them. You can <strong>broadcast an emergency SOS alert</strong> with your GPS coordinates to nearby peers, coordinate over the offline mesh, and — when any internet is available — monitor 250+ live feeds for earthquakes, floods, wildfires, cyclones, and official CAP government alerts. For preparation tips see the <a href="emergency.html">Emergency</a> and <a href="prepper.html">Prepper Guide</a> pages.</p>
+        </div>
+      </details>
 
       <details class="faq-item">
         <summary class="faq-q">

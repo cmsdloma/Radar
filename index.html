@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Radar App – Off-Grid Peer-to-Peer Communication</title>
+  <title>Radar App � Off-Grid Peer-to-Peer Communication</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
         content="Radar is a peer-to-peer Android app for local device discovery, off-grid messaging, and radar-style visualization of nearby peers."/>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* ── Site-wide nav extensions ── */
+    /* -- Site-wide nav extensions -- */
     .site-nav {
       position: sticky; top: 0; z-index: 50;
       background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9));
@@ -33,7 +33,7 @@
     }
     @media (max-width: 900px) { .nav-links { display: none; } }
 
-    /* ── Pages hub section ── */
+    /* -- Pages hub section -- */
     .hub-section { padding: 2.25rem var(--page-pad) 2.5rem; border-top: 1px solid rgba(255,255,255,0.03); }
     .hub-inner { max-width: var(--max-width); margin: 0 auto; }
     .hub-kicker { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: #4ab5ff; margin-bottom: 0.6rem; }
@@ -61,7 +61,7 @@
     .hub-group-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); margin-bottom: 0.55rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
 
     /* ================================================================
-       BLUE ACCENT THEME — overrides styles.css teal/green defaults
+       BLUE ACCENT THEME � overrides styles.css teal/green defaults
        ================================================================ */
     :root {
       --accent:        #4ab5ff;
@@ -71,7 +71,7 @@
       --page-pad:  max(1.25rem, 3vw);
     }
 
-    /* Brand mark → blue */
+    /* Brand mark ? blue */
     .brand-mark {
       background: radial-gradient(circle at 30% 30%, #5cc4ff, #0e2060);
       box-shadow: 0 0 20px rgba(74,181,255,0.9), 0 0 40px rgba(74,181,255,0.45);
@@ -96,7 +96,7 @@
        BLUE RADAR VISUAL
        ================================================================ */
 
-    /* Outer wrapper — no box, just transparent layout container */
+    /* Outer wrapper � no box, just transparent layout container */
     .hero-visual {
       border: none;
       background: none;
@@ -127,7 +127,7 @@
     .radar-grid-h { width: 100%; height: 1px; top: 50%; left: 0; }
     .radar-grid-v { width: 1px; height: 100%; left: 50%; top: 0; }
 
-    /* 5 concentric rings — children 3–7 (1 & 2 are the grid lines) */
+    /* 5 concentric rings � children 3�7 (1 & 2 are the grid lines) */
     .radar-ring { border-color: rgba(100,165,255,0.22); border-style: solid; }
     .radar-ring:nth-child(3) { width: 19%; height: 19%; }
     .radar-ring:nth-child(4) { width: 38%; height: 38%; }
@@ -135,7 +135,7 @@
     .radar-ring:nth-child(6) { width: 76%; height: 76%; }
     .radar-ring:nth-child(7) { width: 94%; height: 94%; }
 
-    /* Blue sweep — fills circle, rotates from centre */
+    /* Blue sweep � fills circle, rotates from centre */
     .radar-sweep {
       top: 0; left: 0; right: 0; bottom: 0;
       width: auto;
@@ -159,14 +159,14 @@
       to   { transform: rotate(-360deg); }
     }
 
-    /* Self dot → blue */
+    /* Self dot ? blue */
     .radar-dot--self {
       background: #4ab5ff;
       color: #4ab5ff;
       box-shadow: 0 0 16px rgba(74,181,255,0.9), 0 0 6px #fff;
     }
 
-    /* Drone → yellow (was red) */
+    /* Drone ? yellow (was red) */
     .radar-dot--drone {
       background: #ffe16b;
       color: #ffe16b;
@@ -174,7 +174,7 @@
       left: 23%; top: 67%;
     }
 
-    /* Unknown → gray (was yellow) */
+    /* Unknown ? gray (was yellow) */
     .radar-dot--unknown {
       background: #8a9ab8;
       color: #8a9ab8;
@@ -387,7 +387,7 @@
       .privacy-claims { grid-template-columns: 1fr; }
       .emergency-grid { grid-template-columns: 1fr; }
     }
-  /* ── Shared bt-footer ── */
+  /* -- Shared bt-footer -- */
 .bt-footer {
   position: sticky; bottom: 0; z-index: 40;
   border-top: 1px solid rgba(74,181,255,0.35);
@@ -421,7 +421,7 @@
 </head>
 <body>
 <div class="page">
-  <!-- ── SITE-WIDE NAV ── -->
+  <!-- -- SITE-WIDE NAV -- -->
   <nav class="site-nav">
     <div class="nav-inner">
       <a class="nav-logo" href="index.html">
@@ -446,6 +446,7 @@
         <li><a href="whatsapp.html">WhatsApp</a></li>
         <li><a href="telegram.html">Telegram</a></li>
         <li><a href="signal.html">Signal</a></li>
+        <li><a href="android-limitations.html">Android</a></li>
         <li><a href="ios-limitations.html">iOS</a></li>
         <li><a href="premium.html">Premium</a></li>
         <li><a href="release-notes.html">Releases</a></li>
@@ -457,18 +458,18 @@
   </nav>
 
   <main>
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          HERO
-         ════════════════════════════════════════════════ -->
+         ------------------------------------------------ -->
     <section class="section hero" id="top">
       <div>
-        <div class="hero-eyebrow">Android · Free · No Sign-Up Required</div>
+        <div class="hero-eyebrow">Android � Paid App � No Sign-Up Required</div>
         <h1 class="hero-title">
           Find your people.<br>
           <span>Stay private. Stay safe.</span>
         </h1>
         <p class="hero-subtitle">
-          <strong>Radar</strong> discovers people around you, lets you chat securely, share media, and stay safe — even when the internet is gone. No phone number. No email address. No data collected. Ever.
+          <strong>Radar</strong> discovers people around you, lets you chat securely, share media, and stay safe � even when the internet is gone. No phone number. No email address. No data collected. Ever.
         </p>
 
         <div class="hero-tags">
@@ -481,7 +482,7 @@
         </div>
 
         <div class="hero-actions">
-          <a href="#communication" class="btn-primary">Explore Features →</a>
+          <a href="#communication" class="btn-primary">Explore Features ?</a>
           <a href="#privacy" class="btn-ghost">Why Radar is Private</a>
           <a href="https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar"
              target="_blank" rel="noopener" aria-label="Get Radar on Google Play"
@@ -519,7 +520,7 @@
           </div>
           <!-- Unknown contact (gray) -->
           <div class="radar-dot radar-dot--unknown"></div>
-          <!-- Drone — Remote ID (yellow) -->
+          <!-- Drone � Remote ID (yellow) -->
           <div class="radar-dot radar-dot--drone"></div>
         </div>
 
@@ -540,41 +541,41 @@
       </aside>
     </section>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          FEATURE STRIP
-         ════════════════════════════════════════════════ -->
+         ------------------------------------------------ -->
     <div class="feat-strip" aria-hidden="true">
       <div class="feat-strip-inner">
-        <div class="feat-strip-item">📡 <strong>Nearby Discovery</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">💬 <strong>Secure Messaging</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">🔒 <strong>No Sign-Up</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">🗺️ <strong>Offline Maps</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">🚨 <strong>SOS &amp; Emergency</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">🛡️ <strong>Zero Data Collection</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">🎥 <strong>Video &amp; Audio Calls</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">🌐 <strong>Works Offline</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">✈️ <strong>Aircraft &amp; Drone Tracking</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">🔊 <strong>Bluetooth Speakers</strong></div>
-        <span class="fsep">◆</span>
-        <div class="feat-strip-item">🧅 <strong>TOR / Orbot</strong></div>
+        <div class="feat-strip-item">?? <strong>Nearby Discovery</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">?? <strong>Secure Messaging</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">?? <strong>No Sign-Up</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">??? <strong>Offline Maps</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">?? <strong>SOS &amp; Emergency</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">??? <strong>Zero Data Collection</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">?? <strong>Video &amp; Audio Calls</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">?? <strong>Works Offline</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">?? <strong>Aircraft &amp; Drone Tracking</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">?? <strong>Bluetooth Speakers</strong></div>
+        <span class="fsep">?</span>
+        <div class="feat-strip-item">?? <strong>TOR / Orbot</strong></div>
       </div>
     </div>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          COMMUNICATION & MESSAGING
-         ════════════════════════════════════════════════ -->
+         ------------------------------------------------ -->
     <section class="section" id="communication">
       <div class="section-kicker">Communication</div>
-      <h2 class="section-heading">Chat, call, and share — anywhere</h2>
+      <h2 class="section-heading">Chat, call, and share � anywhere</h2>
       <p class="section-intro">
         Everything you'd expect from a modern messenger, plus the ability to do it all
         completely offline over Bluetooth, WiFi-Aware, and local networks.
@@ -583,15 +584,15 @@
       <div class="showcase-grid">
 
         <div class="showcase-card">
-          <span class="sc-icon">📡</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Find &amp; Contact People Nearby</h3>
           <p class="sc-body">
-            See who's around you on a live radar display. Tap any person to view their profile and start a private conversation — no phone number swap needed.
+            See who's around you on a live radar display. Tap any person to view their profile and start a private conversation � no phone number swap needed.
           </p>
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">💬</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Integrated SMS Management</h3>
           <p class="sc-body">
             Your existing SMS threads live right alongside your Radar chats, in a single unified inbox. No more switching apps for text messages.
@@ -599,23 +600,23 @@
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">🔐</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Secure Messaging</h3>
           <p class="sc-body">
-            Every direct message is end-to-end encrypted with sealed sender technology — nobody, not even the relay infrastructure, can see who's talking to whom.
+            Every direct message is end-to-end encrypted with sealed sender technology � nobody, not even the relay infrastructure, can see who's talking to whom.
           </p>
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">📎</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Send Photos, Video, Files, Contacts &amp; Location</h3>
           <p class="sc-body">
-            Share anything in a conversation — images, video clips, documents, contact cards, or a live pin drop — all transferred peer-to-peer, no cloud upload required.
+            Share anything in a conversation � images, video clips, documents, contact cards, or a live pin drop � all transferred peer-to-peer, no cloud upload required.
           </p>
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">📢</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Broadcast Messaging</h3>
           <p class="sc-body">
             Send a message to everyone nearby at once. Perfect for coordinating a group at an event, issuing a warning, or just saying hello to the crowd.
@@ -623,7 +624,7 @@
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">👥</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Group Chats</h3>
           <p class="sc-body">
             Create named group conversations with any combination of your nearby contacts and SMS contacts. Messages route via the best available transport for each member.
@@ -631,7 +632,7 @@
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">🏛️</span>
+          <span class="sc-icon">???</span>
           <h3 class="sc-title">Matrix Chat Rooms</h3>
           <p class="sc-body">
             Connect to the federated Matrix network and join public or private rooms. Bridges the gap between your local mesh and the wider decentralised internet.
@@ -639,7 +640,7 @@
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">🎥</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Video &amp; Audio Calling</h3>
           <p class="sc-body">
             One-tap encrypted video and audio calls directly to any Radar contact. No account, no call logging, no third-party servers involved.
@@ -647,22 +648,22 @@
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">🔊</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Connect to Nearby Bluetooth Speakers</h3>
           <p class="sc-body">
-            Discover and connect to Bluetooth speakers around you straight from the app — handy when you're at a venue or campsite and want to share audio without fuss.
+            Discover and connect to Bluetooth speakers around you straight from the app � handy when you're at a venue or campsite and want to share audio without fuss.
           </p>
         </div>
 
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          PRIVACY & SECURITY
-         ═══════════════���════════════════════════════════ -->
+         ---------------???-------------------------------- -->
     <section class="section privacy-section" id="privacy">
       <div class="section-kicker">Privacy &amp; Security</div>
-      <h2 class="section-heading">Private by design — not by promise</h2>
+      <h2 class="section-heading">Private by design � not by promise</h2>
       <p class="section-intro">
         Most "private" messengers still need your phone number, still collect metadata,
         and still run through centralised servers. Radar was designed from the ground up
@@ -672,70 +673,70 @@
       <div class="privacy-claims">
 
         <div class="privacy-claim">
-          <span class="pc-icon">🚫</span>
+          <span class="pc-icon">??</span>
           <div class="pc-label">No Phone Number Required
-            <small>Sign up with nothing — just pick a nickname and go.</small>
+            <small>Sign up with nothing � just pick a nickname and go.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">🚫</span>
+          <span class="pc-icon">??</span>
           <div class="pc-label">No Email Address Required
             <small>There's no account to create and nothing to verify.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">🕶️</span>
+          <span class="pc-icon">???</span>
           <div class="pc-label">Truly Anonymous
             <small>Zero personal information required at any point.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">📵</span>
+          <span class="pc-icon">??</span>
           <div class="pc-label">No Data Collection
-            <small>We don't store, analyse, or sell your data — because we never see it.</small>
+            <small>We don't store, analyse, or sell your data � because we never see it.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">🚫</span>
+          <span class="pc-icon">??</span>
           <div class="pc-label">No Advertising
             <small>Radar will never show you an ad or build a profile about you.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">🔐</span>
+          <span class="pc-icon">??</span>
           <div class="pc-label">End-to-End Encryption
             <small>Messages are encrypted on-device and only readable by the recipient.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">🪪</span>
+          <span class="pc-icon">??</span>
           <div class="pc-label">Sealed Sender
-            <small>The relay can't see who sent a message — only that one arrived.</small>
+            <small>The relay can't see who sent a message � only that one arrived.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">🔗</span>
+          <span class="pc-icon">??</span>
           <div class="pc-label">Peer-to-Peer Messaging
-            <small>Bluetooth, WiFi-Aware, LAN, and internet — no centralised server required.</small>
+            <small>Bluetooth, WiFi-Aware, LAN, and internet � no centralised server required.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">🕸️</span>
+          <span class="pc-icon">???</span>
           <div class="pc-label">Mesh Network Forwarding
             <small>Messages hop through nearby devices to reach peers outside direct range.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
-          <span class="pc-icon">🧅</span>
+          <span class="pc-icon">??</span>
           <div class="pc-label">TOR / Orbot Integration
             <small>Route internet traffic through TOR for an additional layer of anonymity.</small>
           </div>
@@ -744,12 +745,12 @@
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          MAP & SITUATIONAL AWARENESS
-         ════════════════════════════════════════════════ -->
+         ------------------------------------------------ -->
     <section class="section map-section" id="maps">
       <div class="section-kicker section-kicker--map">Maps &amp; Live Data</div>
-      <h2 class="section-heading">A live picture of your world — online or offline</h2>
+      <h2 class="section-heading">A live picture of your world � online or offline</h2>
       <p class="section-intro">
         Radar's map goes far beyond showing where your contacts are. It pulls in live
         feeds from the sky, sea, road, and ground to give you full situational awareness
@@ -759,47 +760,47 @@
       <div class="showcase-grid">
 
         <div class="showcase-card">
-          <span class="sc-icon">🗺️</span>
+          <span class="sc-icon">???</span>
           <h3 class="sc-title">Offline Maps</h3>
           <p class="sc-body">
             Download map tiles for any region before you go. When there's no signal, the
-            map keeps working — because it doesn't need one.
+            map keeps working � because it doesn't need one.
           </p>
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">📍</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Live Data Layers</h3>
           <p class="sc-body">
             Toggle live overlays depending on what you need to see right now:</p>
           <ul class="sc-list">
-            <li>📶 WiFi Access Points around you</li>
-            <li>📱 Nearby Radar phones</li>
-            <li>🚁 Drones (Remote ID / Drone ID)</li>
-            <li>✈️ Aircraft (OpenSky Network)</li>
-            <li>⛵ Marine traffic</li>
-            <li>🚗 Google, TomTom &amp; HERE Traffic</li>
-            <li>🏢 Indoor Maps</li>
-            <li>📸 Local geotagged photos</li>
-            <li>📌 POI contacts &amp; places</li>
+            <li>?? WiFi Access Points around you</li>
+            <li>?? Nearby Radar phones</li>
+            <li>?? Drones (Remote ID / Drone ID)</li>
+            <li>?? Aircraft (OpenSky Network)</li>
+            <li>? Marine traffic</li>
+            <li>?? Google, TomTom &amp; HERE Traffic</li>
+            <li>?? Indoor Maps</li>
+            <li>?? Local geotagged photos</li>
+            <li>?? POI contacts &amp; places</li>
           </ul>
         </div>
 
         <div class="showcase-card">
-          <span class="sc-icon">🌍</span>
+          <span class="sc-icon">??</span>
           <h3 class="sc-title">Earthquakes &amp; Geo Feeds</h3>
           <p class="sc-body">
             Subscribe to live data feeds that appear directly on the map as events happen:
           </p>
           <ul class="sc-list">
-            <li>🌋 Earthquake alerts</li>
-            <li>📡 GeoRSS &amp; standard RSS feeds</li>
-            <li>🚨 CAP (Common Alerting Protocol)</li>
-            <li>📊 Live geo data streams</li>
-            <li>🗂️ KML &amp; geographic data files</li>
+            <li>?? Earthquake alerts</li>
+            <li>?? GeoRSS &amp; standard RSS feeds</li>
+            <li>?? CAP (Common Alerting Protocol)</li>
+            <li>?? Live geo data streams</li>
+            <li>??? KML &amp; geographic data files</li>
           </ul>
           <p class="sc-body" style="margin-top:0.5rem;">
-            RSS feeds are displayed as chat conversations — scroll through alerts
+            RSS feeds are displayed as chat conversations � scroll through alerts
             as naturally as reading messages.
           </p>
         </div>
@@ -807,9 +808,9 @@
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          EMERGENCY & SAFETY
-         ════════════════════════════════════════════════ -->
+         ------------------------------------------------ -->
     <section class="section emergency-section" id="emergency">
       <div class="section-kicker section-kicker--red">Emergency &amp; Safety</div>
       <h2 class="section-heading section-heading--red">Built for when things go wrong</h2>
@@ -821,16 +822,16 @@
       <div class="emergency-grid">
 
         <div class="emg-card">
-          <span class="emg-icon">🆘</span>
+          <span class="emg-icon">??</span>
           <h3 class="emg-title">Morse Code SOS</h3>
           <p class="emg-body">
             Transmit a recognised international SOS signal using the camera flash and
-            screen — readable by rescuers without any special equipment.
+            screen � readable by rescuers without any special equipment.
           </p>
         </div>
 
         <div class="emg-card">
-          <span class="emg-icon">🔦</span>
+          <span class="emg-icon">??</span>
           <h3 class="emg-title">Flashlight</h3>
           <p class="emg-body">
             A fast-access, full-brightness torch that you can trigger from the emergency
@@ -839,17 +840,17 @@
         </div>
 
         <div class="emg-card">
-          <span class="emg-icon">📋</span>
+          <span class="emg-icon">??</span>
           <h3 class="emg-title">Prepper List</h3>
           <p class="emg-body">
-            A curated survival checklist — food, water, first aid, shelter, and
-            communications — available completely offline for when you need to prepare
+            A curated survival checklist � food, water, first aid, shelter, and
+            communications � available completely offline for when you need to prepare
             quickly.
           </p>
         </div>
 
         <div class="emg-card">
-          <span class="emg-icon">📻</span>
+          <span class="emg-icon">??</span>
           <h3 class="emg-title">Internet Radio</h3>
           <p class="emg-body">
             Stream emergency broadcasts, news, and weather updates from internet radio
@@ -859,10 +860,10 @@
         </div>
 
         <div class="emg-card">
-          <span class="emg-icon">🚨</span>
+          <span class="emg-icon">??</span>
           <h3 class="emg-title">Personal Distress Alarm</h3>
           <p class="emg-body">
-            Trigger a loud audio alarm directly from the emergency screen — useful for
+            Trigger a loud audio alarm directly from the emergency screen � useful for
             attracting attention when you need help and can't shout.
           </p>
         </div>
@@ -870,9 +871,9 @@
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════
+    <!-- ------------------------------------------------
          PAGES HUB
-         ════════════════════════════════════════════════ -->
+         ------------------------------------------------ -->
     <div class="hub-section">
       <div class="hub-inner">
         <div class="hub-kicker">More on this site</div>
@@ -883,22 +884,22 @@
           <div class="hub-group-label">Use Cases</div>
           <div class="hub-grid">
             <a class="hub-card" href="scenarios.html">
-              <span class="hub-icon">🌍</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">Real-World Scenarios</span>
-              <span class="hub-desc">Cruise ships, disasters, underground, aircraft, and more — eight situations where Radar makes a real difference.</span>
-              <span class="hub-cta">Explore Scenarios →</span>
+              <span class="hub-desc">Cruise ships, disasters, underground, aircraft, and more � eight situations where Radar makes a real difference.</span>
+              <span class="hub-cta">Explore Scenarios ?</span>
             </a>
             <a class="hub-card" href="emergency.html">
-              <span class="hub-icon">🚨</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">Emergency Features</span>
               <span class="hub-desc">A full walkthrough of every SOS and safety tool built into Radar, and why they matter.</span>
-              <span class="hub-cta">View Emergency Guide →</span>
+              <span class="hub-cta">View Emergency Guide ?</span>
             </a>
             <a class="hub-card" href="matrix.html">
-              <span class="hub-icon">🏛️</span>
+              <span class="hub-icon">???</span>
               <span class="hub-name">Matrix Integration</span>
               <span class="hub-desc">How Radar connects to the decentralised Matrix network for federated, censorship-resistant chat.</span>
-              <span class="hub-cta">Learn About Matrix →</span>
+              <span class="hub-cta">Learn About Matrix ?</span>
             </a>
           </div>
         </div>
@@ -908,28 +909,28 @@
           <div class="hub-group-label">App Information</div>
           <div class="hub-grid">
             <a class="hub-card amber" href="privacy-policy.html">
-              <span class="hub-icon">🔒</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">Privacy Policy</span>
               <span class="hub-desc">What data is collected, how it's used, server storage details, Android permissions, and your rights.</span>
-              <span class="hub-cta">Read Policy →</span>
+              <span class="hub-cta">Read Policy ?</span>
             </a>
             <a class="hub-card amber" href="release-notes.html">
-              <span class="hub-icon">📝</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">Release Notes</span>
-              <span class="hub-desc">Version history — bug fixes, new features, and the development roadmap.</span>
-              <span class="hub-cta">View Releases →</span>
+              <span class="hub-desc">Version history � bug fixes, new features, and the development roadmap.</span>
+              <span class="hub-cta">View Releases ?</span>
             </a>
             <a class="hub-card amber" href="premium.html">
-              <span class="hub-icon">⭐</span>
+              <span class="hub-icon">?</span>
               <span class="hub-name">Basic vs Premium</span>
-              <span class="hub-desc">Side-by-side feature comparison. See exactly what's free and what unlocks with Premium (£0.99/month).</span>
-              <span class="hub-cta">Compare Plans →</span>
+              <span class="hub-desc">Side-by-side feature comparison. See what's included in Basic with no subscription, and what unlocks with Premium (�0.99/month).</span>
+              <span class="hub-cta">Compare Plans ?</span>
             </a>
             <a class="hub-card red" href="ios-limitations.html">
-              <span class="hub-icon">🚫</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">Why Not iOS?</span>
               <span class="hub-desc">The precise technical reasons why Radar's core features are impossible on Apple's platform.</span>
-              <span class="hub-cta">Read Explanation →</span>
+              <span class="hub-cta">Read Explanation ?</span>
             </a>
           </div>
         </div>
@@ -939,28 +940,28 @@
           <div class="hub-group-label">Privacy Research Series</div>
           <div class="hub-grid">
             <a class="hub-card" href="whatsapp.html">
-              <span class="hub-icon">💬</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">WhatsApp Analysis</span>
               <span class="hub-desc">End-to-end encrypted. Still not private. A forensic look at what WhatsApp actually exposes.</span>
-              <span class="hub-cta">Read Analysis →</span>
+              <span class="hub-cta">Read Analysis ?</span>
             </a>
             <a class="hub-card" href="telegram.html">
-              <span class="hub-icon">✈️</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">Telegram Analysis</span>
-              <span class="hub-desc">Telegram is not a privacy app — it never was. The gap between reputation and reality.</span>
-              <span class="hub-cta">Read Analysis →</span>
+              <span class="hub-desc">Telegram is not a privacy app � it never was. The gap between reputation and reality.</span>
+              <span class="hub-cta">Read Analysis ?</span>
             </a>
             <a class="hub-card" href="signal.html">
-              <span class="hub-icon">🔐</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">Signal Analysis</span>
               <span class="hub-desc">Signal is the best of a fundamentally flawed model. Honest strengths and structural limits.</span>
-              <span class="hub-cta">Read Analysis →</span>
+              <span class="hub-cta">Read Analysis ?</span>
             </a>
             <a class="hub-card" href="surveillance.html">
-              <span class="hub-icon">🕵️</span>
+              <span class="hub-icon">???</span>
               <span class="hub-name">Digital Surveillance</span>
               <span class="hub-desc">Metadata, state surveillance, surveillance capitalism, freedom of speech, and your rights.</span>
-              <span class="hub-cta">Read Report →</span>
+              <span class="hub-cta">Read Report ?</span>
             </a>
           </div>
         </div>
@@ -970,16 +971,16 @@
           <div class="hub-group-label">Comparisons</div>
           <div class="hub-grid">
             <a class="hub-card" href="compare_privacy.html">
-              <span class="hub-icon">🛡️</span>
+              <span class="hub-icon">???</span>
               <span class="hub-name">Privacy Matrix</span>
               <span class="hub-desc">How Radar, WhatsApp, Telegram, and Signal score across 27 privacy and surveillance criteria.</span>
-              <span class="hub-cta">View Matrix →</span>
+              <span class="hub-cta">View Matrix ?</span>
             </a>
             <a class="hub-card" href="compare_features.html">
-              <span class="hub-icon">📊</span>
+              <span class="hub-icon">??</span>
               <span class="hub-name">Feature Comparison</span>
               <span class="hub-desc">Full feature-by-feature comparison across 5 platforms covering all categories including offline, voice, location.</span>
-              <span class="hub-cta">View Comparison →</span>
+              <span class="hub-cta">View Comparison ?</span>
             </a>
           </div>
         </div>
@@ -1003,11 +1004,11 @@
     </div>
     <nav class="bt-footer-links" aria-label="Footer navigation">
       <a href="http://www.daltechnology.co.uk" target="_blank" rel="noopener">DAL Technology</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <a href="privacy-policy.html">Privacy Policy</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <a href="release-notes.html">Release Notes</a>
-      <span class="sep">·</span>
+      <span class="sep">�</span>
       <span>&#x1F36A;&nbsp;We don&rsquo;t use cookies</span>
     </nav>
     <div class="bt-footer-copy">
