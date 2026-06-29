@@ -40,14 +40,14 @@
     @media (max-width: 900px) { .nav-links { display: none; } }
 
     /* ── Hero ── */
-    .rn-hero { max-width: 760px; margin: 0 auto; padding: 3rem var(--page-pad) 2rem; text-align: center; }
+    .rn-hero { padding: 3rem 1cm 2rem; text-align: center; }
     .rn-hero .eyebrow { display: inline-block; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-teal); border: 1px solid rgba(74,181,255,0.3); border-radius: 999px; padding: 0.28rem 0.8rem; margin-bottom: 1rem; }
     .rn-hero h1 { font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 800; margin: 0 0 0.5rem; }
     .rn-hero h1 em { font-style: normal; color: var(--accent-teal); }
     .rn-hero p { color: var(--muted); font-size: 0.95rem; }
 
     /* ── Wrap ── */
-    .rn-wrap { max-width: 780px; margin: 0 auto; padding: 0 var(--page-pad) 4rem; }
+    .rn-wrap { padding: 0 1cm 4rem; }
 
     /* ── Version card ── */
     .version-card {
@@ -218,7 +218,6 @@
 
   <!-- ── HERO ── -->
   <div class="rn-hero">
-    <span class="eyebrow">DAL Technology · Radar</span>
     <h1><em>Release</em> Notes</h1>
     <p>Version history for the Radar Android app — bug fixes, new features, and roadmap.</p>
   </div>
@@ -226,13 +225,346 @@
   <div class="rn-wrap">
 
     <!-- ══════════════════════════════════════════════
-         v0.9.1 — Closed Alpha (Latest)
+         v0.9.8 — Closed Alpha (Latest)
     ══════════════════════════════════════════════ -->
     <div class="version-card latest">
       <div class="version-header">
-        <span class="version-number">v0.9.1</span>
+        <span class="version-number">v0.9.8</span>
         <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
         <span class="vtag vtag-latest">✔ Latest</span>
+        <span class="version-date">29 June 2026</span>
+      </div>
+      <p class="version-build">versionCode 11 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>
+
+      <div class="version-body">
+
+        <!-- New Features -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Server-independent peer discovery (distributed hash table)</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Radar can now resolve a contact's current address (<code>UUID → ip:port</code>) without relying on the central server, using a Kademlia distributed hash table built on top of the existing peer network. Each device publishes a small, cryptographically <strong>signed</strong> location record that other peers hold and serve, so direct connections can still be established even when the web service is unreachable. Lookups race the DHT against the server and take whichever answers first.</span>
+            </li>
+            <li>
+              <strong>Offline "nearby peers" via a geographic overlay (GeoDHT)</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The "who's near me?" feature now keeps working when the server is down. Each device publishes a signed presence record (location, address) across a ladder of quadtree map cells covering ~100&nbsp;m up to a 500&nbsp;km ceiling. When the authoritative server can't be reached, Radar walks this geographic overlay, gathers nearby candidates, ranks them by true great-circle distance, and returns the closest peers. The server stays authoritative when it's available — the GeoDHT is a fallback that's kept warm in the background.</span>
+            </li>
+            <li>
+              <strong>Winks — a one-tap "😉" nudge</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">You can now send a lightweight wink to a Radar peer straight from their contact card, without going through the chat-request handshake. When a wink arrives from someone you don't yet have a chat with, a dialog shows their profile (photo, age, gender) with four choices: <strong>Start chat</strong>, <strong>Wink back</strong>, <strong>Block</strong>, or <strong>Dismiss</strong>. Winks are delivered only over the Radar network (never SMS) and are end-to-end encrypted whenever a peer key is available.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Privacy & Security -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-security"></span> Privacy &amp; Security</div>
+          <ul class="change-list">
+            <li>
+              <strong>Signed records with trust-on-first-use verification</strong>
+              <span class="note">Every record stored in either DHT is signed with the publisher's Ed25519 key and verified (signature, freshness, and pinned-key/TOFU checks) before it's accepted, so forged or replayed location claims are rejected. The overlays only ever share data you already consent to share as part of using Radar.</span>
+            </li>
+            <li>
+              <strong>All discovery data stored in the encrypted database</strong>
+              <span class="note">DHT records, geographic presence, and the routing table are persisted in Radar's encrypted (SQLCipher) database, so the network resumes warm after a restart instead of starting cold — while remaining protected at rest.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Improvements -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Built-in self-tests in the connectivity check</strong>
+              <span class="note">The "Test Service Connectivity" diagnostic now runs end-to-end self-tests for both discovery overlays (store + lookup round-trips, including a real loopback test), reporting a clear pass/fail summary alongside the existing connectivity results.</span>
+            </li>
+            <li>
+              <strong>Shared overlay, not a second network</strong>
+              <span class="note">The geographic discovery layer reuses the same peer network, routing table, and transport as the address-resolution DHT rather than standing up a separate one — maximising reach and keeping background overhead low.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.9.7 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v0.9.7</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">26 June 2026</span>
+      </div>
+      <p class="version-build">versionCode 10 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>
+
+      <div class="version-body">
+
+        <!-- New Features -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Heatwave &amp; extreme-heat alerts</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Added a heatwave warning feed sourced from national meteorological alert data. Active heat-health warnings now appear on the radar map and in the emergency feeds list so you're notified before conditions become dangerous.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Improvements -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Expanded emergency alert feed coverage</strong>
+              <span class="note">Additional regional alert data sources wired into the unified feeds list, with more consistent severity labelling across feed types.</span>
+            </li>
+            <li>
+              <strong>Map alert marker refresh</strong>
+              <span class="note">Alert markers now refresh more reliably when new warnings are published, reducing the chance of stale entries lingering on the map.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Privacy & Permissions -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-security"></span> Privacy &amp; Permissions</div>
+          <ul class="change-list">
+            <li>
+              <strong>Two permissions removed at Google's request</strong>
+              <span class="note">We removed the full-screen intent and activity recognition (activity monitoring) permissions following a request from Google. The app no longer requests either permission.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.9.6 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v0.9.6</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">17 June 2026</span>
+      </div>
+      <p class="version-build">versionCode 8 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>
+
+      <div class="version-body">
+
+        <!-- New Features -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>UK power-outage alerts</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Live power-cut and outage information from UK network operators is now available in the alerts feed and on the radar map, helping you spot disruptions in your area during emergencies.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bug Fixes -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Invisible scrollbar fixed</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">On certain screens the custom scrollbar could collapse to zero height, making it invisible and impossible to drag. It now sizes correctly so long lists and chats can be scrolled as expected.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.9.5 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v0.9.5</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">10 June 2026</span>
+      </div>
+      <p class="version-build">versionCode 7 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>
+
+      <div class="version-body">
+
+        <!-- Improvements -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Web service usage caps</strong>
+              <span class="note">Added configurable daily and monthly usage caps for outbound web-service calls, protecting against unexpected data usage and helping stay within third-party quota limits.</span>
+            </li>
+            <li>
+              <strong>Refined BLE beacon format</strong>
+              <span class="note">The Bluetooth LE location beacon now uses a tightened 24-byte bit-packed structure, improving the reliability of peer decoding while staying within the BLE advertising size limit.</span>
+            </li>
+            <li>
+              <strong>Consistent in-app dialogs</strong>
+              <span class="note">Unified the styling of confirmation and input dialogs across the app for a more consistent look and feel.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bug Fixes -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Wi-Fi Aware start-up reliability</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Resolved a start-up ordering issue where a Wi-Fi Aware session could fail to bootstrap because a required dependency was not yet ready, occasionally preventing peer connections on launch.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.9.4 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v0.9.4</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">27 May 2026</span>
+      </div>
+      <p class="version-build">versionCode 6 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>
+
+      <div class="version-body">
+
+        <!-- Improvements -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Lower battery use while broadcasting</strong>
+              <span class="note">BLE advertising now uses a balanced broadcast interval, meaningfully reducing radio duty cycle (and battery drain) during long background sessions while keeping peer discovery fast.</span>
+            </li>
+            <li>
+              <strong>More reliable message delivery</strong>
+              <span class="note">Improved channel selection and retry handling so messages fall back between transports more smoothly when a peer becomes unreachable.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bug Fixes -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>General stability fixes</strong>
+              <span class="note">A round of crash and stability fixes across background services and the map view.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.9.3 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v0.9.3</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">17 May 2026</span>
+      </div>
+      <p class="version-build">versionCode 4 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>
+
+      <div class="version-body">
+
+        <!-- Improvements -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Peer discovery responsiveness</strong>
+              <span class="note">Nearby peers and BLE devices now appear on the radar map a little faster after the app comes to the foreground.</span>
+            </li>
+            <li>
+              <strong>Map rendering performance</strong>
+              <span class="note">Smoother panning and zooming with large numbers of markers on screen.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bug Fixes -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Notification reliability fixes</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Addressed cases where new-message notifications could be delayed or missed while the app ran in the background.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.9.2 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v0.9.2</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">7 May 2026</span>
+      </div>
+      <p class="version-build">versionCode 3 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>
+
+      <div class="version-body">
+
+        <!-- Improvements -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Chat list and contact handling</strong>
+              <span class="note">Minor refinements to how chats and contacts are sorted and displayed.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bug Fixes -->
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Early post-launch stability fixes</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">A first batch of fixes following the closed-alpha launch, covering crashes reported during onboarding and initial sync.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.9.1 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v0.9.1</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
         <span class="version-date">27 April 2026</span>
       </div>
       <p class="version-build">versionCode 2 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>

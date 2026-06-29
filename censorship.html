@@ -547,7 +547,6 @@
       <li><a href="whatsapp.html">WhatsApp</a></li>
       <li><a href="telegram.html">Telegram</a></li>
       <li><a href="signal.html">Signal</a></li>
-      <li><a href="android-limitations.html">Android</a></li>
       <li><a href="ios-limitations.html">iOS</a></li>
       <li><a href="premium.html">Premium</a></li>
       <li><a href="release-notes.html">Releases</a></li>
@@ -586,6 +585,7 @@
     <li><a href="#how-censorship-works">How Censorship Works</a></li>
     <li><a href="#shutdowns">Internet Shutdowns</a></li>
     <li><a href="#architecture">Centralized vs Decentralized</a></li>
+    <li><a href="#dht">Serverless Discovery (DHT)</a></li>
     <li><a href="#dns">DNS Poisoning</a></li>
     <li><a href="#vpn">VPNs Explained</a></li>
     <li><a href="#tor">Tor &amp; Onion Routing</a></li>
@@ -778,6 +778,13 @@
         internet blackout</strong>. NetBlocks and IODA documented the shutdown in real time.
         Protesters coordinated using offline tools and pre-arranged street signals.</p>
       </div>
+      <div class="shutdown-card">
+        <h4><span class="flag">&#127472;&#127477;</span>North Korea &mdash; No Internet by Design</h4>
+        <p>For ordinary citizens there is <strong>no global internet at all</strong> &mdash; only
+        <em>Kwangmyong</em>, a state-run national intranet of pre-approved content. The tiny elite
+        with real access is tightly monitored and whitelisted. This is censorship as <strong>total
+        isolation</strong> rather than selective blocking &mdash; the most absolute information control on Earth.</p>
+      </div>
     </div>
 
     <div class="info-box" style="margin-top:2rem;">
@@ -871,6 +878,67 @@
 </section>
 
 <!-- ----------------------------------------
+     SERVERLESS DISCOVERY (DHT)
+---------------------------------------- -->
+<section class="cen-section" id="dht">
+  <div class="kicker">&#x1F5C2;&#xFE0F; Serverless Discovery</div>
+  <h2 class="section-heading">No Server to Shut Down &mdash; Discovery via Distributed Hash Tables</h2>
+  <p class="section-intro">
+    Even peer-to-peer apps usually keep one quiet chokepoint: a central server that tells you
+    <em>where</em> your contacts are and <em>who</em> is nearby. Switch that server off and the
+    network goes dark. Radar removes this last chokepoint with two <strong>Distributed Hash Tables
+    (DHTs)</strong> &mdash; a shared, self-organising directory spread across the phones themselves. Radar
+    keeps working even when its own central server is unreachable, seized, or government-blocked.
+  </p>
+
+  <div class="tech-card purple-glow">
+    <div class="tech-header">
+      <div class="tech-emoji">&#x1F5C2;&#xFE0F;</div>
+      <div>
+        <div class="tech-title">A Directory With No Owner</div>
+        <div class="tech-subtitle">The same idea that keeps BitTorrent alive &mdash; applied to finding people, not files</div>
+      </div>
+    </div>
+
+    <div class="tech-body">
+      <p>
+        A DHT is a lookup table sharded across every participating device. No single phone holds all
+        of it, and no single server is in charge. To find a value you ask the handful of peers whose
+        IDs sit closest to the key, and they point you onward until you arrive. There is no central
+        address to poison, no domain to seize, and no operator to serve a takedown order to.
+      </p>
+    </div>
+
+    <div class="tech-two" style="margin-top:1.25rem;">
+      <div class="tech-col">
+        <h4>UUID &rarr; IP Address</h4>
+        <ul class="det-list">
+          <li><strong>Replaces the central lookup server.</strong> To reach a contact, Radar resolves their random UUID to a current <code>ip:port</code> straight from the DHT &mdash; no master directory required.</li>
+          <li><strong>Signed, not trusted.</strong> Each record is Ed25519-signed by its owner, so any relay can pass it on but can never forge it or redirect you to the wrong device.</li>
+          <li><strong>Resilient by design.</strong> If the central server is offline or blocked, contacts can still be located peer-to-peer. Better resilience; resistant to a government shutdown.</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>Location &rarr; Nearby UUIDs</h4>
+        <ul class="det-list">
+          <li><strong>Serverless &ldquo;who's near me?&rdquo;.</strong> A geographic DHT lets a phone search a map cell for the closest peers &mdash; with no central nearby-peers service to take down.</li>
+          <li><strong>Quadtree search.</strong> Presence is published under a ladder of grid cells, so a finder climbs outward until it has gathered the closest peers within range.</li>
+          <li><strong>Kept warm by gossip.</strong> Every Bluetooth encounter quietly exchanges these signed records, freshening the directory without any internet round-trip at all.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:1.5rem;">
+      <strong>Why this matters for censorship:</strong> a central server is the single thing a
+      government can most easily pressure, block, or switch off. By distributing both kinds of
+      discovery &mdash; <em>where is this person</em> and <em>who is near me</em> &mdash; across the user devices
+      themselves, Radar removes that chokepoint. The central server becomes a convenience, not a
+      dependency: when it disappears, the network simply heals around the hole and carries on.
+    </div>
+  </div>
+</section>
+
+<!-- ----------------------------------------
      DNS POISONING
 ---------------------------------------- -->
 <div class="divider-strip" id="dns">
@@ -911,6 +979,8 @@
           <li><strong>Turkey (2014):</strong> Government blocked Twitter via DNS. Citizens spray-painted the IP addresses <strong>8.8.8.8 and 8.8.4.4</strong> on walls to let people bypass it.</li>
           <li><strong>Russia:</strong> Roskomnadzor maintains a national blacklist of millions of domains; ISPs must implement it via DNS blocking.</li>
           <li><strong>China:</strong> The Great Firewall performs DNS poisoning at the national backbone level &mdash; returning deliberately corrupt responses for banned domains.</li>
+          <li><strong>Iran:</strong> Routinely tampers with DNS to block sites and steer users onto the state-run National Information Network. During the 2022&ndash;2023 protests this escalated into throttling and near-total shutdowns &mdash; censorship by access-denial as much as by DNS manipulation.</li>
+          <li><strong>India:</strong> The most prolific blocker among democracies &mdash; ISPs enforce government and court orders largely through DNS/URL blocking, alongside frequent regional shutdowns such as the 552-day Kashmir blackout.</li>
         </ul>
       </div>
       <div class="tech-col green-col">
@@ -1247,7 +1317,9 @@
       <p>A fully off-grid Android app that creates a peer-to-peer mesh over
       <strong>Bluetooth LE and Wi-Fi Direct</strong>. See your group on a live radar display,
       send encrypted messages, make voice and video calls &mdash; all with no internet,
-      no SIM, no infrastructure.</p>
+      no SIM, no infrastructure. When the internet <em>is</em> available, peers are found through
+      <strong>distributed hash tables</strong> rather than a single central server &mdash; so discovery
+      survives even a government shutdown of Radar's own server.</p>
       <div class="pill-row">
         <span class="mpill green">No Internet Required</span>
         <span class="mpill green">End-to-End Encrypted</span>
