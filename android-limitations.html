@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18335731547"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18335731547');
+</script>
   <meta charset="UTF-8" />
   <title>Building Radar on Android – Google Play Policies &amp; Platform Constraints</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -407,6 +416,89 @@
           the platform dictates.
         </li>
       </ul>
+    </div>
+
+    <!-- 4b. April 2026 SMS policy tightening — no more mirror mode -->
+    <div class="limit-card">
+      <div class="card-header">
+        <span class="card-icon">📴</span>
+        <div class="card-title-block">
+          <h2>April 2026 — The End of "Mirror Mode"</h2>
+          <div class="card-subtitle">
+            Reading incoming SMS without replacing your messaging app
+            <span class="status-tag tag-removed">Secondary-handler path closed by Google</span>
+          </div>
+        </div>
+      </div>
+      <ul class="limit-list">
+        <li>
+          <strong>How Radar used to do it.</strong> Originally Radar ran as a lightweight
+          <em>secondary</em> SMS handler — a "mirror". It listened for the
+          <code>SMS_RECEIVED</code> broadcast and read the inbox with <code>READ_SMS</code> /
+          <code>RECEIVE_SMS</code>, so your texts could appear alongside mesh messages
+          <strong>without</strong> Radar ever taking over as your default messaging app. Google
+          Messages (or whatever you use) stayed in charge; Radar just observed.
+        </li>
+        <li>
+          <strong>What changed in April 2026.</strong> Google's updated SMS &amp; Call Log
+          Permissions policy <strong>stopped accepting the "read-only mirror" use-case</strong>.
+          Under the new enforcement the review team <strong>cross-checks the Permissions
+          Declaration Form against the actual manifest</strong>: if an app requests the restricted
+          SMS permissions, it must genuinely be able to become the device's
+          <strong>default SMS handler</strong> — passively mirroring another app's messages is
+          no longer an approved reason to hold those permissions. Radar's build was rejected with
+          <em>"Issue with default handler capability — your app does not satisfy the requirements
+          for default handler capability."</em>
+        </li>
+        <li>
+          <strong>Why "just mirror it" is now impossible.</strong> The old path relied on a
+          non-abortable <code>SMS_RECEIVED</code> listener that <em>coexisted</em> with the real
+          SMS app. Google now treats that coexistence as the abuse vector it wants to close: only
+          <strong>one</strong> app may legitimately touch SMS, and it must be the one the user has
+          deliberately chosen as their default. There is no longer any compliant middle ground
+          between "not touching SMS at all" and "being the full default app."
+        </li>
+        <li class="fix">
+          <strong>How Radar adapted — and why it now needs MORE permissions.</strong> To keep the
+          feature at all, Radar had to become a <em>real, fully-fledged</em> default SMS app that
+          the user can opt into. Being merely able to <em>read</em> messages was the easy part;
+          Android requires a genuine default app to own the <strong>entire</strong> SMS lifecycle,
+          which pulls in a whole extra tier of permissions and components we never needed as a
+          mirror.
+        </li>
+      </ul>
+      <div class="compare-stripe">
+        <div class="stripe-need">
+          <strong>Old "mirror" — minimum footprint</strong>
+          A single <code>SMS_RECEIVED</code> receiver + <code>READ_SMS</code> /
+          <code>RECEIVE_SMS</code>. Radar observed; your existing app stayed in charge and kept
+          persisting messages.
+        </div>
+        <div class="stripe-limit">
+          <strong>New "default handler" — the extra burden</strong>
+          To satisfy Google, Radar must now declare <strong>all four</strong> default-handler
+          components and take on responsibilities a mirror never had:
+          <br />• A <code>SMS_DELIVER</code> receiver guarded by
+          <code>BROADCAST_SMS</code> (the exclusive delivery path for the default app).
+          <br />• A <code>WAP_PUSH_DELIVER</code> receiver guarded by
+          <code>BROADCAST_WAP_PUSH</code> for MMS.
+          <br />• An <code>ACTION_SENDTO</code> compose activity (<code>sms:</code>/<code>mms:</code>).
+          <br />• A <code>RESPOND_VIA_MESSAGE</code> service holding
+          <code>SEND_RESPOND_VIA_MESSAGE</code> (quick-reply from the dialler).
+          <br />Plus Radar must now <strong>write every received message to the system SMS
+          provider itself</strong> — because the default app, not the OS, is responsible for
+          persisting texts.
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.1rem; margin-bottom:0;">
+        ⚖️ <strong>The irony:</strong> a policy meant to <em>reduce</em> how much SMS access apps
+        hold ended up forcing Radar to request <em>substantially more</em>. The privacy-lighter
+        "just mirror my texts" option is gone; the only compliant way to show SMS in Radar is for
+        the user to make Radar their default messaging app outright — and every SMS code path is
+        now gated behind a live <code>RoleManager.isRoleHeld(ROLE_SMS)</code> check, so the moment
+        the user switches their default away, Radar stops reading, receiving and sending SMS
+        completely.
+      </div>
     </div>
 
     <!-- 5. Battery optimisation exemption -->
