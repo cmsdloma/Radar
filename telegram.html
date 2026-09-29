@@ -9,6 +9,14 @@
   gtag('js', new Date());
 
   gtag('config', 'AW-18335731547');
+
+  // Play Store link click tracking (Google Ads conversion)
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href*="play.google.com/store/apps"]');
+    if (link) {
+      gtag('event', 'conversion', {'send_to': 'AW-18335731547/BZWPCO6024odENuelKdE'});
+    }
+  });
 </script>
   <meta charset="UTF-8" />
   <title>Is Telegram Private? Encryption Myths &amp; Real Privacy Risks</title>
