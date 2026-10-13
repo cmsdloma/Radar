@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Connect on Radar</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; background: #1b1b2f; color: #fff;
+         display: flex; min-height: 100vh; align-items: center; justify-content: center; text-align: center; }
+  main { max-width: 26rem; padding: 2rem; }
+  h1 { font-size: 1.6rem; margin-bottom: .5rem; }
+  p { color: #cfcfe6; line-height: 1.4; }
+  a.btn { display: inline-block; margin-top: 1rem; padding: .9rem 1.6rem; border-radius: .6rem;
+          background: #2d7ff9; color: #fff; text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Someone wants to connect with you on Radar</h1>
+  <p>Radar lets nearby people chat and share location without a mobile network.
+     Install it, then scan their code again to connect.</p>
+  <a id="get" class="btn" href="https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar">Get Radar on Google Play</a>
+</main>
+<script>
+  // URL is /c/?u=<uuid>&s=<session>. Both are passed through the Play install referrer so the
+  // app could finish the connection after first launch (the app does not read it yet).
+  var q = new URLSearchParams(location.search);
+  var uuid = q.get('u') || '';
+  var session = q.get('s') || '';
+  if (/^[0-9a-fA-F-]{32,36}$/.test(uuid)) {
+    var ref = 'radar_connect=' + encodeURIComponent(uuid) + (session ? '&s=' + encodeURIComponent(session) : '');
+    document.getElementById('get').href =
+      'https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar&referrer=' + encodeURIComponent(ref);
+  }
+</script>
+</body>
+</html>
