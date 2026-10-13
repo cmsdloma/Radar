@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+	"namespace": "android_app",
+	"package_name": "uk.co.daltechnology.radar",
+	"sha256_cert_fingerprints": [
+	"7C:C8:6C:1C:C1:FC:68:C7:E9:8A:DB:DD:F5:0C:A2:6B:3C:BC:14:A0:D2:F5:3A:54:F1:4F:2B:6F:32:E6:4C:90"
+	  ]
+    }
+  }
+]
