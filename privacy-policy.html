@@ -19,6 +19,10 @@
   });
 </script>
   <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <title>Radar App Privacy Policy – Zero Data Collection &amp; No Account</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Radar privacy policy — what data is collected, how it is used, your rights, and how to contact DAL Technology." />
@@ -280,7 +284,7 @@
       <p>This Privacy Policy explains how DAL Technology ("we", "our", or "us") collects, uses, stores, and shares information when you use the Radar Android application.</p>
       <p>By installing or using Radar you agree to the practices described in this policy. If you do not agree, please uninstall the app and do not use it.</p>
       <div class="callout">
-        Radar is a peer-to-peer mesh communication tool. Some data is temporarily stored on our server strictly to enable peer discovery and message relay — this is explained in full below. <strong style="color:var(--text);">We do not sell, profile, or advertise using your data.</strong>
+        Radar is a peer-to-peer mesh communication tool. Some data is temporarily stored on our server strictly to enable peer discovery and message relay — this is explained in full below. <strong style="color:var(--text);">We do not sell or profile your data, and we do not use your messages, contacts or precise location for advertising.</strong>
       </div>
     </section>
 
@@ -378,7 +382,7 @@
     <section class="pp-section" id="how-we-use">
       <h2>⚙️ How We Use Your Information</h2>
       <p>We use the information described above only for the following purposes:</p>
-      <div class="callout">We do not sell your data, use it for advertising, share it with data brokers, or process it for any purpose beyond those listed below.</div>
+      <div class="callout">We do not sell your data, use your Radar messages, contacts or precise location for advertising, share it with data brokers, or process it for any purpose beyond those listed below. The free tier shows third-party ads (Google AdMob); Premium removes them.</div>
       <ul class="plain-list">
         <li>To power the core peer discovery, messaging, and mapping features of Radar.</li>
         <li>To display your pseudonymous profile (nickname and gender) to nearby Radar peers.</li>
@@ -410,6 +414,7 @@
           <tr><td>Google Places API (Premium)</td><td>Google LLC</td><td>Bounding-box coordinates</td><td>Emergency service POI (hospitals, police, pharmacy)</td></tr>
           <tr><td>HERE Maps API (Premium)</td><td>HERE Global B.V.</td><td>Bounding-box coordinates</td><td>Points of interest and emergency contact data</td></tr>
           <tr><td>WiGLE (Premium)</td><td>WiGLE.net</td><td>Bounding-box coordinates</td><td>Historical Wi-Fi network data overlay</td></tr>
+          <tr><td>Google AdMob (free users only)</td><td>Google LLC</td><td>Advertising ID, IP address, device and ad-interaction information. Not your Radar messages, contacts or precise location.</td><td>Serve advertising to users without an active Premium subscription. In the EEA and UK, consent is requested before ads are loaded.</td></tr>
           <tr><td>Matrix homeserver (optional)</td><td>Server you configure, or our built-in support server</td><td>Messages, media, room membership</td><td>Federated group chat via the Matrix protocol</td></tr>
         </tbody>
       </table>
@@ -515,7 +520,7 @@
       <ul class="plain-list">
         <li>Your current location is sent to our relay server and stored in one record per device (no history — each update overwrites the previous position).</li>
         <li>Location is shared with other Radar peers who query for nearby devices within your configured discovery range.</li>
-        <li>Location is not used for advertising or profiling.</li>
+        <li>Your precise location is not used for advertising or profiling. Ads shown to free users are served by Google AdMob, which may use approximate, IP-derived location.</li>
         <li>You can disable location sharing at any time via the app's Privacy Settings or by revoking the location permission in Android Settings.</li>
         <li>A persistent foreground service notification is shown whenever background location is active, in compliance with Android requirements.</li>
       </ul>

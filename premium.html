@@ -19,21 +19,25 @@
   });
 </script>
   <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <title>Radar Basic vs Premium – What's Included in Each Plan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Radar is a paid app. See exactly what's included in Basic with no subscription, and what unlocks with a Premium subscription." />
+  <meta name="description" content="Radar is free to install. See exactly what's included in Basic with no subscription, and what unlocks with Premium (£1.99/month, first month free)." />
   <link rel="canonical" href="https://www.radar-chat.app/premium.html" />
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="Radar – Off-Grid Communication App" />
   <meta property="og:url"         content="https://www.radar-chat.app/premium.html" />
   <meta property="og:title"       content="Radar Basic vs Premium – What's Included in Each Plan" />
-  <meta property="og:description" content="Radar is a paid app. See exactly what's included in Basic with no subscription, and what unlocks with a Premium subscription." />
+  <meta property="og:description" content="Radar is free to install. See exactly what's included in Basic with no subscription, and what unlocks with Premium (£1.99/month, first month free)." />
   <meta property="og:image"       content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary" />
   <meta name="twitter:title"       content="Radar Basic vs Premium – What's Included in Each Plan" />
-  <meta name="twitter:description" content="Radar is a paid app. See exactly what's included in Basic with no subscription, and what unlocks with a Premium subscription." />
+  <meta name="twitter:description" content="Radar is free to install. See exactly what's included in Basic with no subscription, and what unlocks with Premium (£1.99/month, first month free)." />
   <meta name="twitter:image"       content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -274,17 +278,17 @@
   <!-- ── HERO ── -->
   <div class="pm-hero">
     <h1>Basic vs <em>Premium</em></h1>
-    <p>Radar is a paid app. Once you own it, you get everything in Basic with no subscription — and a Premium subscription adds web-powered extras on top. All tiers include full encryption and privacy.</p>
+    <p>Radar is free to install. Basic is free to use with no subscription (with ads) — and a Premium subscription removes the ads and adds web-powered extras on top. Your first month of Premium is free. All tiers include full encryption and privacy.</p>
     <div class="price-row">
       <div class="price-pill">
         <span class="pill-label">Basic</span>
-        <span class="pill-price">Included</span>
-        <span class="pill-sub">no subscription</span>
+        <span class="pill-price">Free</span>
+        <span class="pill-sub">no subscription · shows ads</span>
       </div>
       <div class="price-pill premium-pill">
         <span class="pill-label">Premium</span>
-        <span class="pill-price amber">£0.99</span>
-        <span class="pill-sub">per month · cancel anytime</span>
+        <span class="pill-price amber">£1.99</span>
+        <span class="pill-sub">per month · first month free · cancel anytime</span>
       </div>
     </div>
   </div>
@@ -311,7 +315,7 @@
           <th class="col-feature" scope="col"></th>
           <th class="col-free" scope="col">
             <div class="col-header free-header">
-              <span class="col-tier-label">Included</span>
+              <span class="col-tier-label">Free</span>
               <span class="col-tier-name">Basic</span>
               <span class="col-tier-price">No subscription</span>
             </div>
@@ -320,7 +324,7 @@
             <div class="col-header premium-header">
               <span class="col-tier-label">Subscription</span>
               <span class="col-tier-name">Premium</span>
-              <span class="col-tier-price">£0.99 / month</span>
+              <span class="col-tier-price">£1.99 / month · 1st month free</span>
             </div>
           </th>
         </tr>
@@ -344,6 +348,11 @@
         <tr class="feature-row" data-common="false">
           <td class="feature-name">Start a chat with a new contact<small>Initiate first contact with a peer you haven't spoken to before</small></td>
           <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Voice &amp; video calls with new contacts<small>Radar-to-Radar calls with peers who aren't yet friends or in direct range. Calls with existing friends are free</small></td>
+          <td class="cell-free"><span class="limited">Friends only</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
         <tr class="feature-row" data-common="true">
@@ -431,10 +440,10 @@
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row" data-common="true">
-          <td class="feature-name">Earthquakes &amp; seismic events on map</td>
-          <td class="cell-free"><span class="tick">✔</span></td>
-          <td class="cell-premium"><span class="tick">✔</span></td>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Live earthquake layer on map<small>Seismic regions from the Radar data service. Basic still gets earthquakes via the built-in curated feeds below</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
         </tr>
         <tr class="feature-row" data-common="false">
           <td class="feature-name">Points of interest (POI)<small>Basic: taps open in Google Maps</small></td>
@@ -448,6 +457,41 @@
         </tr>
         <tr class="feature-row" data-common="false">
           <td class="feature-name">WiGLE Wi-Fi AP lookup on map<small>Crowd-sourced Wi-Fi access points near you</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Live vessels on map (AIS)<small>Real-time ship and boat positions</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Wildfire hotspots on map (NASA FIRMS)<small>Satellite-detected active fires, refreshed daily</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Business &amp; phone-number POIs<small>Contact details, phone icons and one-tap calling on map points of interest</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">Webcams on map<small>Live public camera locations</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">UK flood areas &amp; weather warnings<small>UK only — flood warning areas and Met Office severe weather warnings</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">UK crime data<small>UK only — recorded crime data shown on the map</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
+          <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
+        </tr>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">UK air pollution data<small>UK only — local air-quality readings on the map</small></td>
           <td class="cell-free"><span class="cross">✕</span></td>
           <td class="cell-premium"><span class="tick">✔</span> <span class="premium-badge">Premium</span></td>
         </tr>
@@ -476,9 +520,9 @@
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
-        <tr class="feature-row" data-common="true">
-          <td class="feature-name">No advertising — ever</td>
-          <td class="cell-free"><span class="tick">✔</span></td>
+        <tr class="feature-row" data-common="false">
+          <td class="feature-name">No ads<small>Free tier shows Google AdMob ads; Premium removes them</small></td>
+          <td class="cell-free"><span class="cross">✕</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
 
@@ -578,7 +622,7 @@
 
       <div class="faq-item">
         <p class="faq-q">Is Radar free, or do I have to pay?</p>
-        <p class="faq-a">Radar is a <strong>paid app</strong> — you purchase it once from Google Play. After that, the <strong>Basic</strong> tier is included with no subscription, and an optional <strong>Premium</strong> subscription (£0.99/month) adds web-powered extras. So there's a one-off cost for the app itself, and Premium is the only recurring charge.</p>
+        <p class="faq-a">Radar is <strong>free to install</strong> from Google Play, and the <strong>Basic</strong> tier is free to use with no subscription — it shows ads. An optional <strong>Premium</strong> subscription (£1.99/month, <strong>first month free</strong>) removes the ads and adds web-powered extras. Premium is the only recurring charge, and there is no charge for the app itself.</p>
       </div>
 
       <div class="faq-item">
@@ -608,7 +652,7 @@
 
       <div class="faq-item">
         <p class="faq-q">Are more Premium features coming?</p>
-        <p class="faq-a">Yes. The roadmap includes voice &amp; video calls, large file transfers over LAN, offline map tile caching, and disappearing messages. Premium subscribers get access to new features as they ship.</p>
+        <p class="faq-a">Yes. The roadmap includes large file transfers over LAN, offline map tile caching, and disappearing messages. Premium subscribers get access to new features as they ship.</p>
       </div>
     </div>
 

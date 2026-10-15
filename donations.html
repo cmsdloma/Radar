@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18335731547"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18335731547');
+
+  // Play Store link click tracking (Google Ads conversion)
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href*="play.google.com/store/apps"]');
+    if (link) {
+      gtag('event', 'conversion', {'send_to': 'AW-18335731547/BZWPCO6024odENuelKdE'});
+    }
+  });
+</script>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <title>Support Radar – Help Keep Independent Off-Grid Communication Alive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Radar is built and funded by one independent developer, and has not yet made a profit. Your donation directly pays for development and the live data services behind the app." />
+  <link rel="canonical" href="https://www.radar-chat.app/donations.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Radar – Off-Grid Communication App" />
+  <meta property="og:url"         content="https://www.radar-chat.app/donations.html" />
+  <meta property="og:title"       content="Support Radar – Help Keep Independent Off-Grid Communication Alive" />
+  <meta property="og:description" content="Radar is built and funded by one independent developer, and has not yet made a profit. Your donation directly pays for development and the live data services behind the app." />
+  <meta property="og:image"       content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="Support Radar – Help Keep Independent Off-Grid Communication Alive" />
+  <meta name="twitter:description" content="Radar is built and funded by one independent developer, and has not yet made a profit. Your donation directly pays for development and the live data services behind the app." />
+  <meta name="twitter:image"       content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --accent-teal:  #4ab5ff;
+      --accent-green: #33ffcc;
+      --accent-amber: #ffe16b;
+      --accent-warn:  #ff6868;
+      --accent-pink:  #ff71c8;
+      --paypal-blue:  #0070BA;
+
+      --max-width: 2400px;
+      --page-pad:  max(1.25rem, 3vw);
+    }
+
+    /* ── Sticky nav ── */
+    .site-nav { position: sticky; top: 0; z-index: 50; background: linear-gradient(to bottom, rgba(5,8,20,0.97), rgba(5,8,20,0.9)); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(74,181,255,0.22); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem var(--page-pad); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: #4ab5ff; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.78rem; flex-wrap: wrap; }
+    .nav-links a { padding: 0.28rem 0.55rem; border-radius: 999px; white-space: nowrap; color: var(--muted); transition: background 0.18s, color 0.18s; }
+    .nav-links a:hover, .nav-links a.nav-active { background: rgba(74,181,255,0.08); color: var(--accent-teal); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* ── Hero ── */
+    .don-hero { padding: 3rem 1cm 1.5rem; text-align: center; }
+    .don-hero .eyebrow { display: inline-block; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-amber); border: 1px solid rgba(255,225,107,0.3); border-radius: 999px; padding: 0.28rem 0.8rem; margin-bottom: 1rem; }
+    .don-hero .big-heart {
+      width: 64px; height: 64px; margin: 0 auto 1.1rem; border-radius: 50%;
+      background: rgba(255,113,200,0.08); border: 1px solid rgba(255,113,200,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 0 30px rgba(255,113,200,0.18);
+    }
+    .don-hero h1 { font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 800; margin: 0 0 0.75rem; line-height: 1.15; }
+    .don-hero h1 em { font-style: normal; color: var(--accent-teal); }
+    .don-hero p { color: var(--muted); font-size: 0.98rem; max-width: 680px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── Wrap ── */
+    .don-wrap { padding: 0 1cm 4rem; max-width: 1100px; margin: 0 auto; }
+
+    /* ── Section headings ── */
+    .section-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent-teal); margin: 2.5rem 0 1rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .section-label::after { content: ""; flex: 1; height: 1px; background: rgba(74,181,255,0.18); }
+
+    /* ── Story banner ── */
+    .story-note {
+      background: rgba(255,225,107,0.04); border: 1px solid rgba(255,225,107,0.18);
+      border-left: 3px solid var(--accent-amber); border-radius: 0 12px 12px 0;
+      padding: 1.35rem 1.6rem; font-size: 0.93rem; color: var(--muted); line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .story-note p { margin: 0 0 0.85rem; }
+    .story-note p:last-child { margin-bottom: 0; }
+    .story-note strong { color: var(--text); }
+    .story-note a { color: var(--accent-teal); }
+
+    .rev-list { margin: 0 0 0.85rem; padding-left: 1.3rem; }
+    .rev-list li { margin-bottom: 0.35rem; }
+
+    /* ── Revenue pie chart ── */
+    .pie-fig {
+      margin: 1.25rem 0 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.5rem 2.5rem;
+      background: rgba(11,16,32,0.7); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1.5rem;
+    }
+    .pie-svg { width: 220px; height: 220px; flex-shrink: 0; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45)); }
+    .pie-fig figcaption { flex: 1 1 280px; max-width: 460px; }
+    .pie-legend { list-style: none; padding: 0; margin: 0 0 0.9rem; font-size: 0.86rem; color: var(--muted); }
+    .pie-legend li { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .pie-legend li:last-child { border-bottom: none; }
+    .pie-legend .sw { width: 0.85rem; height: 0.85rem; border-radius: 3px; flex-shrink: 0; margin-top: 0.15rem; }
+    .pie-legend li span:nth-child(2) { flex: 1; }
+    .pie-legend b { color: var(--text); font-variant-numeric: tabular-nums; }
+    .pie-caption { font-size: 0.74rem; color: #7c92c9; line-height: 1.6; margin: 0; }
+
+    /* ── Where the money goes ── */
+    .cost-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .cost-card {
+      background: rgba(11,16,32,0.7); border: 1px solid var(--border-subtle);
+      border-radius: 14px; padding: 1.25rem 1.4rem;
+    }
+    .cost-card .cost-icon { font-size: 1.5rem; display: block; margin-bottom: 0.6rem; }
+    .cost-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 0 0 0.35rem; }
+    .cost-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    .exp-list { list-style: none; padding: 0; margin: 0.4rem 0 0; font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+    .exp-list li { padding-left: 1.2rem; position: relative; margin-bottom: 0.4rem; }
+    .exp-list li::before { content: "•"; position: absolute; left: 0.1rem; color: var(--accent-teal); }
+    .exp-note { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin: 1rem 0 0; }
+
+    /* ── Principles list ── */
+    .why-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
+    .why-list li {
+      background: rgba(11,16,32,0.55); border: 1px solid var(--border-subtle); border-radius: 12px;
+      padding: 0.95rem 1.2rem 0.95rem 2.6rem; position: relative;
+      font-size: 0.88rem; color: var(--muted); line-height: 1.65;
+    }
+    .why-list li::before { content: "✓"; position: absolute; left: 1rem; top: 0.9rem; color: var(--accent-green); font-weight: 800; }
+    .why-list li strong { color: var(--text); }
+
+    /* ══════════════════════════════════════════════
+       DONATE CARD — same look as the in-app and
+       thank-you page "Support Radar" card
+    ══════════════════════════════════════════════ */
+    .donate-card {
+      background: linear-gradient(160deg, #10184a 0%, #0b1338 100%);
+      border: 1px solid rgba(74,181,255,0.25); border-radius: 16px;
+      padding: 1.75rem 1.85rem; box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+    }
+    .donate-header { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.9rem; }
+    .donate-header .heart { font-size: 1.6rem; line-height: 1; }
+    .donate-header h2 { font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0; }
+    .donate-tagline { font-size: 0.92rem; color: #cddbff; line-height: 1.7; margin: 0 0 1.1rem; }
+    .donate-cta-text { font-size: 0.88rem; color: #cddbff; line-height: 1.7; margin: 0 0 1.25rem; }
+    .donate-cta-text strong { color: #fff; }
+    .donate-disclaimer {
+      font-size: 0.74rem; color: #7c92c9; line-height: 1.6; margin: 0 0 1.35rem;
+      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 0.9rem;
+    }
+    .donate-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.55rem;
+      width: 100%; background: var(--paypal-blue); color: #fff;
+      font-size: 1rem; font-weight: 700; text-align: center;
+      padding: 1rem 1.25rem; border-radius: 10px; letter-spacing: 0.01em;
+      box-shadow: 0 10px 25px rgba(0,112,186,0.35);
+      transition: filter 0.18s, transform 0.15s;
+    }
+    .donate-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .donate-btn .btn-heart { font-size: 1rem; }
+    .donate-small { text-align: center; margin: 0.9rem 0 0; font-size: 0.78rem; color: #7c92c9; }
+
+    /* ── Other ways to help ── */
+    .help-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+    .help-card {
+      background: rgba(11,16,32,0.7); border: 1px solid var(--border-subtle);
+      border-radius: 14px; padding: 1.25rem 1.4rem; text-decoration: none; display: block;
+      transition: border-color 0.18s, transform 0.15s, background 0.18s;
+    }
+    .help-card:hover { border-color: rgba(74,181,255,0.45); background: rgba(74,181,255,0.05); transform: translateY(-2px); }
+    .help-card .help-icon { font-size: 1.5rem; display: block; margin-bottom: 0.6rem; }
+    .help-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 0 0 0.35rem; }
+    .help-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
+    .help-card .help-arrow { color: var(--accent-teal); font-size: 0.78rem; font-weight: 700; display: inline-block; margin-top: 0.65rem; }
+
+    /* ── Footer ── */
+    .bt-footer {
+      position: sticky; bottom: 0; z-index: 40;
+      border-top: 1px solid rgba(74,181,255,0.35);
+      background: linear-gradient(to bottom, #0d2860 0%, transparent 100%), #040614;
+      padding: 0.85rem var(--page-pad);
+    }
+    .bt-footer-inner {
+      max-width: var(--max-width); margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 0.5rem 1.5rem;
+    }
+    .bt-footer-badge { flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem; }
+    .apple-badge { display: block; transition: opacity 0.2s, transform 0.2s; }
+    .apple-badge:hover { opacity: 0.85; transform: translateY(-1px); }
+    .apple-badge img { display: block; height: 34px; width: auto; border-radius: 5px; }
+    .play-badge { display: block; transition: opacity 0.2s, transform 0.2s; }
+    .play-badge:hover { opacity: 0.85; transform: translateY(-1px); }
+    .play-badge img { display: block; height: 34px; width: auto; border-radius: 5px; }
+    .bt-footer-links {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.1rem;
+      font-size: 0.75rem; color: #fff;
+    }
+    .bt-footer-links a { color: #fff; padding: 0.15rem 0.45rem; border-radius: 999px; transition: color 0.18s, background 0.18s; white-space: nowrap; }
+    .bt-footer-links a:hover { color: var(--accent-teal); background: rgba(74,181,255,0.15); }
+    .bt-footer-links .sep { color: rgba(255,255,255,0.35); padding: 0 0.1rem; user-select: none; }
+    .bt-footer-copy {
+      font-size: 0.72rem; color: rgba(255,255,255,0.55); white-space: nowrap;
+    }
+    .bt-footer-icon { flex-shrink: 0; display: block; transition: opacity 0.2s, transform 0.2s; }
+    .bt-footer-icon:hover { opacity: 0.8; transform: translateY(-1px); }
+    .bt-footer-icon img { display: block; height: 30px; width: 30px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" width="28" height="28" />
+      Radar
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="scenarios.html">Scenarios</a></li>
+      <li><a href="emergency.html">Emergency</a></li>
+      <li><a href="prepper.html">Prepper Guide</a></li>
+      <li><a href="censorship.html">Censorship</a></li>
+      <li><a href="surveillance.html">Surveillance</a></li>
+      <li><a href="matrix.html">Matrix</a></li>
+      <li><a href="feeds.html">Feeds</a></li>
+      <li><a href="android-radio-tech.html">Radio Tech</a></li>
+      <li><a href="compare_features.html">Compare Features</a></li>
+      <li><a href="compare_life360.html">vs Life360</a></li>
+      <li><a href="compare_mesh_chat.html">Mesh Chat Landscape</a></li>
+      <li><a href="compare_privacy.html">Compare Privacy</a></li>
+      <li><a href="whatsapp.html">WhatsApp</a></li>
+      <li><a href="telegram.html">Telegram</a></li>
+      <li><a href="signal.html">Signal</a></li>
+      <li><a href="android-limitations.html">Android</a></li>
+      <li><a href="ios-limitations.html">iOS</a></li>
+      <li><a href="premium.html">Premium</a></li>
+      <li><a href="release-notes.html">Releases</a></li>
+      <li><a href="beta-testing.html">Beta Testing</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="donations.html" class="nav-active">Donate</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <div class="don-hero">
+    <div class="big-heart">❤️</div>
+    <span class="eyebrow">Support Radar</span>
+    <h1>Help Keep Radar<br><em>Independent</em></h1>
+    <p>Radar is designed, built, and funded by a single independent developer. It exists to keep people connected when networks fail &mdash; and it can only keep doing that with the support of the people who use it.</p>
+  </div>
+
+  <div class="don-wrap">
+
+    <!-- ════════════════════════════════════════════
+         THE STORY SO FAR
+    ════════════════════════════════════════════ -->
+    <div class="section-label">The story so far</div>
+
+    <div class="story-note">
+      <p>
+        <strong>Radar has cost thousands of pounds to build and to run &mdash; and, to date, it has not made a penny of profit.</strong>
+        Every hour of development, and every month of server and data-service bills, has been paid for out of pocket.
+      </p>
+      <p>
+        That was a deliberate choice. Radar has no investors, no shareholders, and no advertising-driven growth targets, and it does not sell
+        your data. The trade-off is that the project has no financial cushion: its future depends directly on the people who find it valuable.
+      </p>
+      <p>
+        If Radar is useful to you, we would sincerely ask you to consider making a donation. Contributions of any size make a real difference
+        at this stage, and they are the most direct way to ensure that Radar continues to be developed, maintained, and available.
+      </p>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         WHERE THE MONEY GOES
+    ════════════════════════════════════════════ -->
+    <div class="section-label">Where your donation goes</div>
+
+    <div class="cost-grid">
+      <div class="cost-card">
+        <span class="cost-icon">🛠️</span>
+        <h3>Development</h3>
+        <p>Engineering, testing, and maintenance across a wide range of Android devices and OS versions &mdash; including the unglamorous work of keeping Bluetooth, Wi-Fi Aware, and background services reliable.</p>
+      </div>
+      <div class="cost-card">
+        <span class="cost-icon">🗺️</span>
+        <h3>Commercial data services</h3>
+        <p>Live maps, places, traffic, weather, and aircraft and marine data come from commercial providers that bill per request. These costs scale with every user and are paid in full by the project.</p>
+      </div>
+      <div class="cost-card">
+        <span class="cost-icon">☁️</span>
+        <h3>Servers &amp; infrastructure</h3>
+        <p>The cloud relay, push notifications, and databases that let Radar fall back to the internet when no nearby peers are in range, and keep emergency feeds current.</p>
+      </div>
+      <div class="cost-card">
+        <span class="cost-icon">🌍</span>
+        <h3>Wider device &amp; language support</h3>
+        <p>Translations, new-device compatibility work, and the testing needed to make Radar dependable for people in many countries, not just one.</p>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         EXPENSES IN DETAIL
+    ════════════════════════════════════════════ -->
+    <div class="section-label">Running costs in detail</div>
+
+    <div class="cost-grid">
+      <div class="cost-card">
+        <span class="cost-icon">🏗️</span>
+        <h3>Hosting &amp; infrastructure</h3>
+        <ul class="exp-list">
+          <li>Oracle Cloud hosting of the Oracle AI Database that stores and serves all of Radar&rsquo;s data</li>
+          <li>Oracle Cloud hosting of the compute server that runs the Matrix homeserver and other back-end services</li>
+          <li>Google Cloud services, including push notifications, app crash reporting and translation</li>
+          <li>Domain names and DNS</li>
+          <li>Transactional email delivery</li>
+        </ul>
+      </div>
+      <div class="cost-card">
+        <span class="cost-icon">📡</span>
+        <h3>Paid data services &amp; APIs</h3>
+        <ul class="exp-list">
+          <li>Place and point-of-interest search, including emergency services such as hospitals, pharmacies and police stations</li>
+          <li>Live traffic and road-incident data</li>
+          <li>Weather forecasts and severe-weather alerts</li>
+          <li>Live aircraft tracking</li>
+          <li>Marine vessel search and positions</li>
+          <li>Wi-Fi network location lookups</li>
+          <li>Public webcam directories</li>
+          <li>Rail and transport live-tracking feeds</li>
+        </ul>
+      </div>
+      <div class="cost-card">
+        <span class="cost-icon">📣</span>
+        <h3>Platform &amp; promotion</h3>
+        <ul class="exp-list">
+          <li>Google Ads, so that people who need Radar can find it</li>
+          <li>Google Play developer account and app-store billing</li>
+          <li>Development tools, testing devices and software licences</li>
+        </ul>
+      </div>
+    </div>
+    <p class="exp-note">
+      Many providers include a small free allowance, and Radar enforces daily limits on every metered service to keep costs under control &mdash;
+      but usage beyond those allowances is billed, and the infrastructure above is paid for every month regardless of how many people use the app.
+    </p>
+
+    <!-- ════════════════════════════════════════════
+         WHAT A SUBSCRIPTION ACTUALLY LEAVES
+    ════════════════════════════════════════════ -->
+    <div class="section-label">Why app revenue doesn&rsquo;t stretch far</div>
+
+    <div class="story-note">
+      <p>
+        <strong>Radar is free to install, and the £1.99/month Premium subscription is its only source of revenue &mdash; and only a fraction of each payment reaches the project.</strong> For each subscription payment:
+      </p>
+      <ul class="rev-list">
+        <li><strong>20% UK VAT</strong> is included in the price you pay: <strong>£0.33</strong> of the £1.99, leaving about <strong>£1.66</strong>.</li>
+        <li><strong>Google Play&rsquo;s 15% service fee</strong> on subscriptions takes roughly <strong>£0.25</strong> more, leaving about <strong>£1.41</strong>.</li>
+        <li>Any profit that remains is then taxed by HMRC at the UK additional rate: <strong>45% income tax</strong> (plus National Insurance) &mdash; about <strong>£0.63</strong> of that £1.41 if it were all profit.</li>
+        <li>Before any profit exists, that remainder must first cover the <strong>data-service, server, and development costs</strong> above.</li>
+      </ul>
+      <p>
+        With a single, modest revenue stream, subscriptions alone have not yet covered the cost of the project. A direct donation avoids Google&rsquo;s fee
+        (PayPal&rsquo;s small transaction fee still applies), so more of what you give is available to keep Radar running.
+      </p>
+    </div>
+
+    <figure class="pie-fig">
+      <svg class="pie-svg" viewBox="0 0 220 220" role="img" aria-labelledby="pie-title pie-desc">
+        <title id="pie-title">Where a £1.99 monthly subscription goes</title>
+        <desc id="pie-desc">VAT £0.33, Google £0.25, HMRC £0.63, data services and running costs £0.78, developer income £0.00.</desc>
+        <path d="M110 110 L110.00 10.00 A100 100 0 0 1 196.34 59.54 Z"  fill="#ff6868" stroke="#050814" stroke-width="1.5" />
+        <path d="M110 110 L196.34 59.54 A100 100 0 0 1 206.63 135.75 Z" fill="#ffe16b" stroke="#050814" stroke-width="1.5" />
+        <path d="M110 110 L206.63 135.75 A100 100 0 0 1 47.21 187.83 Z" fill="#b48eff" stroke="#050814" stroke-width="1.5" />
+        <path d="M110 110 L47.21 187.83 A100 100 0 0 1 110.00 10.00 Z"  fill="#4ab5ff" stroke="#050814" stroke-width="1.5" />
+        <line x1="110" y1="110" x2="110" y2="10" stroke="#33ffcc" stroke-width="0.6" />
+      </svg>
+      <figcaption>
+        <ul class="pie-legend">
+          <li><span class="sw" style="background:#ff6868"></span><span>UK VAT (20%)</span><b>£0.33</b></li>
+          <li><span class="sw" style="background:#ffe16b"></span><span>Google Play service fee (15%)</span><b>£0.25</b></li>
+          <li><span class="sw" style="background:#b48eff"></span><span>HMRC income tax (45%)</span><b>£0.63</b></li>
+          <li><span class="sw" style="background:#4ab5ff"></span><span>Data services &amp; running costs</span><b>£0.78</b></li>
+          <li><span class="sw" style="background:#33ffcc;height:2px;margin-top:0.45rem"></span><span>The developer&rsquo;s income</span><b>£0.00</b></li>
+        </ul>
+        <p class="pie-caption">
+          Illustration of a single £1.99 monthly payment. The HMRC slice shows tax as if the whole remainder were profit; in practice costs
+          are deducted first, and no income tax is due while the project runs at a loss.
+        </p>
+      </figcaption>
+    </figure>
+
+    <!-- ════════════════════════════════════════════
+         WHY IT MATTERS
+    ════════════════════════════════════════════ -->
+    <div class="section-label">Why independence matters</div>
+
+    <ul class="why-list">
+      <li><strong>Your data is not the product.</strong> Radar is built for private, off-grid communication, with no tracking of your location for profit.</li>
+      <li><strong>Resilience has to be funded.</strong> Tools that work during disasters, outages, and censorship need ongoing upkeep, not just a one-off launch.</li>
+      <li><strong>Direct support keeps decisions in users&rsquo; hands.</strong> Donations let the project prioritise reliability and safety over whatever generates the most revenue.</li>
+    </ul>
+
+    <!-- ════════════════════════════════════════════
+         DONATE
+    ════════════════════════════════════════════ -->
+    <div class="section-label" style="margin-top:3rem;">Make a donation</div>
+
+    <div class="donate-card">
+      <div class="donate-header">
+        <span class="heart">❤️</span>
+        <h2>Support Radar</h2>
+      </div>
+
+      <p class="donate-tagline">
+        Radar is a small, independent project that is currently funded entirely by its developer. Every contribution &mdash; whatever its size &mdash;
+        goes directly toward the cost of keeping the app running and improving.
+      </p>
+
+      <p class="donate-cta-text">
+        <strong>If Radar has been useful to you, please consider donating today.</strong> Your support is what allows the project to continue,
+        and it is genuinely appreciated. Thank you.
+      </p>
+
+      <p class="donate-disclaimer">
+        ⚠️ Donations are entirely voluntary and confer no reward, benefit, premium feature, or preferential treatment of any kind. Radar features are the same regardless of whether a donation is made.
+      </p>
+
+      <a class="donate-btn" href="https://paypal.me/cmsdloma" target="_blank" rel="noopener">
+        <span class="btn-heart">❤️</span> Donate via PayPal
+      </a>
+
+      <p class="donate-small">Secure payment handled by PayPal. You can choose your own amount.</p>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         OTHER WAYS TO HELP
+    ════════════════════════════════════════════ -->
+    <div class="section-label">Other ways to help</div>
+
+    <div class="help-grid">
+      <a class="help-card" href="premium.html">
+        <span class="help-icon">⭐</span>
+        <h3>Subscribe to Premium</h3>
+        <p>Premium removes ads and unlocks live web-powered extras, and it directly funds the data services behind them.</p>
+        <span class="help-arrow">See what Premium includes →</span>
+      </a>
+      <a class="help-card" href="https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar" target="_blank" rel="noopener">
+        <span class="help-icon">⭐</span>
+        <h3>Leave a review</h3>
+        <p>A short, honest rating on Google Play helps other people discover Radar &mdash; and costs nothing.</p>
+        <span class="help-arrow">Open Google Play →</span>
+      </a>
+      <a class="help-card" href="mailto:support@daltechnology.co.uk">
+        <span class="help-icon">💬</span>
+        <h3>Share feedback</h3>
+        <p>Bug reports, feature requests, and real-world stories all help shape what gets built next.</p>
+        <span class="help-arrow">Get in touch →</span>
+      </a>
+    </div>
+
+  </div><!-- /don-wrap -->
+</main>
+
+<footer class="bt-footer">
+  <div class="bt-footer-inner">
+
+    <!-- Play Store badge -->
+    <div class="bt-footer-badge">
+      <a class="play-badge"
+         href="https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar"
+         target="_blank" rel="noopener"
+         aria-label="Get Radar on Google Play">
+        <img src="images/play_store_logo.webp" alt="Get it on Google Play" />
+      </a>
+      <a class="apple-badge" href="ios-limitations.html" aria-label="iOS limitations">
+        <img src="images/Not_in_the_Apple_Store.webp" alt="Not in the Apple Store" />
+      </a>
+    </div>
+
+    <!-- Nav links -->
+    <nav class="bt-footer-links" aria-label="Footer navigation">
+      <a href="http://www.daltechnology.co.uk" target="_blank" rel="noopener">DAL Technology</a>
+      <span class="sep">·</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="sep">·</span>
+      <a href="release-notes.html">Release Notes</a>
+      <span class="sep">·</span>
+      <span>&#x1F36A;&nbsp;We don&rsquo;t use cookies</span>
+    </nav>
+
+    <!-- Copyright -->
+    <div class="bt-footer-copy">
+      &copy; 2026 DAL Technology &nbsp;&middot;&nbsp; Android is a trademark of Google LLC
+    </div>
+
+    <!-- Radar icon -->
+    <a href="index.html" class="bt-footer-icon" aria-label="Radar home">
+      <img src="assets/App_Icon_blueradar.png" alt="Radar" />
+    </a>
+
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
