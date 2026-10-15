@@ -92,6 +92,7 @@
     .vtag-alpha  { background: rgba(74,181,255,0.12); color: #4ab5ff; border: 1px solid rgba(74,181,255,0.3); }
     .vtag-latest { background: rgba(74,181,255,0.1);  color: var(--accent-teal); border: 1px solid rgba(74,181,255,0.3); }
     .vtag-internal { background: rgba(255,225,107,0.08); color: var(--accent-amber); border: 1px solid rgba(255,225,107,0.25); }
+    .vtag-prod   { background: rgba(80,200,120,0.1); color: #5fd38d; border: 1px solid rgba(80,200,120,0.3); }
 
     .version-date { margin-left: auto; font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
     .version-build { font-size: 0.76rem; color: var(--muted); padding: 0.4rem 1.5rem 0; opacity: 0.7; }
@@ -231,6 +232,7 @@
       <li><a href="beta-testing.html">Beta Testing</a></li>
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="donations.html">Donate</a></li>
     </ul>
   </div>
 </nav>
@@ -246,13 +248,508 @@
   <div class="rn-wrap">
 
     <!-- ══════════════════════════════════════════════
-         v0.9.8 — Closed Alpha (Latest)
+         v1.500 — Production (Latest)
     ══════════════════════════════════════════════ -->
     <div class="version-card latest">
       <div class="version-header">
+        <span class="version-number">v1.500</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="vtag vtag-latest">✔ Latest</span>
+        <span class="version-date">15 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 41 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Matrix room directory browser</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Pick a Matrix server (matrix.org by default) and browse its public rooms in a scrolling list with a "Load more rooms…" button and server-side search, instead of typing a room address by hand. You still connect through Radar's own homeserver, so you are never sent to an overloaded public one.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Joined Matrix rooms appear in your chat list</strong>
+              <span class="note">A room you join is now added to your Chats list straight away, and recent history is loaded so the chat is no longer empty on first open.</span>
+            </li>
+            <li>
+              <strong>Clearer Premium upgrade prompt</strong>
+              <span class="note">The Premium upgrade dialog now lists more of the Premium data layers and features.</span>
+            </li>
+            <li>
+              <strong>Cleaner member sorting and dialog buttons</strong>
+              <span class="note">The Sort Members control is now a compact A–Z / 1–2–3 icon like the device lists, and the dialog buttons match the rest of the app.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.400 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.400</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">14 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 40</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Radar view layers dialog</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The eight Radar-view toggles that lived in Settings → Appearance have moved into a layers dialog styled like the Map layers dialog, with a "Toggle All" option. Ships/boats can now also be shown on the Radar view.</span>
+            </li>
+            <li>
+              <strong>Premium layers are visible, but locked</strong>
+              <span class="chip chip-premium">Premium</span>
+              <span class="note">Premium layers are no longer hidden from free users. They appear greyed out with a yellow padlock, and tapping one opens the Premium upgrade dialog. "No ads" is now listed first in the Premium Mode settings.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>UK-only layers hidden outside the UK</strong>
+              <span class="note">UK-specific options are hidden from both layer dialogs when the detected country isn't the UK, and the UK-only static data is only downloaded for users in the UK. Country borders are fetched first as part of the startup sequence.</span>
+            </li>
+            <li>
+              <strong>No repeated Contacts permission prompts</strong>
+              <span class="note">The Contacts page no longer asks for permission every time it opens. If you grant it later, Contacts start working straight away.</span>
+            </li>
+            <li>
+              <strong>Radar layers list spacing</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Uneven spacing at the top of the Radar layers list is fixed, and there is a small gap between the layers and refresh buttons.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.300 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.300</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">13 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 39</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>"Scan my code" QR connect, now as a link</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The QR code screen has an animated "SCAN – MY – CODE" headline. QR codes now contain a radar-chat.app link, so someone without Radar who scans it with their camera is taken to the website, while older Radar QR codes can still be scanned.</span>
+            </li>
+            <li>
+              <strong>Country availability check</strong>
+              <span class="note">After location access is granted, Radar checks which country you are in using a country-borders file downloaded to the device (no location is sent to a server for this). Radar isn't available in a small number of sanctioned countries. Once a check has passed it isn't repeated, so travelling doesn't interrupt the app.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Notification taps open the chat</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Tapping a new-message notification now opens that chat instead of staying on the home screen.</span>
+            </li>
+            <li>
+              <strong>App not responding when sending winks or messages</strong>
+              <span class="chip chip-critical">Critical</span>
+              <span class="note">Fixed hangs (ANRs) when sending a wink or a chat message, and when a message arrives in an open chat. Several voice/video-call native crashes were also addressed.</span>
+            </li>
+            <li>
+              <strong>Contacts page empty without Contacts permission</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Radar peers are now shown even if Android Contacts access hasn't been granted, with a one-line note explaining the missing access.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Fewer interruptions</strong>
+              <span class="note">The "Bluetooth is off" prompt, the Premium upgrade prompt and ads now wait until you've been idle for a few seconds and aren't on a setup or profile screen.</span>
+            </li>
+            <li>
+              <strong>Static data downloads</strong>
+              <span class="note">A common download manager now fetches the postcode, phonebook and country-borders files, with automatic silent retry.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.201 – v1.202 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.201 – v1.202</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">12 – 13 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 37 – 38</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Google Map showing blank</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The map could appear blank (only the Google logo and zoom buttons) because of a key restriction. This is resolved and the map loads normally again.</span>
+            </li>
+            <li>
+              <strong>Premium dialog layout</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Consistent line spacing for the "No more ads" bullet in the Premium upgrade dialog.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>More of the app is translated</strong>
+              <span class="note">Remaining hard-coded labels in the details dialogs (Source, Address, Status, Severity and so on) now use translatable strings, and translations are generated for all supported languages.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.200 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.200</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">11 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 35 – 36</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Radar is now free to install, supported by ads</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The free version shows an occasional full-screen ad served by Google AdMob at natural breaks (never in the Emergency Hub, and never on first use). Radar Premium removes ads. Existing purchasers are ad-free, and ads are shown only where you've given consent.</span>
+            </li>
+            <li>
+              <strong>Ad consent choice</strong>
+              <span class="chip chip-security">Privacy</span>
+              <span class="note">In the UK/EEA you are asked for consent, and you can decline.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.100 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.100</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">4 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 34</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Combined Contacts list</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Radar peers and your Android contacts appear together in a single list, with consistent details dialogs for devices and map points of interest.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-security"></span> Privacy &amp; Security</div>
+          <ul class="change-list">
+            <li>
+              <strong>Contacts permission compliance</strong>
+              <span class="note">Contacts access is explained and requested only when it's needed, following Google Play policy feedback.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.004 – v1.007 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.004 – v1.007</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">26 September – 4 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 29 – 33</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>UK phonebook, postcodes and people data</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Large UK datasets are downloaded once to the device with resumable downloads, so searching works quickly and offline.</span>
+            </li>
+            <li>
+              <strong>Emergency place dialog</strong>
+              <span class="note">A dedicated dialog for emergency-place details.</span>
+            </li>
+            <li>
+              <strong>Review prompt</strong>
+              <span class="note">A polite, infrequent request to rate Radar on Google Play.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.003 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.003</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">24 September 2026</span>
+      </div>
+      <p class="version-build">versionCode 28</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Stability and diagnostics</strong>
+              <span class="note">Further crash and race-condition fixes, and improved analytics for purchases.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.002 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.002</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">14 – 16 September 2026</span>
+      </div>
+      <p class="version-build">versionCode 27</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Voice/video call crash guard</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Radar now detects and avoids a native WebRTC fault so a call problem no longer takes the whole app down. Optional debug-log capture helps diagnose issues.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.001 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.001</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">10 September 2026</span>
+      </div>
+      <p class="version-build">versionCode 26</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Call engine upgraded; startup crash fixed</strong>
+              <span class="chip chip-critical">Critical</span>
+              <span class="note">The WebRTC calling library was upgraded (M125 → M144) and rebuilt for 16&nbsp;KB memory pages, fixing a crash on launch on some devices.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.000 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.000</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">8 September 2026</span>
+      </div>
+      <p class="version-build">versionCode 25</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Version 1.0</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Radar reaches 1.0, including the pollution data layer, crime data tiles and postcode labels on the map.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.999 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v0.999</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">2 – 5 September 2026</span>
+      </div>
+      <p class="version-build">versionCode 23 – 24</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Language flags and sorted language picker</strong>
+              <span class="note">The language picker shows flags and is sorted alphabetically.</span>
+            </li>
+            <li>
+              <strong>Automatic light/dark theme by ambient light</strong>
+              <span class="note">Radar can switch between light and dark themes based on the light sensor.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Stale nearby peers</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Heartbeats now refresh Bluetooth and Wi-Fi Aware peers' "last seen" time, so active peers no longer disappear from the list.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         August 2026 — Closed Alpha (condensed)
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">August 2026</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">August 2026</span>
+      </div>
+      <p class="version-build">Several builds between v0.9.8 and v0.999 (versionCodes 12 – 22), condensed</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Wildfires, weather warnings and forecasts</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">NASA FIRMS wildfire hotspots, official weather and environment warnings with detail pages, and a weather forecast page.</span>
+            </li>
+            <li>
+              <strong>Identity survives reinstall</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Your Radar identity can be restored after reinstalling the app, using Android's credential and backup services.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         July 2026 — Closed Alpha (condensed)
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">July 2026</span>
+        <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
+        <span class="version-date">July 2026</span>
+      </div>
+      <p class="version-build">Several builds after v0.9.8 (versionCodes 12 – 22), condensed</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Webcams, floods, ships and warnings on the map</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Webcam viewer and more map data layers, now stored on the device for faster loading.</span>
+            </li>
+            <li>
+              <strong>Default SMS/MMS app</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Radar can act as your default messaging app, including picture messages.</span>
+            </li>
+            <li>
+              <strong>Radar Premium</strong>
+              <span class="chip chip-premium">Premium</span>
+              <span class="note">The Premium subscription and upgrade prompts are introduced.</span>
+            </li>
+            <li>
+              <strong>Torch tools</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Distress strobe, light panel and compass.</span>
+            </li>
+            <li>
+              <strong>QR connect and Wi-Fi access point contribution</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Connect to a nearby person by scanning their QR code, and optionally contribute Wi-Fi access points.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Battery use</strong>
+              <span class="note">Background work is coalesced to reduce battery drain.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v0.9.8 — Closed Alpha
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
         <span class="version-number">v0.9.8</span>
         <span class="vtag vtag-alpha">🧪 Closed Alpha</span>
-        <span class="vtag vtag-latest">✔ Latest</span>
         <span class="version-date">29 June 2026</span>
       </div>
       <p class="version-build">versionCode 11 &nbsp;·&nbsp; Minimum Android 9 (API 28)</p>
