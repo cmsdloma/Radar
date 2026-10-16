@@ -8,14 +8,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Connect on Radar</title>
+<script src="../language-selector.js" defer></script>
 <style>
   body { margin: 0; font-family: system-ui, sans-serif; background: #1b1b2f; color: #fff;
          display: flex; min-height: 100vh; align-items: center; justify-content: center; text-align: center; }
   main { max-width: 26rem; padding: 2rem; }
   h1 { font-size: 1.6rem; margin-bottom: .5rem; }
   p { color: #cfcfe6; line-height: 1.4; }
-  a.btn { display: inline-block; margin-top: 1rem; padding: .9rem 1.6rem; border-radius: .6rem;
-          background: #2d7ff9; color: #fff; text-decoration: none; font-weight: 700; }
+  .play-badge { display: inline-block; margin-top: 1rem; border-radius: .6rem; }
+  .play-badge img { display: block; width: 220px; max-width: 100%; height: auto; }
+  .play-badge:focus-visible { outline: 2px solid #4ab5ff; outline-offset: 4px; }
+  .language-links { margin-top: 2rem; }
+  .language-links .language-selector-choices { display: flex; flex-wrap: wrap; justify-content: center; gap: .25rem; }
+  .language-links a { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+                      border: 1px solid transparent; border-radius: .4rem; box-sizing: border-box; }
+  .language-links a:hover, .language-links a[aria-current="true"] { border-color: #4ab5ff; background: rgba(74,181,255,.12); }
+  .language-links a:focus-visible { outline: 2px solid #4ab5ff; outline-offset: 2px; }
+  .language-links img { display: block; width: 28px; height: 21px; object-fit: contain; }
 </style>
 </head>
 <body>
@@ -23,7 +32,10 @@
   <h1>Someone wants to connect with you on Radar</h1>
   <p>Radar lets nearby people chat and share location without a mobile network.
      Install it, then scan their code again to connect.</p>
-  <a id="get" class="btn" href="https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar">Get Radar on Google Play</a>
+  <a id="get" class="play-badge" href="https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar">
+    <img src="../images/play_store_logo.webp" alt="Get it on Google Play" width="558" height="165">
+  </a>
+  <nav class="language-links notranslate" data-language-links translate="no" aria-label="Choose website language"></nav>
 </main>
 <script>
   // URL is /c/?u=<uuid>&s=<session>. Both are passed through the Play install referrer so the
