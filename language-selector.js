@@ -2,7 +2,9 @@
   "use strict";
 
   const header = document.querySelector(".site-nav .nav-inner");
-  if (!header) return;
+  const inline = document.querySelector("[data-language-links]");
+  if (!header && !inline) return;
+  const flagBase = new URL("assets/flags/", document.currentScript.src);
 
   const languages = [
     ["en", "gb", "English"],
@@ -61,11 +63,30 @@
 
   function flag(country) {
     const image = document.createElement("img");
-    image.src = new URL(`assets/flags/${country}.svg`, document.baseURI).href;
+    image.src = new URL(`${country}.svg`, flagBase).href;
     image.alt = "";
     image.width = 28;
     image.height = 21;
     return image;
+  }
+
+  const choices = document.createElement("div");
+  choices.className = "language-selector-choices";
+  choices.setAttribute("role", "group");
+  choices.setAttribute("aria-label", "Website languages");
+  for (const [code, country, english, native = english] of languages) {
+    const link = document.createElement("a");
+    link.href = languageUrl(code);
+    link.title = native === english ? english : `${native} (${english})`;
+    link.setAttribute("aria-label", link.title);
+    link.hreflang = code;
+    if (code === active[0]) link.setAttribute("aria-current", "true");
+    link.append(flag(country));
+    choices.append(link);
+  }
+  if (inline) {
+    inline.append(choices);
+    return;
   }
 
   const selector = document.createElement("details");
@@ -82,21 +103,6 @@
   arrow.setAttribute("aria-hidden", "true");
   toggle.append(arrow);
   selector.append(toggle);
-
-  const choices = document.createElement("div");
-  choices.className = "language-selector-choices";
-  choices.setAttribute("role", "group");
-  choices.setAttribute("aria-label", "Website languages");
-  for (const [code, country, english, native = english] of languages) {
-    const link = document.createElement("a");
-    link.href = languageUrl(code);
-    link.title = native === english ? english : `${native} (${english})`;
-    link.setAttribute("aria-label", link.title);
-    link.hreflang = code;
-    if (code === active[0]) link.setAttribute("aria-current", "true");
-    link.append(flag(country));
-    choices.append(link);
-  }
   selector.append(choices);
   header.append(selector);
 
