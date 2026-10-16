@@ -248,13 +248,89 @@
   <div class="rn-wrap">
 
     <!-- ══════════════════════════════════════════════
-         v1.500 — Production (Latest)
+         v1.600 — Production (Latest)
     ══════════════════════════════════════════════ -->
     <div class="version-card latest">
       <div class="version-header">
-        <span class="version-number">v1.500</span>
+        <span class="version-number">v1.600</span>
         <span class="vtag vtag-prod">🚀 Production</span>
         <span class="vtag vtag-latest">✔ Latest</span>
+        <span class="version-date">16 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 42 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>See who is in a Matrix room</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">A compact member list now slides out from the right-hand edge of the chat. Tap or swipe the handle to show or hide it. Members are sorted alphabetically by display name (falling back to username), with Radar members listed first and highlighted in blue. Your own account and people who have left are excluded.</span>
+            </li>
+            <li>
+              <strong>Start a Matrix direct message</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Tap a non-Radar member in a room's member list and confirm "Start a chat" to open a one-to-one Matrix conversation in the usual chat screen. Radar reuses an existing joined DM where possible, including one started in another Matrix client, or creates a private room and invites the person. They need to accept the invitation before chatting. Matrix chats in Radar are not yet end-to-end encrypted; the confirmation dialog makes this clear.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Member lists that work in large rooms</strong>
+              <span class="note">Members are loaded on demand, cached and updated as people join or leave. Rooms with more than 100 members offer a search across display names and Matrix IDs rather than showing thousands of rows at once. The initial view prioritises Radar members, or recent participants when there are too many Radar members to list.</span>
+            </li>
+            <li>
+              <strong>Radar profiles from the room member list</strong>
+              <span class="note">Tap a Radar member to open their contact card and request an updated profile in the background. The list uses known profile names or friendly pseudonyms instead of default "Radar &lt;uuid&gt;" names.</span>
+            </li>
+            <li>
+              <strong>Updated free-version ad timing</strong>
+              <span class="note">Ads are now eligible after each five minutes of foreground use, once you have been idle for at least five seconds. Existing protections still prevent interruptions during calls, in the Emergency Hub, or while a keyboard or dialog is open. Premium and ad-free users remain ad-free.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Message vibration respects Silent and Do Not Disturb</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Incoming Matrix and normal chat messages no longer force a vibration when Silent mode or a Do Not Disturb / Sleep filter is active. Vibration remains available in Normal and Vibrate modes.</span>
+            </li>
+            <li>
+              <strong>No long loading wait for an empty Matrix DM</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">A new one-to-one chat no longer spends about a minute retrying an empty message history as though it were a public room still syncing. A successful empty history response now finishes loading straight away.</span>
+            </li>
+            <li>
+              <strong>Additional protection against WebRTC native crashes</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Hardened connection teardown and late callbacks in internet peer-to-peer messaging and voice/video calls. A crash-loop safeguard can temporarily disable the optional internet P2P messaging path after a suspected native crash, leaving other delivery channels available.</span>
+            </li>
+            <li>
+              <strong>Safer permission results during startup</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Permission-result callbacks now wait until the app's services are ready, addressing a possible crash when Android recreates the activity while a permission dialog is open.</span>
+            </li>
+            <li>
+              <strong>Translation setup failures no longer crash the chat</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Invalid or unsupported language selections and failures while creating the on-device translator are now handled with the existing translation-failed message instead of crashing the app.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.500 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.500</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
         <span class="version-date">15 October 2026</span>
       </div>
       <p class="version-build">versionCode 41 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
