@@ -291,6 +291,43 @@
       </p>
     </div>
 
+    <h2 class="section-label">App cost</h2>
+    <figure class="pie-fig">
+      <svg class="pie-svg" viewBox="0 0 220 220" role="img" aria-labelledby="app-cost-title app-cost-desc">
+        <title id="app-cost-title">App cost: &#163;0.00</title>
+        <desc id="app-cost-desc">Radar is free to install.</desc>
+        <circle cx="110" cy="110" r="100" fill="none" stroke="#4ab5ff" stroke-width="3" />
+        <text x="110" y="110" text-anchor="middle" dominant-baseline="middle" fill="#4ab5ff" font-size="34" font-weight="800">&#163;0.00</text>
+        <text x="110" y="145" text-anchor="middle" fill="#4ab5ff" font-size="18" font-weight="700" letter-spacing="3">FREE</text>
+      </svg>
+    </figure>
+
+    <h2 class="section-label">Subscription cost</h2>
+    <figure class="pie-fig">
+      <svg class="pie-svg" viewBox="0 0 220 220" role="img" aria-labelledby="pie-title pie-desc">
+        <title id="pie-title">Where a £1.99 monthly subscription goes</title>
+        <desc id="pie-desc">UK VAT £0.33, Google Play service and billing fees £0.25 (10% plus 5% of the ex-VAT price), HMRC income tax £0.63, data services and running costs £0.78, developer income £0.00.</desc>
+        <path d="M110 110 L110.00 10.00 A100 100 0 0 1 196.34 59.54 Z"  fill="#ff6868" stroke="#050814" stroke-width="1.5" />
+        <path d="M110 110 L196.34 59.54 A100 100 0 0 1 206.63 135.75 Z" fill="#ffe16b" stroke="#050814" stroke-width="1.5" />
+        <path d="M110 110 L206.63 135.75 A100 100 0 0 1 47.21 187.83 Z" fill="#b48eff" stroke="#050814" stroke-width="1.5" />
+        <path d="M110 110 L47.21 187.83 A100 100 0 0 1 110.00 10.00 Z"  fill="#4ab5ff" stroke="#050814" stroke-width="1.5" />
+        <line x1="110" y1="110" x2="110" y2="10" stroke="#33ffcc" stroke-width="0.6" />
+      </svg>
+      <figcaption>
+        <ul class="pie-legend">
+          <li><span class="sw" style="background:#ff6868"></span><span>UK VAT (20%, included in the price)</span><b>£0.33</b></li>
+          <li><span class="sw" style="background:#ffe16b"></span><span>Google Play fees (10% service + 5% billing, ex-VAT)</span><b>£0.25</b></li>
+          <li><span class="sw" style="background:#b48eff"></span><span>HMRC income tax (45%)</span><b>£0.63</b></li>
+          <li><span class="sw" style="background:#4ab5ff"></span><span>Data services &amp; running costs</span><b>£0.78</b></li>
+          <li><span class="sw" style="background:#33ffcc;height:2px;margin-top:0.45rem"></span><span>The developer&rsquo;s income</span><b>£0.00</b></li>
+        </ul>
+        <p class="pie-caption">
+          Illustration of a single £1.99 UK monthly payment through Google Play Billing, rounded to the nearest penny. Google&rsquo;s fees are calculated on the price excluding VAT. The HMRC slice shows tax as if the whole remainder were profit; in practice costs
+          are deducted first, and no income tax is due while the project runs at a loss.
+        </p>
+      </figcaption>
+    </figure>
+
     <!-- ════════════════════════════════════════════
          WHERE THE MONEY GOES
     ════════════════════════════════════════════ -->
@@ -372,11 +409,11 @@
 
     <div class="story-note">
       <p>
-        <strong>Radar is free to install, but the free version shows ads injected by Google, which Premium removes. Premium (£1.99/month) is the project&rsquo;s main revenue stream &mdash; and only a fraction of each payment reaches the project.</strong> For each subscription payment:
+        <strong>Radar is free to install, but the free version shows ads injected by Google, which Premium removes. Premium (£1.99/month) is the project&rsquo;s main revenue stream &mdash; and only a fraction of each payment reaches the project.</strong> For a UK subscription payment through Google Play Billing:
       </p>
       <ul class="rev-list">
-        <li><strong>20% UK VAT</strong> is included in the price you pay: <strong>£0.33</strong> of the £1.99, leaving about <strong>£1.66</strong>.</li>
-        <li><strong>Google Play&rsquo;s 15% service fee</strong> on subscriptions takes roughly <strong>£0.25</strong> more, leaving about <strong>£1.41</strong>.</li>
+        <li><strong>20% UK VAT</strong> is included in the £1.99 price, not added on top. The VAT portion is £1.99 &times; 20 &divide; 120 = about <strong>£0.33</strong>, leaving about <strong>£1.66</strong> excluding VAT. Google collects and pays this VAT to HMRC.</li>
+        <li><strong>Google Play&rsquo;s 10% service fee plus 5% billing fee</strong> are calculated on the <strong>ex-VAT price</strong>: (£1.99 &divide; 1.20) &times; 15% = about <strong>£0.25</strong>, leaving about <strong>£1.41</strong> before running costs and any tax on profit.</li>
         <li>Any profit that remains is then taxed by HMRC at the UK additional rate: <strong>45% income tax</strong> (plus National Insurance) &mdash; about <strong>£0.63</strong> of that £1.41 if it were all profit.</li>
         <li>Before any profit exists, that remainder must first cover the <strong>data-service, server, and development costs</strong> above.</li>
       </ul>
@@ -385,31 +422,6 @@
         (PayPal&rsquo;s small transaction fee still applies), so more of what you give is available to keep Radar running.
       </p>
     </div>
-
-    <figure class="pie-fig">
-      <svg class="pie-svg" viewBox="0 0 220 220" role="img" aria-labelledby="pie-title pie-desc">
-        <title id="pie-title">Where a £1.99 monthly subscription goes</title>
-        <desc id="pie-desc">VAT £0.33, Google £0.25, HMRC £0.63, data services and running costs £0.78, developer income £0.00.</desc>
-        <path d="M110 110 L110.00 10.00 A100 100 0 0 1 196.34 59.54 Z"  fill="#ff6868" stroke="#050814" stroke-width="1.5" />
-        <path d="M110 110 L196.34 59.54 A100 100 0 0 1 206.63 135.75 Z" fill="#ffe16b" stroke="#050814" stroke-width="1.5" />
-        <path d="M110 110 L206.63 135.75 A100 100 0 0 1 47.21 187.83 Z" fill="#b48eff" stroke="#050814" stroke-width="1.5" />
-        <path d="M110 110 L47.21 187.83 A100 100 0 0 1 110.00 10.00 Z"  fill="#4ab5ff" stroke="#050814" stroke-width="1.5" />
-        <line x1="110" y1="110" x2="110" y2="10" stroke="#33ffcc" stroke-width="0.6" />
-      </svg>
-      <figcaption>
-        <ul class="pie-legend">
-          <li><span class="sw" style="background:#ff6868"></span><span>UK VAT (20%)</span><b>£0.33</b></li>
-          <li><span class="sw" style="background:#ffe16b"></span><span>Google Play service fee (15%)</span><b>£0.25</b></li>
-          <li><span class="sw" style="background:#b48eff"></span><span>HMRC income tax (45%)</span><b>£0.63</b></li>
-          <li><span class="sw" style="background:#4ab5ff"></span><span>Data services &amp; running costs</span><b>£0.78</b></li>
-          <li><span class="sw" style="background:#33ffcc;height:2px;margin-top:0.45rem"></span><span>The developer&rsquo;s income</span><b>£0.00</b></li>
-        </ul>
-        <p class="pie-caption">
-          Illustration of a single £1.99 monthly payment. The HMRC slice shows tax as if the whole remainder were profit; in practice costs
-          are deducted first, and no income tax is due while the project runs at a loss.
-        </p>
-      </figcaption>
-    </figure>
 
     <!-- ════════════════════════════════════════════
          WHY IT MATTERS
