@@ -249,13 +249,89 @@
   <div class="rn-wrap">
 
     <!-- ══════════════════════════════════════════════
-         v1.600 — Production (Latest)
+         v1.610 — Production (Latest)
     ══════════════════════════════════════════════ -->
     <div class="version-card latest">
       <div class="version-header">
-        <span class="version-number">v1.600</span>
+        <span class="version-number">v1.610</span>
         <span class="vtag vtag-prod">🚀 Production</span>
         <span class="vtag vtag-latest">✔ Latest</span>
+        <span class="version-date">19 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 43 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Automatic Matrix account setup and login restored</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Fixed release-build optimisation removing code needed for Matrix login. Radar now automatically sets up its Matrix account and starts room syncing after registration, reuses saved sessions, and retries temporary startup failures. The rooms page refreshes when login completes, without requiring a manual login.</span>
+            </li>
+            <li>
+              <strong>Matrix provisioning reports the real result</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">"Provision Account" now waits for both account setup and a working login before reporting success. Login and provisioning failures show a short, friendly message, with technical details reserved for debug mode and logs.</span>
+            </li>
+            <li>
+              <strong>First-install data downloads restored</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Fixed a release-build issue that prevented background download workers from starting, leaving country borders, UK postcodes and eligible phonebook datasets missing. Missing downloads are rechecked when the app resumes and when location becomes available.</span>
+            </li>
+            <li>
+              <strong>Phonebook setup no longer waits for another restart</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Enabling Premium or Experimental features immediately rechecks download eligibility. Newly eligible datasets join the queue without restarting active transfers, and phonebook indexing begins as each download completes. Eligible work requests priority scheduling where Android supports it; existing UK, feature and unmetered-network requirements still apply.</span>
+            </li>
+            <li>
+              <strong>Safer profile photo loading</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Selected profile photos are copied into private app storage so they no longer depend on temporary photo-picker access. Missing or inaccessible saved photos now show a default icon instead of crashing profile or device screens.</span>
+            </li>
+            <li>
+              <strong>Compass shutdown crash fixed</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Fixed a threading race between compass updates and location-service shutdown that could crash the app while heading history was being cleared. Existing compass smoothing is preserved.</span>
+            </li>
+            <li>
+              <strong>Wi-Fi Aware startup respects missing permissions</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Background discovery now waits for the required permissions before starting Wi-Fi Aware, remains retryable once permissions are granted, and avoids duplicate readiness-receiver registration.</span>
+            </li>
+            <li>
+              <strong>Clearer handling of unavailable Play Store updates</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">When Google Play cannot provide in-app updates for an installation, Radar no longer repeatedly retries automatic checks or incorrectly reports that the app is up to date. Manual checks can retry, with a Play Store listing fallback.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Wider default peer discovery range</strong>
+              <span class="note">The default discovery range is now 200 km instead of 100 km. Existing saved range settings are unchanged; this does not extend Bluetooth or Wi-Fi radio range.</span>
+            </li>
+            <li>
+              <strong>Consistent Premium styling</strong>
+              <span class="note">The Web Services "Go Premium" button now uses the Premium page's gold styling and crown icon. A matching crown also appears beside the Radar Premium settings heading.</span>
+            </li>
+            <li>
+              <strong>Stronger release-build safeguards</strong>
+              <span class="note">Added checks of optimised release code and packaged APK/AAB files to catch stripped Matrix data models and background-worker constructors before release, helping prevent a repeat of the first-install failures.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.600 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.600</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
         <span class="version-date">16 October 2026</span>
       </div>
       <p class="version-build">versionCode 42 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
