@@ -249,13 +249,122 @@
   <div class="rn-wrap">
 
     <!-- ══════════════════════════════════════════════
-         v1.610 — Production (Latest)
+         v1.640 — Production (Latest)
     ══════════════════════════════════════════════ -->
     <div class="version-card latest">
       <div class="version-header">
-        <span class="version-number">v1.610</span>
+        <span class="version-number">v1.640</span>
         <span class="vtag vtag-prod">🚀 Production</span>
         <span class="vtag vtag-latest">✔ Latest</span>
+        <span class="version-date">23 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 46 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Clear prompt when device Location is switched off</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">On some devices, notably Google Pixel phones, Radar could hold location permission while the system-wide Location switch was off, so GPS silently returned nothing. Radar now detects this specific case and offers a shortcut to the system Location settings.</span>
+            </li>
+            <li>
+              <strong>Premium upgrade connection more reliable</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The Google Play billing connection is now retried and re-established when needed, so the "Billing service is not yet connected" message is much less likely to appear.</span>
+            </li>
+            <li>
+              <strong>Weather forecast empty and error states</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The weather page now explains when no forecast is available instead of showing a blank screen.</span>
+            </li>
+            <li>
+              <strong>Pinch-zoom no longer triggers accidental taps</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Zooming the radar view with two fingers no longer selects a peer when the fingers are lifted.</span>
+            </li>
+            <li>
+              <strong>Emergency country default</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The Emergency page now defaults to, and remembers, your country.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Weather refreshes only when you need it</strong>
+              <span class="note">The forecast is fetched when you open the app or the weather page, at most once an hour, with a refresh spinner and pull-down to refresh. Background auto-refresh has been removed, saving battery and data.</span>
+            </li>
+            <li>
+              <strong>Fewer server configuration requests</strong>
+              <span class="note">Server configuration is loaded once per session; returning to the app now only checks Google Play for updates.</span>
+            </li>
+            <li>
+              <strong>Single app language setting</strong>
+              <span class="note">One language setting now controls the app, with a restart prompt when it changes. Tutorial cards are fully translated.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.630 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.630</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">22 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 45 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>GPS not working on Google Pixel phones</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Further fixes for devices where the app was granted location permission but Location was turned off in the system settings. Radar no longer waits indefinitely for a position in this state.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.620 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.620</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">21 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 44 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Location problems on Google Pixel phones</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Improved diagnosis and handling of missing GPS fixes where the app had location permission but the device's Location setting was off.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.610 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.610</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
         <span class="version-date">19 October 2026</span>
       </div>
       <p class="version-build">versionCode 43 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
