@@ -341,6 +341,69 @@
     }
 
     /* ══════════════════════════════════════════════════════════════
+       SECTION TITLES + VIDEO CAROUSEL
+    ══════════════════════════════════════════════════════════════ */
+    .carousel-heading {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 2rem var(--page-pad) 1rem;
+      color: var(--text);
+    }
+    .video-outer {
+      overflow-x: auto;
+      padding: 3rem 0 2.5rem;
+      background:
+        radial-gradient(ellipse at 70% 50%, rgba(74,181,255,0.04), transparent 55%),
+        rgba(5, 8, 20, 0.55);
+      border-top:    1px solid rgba(74,181,255,0.1);
+      border-bottom: 1px solid rgba(74,181,255,0.1);
+    }
+    .video-track {
+      display: flex;
+      width: max-content;
+      min-width: 100%;
+      justify-content: center;
+      gap: 46px;
+      padding: 0 var(--page-pad);
+      box-sizing: border-box;
+    }
+    .video-slide {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+    }
+    .video-screen { cursor: pointer; }
+    .video-thumb {
+      display: block; width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+    }
+    .video-screen iframe {
+      display: block; width: 100%; height: 100%; border: 0;
+    }
+    .video-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      border: 2px solid rgba(255,255,255,0.85);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10; padding: 0; cursor: pointer;
+      transition: background 0.16s, transform 0.16s;
+    }
+    .video-play::before {
+      content: ''; margin-left: 4px;
+      border-style: solid; border-width: 10px 0 10px 17px;
+      border-color: transparent transparent transparent #fff;
+    }
+    .video-screen:hover .video-play { background: rgba(255,0,0,0.85); transform: translate(-50%, -50%) scale(1.08); }
+    @media (max-width: 600px) {
+      .video-track { gap: 35px; justify-content: flex-start; }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
        CAROUSEL GROUP NAVIGATION BAR
     ══════════════════════════════════════════════════════════════ */
     .carousel-nav {
@@ -494,6 +557,8 @@
     ════════════════════════════════════════════════ -->
     <!-- Dark mode tagline -->
     <p class="gallery-hint">Dark mode. For people with sensitive skin.</p>
+
+    <h2 class="carousel-heading" id="screenshots">Screenshots</h2>
 
     <!-- Group navigation -->
     <nav class="carousel-nav" aria-label="Jump to screenshot group">
@@ -1848,6 +1913,37 @@
       Hover over the carousel to pause
     </p>
 
+    <h2 class="carousel-heading" id="videos">Videos</h2>
+
+    <div class="video-outer" aria-label="App video gallery">
+      <div class="video-track" id="video-track">
+        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="P4RemA47NMw" data-title="Radar video 1">
+          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/P4RemA47NMw/hqdefault.jpg" alt="Radar video 1 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 1"></button><div class="phone-home-bar"></div>
+        </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
+        <div class="slide-caption"><span class="slide-title">Video 1</span></div></div>
+
+        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="VJwUqlOuocI" data-title="Radar video 2">
+          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/VJwUqlOuocI/hqdefault.jpg" alt="Radar video 2 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 2"></button><div class="phone-home-bar"></div>
+        </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
+        <div class="slide-caption"><span class="slide-title">Video 2</span></div></div>
+
+        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="SsFAJSHlYmg" data-title="Radar video 3">
+          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/SsFAJSHlYmg/hqdefault.jpg" alt="Radar video 3 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 3"></button><div class="phone-home-bar"></div>
+        </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
+        <div class="slide-caption"><span class="slide-title">Video 3</span></div></div>
+
+        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="KPyjzSZvYv8" data-title="Radar video 4">
+          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/KPyjzSZvYv8/hqdefault.jpg" alt="Radar video 4 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 4"></button><div class="phone-home-bar"></div>
+        </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
+        <div class="slide-caption"><span class="slide-title">Video 4</span></div></div>
+
+        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="gBoes_JpFL4" data-title="Radar video 5">
+          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/gBoes_JpFL4/hqdefault.jpg" alt="Radar video 5 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 5"></button><div class="phone-home-bar"></div>
+        </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
+        <div class="slide-caption"><span class="slide-title">Video 5</span></div></div>
+      </div>
+    </div>
+
     <!-- ════════════════════════════════════════════════
          QUICK NAVIGATION HUB
     ════════════════════════════════════════════════ -->
@@ -1960,6 +2056,22 @@
     track.style.animationName  = '';      /* restore CSS value        */
     track.style.animationDelay = delay + 's';
   }
+
+  /* ── Click a video thumbnail to play it in place ─────────────── */
+  document.querySelectorAll('.video-screen').forEach(function (screen) {
+    screen.addEventListener('click', function () {
+      if (screen.querySelector('iframe')) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + screen.dataset.video +
+                   '?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+      iframe.title = screen.dataset.title;
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+      screen.querySelectorAll('.video-thumb, .video-play').forEach(function (el) { el.remove(); });
+      screen.appendChild(iframe);
+    });
+  });
 
   /* ── Wire up nav buttons ─────────────────────────────────────── */
   document.querySelectorAll('.carousel-nav-btn').forEach(function (btn) {
