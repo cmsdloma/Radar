@@ -362,7 +362,8 @@
       color: var(--text);
     }
     .video-outer {
-      overflow-x: auto;
+      position: relative;
+      overflow: hidden;
       padding: 3rem 0 2.5rem;
       background:
         radial-gradient(ellipse at 70% 50%, rgba(74,181,255,0.04), transparent 55%),
@@ -370,21 +371,48 @@
       border-top:    1px solid rgba(74,181,255,0.1);
       border-bottom: 1px solid rgba(74,181,255,0.1);
     }
+    .video-outer::before,
+    .video-outer::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: clamp(60px, 8vw, 140px);
+      z-index: 20;
+      pointer-events: none;
+    }
+    .video-outer::before { left: 0;  background: linear-gradient(to right, #050814 0%, rgba(5,8,20,0.85) 40%, transparent 100%); }
+    .video-outer::after  { right: 0; background: linear-gradient(to left,  #050814 0%, rgba(5,8,20,0.85) 40%, transparent 100%); }
     .video-track {
       display: flex;
       width: max-content;
       min-width: 100%;
       justify-content: center;
-      gap: 46px;
-      padding: 0 var(--page-pad);
+      padding: 0;
       box-sizing: border-box;
     }
+    /* Each slide owns its right gap so -50% is exactly one set (same technique as the screenshots belt) */
     .video-slide {
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.9rem;
+      padding-right: 46px;
+    }
+    /* Rolling belt — enabled by script once the slides are duplicated */
+    .video-track.is-rolling {
+      justify-content: flex-start;
+      animation: video-scroll var(--video-duration, 120s) linear infinite;
+      will-change: transform;
+    }
+    .video-outer:hover .video-track.is-rolling,
+    .video-outer.is-playing .video-track.is-rolling { animation-play-state: paused; }
+    @keyframes video-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .video-track.is-rolling { animation: none; }
     }
     .video-screen { cursor: pointer; }
     .video-thumb {
@@ -411,7 +439,7 @@
     }
     .video-screen:hover .video-play { background: rgba(255,0,0,0.85); transform: translate(-50%, -50%) scale(1.08); }
     @media (max-width: 600px) {
-      .video-track { gap: 35px; justify-content: flex-start; }
+      .video-slide { padding-right: 35px; }
     }
 
     /* ══════════════════════════════════════════════════════════════
@@ -1952,6 +1980,11 @@
           <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/BO4nfjEEys4/hqdefault.jpg" alt="Radar video 5 (Spanish) thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 5 (Spanish)"></button><div class="phone-home-bar"></div>
         </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
         <div class="slide-caption"><span class="slide-title"><img class="flag" src="images/flag-es.svg" alt="ES" /> Video 5 (Spanish)</span></div></div>
+
+        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="1_ZL2iHskhQ" data-title="Radar video 6 (Spanish)">
+          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/1_ZL2iHskhQ/hqdefault.jpg" alt="Radar video 6 (Spanish) thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 6 (Spanish)"></button><div class="phone-home-bar"></div>
+        </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
+        <div class="slide-caption"><span class="slide-title"><img class="flag" src="images/flag-es.svg" alt="ES" /> Video 6 (Spanish)</span></div></div>
       </div>
     </div>
 
@@ -2068,10 +2101,36 @@
     track.style.animationDelay = delay + 's';
   }
 
+  /* ── Video carousel: repeat slides to fill the width, duplicate once, roll ── */
+  (function () {
+    var vTrack = document.getElementById('video-track');
+    if (!vTrack) return;
+    var originals = Array.prototype.slice.call(vTrack.children);
+    var slideW = originals[0].offsetWidth || 296;
+    var reps = Math.max(1, Math.ceil((window.innerWidth + slideW) / (slideW * originals.length)));
+    var group = originals.slice();
+    for (var r = 1; r < reps; r++) {
+      originals.forEach(function (s) {
+        var c = s.cloneNode(true);
+        c.setAttribute('aria-hidden', 'true');
+        vTrack.appendChild(c);
+        group.push(c);
+      });
+    }
+    group.forEach(function (s) {
+      var c = s.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      vTrack.appendChild(c);
+    });
+    vTrack.style.setProperty('--video-duration', Math.round(group.length * slideW / 53) + 's');
+    vTrack.classList.add('is-rolling');
+  })();
+
   /* ── Click a video thumbnail to play it in place ─────────────── */
   document.querySelectorAll('.video-screen').forEach(function (screen) {
     screen.addEventListener('click', function () {
       if (screen.querySelector('iframe')) return;
+      document.querySelector('.video-outer').classList.add('is-playing');
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube.com/embed/' + screen.dataset.video +
                    '?autoplay=1&playsinline=1&rel=0&modestbranding=1';
