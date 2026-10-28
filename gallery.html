@@ -312,6 +312,10 @@
 
     /* ── Caption beneath each phone ───────────────────────── */
     .slide-caption {
+      /* Positioned + z-index so the phone's large drop shadow (positioned, painted later)
+         doesn't darken the caption text */
+      position: relative;
+      z-index: 1;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -325,15 +329,22 @@
     .slide-title {
       font-size: 0.82rem;
       font-weight: 700;
-      color: rgba(185,215,255,0.92);
+      color: #e3ecfb;
       letter-spacing: 0.025em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .slide-title .flag {
+      height: 0.8em;
+      width: auto;
+      vertical-align: -0.05em;
+      margin-right: 0.35em;
+      border-radius: 2px;
+    }
     .slide-sub {
       font-size: 0.7rem;
-      color: var(--muted);
+      color: #b9c6dc;
       line-height: 1.4;
       white-space: nowrap;
       overflow: hidden;
@@ -1920,27 +1931,27 @@
         <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="P4RemA47NMw" data-title="Radar video 1">
           <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/P4RemA47NMw/hqdefault.jpg" alt="Radar video 1 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 1"></button><div class="phone-home-bar"></div>
         </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
-        <div class="slide-caption"><span class="slide-title">Video 1</span></div></div>
+        <div class="slide-caption"><span class="slide-title"><img class="flag" src="images/flag-gb.svg" alt="UK" /> Video 1</span></div></div>
 
         <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="VJwUqlOuocI" data-title="Radar video 2">
           <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/VJwUqlOuocI/hqdefault.jpg" alt="Radar video 2 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 2"></button><div class="phone-home-bar"></div>
         </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
-        <div class="slide-caption"><span class="slide-title">Video 2</span></div></div>
+        <div class="slide-caption"><span class="slide-title"><img class="flag" src="images/flag-gb.svg" alt="UK" /> Video 2</span></div></div>
 
         <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="SsFAJSHlYmg" data-title="Radar video 3">
           <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/SsFAJSHlYmg/hqdefault.jpg" alt="Radar video 3 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 3"></button><div class="phone-home-bar"></div>
         </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
-        <div class="slide-caption"><span class="slide-title">Video 3</span></div></div>
+        <div class="slide-caption"><span class="slide-title"><img class="flag" src="images/flag-gb.svg" alt="UK" /> Video 3</span></div></div>
 
-        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="KPyjzSZvYv8" data-title="Radar video 4">
-          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/KPyjzSZvYv8/hqdefault.jpg" alt="Radar video 4 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 4"></button><div class="phone-home-bar"></div>
+        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="gBoes_JpFL4" data-title="Radar video 4">
+          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/gBoes_JpFL4/hqdefault.jpg" alt="Radar video 4 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 4"></button><div class="phone-home-bar"></div>
         </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
-        <div class="slide-caption"><span class="slide-title">Video 4</span></div></div>
+        <div class="slide-caption"><span class="slide-title"><img class="flag" src="images/flag-us.svg" alt="US" /> Video 4</span></div></div>
 
-        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="gBoes_JpFL4" data-title="Radar video 5">
-          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/gBoes_JpFL4/hqdefault.jpg" alt="Radar video 5 thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 5"></button><div class="phone-home-bar"></div>
+        <div class="video-slide"><div class="phone-wrap"><div class="phone-body"><div class="phone-screen video-screen" data-video="BO4nfjEEys4" data-title="Radar video 5 (Spanish)">
+          <div class="phone-camera"></div><img class="video-thumb" src="https://i.ytimg.com/vi/BO4nfjEEys4/hqdefault.jpg" alt="Radar video 5 (Spanish) thumbnail" loading="lazy" /><button class="video-play" aria-label="Play video 5 (Spanish)"></button><div class="phone-home-bar"></div>
         </div><div class="phone-btn phone-btn-vol-up"></div><div class="phone-btn phone-btn-vol-dn"></div><div class="phone-btn phone-btn-power"></div></div></div>
-        <div class="slide-caption"><span class="slide-title">Video 5</span></div></div>
+        <div class="slide-caption"><span class="slide-title"><img class="flag" src="images/flag-es.svg" alt="ES" /> Video 5 (Spanish)</span></div></div>
       </div>
     </div>
 
