@@ -415,6 +415,34 @@
       .video-track.is-rolling { animation: none; }
     }
     .video-screen { cursor: pointer; }
+    .video-screen.playing .video-thumb,
+    .video-screen.playing .video-play { display: none; }
+    .video-close {
+      position: absolute; top: 8px; right: 8px; z-index: 12;
+      width: 28px; height: 28px; border-radius: 50%; padding: 0;
+      background: rgba(0,0,0,0.65); color: #fff;
+      border: 1px solid rgba(255,255,255,0.7);
+      font-size: 14px; line-height: 1; cursor: pointer;
+    }
+    .video-close:hover { background: rgba(255,0,0,0.85); }
+    /* Round prev/next buttons shared by both carousels */
+    .roll-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 30;
+      width: 56px; height: 56px; border-radius: 50%; padding: 0 0 4px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(10,16,34,0.82); color: #fff;
+      border: 2px solid rgba(74,181,255,0.55);
+      font-size: 2.2rem; line-height: 1; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+      transition: background 0.16s, border-color 0.16s, transform 0.16s;
+    }
+    .roll-btn:hover { background: rgba(74,181,255,0.35); border-color: #4ab5ff; transform: translateY(-50%) scale(1.08); }
+    .roll-prev { left: clamp(8px, 2vw, 32px); }
+    .roll-next { right: clamp(8px, 2vw, 32px); }
+    @media (max-width: 600px) {
+      .roll-btn { width: 42px; height: 42px; font-size: 1.7rem; }
+    }
     .video-thumb {
       display: block; width: 100%; height: 100%;
       object-fit: cover; object-position: center;
@@ -2127,10 +2155,12 @@
   })();
 
   /* ── Click a video thumbnail to play it in place ─────────────── */
+  var videoOuter = document.querySelector('.video-outer');
   document.querySelectorAll('.video-screen').forEach(function (screen) {
     screen.addEventListener('click', function () {
-      if (screen.querySelector('iframe')) return;
-      document.querySelector('.video-outer').classList.add('is-playing');
+      if (screen.classList.contains('playing')) return;
+      videoOuter.classList.add('is-playing');
+      screen.classList.add('playing');
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube.com/embed/' + screen.dataset.video +
                    '?autoplay=1&playsinline=1&rel=0&modestbranding=1';
@@ -2138,10 +2168,71 @@
       iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
       iframe.referrerPolicy = 'strict-origin-when-cross-origin';
       iframe.allowFullscreen = true;
-      screen.querySelectorAll('.video-thumb, .video-play').forEach(function (el) { el.remove(); });
       screen.appendChild(iframe);
+
+      var close = document.createElement('button');
+      close.className = 'video-close';
+      close.type = 'button';
+      close.setAttribute('aria-label', 'Close video');
+      close.textContent = '\u2715';
+      close.addEventListener('click', function (e) {
+        e.stopPropagation();
+        iframe.remove();
+        close.remove();
+        screen.classList.remove('playing');
+        if (!videoOuter.querySelector('.video-screen.playing')) videoOuter.classList.remove('is-playing');
+      });
+      screen.appendChild(close);
     });
   });
+
+  /* ── Round < > buttons: nudge a rolling belt by one slide, then resume ── */
+  function addRollButtons(outer, track) {
+    if (!outer || !track) return;
+    var busy = false;
+
+    function nudge(dir) {
+      if (busy) return;
+      var slide = track.firstElementChild;
+      var setW  = track.scrollWidth / 2;
+      if (!slide || !setW) return;
+      busy = true;
+
+      var duration = parseFloat(getComputedStyle(track).animationDuration) || 100;
+      var off = -new DOMMatrix(getComputedStyle(track).transform).m41;
+      off = ((off % setW) + setW) % setW;
+      var target = off + dir * slide.offsetWidth;
+      if (target < 0) { off += setW; target += setW; }
+
+      track.style.animation  = 'none';
+      track.style.transition = 'none';
+      track.style.transform  = 'translateX(' + (-off) + 'px)';
+      track.offsetHeight;
+      track.style.transition = 'transform 0.45s ease';
+      track.style.transform  = 'translateX(' + (-target) + 'px)';
+
+      setTimeout(function () {
+        var pos = ((target % setW) + setW) % setW;
+        track.style.transition = 'none';
+        track.style.transform  = '';
+        track.style.animation  = '';
+        track.style.animationDelay = (-(pos / setW) * duration) + 's';
+        busy = false;
+      }, 480);
+    }
+
+    [['prev', -1, '\u2039', 'Previous'], ['next', 1, '\u203A', 'Next']].forEach(function (d) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'roll-btn roll-' + d[0];
+      b.setAttribute('aria-label', d[3]);
+      b.textContent = d[2];
+      b.addEventListener('click', function () { nudge(d[1]); });
+      outer.appendChild(b);
+    });
+  }
+  addRollButtons(document.querySelector('.carousel-outer'), document.querySelector('.carousel-track'));
+  addRollButtons(videoOuter, document.getElementById('video-track'));
 
   /* ── Wire up nav buttons ─────────────────────────────────────── */
   document.querySelectorAll('.carousel-nav-btn').forEach(function (btn) {
