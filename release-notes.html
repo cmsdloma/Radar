@@ -249,13 +249,308 @@
   <div class="rn-wrap">
 
     <!-- ══════════════════════════════════════════════
-         v1.70 — Production (Latest)
+         v2.000 — Production (Latest)
     ══════════════════════════════════════════════ -->
     <div class="version-card latest">
       <div class="version-header">
-        <span class="version-number">v1.70</span>
+        <span class="version-number">v2.000</span>
         <span class="vtag vtag-prod">🚀 Production</span>
         <span class="vtag vtag-latest">✔ Latest</span>
+        <span class="version-date">1 November 2026</span>
+      </div>
+      <p class="version-build">      versionCode 55 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Glass Look</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">An optional frosted-glass appearance for the whole app, in both light and dark mode. Dialogs, banners, menus, search bars, buttons, checkboxes and cards become translucent panels with soft rounded corners and a 3D bevel. The Bluetooth, Wi-Fi, Network and Web device lists now sit as frosted glass over the page you came from, and their cards keep their colours. The classic Amiga-style scrollbars are rounder and translucent to match, and now appear on every list, settings page, SOS tab and message-history view.</span>
+            </li>
+            <li>
+              <strong>Aircraft and drone "overhead now" alerts</strong>
+              <span class="chip chip-new">New</span>
+              <span class="chip chip-premium">Premium</span>
+              <span class="note">A plane within 1 km pops up a dialog anywhere in the app, showing the same details and tracking links as when you tap it on the map. Aircraft alerts need Premium and Aircraft data switched on, and use only data already on your device. Drones are detected over Bluetooth from their Remote ID broadcast, with no Premium needed. The dialog shows everything the drone reports, including its maker (decoded for DJI, Parrot and Autel), model type, position, height, speed and operator ID. Drone detection also works while the app is closed: you get a notification, and tapping it opens the drone details.</span>
+            </li>
+            <li>
+              <strong>New environment alerts</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The Environment Alert dialog now warns about fog and dense fog, thunderstorms, strong winds and gusts, and nearby earthquakes (magnitude 4 or more within 100 km, or magnitude 2.5 or more within 25 km, in the last 24 hours). Every alert is graded Update, Alert or Severe, and the dialog title, icon and colours follow the most serious one. Radiation now uses the same four bands as the weather page: Normal, Elevated, High and Danger.</span>
+            </li>
+            <li>
+              <strong>Wind on the weather forecast</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Each forecast card shows the day's top wind speed, colour-coded from green to red. The Today card also shows gusts when they are noticeably stronger. Speeds switch to mph when you use imperial units.</span>
+            </li>
+            <li>
+              <strong>Bunkers, shelters and assembly points layer</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Air-raid and fallout shelters, bunkers of any kind and emergency assembly points can be shown on the Map and List views, with their own icons. The layer is on by default and can be switched off in the layers dialog.</span>
+            </li>
+            <li>
+              <strong>Survival layer</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">One new layer for the things that matter when services fail: drinking water, springs and wells, fuel, EV charging, post offices, defibrillators, fire hydrants, life rings, lifeguard posts, sirens, ranger stations, outdoor huts and shelters, and hazard areas (power plants and substations, wastewater and flood-prone water, and military land). Very dense items such as hydrants and substations appear only when you zoom right in.</span>
+            </li>
+            <li>
+              <strong>Hospitals, pharmacies and police without Premium</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Emergency places now come from Radar's own map-data server, so hospitals, pharmacies, clinics, doctors and police stations show on the Map and List views for every user.</span>
+            </li>
+            <li>
+              <strong>Custom map icons for places</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Places on the map now use hand-drawn icons instead of generic badges. They cover fuel and charging, banks, supermarkets, bakeries, restaurants, cafés, pubs, shops, hairdressers, libraries, cinemas, museums, hotels, parks, schools, places of worship, community centres, government buildings, toilets, recycling, vending machines, offices, storage, trees and barriers. They also cover transport (airports, helipads, stations, bus stops, ferries, bicycle parking, taxis, car repair), health (dentists, vets, ambulance and fire stations, first-aid kits), communications (masts and towers, telephone exchanges, data centres) and weather stations. Defibrillators keep their heart icon.</span>
+            </li>
+            <li>
+              <strong>Neon icons on the Radar view</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The Bluetooth, Wi-Fi, Network and Web icons across the top of the Radar view are redrawn as glowing neon, with transparent backgrounds. They also appear in the title of each device list and in the header of each device dialog. In light mode the four counts get a thin dark outline so they stay readable.</span>
+            </li>
+            <li>
+              <strong>Smarter Map search</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The search bar now understands decimal coordinates (for example 52.68, -1.83), Plus Codes (full or short) and Ordnance Survey grid references. The search popup has frosted glass styling, and tapping the map while it is open closes it.</span>
+            </li>
+            <li>
+              <strong>Hunt mode redesign</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Hunting a Bluetooth device or Wi-Fi access point now opens a dedicated screen with a rotating radar sweep that pulses on every detection, the device name, an estimated distance and a red Cancel button. Radar scans at full speed and keeps the screen on while you hunt, then returns to normal when you stop.</span>
+            </li>
+            <li>
+              <strong>Country flags</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">A member's country flag appears beside their name in the chat members panel, and on cards in the Web Devices list, whenever their country is known.</span>
+            </li>
+            <li>
+              <strong>Support Radar prompt</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">After you have declined the Premium trial a few times, an occasional, infrequent dialog invites you to upgrade to Premium or make a donation. It never appears for anyone who has had Premium or used the Donate button.</span>
+            </li>
+            <li>
+              <strong>Choose your startup view</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Settings → Appearance has a new Startup view section: open Radar on the Radar view (the default), the Map, the List, or restore whichever main view you were last using. It applies when you launch Radar from your home screen; opening it from a notification or shared link still goes straight to where that points.</span>
+            </li>
+            <li>
+              <strong>Welcome to Premium</strong>
+              <span class="chip chip-new">New</span>
+              <span class="chip chip-premium">Premium</span>
+              <span class="note">When you upgrade, a glass dialog thanks you instead of a brief message, and every Premium layer is switched on for you (including the UK-only layers if you are in the UK). Layers you had already switched off yourself are left alone. You can customise them from the layers icon in the main views.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>My Profile redesigned</strong>
+              <span class="note">A purple banner, a QR-code badge on your avatar and tidy grouped cards. Email and phone number are now both clearly marked optional.</span>
+            </li>
+            <li>
+              <strong>Weather page easier to read</strong>
+              <span class="note">Forecast cards are live frosted glass, text has a dark outline, and the colour scheme is brighter with larger, bolder values. Dates show month first for US users.</span>
+            </li>
+            <li>
+              <strong>Matrix chat</strong>
+              <span class="note">The login dialog lets you pick Radar's server or another server with a simple choice, and switching back to Radar's server is one tap. The room browser has scrollbars and a green OK button, the members pull-out tab is now banner green with a 3D double grip, and the public rooms search bar matches the other search bars.</span>
+            </li>
+            <li>
+              <strong>Device dialogs</strong>
+              <span class="note">The close button is now at the top right of every device, profile and aircraft dialog. Save is green and Delete is red, and the contact card's refresh icon is green with a yellow edit pencil.</span>
+            </li>
+            <li>
+              <strong>Emergency checklist</strong>
+              <span class="note">Items are sorted alphabetically, and in Glass Look the checkboxes are sunken 3D boxes with green ticks.</span>
+            </li>
+            <li>
+              <strong>Gentler Bluetooth reminder</strong>
+              <span class="note">The "Bluetooth is off" reminder now waits until you have spent at least a minute on the Radar view.</span>
+            </li>
+            <li>
+              <strong>More dialogs and menus in glass</strong>
+              <span class="note">The review request, sticker and GIF panel, full-screen image menu, Environment Alert dialog and QR code page all follow the Glass Look.</span>
+            </li>
+            <li>
+              <strong>Popup menus no longer clash with scrollbars</strong>
+              <span class="note">In Glass Look, the chat and chat-list menus sit clear of the scrollbar on the right edge. Long menus now have a title ("Chat options", "Chats options") so their own scrollbar starts below the close X instead of running under it.</span>
+            </li>
+            <li>
+              <strong>Language picker in Message Translation</strong>
+              <span class="note">The source and target language lists now have a title ("Select source language" / "Select target language") and a close X, so you can back out without choosing, and the list fills its whole box. The pickers are greyed out while translation is switched off, and Cancel and OK are red and green like every other dialog.</span>
+            </li>
+            <li>
+              <strong>Chat and chat-list menus are wider</strong>
+              <span class="note">With the menus now inset from the scrollbar, they are about 1.7 times wider so labels no longer wrap, and the chat-list menu opens in its final position with a correct frosted-glass background.</span>
+            </li>
+                          <li>
+                            <strong>Setup and permission cards overhauled</strong>
+                            <span class="note">Every permission card is marked Mandatory or Optional (Bluetooth and Wi-Fi Aware: "Optional; highly recommended"), and the text scales up to fill the card. Back and forward arrows sit beside the picture and appear only when they can be used. The cards, tutorial pages and Terms of Service follow the Glass Look, with 3D red Disagree and green Agree buttons. The Location card explains clearly to choose Precise and All the time. The SMS card now asks plainly whether you want to manage your SMS messages in Radar, with the technical explanation behind a "Why? More info" link. The separate "Setup complete" page is gone: Set Up Your Profile is the last step. All of this text is translated.</span>
+                          </li>
+                          <li>
+                            <strong>Calmer nag dialogs</strong>
+                            <span class="note">Reminder and Premium dialogs never appear over the setup cards, and wait for the first minute of use.</span>
+                          </li>
+                          <li>
+                            <strong>One bin icon everywhere</strong>
+                            <span class="note">All delete buttons now use the same red trashcan icon, and the message history pages have the Glass banner and Amiga scrollbars.</span>
+                          </li>
+                          <li>
+                            <strong>Glass scrollbars and new icons on Settings pages</strong>
+                            <span class="note">The Amiga scrollbar now appears on the About, Premium mode, Support, Privacy Policy, Offline Maps and Debug pages. Settings icons are 15% larger, with new neon Bluetooth, Wi-Fi and Web Services icons, and the About page has new heart icons.</span>
+                          </li>
+            <li>
+              <strong>More languages covered</strong>
+              <span class="note">New text is translated into all supported app languages.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Permissions not re-requested after a reinstall</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">If a reinstall or upgrade restored your settings but not your permissions, Radar now re-opens the permissions cards when Location is missing instead of only showing reminder dialogs.</span>
+            </li>
+            <li>
+              <strong>Premium-required dialog explanation</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The dialog shown when a free account tries a web-only contact or call now shows its explanation text.</span>
+            </li>
+            <li>
+              <strong>Matrix Rooms after a fresh install</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The Matrix Rooms page now signs in again automatically and retries if the server rejects a stale login, instead of showing "not logged in" and no rooms.</span>
+            </li>
+            <li>
+              <strong>Premium page and nags</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">After tapping Upgrade, a "Processing" dialog shows until the purchase completes and Restore Purchase is hidden for a minute. Upgrade reminders no longer appear on the Premium page, and the "Start free trial" button reliably opens it.</span>
+            </li>
+            <li>
+              <strong>Cancelling and resubscribing to Premium</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Cancelling is done in Google Play and only stops auto-renewal, so Premium stays active until the period you have already paid for ends. Radar now says so: when you return, a "Subscription cancelled" dialog appears, the banner turns amber, the days left read "Cancelled — access ends in N days", and the Cancel button is replaced by Resubscribe, which opens Google Play where you can turn renewal back on. If you leave Play, a notification lets you tap straight back to the Premium page. When the paid period ends, Premium switches off, the premium layers stop loading and disappear from the Map, Radar and List views, and your layer choices are kept in case you resubscribe. Turning Premium on with the debug override no longer hides the real upgrade and cancel buttons.</span>
+            </li>
+            <li>
+              <strong>Delete icons too large on the Debug page</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The trashcan icons on the Debug page are scaled back down to normal size.</span>
+            </li>
+            <li>
+              <strong>Setup cards on small screens</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The tutorial pictures no longer show a purple background in Glass Look when they shrink on short screens, and harmless "Unauthorised" toasts after a fresh install are gone.</span>
+            </li>
+            <li>
+              <strong>Map view no longer freezes when switching to it</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Fixed a hang of up to 30 seconds when opening the Map view.</span>
+            </li>
+            <li>
+              <strong>Hospitals and pharmacies missing from the map</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">These icons no longer disappear when you zoom in close, and they now load reliably.</span>
+            </li>
+            <li>
+              <strong>Wi-Fi hunt mode had no ping</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Wi-Fi hunting now pings when the device is detected, and Bluetooth hunting pings reliably after the app restarts.</span>
+            </li>
+            <li>
+              <strong>Dialogs reappearing when you change theme</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Switching between light and dark no longer shows the environment alert and nag dialogs a second time.</span>
+            </li>
+            <li>
+              <strong>Square corners and double borders on dialogs</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Device dialogs no longer show a square outer box behind their rounded corners, and 3D glass buttons no longer show a glitch in the bottom-left corner.</span>
+            </li>
+            <li>
+              <strong>Plus Code and grid-reference accuracy</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Corrected two calculation errors that placed Plus Code and Ordnance Survey results in the wrong spot.</span>
+            </li>
+            <li>
+              <strong>Alert (CAP) feed chats were empty</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Opening a CAP feed chat now shows its messages, and pull-to-refresh no longer spins forever. Message text that arrives as HTML (for example MeteoAlarm) is shown formatted, and the message entry bar is hidden because these feeds are read-only.</span>
+            </li>
+            <li>
+              <strong>Unsubscribe and delete on alert feeds</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Choosing "Unsubscribe and delete" on a CAP feed now removes the chat from your list, and it stays removed after the feed list refreshes from the server.</span>
+            </li>
+            <li>
+              <strong>Import SMS asks for permission</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Choosing "Import SMS" from the chat-list menu without SMS access now offers to make Radar your default SMS app and imports your messages once you accept, instead of just showing "SMS permission required".</span>
+            </li>
+            <li>
+              <strong>Smaller fixes</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The SOS Hospitals tab now shows its scrollbar, the aircraft dialog shows the correct sighting time, and on first run the Save button on the profile page is no longer hidden behind the keyboard.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.800 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.800</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
+        <span class="version-date">26 October 2026</span>
+      </div>
+      <p class="version-build">versionCode 49 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Improved UK crime layer</strong>
+              <span class="note">Crime levels now load from files stored on your device, so the layer appears faster and works with a weak connection. The map shows a smooth heat-map instead of hard squares, areas with no recorded crime are shaded faintly green, and the detail slider can now show finer resolution. UK crime data must be enabled in Settings → Web Services.</span>
+            </li>
+            <li>
+              <strong>Settings improvements</strong>
+              <span class="note">New options under Web Services let you choose whether to see alerts for special aircraft squawks and for vessels in distress. Both are off by default and only appear when the matching aircraft or vessel data option is on. The layout of these options is also tighter.</span>
+            </li>
+            <li>
+              <strong>Analytics improvements</strong>
+              <span class="note">Anonymous usage analytics now record how the Terms of Service and emergency alert pop-ups are used, so we can improve them. Analytics can still be switched off in Settings → Privacy.</span>
+            </li>
+            <li>
+              <strong>More languages covered</strong>
+              <span class="note">All new text is translated into every supported app language.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>"Allow simplification to Yesterday" now remembers your choice</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The Appearance setting no longer resets itself and is now on by default.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v1.70 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v1.70</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
         <span class="version-date">25 October 2026</span>
       </div>
       <p class="version-build">versionCode 48 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
