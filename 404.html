@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>404 – Nothing on the radar | Radar App</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #11193a 0, #050814 52%);
+      background-attachment: fixed;
+      color: #f5f7ff;
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      padding: 2rem 1.25rem;
+      text-align: center;
+    }
+
+    /* Radar circle (same look as index.html hero) */
+    .radar {
+      position: relative;
+      width: min(360px, 78vw);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(48,110,200,0.22), transparent 55%),
+        radial-gradient(circle at 50% 50%, #091428, #040c1a);
+      box-shadow:
+        0 0 40px rgba(50,120,220,0.38),
+        0 0 120px rgba(50,120,220,0.13);
+      border: 1px solid rgba(100,165,255,0.5);
+      overflow: hidden;
+    }
+
+    .radar-grid-h, .radar-grid-v {
+      position: absolute;
+      background: rgba(90,155,255,0.1);
+      pointer-events: none;
+    }
+    .radar-grid-h { width: 100%; height: 1px; top: 50%; left: 0; }
+    .radar-grid-v { width: 1px; height: 100%; left: 50%; top: 0; }
+
+    .radar-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      border: 1px solid rgba(100,165,255,0.22);
+      transform: translate(-50%, -50%);
+    }
+    .radar-ring:nth-child(3) { width: 19%; height: 19%; }
+    .radar-ring:nth-child(4) { width: 38%; height: 38%; }
+    .radar-ring:nth-child(5) { width: 57%; height: 57%; }
+    .radar-ring:nth-child(6) { width: 76%; height: 76%; }
+    .radar-ring:nth-child(7) { width: 94%; height: 94%; }
+
+    .radar-sweep {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      transform-origin: 50% 50%;
+      background: conic-gradient(
+        from 0deg,
+        rgba(30,100,200,0.95) 0deg,
+        rgba(20,70,160,0.55) 50deg,
+        transparent 88deg,
+        transparent 360deg
+      );
+      mix-blend-mode: screen;
+      animation: sweep 4s linear infinite;
+    }
+    @keyframes sweep {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(-360deg); }
+    }
+
+    .binoculars {
+      width: min(180px, 45vw);
+      height: auto;
+      filter: drop-shadow(0 0 14px rgba(74,181,255,0.35));
+    }
+
+    .code {
+      margin: 0;
+      font-size: clamp(3.5rem, 12vw, 6rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      color: #4ab5ff;
+      text-shadow: 0 0 24px rgba(74,181,255,0.6);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.2rem, 4vw, 1.7rem);
+      font-weight: 600;
+    }
+    p {
+      margin: 0;
+      max-width: 34rem;
+      color: #a0a3c2;
+      font-size: 0.95rem;
+    }
+
+    .aside { font-size: 0.8rem; font-style: italic; color: #6f7fa8; }
+
+    .btn-primary {
+      margin-top: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #020309;
+      background: radial-gradient(circle at 20% 0%, #5cc4ff, #1a70c0);
+      box-shadow: 0 10px 35px rgba(74,181,255,0.4), 0 0 25px rgba(74,181,255,0.35);
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .radar-sweep { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="radar" aria-hidden="true">
+      <div class="radar-grid-h"></div>
+      <div class="radar-grid-v"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-sweep"></div>
+    </div>
+
+    <svg class="binoculars" viewBox="0 0 200 120" role="img" aria-label="Binoculars">
+      <defs>
+        <linearGradient id="barrel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1f4a8c" />
+          <stop offset="1" stop-color="#0d2860" />
+        </linearGradient>
+        <radialGradient id="lens" cx="40%" cy="35%" r="70%">
+          <stop offset="0" stop-color="#8fd4ff" />
+          <stop offset="0.5" stop-color="#2a6fc0" />
+          <stop offset="1" stop-color="#071a3d" />
+        </radialGradient>
+      </defs>
+      <!-- Bridge -->
+      <rect x="82" y="38" width="36" height="16" rx="5" fill="#16376e" stroke="#4ab5ff" stroke-opacity="0.6" />
+      <rect x="92" y="54" width="16" height="30" rx="4" fill="#16376e" stroke="#4ab5ff" stroke-opacity="0.6" />
+      <!-- Eyepieces -->
+      <rect x="22" y="6" width="50" height="30" rx="8" fill="#0d2860" stroke="#4ab5ff" stroke-opacity="0.6" />
+      <rect x="128" y="6" width="50" height="30" rx="8" fill="#0d2860" stroke="#4ab5ff" stroke-opacity="0.6" />
+      <!-- Barrels -->
+      <path d="M14 36 H80 L88 100 Q88 114 74 114 H22 Q8 114 8 100 Z" fill="url(#barrel)" stroke="#4ab5ff" stroke-opacity="0.7" />
+      <path d="M186 36 H120 L112 100 Q112 114 126 114 H178 Q192 114 192 100 Z" fill="url(#barrel)" stroke="#4ab5ff" stroke-opacity="0.7" />
+      <!-- Lenses -->
+      <ellipse cx="48" cy="100" rx="30" ry="11" fill="url(#lens)" stroke="#4ab5ff" stroke-opacity="0.8" />
+      <ellipse cx="152" cy="100" rx="30" ry="11" fill="url(#lens)" stroke="#4ab5ff" stroke-opacity="0.8" />
+    </svg>
+
+    <div class="code">404</div>
+    <h1>Page not found. Not a plane, boat, drone or earthquake.</h1>
+    <p>We scanned Bluetooth, WiFi, mesh and the web relay. We even asked the binoculars. Nothing. You may be in the Bermuda triangle. Either this page has gone off-grid without telling anyone, or someone typed the link wrong. (Probably the page. We trust our spelling.)</p>
+    <p class="aside">Radar can find aircraft 30,000 ft up, but apparently not this URL.</p>
+    <p class="aside">Please check if the problem exists between the keyboard and the back of the chair.</p>
+
+    <a class="btn-primary" href="/index.html">&larr; Take me back to civilisation</a>
+  </main>
+</body>
+</html>
