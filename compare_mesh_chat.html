@@ -1051,7 +1051,7 @@
   <div class="footnote-box">
     <p>
       <strong>¹ BLE/Wi-Fi Aware messages in Radar</strong> are sent as physically-bounded cleartext — they never leave the local radio environment,
-      but they are not encrypted on the wire. Messages via the web relay are end-to-end encrypted with sealed-sender metadata protection.
+      but they are not encrypted on the wire. Messages via the web relay are end-to-end encrypted, with sealed sender protecting the sender's UUID in transit.
       This is an inherent consequence of how BLE GATT works: establishing a full encryption handshake over BLE
       adds significant overhead and latency. The local physical constraint (a message cannot be intercepted
       beyond radio range without physical presence) is the security boundary for the P2P channel.

@@ -222,6 +222,24 @@
 .bt-footer-icon:hover { opacity: 0.8; transform: translateY(-1px); }
 .bt-footer-icon img { display: block; height: 30px; width: 30px; border-radius: 8px; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Does Radar need an account or phone number?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Radar needs no account, phone number or email address. Your identity is a randomly generated UUID with optional, unvalidated profile details." } },
+    { "@type": "Question", "name": "What is the minimum Android version for Radar?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Android 8.0 (API 26). Wi-Fi Aware additionally needs compatible hardware." } },
+    { "@type": "Question", "name": "Is Radar free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Radar is free to install and the Basic tier is free with ads. Radar Premium removes ads and adds web-powered extras for £1.99 per month in the UK, with the first month free." } },
+    { "@type": "Question", "name": "What data does Radar's server hold?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Only anonymous, unvalidated data: a device-location record (UUID, IP address and optional profile details) used for peer discovery, deleted after 3 months without a location update, and end-to-end encrypted relay messages held for up to 7 days. Optional Firebase usage statistics can be switched off." } },
+    { "@type": "Question", "name": "Does Radar work offline?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Nearby Radar devices can message each other directly over Bluetooth Low Energy or Wi-Fi Aware with no internet or mobile coverage. Live data layers and server relay need internet." } }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="page">
@@ -338,7 +356,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>No. There is <strong>no sign-up, no login, and no password</strong>. Just install Radar and open it — you're ready to go immediately. On first launch the app generates a random, anonymous device identity (a UUID) for you behind the scenes. Because there's no account, there's nothing to hack, leak, or hand over, and nothing tying your activity to a real-world identity.</p>
+          <p>No. There is <strong>no sign-up, no login, and no password</strong>. Just install Radar and open it — you're ready to go immediately. On first launch the app generates a random, anonymous device identity (a UUID) for you behind the scenes. Because there's no account, there's nothing to verify and nothing tying your activity to a real-world identity — our server only ever sees a random UUID.</p>
         </div>
       </details>
 
@@ -398,7 +416,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>Android 9 (API 28) or later is the minimum. <strong>Wi-Fi Aware</strong> (peer-to-peer NAN networking) requires Android 10 or later. Some advanced features — like precise nearby-device permissions — require Android 13+. Most modern Android phones from 2019 onwards are fully supported.</p>
+          <p>Android 8.0 (API 26) or later is the minimum. <strong>Wi-Fi Aware</strong> (peer-to-peer NAN networking) also needs hardware support, which not every phone has; Radar falls back to Bluetooth LE where it is missing. Some advanced features — like the nearby-devices permission — apply on Android 13+. Most Android phones from 2018 onwards are supported.</p>
         </div>
       </details>
 
@@ -456,7 +474,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>Yes, where supported. <strong>Wi-Fi Aware</strong> (also called NAN — Neighbour Awareness Networking) lets devices form direct peer-to-peer Wi-Fi links <em>without</em> any router or access point. Radar uses it alongside Bluetooth to give higher bandwidth for richer content and a more reliable mesh. It requires <strong>Android 10 or later</strong> and hardware support — not every phone has it, in which case Radar falls back to Bluetooth LE. You can toggle it in Settings.</p>
+          <p>Yes, where supported. <strong>Wi-Fi Aware</strong> (also called NAN — Neighbour Awareness Networking) lets devices form direct peer-to-peer Wi-Fi links <em>without</em> any router or access point. Radar uses it alongside Bluetooth to give higher bandwidth for richer content and a more reliable mesh. It requires <strong>Android 8.0 or later</strong> and hardware support — not every phone has it, in which case Radar falls back to Bluetooth LE. You can toggle it in Settings.</p>
         </div>
       </details>
 
@@ -614,7 +632,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>End-to-end encrypted messages use <strong>X25519 Diffie-Hellman</strong> key exchange and <strong>XChaCha20-Poly1305</strong> authenticated encryption — the same cryptographic standards used by Signal and leading secure messengers. The sealed-sender design means the server cannot determine who is communicating with whom from the encrypted payload alone. The local message database is encrypted at rest with <strong>SQLCipher</strong>.</p>
+          <p>End-to-end encrypted messages use <strong>X25519 Diffie-Hellman</strong> key exchange and <strong>XChaCha20-Poly1305</strong> authenticated encryption — the same cryptographic standards used by Signal and leading secure messengers. The sealed-sender design is applied in transit only: a network eavesdropper or middle man cannot obtain the sender's UUID, although the relay server itself handles sender and receiver UUIDs (never real identities). The local message database is encrypted at rest with <strong>SQLCipher</strong>.</p>
         </div>
       </details>
 
@@ -642,7 +660,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>WhatsApp <strong>stops working the moment you lose internet</strong>, requires a phone number, and is owned by Meta — meaning your metadata (who you talk to, when, and where) feeds a vast advertising business. Radar needs <strong>no internet, no phone number, and no account</strong>, works device-to-device over Bluetooth and Wi-Fi when networks fail, and collects no advertising data. They solve different problems: WhatsApp is great for everyday online chat, but when the signal drops, the network is censored, or you want true anonymity, Radar keeps you connected where WhatsApp can't. See the <a href="whatsapp.html">Radar vs WhatsApp</a> comparison.</p>
+          <p>WhatsApp <strong>stops working the moment you lose internet</strong>, requires a phone number, and is owned by Meta — meaning your metadata (who you talk to, when, and where) feeds a vast advertising business. Radar needs <strong>no internet, no phone number, and no account</strong>, works device-to-device over Bluetooth and Wi-Fi when networks fail, and collects no advertising data about your messages or contacts. They solve different problems: WhatsApp is great for everyday online chat, but when the signal drops, the network is censored, or you want true anonymity, Radar keeps you connected where WhatsApp can't. See the <a href="whatsapp.html">Radar vs WhatsApp</a> comparison.</p>
         </div>
       </details>
 
@@ -670,7 +688,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>Very. Radar is designed from the ground up to minimise data collection. <strong>No email address or phone number is ever required or stored</strong>. Your identity is a randomly generated UUID — pseudonymous by design. No email, no phone number, and no real name is stored on our servers. We don't sell your data, use it for advertising, or share it with data brokers. The optional nickname and gender shown to nearby peers are entirely up to you. See our full <a href="privacy-policy.html">Privacy Policy</a>.</p>
+          <p>Very. Radar is designed from the ground up to keep data anonymous. <strong>No email address or phone number is ever required or stored</strong>. Your identity is a randomly generated UUID, and everything our server holds about you is non-identifiable, anonymous and unvalidated: we have no way to know who you are. To let nearby Radar users find you through our server, a device-location record is kept containing your UUID, IP address, current location and any optional profile details you choose to enter (nickname, first name, last name, age, gender). None of these are checked or verified, and a record is deleted after 3 months without a location update from that device. Messages relayed through our server are end-to-end encrypted and held only until delivered (at most 7 days). We don't sell your data, use it for advertising, or share it with data brokers. Optional Firebase usage statistics can be switched off in settings. See our full <a href="privacy-policy.html">Privacy Policy</a>.</p>
         </div>
       </details>
 
@@ -680,7 +698,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>Yes. Messages sent via the internet relay use <strong>end-to-end encryption</strong> (X25519 + XChaCha20-Poly1305) — the server stores only opaque ciphertext it cannot read. The local database is encrypted at rest with SQLCipher. All server communication uses HTTPS with replay attack prevention. An optional <strong>biometric lock</strong> (fingerprint/face) secures the app on open. You can wipe and regenerate all cryptographic keys at any time via Settings → Device Identity Reset.</p>
+          <p>Yes. Messages sent via the internet relay use <strong>end-to-end encryption</strong> (X25519 + XChaCha20-Poly1305) — the server stores only opaque ciphertext it cannot read. If encryption is not possible (for example, the recipient's pre-keys are unavailable), Radar warns you and sends unencrypted only if you confirm. The local database is encrypted at rest with SQLCipher. All server communication uses HTTPS with replay attack prevention. An optional <strong>biometric lock</strong> (fingerprint/face) secures the app on open. You can wipe and regenerate all cryptographic keys at any time via Settings → Device Identity Reset.</p>
         </div>
       </details>
 
@@ -770,7 +788,7 @@
           <span class="faq-arrow"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5" stroke="#4ab5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="faq-body">
-          <p>Yes. Messages are <strong>end-to-end encrypted</strong> using <strong>X25519</strong> key exchange and <strong>XChaCha20-Poly1305</strong> authenticated encryption — the same class of cryptography used by Signal. Only you and the recipient hold the keys, so the relay server only ever sees opaque ciphertext it cannot read, and a sealed-sender design hides who is talking to whom. Messages stored on your device are also encrypted at rest with <strong>SQLCipher</strong>. (Standard SMS/MMS sent via the optional inbox uses the carrier network and is not end-to-end encrypted — that's a limitation of SMS itself.)</p>
+          <p>Yes. Messages are <strong>end-to-end encrypted</strong> using <strong>X25519</strong> key exchange and <strong>XChaCha20-Poly1305</strong> authenticated encryption — the same class of cryptography used by Signal. Only you and the recipient hold the keys, so the relay server only ever sees opaque ciphertext it cannot read, and sealed sender hides the sender's UUID from anyone intercepting the message in transit (the relay itself handles sender and receiver UUIDs, never real identities). If encryption is ever impossible (for example, the recipient's pre-keys are unavailable), Radar warns you and sends unencrypted only if you explicitly confirm. Messages stored on your device are also encrypted at rest with <strong>SQLCipher</strong>. (Standard SMS/MMS sent via the optional inbox uses the carrier network and is not end-to-end encrypted — that's a limitation of SMS itself.)</p>
         </div>
       </details>
 

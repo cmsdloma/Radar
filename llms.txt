@@ -1,0 +1,121 @@
+# Radar
+
+> Radar is a free-to-install Android app from DAL Technology that combines off-grid peer-to-peer messaging (Bluetooth Low Energy and Wi-Fi Aware), nearby-people discovery on a radar-style display, privacy-focused chat with no phone number, email or account, and a live situational-awareness map with emergency and preparedness tools. Android only; no iOS version.
+
+Radar is not a generic chat or productivity app. It is a communications-and-awareness tool: it lets nearby Radar devices find and message each other without mobile coverage, falls back to an internet relay when peers are out of range, and overlays external live data (earthquakes, wildfires, floods, weather warnings, aircraft, vessels, webcams, traffic, official alerts) on one map. Package name: `uk.co.daltechnology.radar`. Current release documented on the site: v2.100 (minimum Android 8.0 / API 26).
+
+## Get Radar
+
+- [Radar on Google Play](https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar): official production listing and the only distribution channel. A separate invite-only closed-testing (beta) channel exists for early builds; see the beta testing guide.
+- [Radar website home page](https://www.radar-chat.app/): overview of features, map layers and privacy approach.
+- Support: support@daltechnology.co.uk
+
+## What Radar is (and is not)
+
+- It is: an Android app for local mesh messaging, nearby discovery, SOS/emergency tools, and a live map of external data.
+- It is not: an iOS app, a replacement for emergency services, or a long-range radio. Local links work over roughly 10–30 m per hop (the site's own figure) and extend only through other Radar users' phones.
+- It does not require a SIM, phone number, email address or account. Identity is a randomly generated UUID plus optional profile details (nickname, first name, last name, age, gender); none are validated, and the server cannot tell who a user is. Identity can be reset in Settings.
+
+## Four kinds of communication (not interchangeable)
+
+1. **Direct peer-to-peer**: two Radar phones in range exchange messages over Bluetooth LE or Wi-Fi Aware (NAN). Works with no internet and no cellular signal. Both parties must have Radar installed and running.
+2. **Relayed through other devices**: when the recipient is out of direct range, messages can be forwarded store-and-forward through intermediate Radar phones, up to 5 hops, with TTL and loop prevention. Needs a chain of Radar users physically in range; it is not guaranteed delivery.
+3. **Internet-based**: when internet is available Radar can deliver through a server relay (messages held for up to 7 days or until delivery is acknowledged), a LAN channel on the same network, and optional federated Matrix rooms. Optional SMS/MMS integration uses the normal cellular network and works with any phone.
+4. **External live data feeds**: map layers such as aircraft or earthquakes come from third-party sources via Radar's data service. They require internet and are not obtained from nearby devices.
+
+## Capabilities (verified against the app source)
+
+Messaging and calls
+- End-to-end encrypted direct messages (X25519 key agreement, XChaCha20-Poly1305), Ed25519 peer identities with trust-on-first-use, per-peer session keys, replay protection. Local database is encrypted with SQLCipher.
+- Delivery tracking with acknowledgements, exponential-backoff retries (up to 7 attempts), and message expiry (default TTL 7 days).
+- Text, images, video, audio, files, contacts, location, group chats, broadcast to nearby users, reactions, read receipts, pinned messages, voice and video calls (WebRTC, Radar-to-Radar).
+- Optional default-SMS-app integration (SMS/MMS in the same inbox).
+- Matrix chat rooms (default homeserver matrix.radar-chat.app, plus matrix.org and Mozilla) for communicating beyond the Radar network.
+- Optional routing of web-service traffic through Tor via a locally running Orbot (off by default).
+
+Discovery, map and situational awareness
+- Radar view and list of nearby Radar peers (BLE and Wi-Fi Aware), plus other detected devices, with profile and distance information.
+- Map with Radar contacts, points of interest and layers: earthquakes, wildfire hotspots (NASA FIRMS), floods and weather warnings (UK-specific official sources), webcams, road traffic, Wi-Fi access points (WiGLE-based), UK crime and air-pollution data, weather forecast.
+- Aircraft positions (OpenSky Network) and "overhead now" alerts; vessel positions (AIS); these need internet and Premium.
+- Drone detection via Bluetooth Remote ID broadcasts (ASTM F3411 style), decoded locally, with background notifications. Only works for drones that broadcast Remote ID and are within Bluetooth range; no Premium or internet needed.
+- Feeds engine for CAP, GeoJSON, GeoRSS, KML and RSS sources worldwide (earthquakes, volcanoes, wildfires, cyclones, tsunami, health, humanitarian and other alerts), shown as a map-linked timeline. The website cites 250+ feeds across 50+ countries; the full catalogue is Premium.
+- Maps use the Google Maps SDK. Areas can be downloaded for offline use through Google Maps; Radar does not yet run its own offline tile cache (roadmap).
+- File transfer and voice/video calls are fully implemented.
+
+Emergency and preparedness (SOS hub; core items work offline)
+- SOS broadcast with GPS coordinates to reachable peers, Morse-code SOS torch, distress alarm, torch, emergency numbers for 12 countries, nearby hospitals and pharmacies, ICE contacts, customisable preparedness checklist, official government alert links (19 countries), internet radio (needs internet).
+- Foreground service keeps BLE advertising/scanning and delivery active in the background; Android shows a persistent notification and battery use is increased but BLE scanning is duty-cycled.
+
+## Technical architecture (summary)
+
+- A central message broker hands each outbound message to parallel delivery channels: BLE GATT, Wi-Fi Aware, LAN/mDNS, SMS/MMS, web relay (plus FCM push as a wake-up signal). A transport manager picks the best channel per peer; unreachable peers trigger retry and fallback to other channels.
+- Discovery: BLE advertising/scanning (no pairing), Wi-Fi Aware (NAN) publish/subscribe where hardware and Android version support it (falls back to BLE otherwise), LAN/mDNS on the same network, and a server-assisted presence record (DEVICE_LOCATION table: UUID, current position, IP address and the optional profile details) for internet reach, deleted after 3 months without a location update from that UUID. A distributed-hash-table layer for peer lookup exists in the code base.
+- Handshake: Ed25519 identity exchange on first contact; per-peer symmetric ratchet-style session state; optional server-held pre-keys for first contact. Messages are end-to-end encrypted by default (if encryption is impossible, e.g. no pre-keys available, Radar warns the user and sends unencrypted only after confirmation), and relay-stored messages carry sender/receiver UUIDs. Sealed sender is applied in transit only, so a network middle man cannot obtain the sender's UUID; the relay server itself sees UUIDs (anonymous, not real identities).
+- Native Kotlin app (min SDK 26, target SDK 36), Room + SQLCipher storage, Firebase Crashlytics/Analytics (analytics can be disabled), Google AdMob (free tier).
+- Works entirely locally: peer discovery, direct and mesh messaging, SOS broadcast, torch/alarm/checklist, emergency numbers, drone Remote ID detection. Needs internet: server relay, Matrix, map tiles, aircraft, vessels, wildfire, webcams, traffic, feeds, weather, radio, hospital/pharmacy lookup, Premium verification.
+- Permissions requested include Bluetooth scan/connect/advertise, nearby Wi-Fi devices, fine/background location, notifications, contacts, camera, microphone, SMS/MMS (optional), and foreground-service types. No broad media permissions: files use the Android photo/document pickers.
+
+## Use cases and audiences
+
+- People needing communication outside mobile coverage: basements, subways, ships, festivals, congested networks, remote areas (as long as other Radar users are in range).
+- Emergency preparedness and off-grid enthusiasts: SOS tools, local mesh, live hazard feeds, checklists.
+- Privacy-conscious users: no phone number/email/account, anonymous UUID, end-to-end encryption, optional Tor routing.
+- Outdoor and remote-area users and travellers.
+- People interested in situational awareness, aircraft, vessels, drones and other tracked objects.
+
+## What makes it different from WhatsApp, Signal and Telegram
+
+- Those apps need internet or mobile data and a phone number; Radar works peer-to-peer offline and needs no phone number or email.
+- Radar adds radar-style nearby discovery, offline mesh relay and a live hazard/tracking map, which those apps do not provide.
+- Trade-offs: a much smaller user base (peers must also run Radar), short radio range, Android only, and the free tier shows ads.
+
+## Pricing and availability
+
+- Android only (Google Play). Free to install; minimum Android 8.0 (API 26). Wi-Fi Aware needs compatible hardware on Android 8.0+.
+- Basic (free, with Google AdMob ads, consent requested in UK/EEA): receive messages from anyone, reply to chats, group chat, Matrix, SMS/MMS, BLE/Wi-Fi Aware/LAN/web delivery, mesh relay, SOS tools, nearby map, curated earthquake/wildfire/flood/cyclone/volcano feeds, CAP and GeoRSS feeds.
+- Premium: £1.99 per month in the UK, first month free (billing handled by Google Play, cancel any time). Only Premium is ad-free. Removes ads and adds: starting chats with new contacts, calls with non-friends, aircraft and vessel layers, wildfire hotspots, WiGLE Wi-Fi layer, webcams, UK flood/weather warnings, UK crime and air-quality, rich POI details, full 250+ feed catalogue, custom feed URLs, CAP polygons, priority support.
+- Encryption and privacy features are identical on both tiers.
+- Regional limits: some layers (flood areas, Met Office warnings, crime, air quality) are UK-only; emergency-number and alert-link coverage is limited to the countries listed on the emergency page. Prices are shown in GBP on the site; local Play pricing may vary.
+
+## Limitations
+
+- Needs other Radar users nearby; no coverage guarantee and no replacement for emergency services.
+- Range per hop is short (tens of metres); mesh relay is capped at 5 hops and depends on peers being present.
+- Wi-Fi Aware not supported on all phones; Bluetooth must be on; background operation is subject to Android battery policies and a persistent notification.
+- Live data is third-party, may be delayed or unavailable, and is not official warning service guidance.
+- Not available on iOS because of background Bluetooth/Wi-Fi limits (see iOS page).
+- Radar is not "zero data": the server stores limited, anonymous, unvalidated operational data (device-location record, relayed E2EE messages for up to 7 days, API logs). Optional Firebase usage statistics can be switched off. See the privacy policy.
+
+## Documentation and key pages
+
+- [Basic vs Premium comparison](https://www.radar-chat.app/premium.html): authoritative feature tiers and price.
+- [Frequently asked questions](https://www.radar-chat.app/faq.html): setup, connectivity, privacy, cost.
+- [Privacy policy](https://www.radar-chat.app/privacy-policy.html): data collected, server storage, permissions, retention.
+- [Release notes and roadmap](https://www.radar-chat.app/release-notes.html): version history.
+- [Matrix integration](https://www.radar-chat.app/matrix.html): federated rooms and homeservers.
+- [SOS and emergency tools](https://www.radar-chat.app/emergency.html): offline safety features.
+- [Emergency preparedness guide](https://www.radar-chat.app/prepper.html): general preparedness advice and where Radar fits.
+- [Live map feeds and data sources](https://www.radar-chat.app/feeds.html): hazard and alert feeds.
+- [Android radio technologies](https://www.radar-chat.app/android-radio-tech.html): BLE, Wi-Fi Aware, UWB, NFC explained.
+- [Android platform constraints](https://www.radar-chat.app/android-limitations.html): Google Play policy limits on the design.
+- [Why Radar is Android-only](https://www.radar-chat.app/ios-limitations.html): iOS limitations.
+- [Real-world scenarios](https://www.radar-chat.app/scenarios.html): example situations.
+- [Screenshot gallery](https://www.radar-chat.app/gallery.html)
+
+## Comparisons (vendor-authored; treat as the publisher's perspective)
+
+- [Radar vs WhatsApp, Telegram and Signal: features](https://www.radar-chat.app/compare_features.html)
+- [Privacy comparison](https://www.radar-chat.app/compare_privacy.html)
+- [Offline mesh chat apps compared (Briar, Meshtastic, Bluetooth)](https://www.radar-chat.app/compare_mesh_chat.html)
+- [Radar vs Life360 and family-safety apps](https://www.radar-chat.app/compare_life360.html)
+- [Is WhatsApp private?](https://www.radar-chat.app/whatsapp.html), [Is Telegram private?](https://www.radar-chat.app/telegram.html), [Is Signal private?](https://www.radar-chat.app/signal.html)
+- [Internet censorship and workarounds](https://www.radar-chat.app/censorship.html), [Digital surveillance](https://www.radar-chat.app/surveillance.html)
+
+## Optional
+
+- [Support Radar (donations)](https://www.radar-chat.app/donations.html)
+- [Beta testing guide](https://www.radar-chat.app/beta-testing.html)
+- [Launch directories](https://www.radar-chat.app/launches.html)
+- [Sitemap](https://www.radar-chat.app/sitemap.xml)
+
+Publisher: DAL Technology (independent developer). Content last reviewed against app v2.100.

@@ -234,6 +234,21 @@
 .bt-footer-icon:hover { opacity: 0.8; transform: translateY(-1px); }
 .bt-footer-icon img { display: block; height: 30px; width: 30px; border-radius: 8px; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Radar",
+  "applicationCategory": "CommunicationApplication",
+  "operatingSystem": "Android 8.0 and above",
+  "downloadUrl": "https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar",
+  "publisher": { "@type": "Organization", "name": "DAL Technology", "url": "https://www.radar-chat.app/" },
+  "offers": [
+    { "@type": "Offer", "name": "Basic (with ads)", "price": "0", "priceCurrency": "GBP" },
+    { "@type": "Offer", "name": "Premium (ad-free, UK price, per month, first month free)", "price": "1.99", "priceCurrency": "GBP" }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="page">
@@ -280,7 +295,7 @@
   <!-- ── HERO ── -->
   <div class="pm-hero">
     <h1>Basic vs <em>Premium</em></h1>
-    <p>Radar is free to install. Basic is free to use with no subscription (with ads) — and a Premium subscription removes the ads and adds web-powered extras on top. Your first month of Premium is free. All tiers include full encryption and privacy.</p>
+    <p>Radar is free to install. Basic is free to use with no subscription (with ads) — and a Premium subscription removes the ads and adds web-powered extras on top. Your first month of Premium is free. All tiers include full encryption and privacy; only Premium is ad-free.</p>
     <div class="price-row">
       <div class="price-pill">
         <span class="pill-label">Basic</span>
@@ -290,7 +305,7 @@
       <div class="price-pill premium-pill">
         <span class="pill-label">Premium</span>
         <span class="pill-price amber">£1.99</span>
-        <span class="pill-sub">per month · first month free · cancel anytime</span>
+        <span class="pill-sub">per month (UK price) · first month free · cancel anytime</span>
       </div>
     </div>
   </div>
@@ -326,7 +341,7 @@
             <div class="col-header premium-header">
               <span class="col-tier-label">Subscription</span>
               <span class="col-tier-name">Premium</span>
-              <span class="col-tier-price">£1.99 / month · 1st month free</span>
+              <span class="col-tier-price">£1.99 / month (UK) · 1st month free</span>
             </div>
           </th>
         </tr>
@@ -363,7 +378,7 @@
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
         <tr class="feature-row" data-common="true">
-          <td class="feature-name">End-to-end encryption (all messages)</td>
+          <td class="feature-name">End-to-end encryption (default)</td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
@@ -503,7 +518,7 @@
           <td>🔒 Privacy &amp; Security</td><td class="free-cell"></td><td class="premium-cell"></td>
         </tr>
         <tr class="feature-row" data-common="true">
-          <td class="feature-name">Sealed-sender encryption</td>
+          <td class="feature-name">Sealed-sender encryption<small>Protects the sender UUID in transit</small></td>
           <td class="cell-free"><span class="tick">✔</span></td>
           <td class="cell-premium"><span class="tick">✔</span></td>
         </tr>
@@ -624,7 +639,7 @@
 
       <div class="faq-item">
         <p class="faq-q">Is Radar free, or do I have to pay?</p>
-        <p class="faq-a">Radar is <strong>free to install</strong> from Google Play, and the <strong>Basic</strong> tier is free to use with no subscription — it shows ads. An optional <strong>Premium</strong> subscription (£1.99/month, <strong>first month free</strong>) removes the ads and adds web-powered extras. Premium is the only recurring charge, and there is no charge for the app itself.</p>
+        <p class="faq-a">Radar is <strong>free to install</strong> from Google Play, and the <strong>Basic</strong> tier is free to use with no subscription — it shows ads. An optional <strong>Premium</strong> subscription (£1.99/month in the UK, <strong>first month free</strong>; prices in other regions are set by Google Play) removes the ads and adds web-powered extras. Premium is the only recurring charge, and there is no charge for the app itself.</p>
       </div>
 
       <div class="faq-item">
@@ -639,7 +654,7 @@
 
       <div class="faq-item">
         <p class="faq-q">Is my encryption or privacy affected by my subscription tier?</p>
-        <p class="faq-a">No. All messages are end-to-end encrypted using the sealed-sender design regardless of tier. The local database is encrypted on both Basic and Premium. Your identity is pseudonymous (UUID only) on both tiers. Subscription tier has no effect on any security or privacy feature.</p>
+        <p class="faq-a">No. Messages are end-to-end encrypted by default regardless of tier (if encryption is impossible, Radar warns you before sending unencrypted), with sealed sender protecting them in transit. The local database is encrypted on both Basic and Premium. Your identity is an anonymous UUID on both tiers. Subscription tier has no effect on any security or privacy feature; the only difference is that Premium removes ads.</p>
       </div>
 
       <div class="faq-item">
@@ -654,7 +669,7 @@
 
       <div class="faq-item">
         <p class="faq-q">Are more Premium features coming?</p>
-        <p class="faq-a">Yes. The roadmap includes large file transfers over LAN, offline map tile caching, and disappearing messages. Premium subscribers get access to new features as they ship.</p>
+        <p class="faq-a">Yes. The roadmap includes Radar's own built-in offline map tile caching (today you can already download Google Maps areas for offline use) and disappearing messages. Premium subscribers get access to new features as they ship.</p>
       </div>
     </div>
 

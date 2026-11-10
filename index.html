@@ -27,6 +27,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
         content="Radar is a peer-to-peer Android app for local device discovery, off-grid messaging, and radar-style visualization of nearby peers."/>
+  <link rel="canonical" href="https://www.radar-chat.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.radar-chat.app/" />
+  <meta property="og:title" content="Radar App – Off-Grid Peer-to-Peer Communication" />
+  <meta property="og:description" content="Radar is a peer-to-peer Android app for local device discovery, off-grid messaging, and radar-style visualization of nearby peers." />
+  <meta property="og:image" content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
+  <meta name="twitter:card" content="summary" />
   <link rel="stylesheet" href="styles.css" />
   <script src="language-selector.js" defer></script>
   <style>
@@ -668,6 +675,43 @@
 .bt-footer-icon:hover { opacity: 0.8; transform: translateY(-1px); }
 .bt-footer-icon img { display: block; height: 30px; width: 30px; border-radius: 8px; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.radar-chat.app/#organization",
+      "name": "DAL Technology",
+      "url": "https://www.radar-chat.app/",
+      "contactPoint": { "@type": "ContactPoint", "email": "support@daltechnology.co.uk", "contactType": "customer support" }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.radar-chat.app/#website",
+      "name": "Radar",
+      "url": "https://www.radar-chat.app/",
+      "publisher": { "@id": "https://www.radar-chat.app/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.radar-chat.app/#app",
+      "name": "Radar",
+      "applicationCategory": "CommunicationApplication",
+      "operatingSystem": "Android 8.0 and above",
+      "description": "Android app combining off-grid peer-to-peer messaging (Bluetooth Low Energy and Wi-Fi Aware), nearby device discovery, privacy-focused chat with no account, and a live situational-awareness map with emergency and preparedness tools.",
+      "softwareVersion": "2.100",
+      "downloadUrl": "https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar",
+      "installUrl": "https://play.google.com/store/apps/details?id=uk.co.daltechnology.radar",
+      "publisher": { "@id": "https://www.radar-chat.app/#organization" },
+      "offers": [
+        { "@type": "Offer", "name": "Basic (with ads)", "price": "0", "priceCurrency": "GBP" },
+        { "@type": "Offer", "name": "Premium (ad-free, UK price, per month, first month free)", "price": "1.99", "priceCurrency": "GBP" }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="page">
@@ -700,6 +744,7 @@
         <li><a href="ios-limitations.html">iOS</a></li>
         <li><a href="premium.html">Premium</a></li>
         <li><a href="release-notes.html">Releases</a></li>
+        <li><a href="launches.html">Launches</a></li>
         <li><a href="beta-testing.html">Beta Testing</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="privacy-policy.html">Privacy Policy</a></li>
@@ -720,14 +765,14 @@
           <span>Stay private. Stay safe.</span>
         </h1>
         <p class="hero-subtitle">
-          <strong>Radar</strong> discovers people around you, lets you chat securely, share media, and stay safe — even when the internet is gone. No phone number. No email address. No data collected. Ever.
+          <strong>Radar</strong> discovers people around you, lets you chat securely, share media, and stay safe — even when the internet is gone. No phone number. No email address. Nothing that identifies you.
         </p>
 
         <div class="hero-tags">
           <span class="tag tag--highlight">Truly Anonymous</span>
           <span class="tag">End-to-End Encrypted</span>
           <span class="tag">Works Offline</span>
-          <span class="tag">Zero Data Collection</span>
+          <span class="tag">Anonymous &amp; Unverified Data</span>
           <span class="tag">Peer-to-Peer Mesh</span>
           <span class="tag">SOS &amp; Emergency Features</span>
         </div>
@@ -803,11 +848,11 @@
         <span class="fsep">&#x25C6;</span>
         <div class="feat-strip-item">&#x1F512; <strong>No Sign-Up</strong></div>
         <span class="fsep">&#x25C6;</span>
-        <div class="feat-strip-item">&#x1F5FA;&#xFE0F; <strong>Offline Maps</strong></div>
+        <div class="feat-strip-item">&#x1F5FA;&#xFE0F; <strong>Map &amp; Offline Download</strong></div>
         <span class="fsep">&#x25C6;</span>
         <div class="feat-strip-item">&#x1F6A8; <strong>SOS &amp; Emergency</strong></div>
         <span class="fsep">&#x25C6;</span>
-        <div class="feat-strip-item">&#x1F6E1;&#xFE0F; <strong>Zero Data Collection</strong></div>
+        <div class="feat-strip-item">&#x1F6E1;&#xFE0F; <strong>Anonymous by Design</strong></div>
         <span class="fsep">&#x25C6;</span>
         <div class="feat-strip-item">&#x1F3A5; <strong>Video &amp; Audio Calls</strong></div>
         <span class="fsep">&#x25C6;</span>
@@ -840,7 +885,7 @@
             <h3 class="data-tier-title">Live tracking layers</h3>
             <p class="data-tier-sub">
               Purpose-built integrations that poll, cache, and tile real-world positional data,
-              so it's ready the instant you open the map — offline basemaps included.
+              so it's ready the instant you open the map. The map uses the Google Maps SDK, and you can download Google Maps areas for offline use on your device.
             </p>
           </div>
         </div>
@@ -867,16 +912,6 @@
             <p class="source-card-tag">Live positions</p>
             <div class="source-chips">
               <span class="source-chip source-chip--live">AISStream.io</span>
-            </div>
-          </div>
-
-          <div class="source-card">
-            <div class="source-card-head">
-              <h4>Trains</h4>
-            </div>
-            <p class="source-card-tag">Live positions</p>
-            <div class="source-chips">
-              <span class="source-chip source-chip--live">TrainsTracking.com</span>
             </div>
           </div>
 
@@ -1155,7 +1190,7 @@
           <span class="sc-icon">&#x1F510;</span>
           <h3 class="sc-title">Secure Messaging</h3>
           <p class="sc-body">
-            Every direct message is end-to-end encrypted with sealed sender technology — nobody, not even the relay infrastructure, can see who's talking to whom.
+            Direct messages are end-to-end encrypted by default (Radar warns you first if one can't be encrypted), and sealed sender protects it in transit — a network eavesdropper or middle man can't even obtain the sender's UUID.
           </p>
         </div>
 
@@ -1241,14 +1276,14 @@
         <div class="privacy-claim">
           <span class="pc-icon">&#x1F576;&#xFE0F;</span>
           <div class="pc-label">Truly Anonymous
-            <small>Zero personal information required at any point.</small>
+            <small>No verified personal information is ever required. Anything you enter is optional and unvalidated.</small>
           </div>
         </div>
 
         <div class="privacy-claim">
           <span class="pc-icon">&#x1F4F5;</span>
-          <div class="pc-label">No Data Collection
-            <small>We don't store, analyse, or sell your data — because we never see it.</small>
+          <div class="pc-label">Anonymous, Unvalidated Data
+            <small>Our server only knows a random UUID, never who you are. Any profile details you add are optional, unverified and never sold. Optional Firebase usage statistics can be switched off.</small>
           </div>
         </div>
 
@@ -1269,7 +1304,7 @@
         <div class="privacy-claim">
           <span class="pc-icon">&#x1FAAA;</span>
           <div class="pc-label">Sealed Sender
-            <small>The relay can't see who sent a message — only that one arrived.</small>
+            <small>Sealed sender is applied in transit only, so anyone intercepting traffic can't see the sender's UUID. The relay only handles sender and receiver UUIDs, never real identities.</small>
           </div>
         </div>
 
@@ -1490,8 +1525,8 @@
       <a class="apple-badge" href="ios-limitations.html" aria-label="iOS limitations">
         <img src="images/Not_in_the_Apple_Store.webp" alt="Not in the Apple Store" />
       </a>
-      <a class="orbit-badge" href="https://launchorbit.co/product/cea9b4d3-3fbf-4ac5-85d3-9a2e6b606152" target="_blank" rel="noopener noreferrer">
-        <img src="https://launchorbit.co/api/badge?theme=dark&amp;v=10" alt="View this product on Launch Orbit" width="240" height="64" />
+      <a class="orbit-badge" href="launches.html" aria-label="Radar launches and features">
+        <img src="images/launches-badge.svg" alt="Find Radar on launch sites" width="160" height="40" />
       </a>
     </div>
     <nav class="bt-footer-links" aria-label="Footer navigation">

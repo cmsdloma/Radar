@@ -594,7 +594,7 @@
   <div class="stat-band">
     <div class="stat-item"><div class="stat-n">84</div><div class="stat-l">Total feature categories compared across all 5 platforms in the matrix below</div></div>
     <div class="stat-item"><div class="stat-n">22</div><div class="stat-l">Capabilities exclusive to Radar &mdash; unavailable on any other platform in this comparison</div></div>
-    <div class="stat-item"><div class="stat-n amber">0</div><div class="stat-l">User-identifiable records on Radar's relay &mdash; E2E encrypted, sealed-sender, UUID-only; nothing meaningful to hand over</div></div>
+    <div class="stat-item"><div class="stat-n amber">0</div><div class="stat-l">Anonymous, unvalidated UUID records on Radar's relay &mdash; E2E encrypted content; nothing links a UUID to a real person</div></div>
     <div class="stat-item"><div class="stat-n warn">1/9</div><div class="stat-l">Telegram's privacy score &mdash; the most feature-rich platform and simultaneously the least private</div></div>
   </div>
 </section>
@@ -818,7 +818,7 @@
         <td class="bc-dc"><span class="bn">&#x2717;</span></td>
       </tr>
       <tr class="bf-row">
-        <td class="bc-feat-name">Sealed-sender / metadata protection<small>Server cannot determine who is sending to whom</small></td>
+        <td class="bc-feat-name">Sealed-sender / metadata protection<small>Sender UUID hidden from anyone intercepting traffic in transit (the relay itself handles UUIDs only)</small></td>
         <td class="bc-rad"><span class="by">&#x2713;</span></td>
         <td class="bc-wa"><span class="bn">&#x2717;</span></td><td class="bc-tg"><span class="bn">&#x2717;</span></td>
         <td class="bc-sig"><span class="by">&#x2713;</span></td>
@@ -887,8 +887,8 @@
         <td class="bc-dc"><span class="bp">Optional<br/><span class="bsub">Phone / social sync encouraged</span></span></td>
       </tr>
       <tr class="bf-row">
-        <td class="bc-feat-name">Zero-knowledge architecture<small>Operator mathematically prevented from reading messages regardless of legal compulsion</small></td>
-        <td class="bc-rad"><span class="by">&#x2713;</span><span class="bsub">E2E + sealed sender + UUID only; encrypted relay; nothing meaningful to hand over</span></td>
+        <td class="bc-feat-name">Server cannot read message content<small>Content is end-to-end encrypted, so the operator cannot read it even under legal compulsion</small></td>
+        <td class="bc-rad"><span class="by">&#x2713;</span><span class="bsub">E2E + sealed sender in transit + UUID only; encrypted relay; no real identities held</span></td>
         <td class="bc-wa"><span class="bn">&#x2717;</span><span class="bsub">Content E2E but metadata &amp; contact graph retained; cloud backups accessible</span></td>
         <td class="bc-tg"><span class="bn">&#x2717;</span><span class="bsub">Standard chats readable server-side; only Secret Chats have E2E</span></td>
         <td class="bc-sig"><span class="by">&#x2713;</span><span class="bsub">Proven 2021: only registration date &amp; last connection disclosed</span></td>
@@ -896,7 +896,7 @@
       </tr>
       <tr class="bf-row">
         <td class="bc-feat-name">What authorities can obtain with a valid warrant</td>
-        <td class="bc-rad"><span class="bp">Almost nothing<br/><span class="bsub">No PII; encrypted content; sealed sender; relay deletes after 7 days</span></span></td>
+        <td class="bc-rad"><span class="bp">Almost nothing<br/><span class="bsub">Anonymous UUIDs only; encrypted content; relay deletes after 7 days</span></span></td>
         <td class="bc-wa"><span class="bp">Significant<br/><span class="bsub">Metadata, contact lists, call logs, unencrypted cloud backups</span></span></td>
         <td class="bc-tg"><span class="bp">IP &amp; phone number<br/><span class="bsub">Post-2024: also content from standard chats</span></span></td>
         <td class="bc-sig"><span class="bp">Almost nothing<br/><span class="bsub">Registration date &amp; last login only &mdash; demonstrated to US grand jury</span></span></td>
@@ -1068,7 +1068,7 @@
         <td class="bc-rad"><span class="by">&#x2713;</span></td><td class="bc-wa"><span class="bn">&#x2717;</span></td><td class="bc-tg"><span class="bn">&#x2717;</span></td><td class="bc-sig"><span class="bn">&#x2717;</span></td><td class="bc-dc"><span class="bn">&#x2717;</span></td>
       </tr>
       <tr class="bf-row">
-        <td class="bc-feat-name">Offline maps (downloadable cached tiles)</td>
+        <td class="bc-feat-name">Offline maps (download Google Maps areas for offline use)</td>
         <td class="bc-rad"><span class="by">&#x2713;</span></td><td class="bc-wa"><span class="bn">&#x2717;</span></td><td class="bc-tg"><span class="bn">&#x2717;</span></td><td class="bc-sig"><span class="bn">&#x2717;</span></td><td class="bc-dc"><span class="bn">&#x2717;</span></td>
       </tr>
 
@@ -1152,8 +1152,8 @@
       Radar's BLE, Wi-Fi Aware, LAN mesh, and AP bridging transports mean it delivers messages, location, and SOS signals even when
       ISPs, cell towers, and DNS are entirely offline. Radar is also the only platform with no personal identifier at registration &mdash;
       a UUID cannot link you to a real-world identity even if the relay server were subpoenaed.
-      The encrypted relay stores messages for a maximum of 7 days; content is E2E encrypted and sealed-sender,
-      making it cryptographically impossible to identify which UUID belongs to which human.
+            The encrypted relay stores messages for a maximum of 7 days;             content is E2E encrypted by default (unencrypted only if the user confirms a warning), and sealed sender
+            protects it in transit so a middle man cannot obtain the sender's UUID. The server itself only ever handles UUIDs, never real identities.
       Even that relay has no single point of failure: peers are located through two <strong>distributed hash tables</strong>
       spread across the user devices themselves &mdash; a <strong>UUID&nbsp;&rarr;&nbsp;IP&nbsp;address</strong> resolution that
       replaces the central lookup server, and a geographic <strong>location&nbsp;&rarr;&nbsp;nearby-UUIDs</strong> search that
@@ -1229,9 +1229,9 @@
     <div class="verdict-card verdict-card--rad">
       <div class="v-name">Radar</div>
       <div class="v-rating vc-rad">Best for: Real Privacy</div>
-      <div class="v-sub">The only platform in this comparison with zero server-stored data, no identity linkage, and full offline capability. The ceiling, not the compromise.</div>
+      <div class="v-sub">The only platform in this comparison with anonymous, unvalidated server data, no identity linkage, and full offline capability. The ceiling, not the compromise.</div>
       <ul>
-        <li><span class="li-icon">&#x2713;</span> Zero data retention by architecture</li>
+        <li><span class="li-icon">&#x2713;</span> Anonymous, unvalidated server data (UUIDs only)</li>
         <li><span class="li-icon">&#x2713;</span> No phone number or account</li>
         <li><span class="li-icon">&#x2713;</span> Offline mesh &mdash; no infrastructure needed</li>
         <li><span class="li-icon">&#x2713;</span> No subpoenable server-side data</li>

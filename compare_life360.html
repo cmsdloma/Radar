@@ -589,7 +589,7 @@
   <div class="stat-band">
     <div class="stat-item"><div class="stat-n">68</div><div class="stat-l">Total feature categories compared across all 9 platforms in the full matrix below</div></div>
     <div class="stat-item"><div class="stat-n">19</div><div class="stat-l">Capabilities exclusive to Radar &mdash; unavailable on any other platform in this comparison</div></div>
-    <div class="stat-item"><div class="stat-n warn">$0</div><div class="stat-l">Revenue Radar earns from selling your location data &mdash; by design; zero data to sell</div></div>
+    <div class="stat-item"><div class="stat-n warn">$0</div><div class="stat-l">Revenue Radar earns from selling your location data &mdash; by design; we never sell data</div></div>
     <div class="stat-item"><div class="stat-n orange">$228M</div><div class="stat-l">Life360's revenue from location data sales reported before public outcry forced partial changes</div></div>
   </div>
 </section>
@@ -773,7 +773,7 @@
         <td class="bc-geo"><span class="bn">&#x2717;</span></td><td class="bc-msfs"><span class="bn">&#x2717;</span></td><td class="bc-fami"><span class="bn">&#x2717;</span></td><td class="bc-glym"><span class="bn">&#x2717;</span></td>
       </tr>
       <tr class="bf-row">
-        <td class="bc-feat-name">Offline map tiles (downloadable, cached)<small>Map usable without internet connection</small></td>
+        <td class="bc-feat-name">Offline maps (via Google Maps offline download)<small>Download areas in Google Maps; map usable without internet</small></td>
         <td class="bc-rad"><span class="by">&#x2713;</span></td>
         <td class="bc-l360"><span class="bn">&#x2717;</span></td>
         <td class="bc-apl"><span class="bn">&#x2717;</span></td>
@@ -998,7 +998,7 @@
 
       <tr class="bf-row">
         <td class="bc-feat-name">End-to-end encrypted location data<small>Platform operator mathematically prevented from reading location; only your circle can</small></td>
-        <td class="bc-rad"><span class="by">&#x2713;</span><span class="bsub">E2E + sealed sender; relay sees only encrypted blobs</span></td>
+        <td class="bc-rad"><span class="by">&#x2713;</span><span class="bsub">E2E + sealed sender in transit; relay stores encrypted blobs</span></td>
         <td class="bc-l360"><span class="bn">&#x2717;</span><span class="bsub">Life360 servers read and store all location data in plaintext</span></td>
         <td class="bc-apl"><span class="by">&#x2713;</span><span class="bsub">Find My location data is E2E encrypted; Apple cannot read it</span></td>
         <td class="bc-goog"><span class="bn">&#x2717;</span><span class="bsub">Google reads and processes all location data for ad targeting</span></td>
@@ -1029,8 +1029,8 @@
         <td class="bc-geo"><span class="bn">&#x2717;</span></td><td class="bc-msfs"><span class="bn">&#x2717;</span></td><td class="bc-fami"><span class="bn">&#x2717;</span></td><td class="bc-glym"><span class="bp">Partial<br/><span class="bsub">No account required for one-time location sharing</span></span></td>
       </tr>
       <tr class="bf-row">
-        <td class="bc-feat-name">Zero-knowledge architecture<small>Server design prevents operator from accessing content even under legal compulsion</small></td>
-        <td class="bc-rad"><span class="by">&#x2713;</span><span class="bsub">E2E + sealed sender + UUID; relay stores encrypted blobs only; 7-day auto-delete</span></td>
+        <td class="bc-feat-name">Server cannot read message content<small>Content is end-to-end encrypted, so the operator cannot read it even under legal compulsion</small></td>
+        <td class="bc-rad"><span class="by">&#x2713;</span><span class="bsub">E2E + sealed sender in transit + UUID; relay stores encrypted blobs only; 7-day auto-delete</span></td>
         <td class="bc-l360"><span class="bn">&#x2717;</span><span class="bsub">All location data stored and readable; regularly shared with partners and authorities</span></td>
         <td class="bc-apl"><span class="by">&#x2713;</span><span class="bsub">Apple: "We have no way to access the data" &mdash; Find My uses E2E</span></td>
         <td class="bc-goog"><span class="bn">&#x2717;</span><span class="bsub">Full location history retained; complies with law enforcement regularly</span></td>
@@ -1038,7 +1038,7 @@
       </tr>
       <tr class="bf-row">
         <td class="bc-feat-name">&#x26A0;&#xFE0F; Sells or monetises user location data to third parties</td>
-        <td class="bc-rad"><span class="cell-lim-no">&#x2717;</span><span class="bsub">Never &mdash; zero data to sell</span></td>
+        <td class="bc-rad"><span class="cell-lim-no">&#x2717;</span><span class="bsub">Never &mdash; we do not sell data</span></td>
         <td class="bc-l360"><span class="cell-lim-yes">V</span><span class="bsub">Via Arity subsidiary (Placer.ai, Near, X-Mode); Tile hardware data shares same parent practices; partially reformed post-2021</span></td>
         <td class="bc-apl"><span class="cell-lim-no">&#x2717;</span></td>
         <td class="bc-goog"><span class="cell-lim-yes">&#x2713;</span><span class="bsub">Informs Google's $240B+ ad business; shared with advertiser ecosystem</span></td>
@@ -1050,7 +1050,7 @@
       </tr>
       <tr class="bf-row">
         <td class="bc-feat-name">What authorities can obtain with a valid warrant</td>
-        <td class="bc-rad"><span class="bp">Almost nothing<br/><span class="bsub">No PII; encrypted content; sealed sender; relay deletes after 7 days</span></span></td>
+        <td class="bc-rad"><span class="bp">Almost nothing<br/><span class="bsub">Anonymous UUIDs only; encrypted content; relay deletes after 7 days</span></span></td>
         <td class="bc-l360"><span class="bp">Moderate<br/><span class="bsub">Account data + item/person location history; Life360/Tile cooperate with valid law enforcement requests</span></span></td>
         <td class="bc-apl"><span class="bp">Minimal<br/><span class="bsub">Account metadata; Find My location data is E2E &mdash; Apple cannot provide it</span></span></td>
         <td class="bc-goog"><span class="bp" style="color:var(--accent-warn)">Extensive<br/><span class="bsub">Full Maps Timeline, searches, device data; Google received 50,000+ US requests in 2022</span></span></td>
@@ -1283,7 +1283,7 @@
       signal without any internet infrastructure &mdash; using Bluetooth LE, Wi-Fi Aware, and LAN mesh even when cell towers and ISPs are
       entirely offline. It is also the only platform with zero personal identifier at registration: a UUID cannot link you to a
       real-world identity even if the relay server were subpoenaed. The encrypted relay stores data for a maximum of 7 days;
-      content is E2E encrypted and sealed-sender, making it cryptographically impossible to identify which UUID belongs to which human.
+            content is E2E encrypted by default (unencrypted only if the user confirms a warning), and sealed sender protects it in transit so a middle man cannot obtain the sender's UUID. The server only ever handles UUIDs, never real identities.
     </p>
   
     <p class="trademark-notice">
@@ -1321,13 +1321,13 @@
     <div class="verdict-card verdict-card--rad">
       <div class="v-name">Radar</div>
       <div class="v-rating vc-rad">Best for: Privacy + Offline resilience</div>
-      <div class="v-sub">The only location-sharing platform with zero data retention, anonymous registration, and full offline capability. Essential when infrastructure fails.</div>
+      <div class="v-sub">The only location-sharing platform with anonymous, unvalidated UUID-only data, anonymous registration, and full offline capability. Essential when infrastructure fails.</div>
       <ul>
         <li><span class="li-icon">&#x2713;</span> No PII collected &mdash; UUID only</li>
         <li><span class="li-icon">&#x2713;</span> Works with no internet at all</li>
         <li><span class="li-icon">&#x2713;</span> SOS via BLE when cell networks are down</li>
         <li><span class="li-icon">&#x2713;</span> Full E2E encrypted messaging</li>
-        <li><span class="li-icon">&#x2713;</span> Zero data to sell or subpoena</li>
+        <li><span class="li-icon">&#x2713;</span> No data sold, and nothing identifiable to hand over</li>
         <li><span class="li-icon" style="color:var(--accent-amber)">&mdash;</span> Android only (current release)</li>
         <li><span class="li-icon" style="color:var(--accent-amber)">&mdash;</span> No crash detection or driver monitoring</li>
       </ul>
@@ -1397,7 +1397,7 @@
       <div class="v-rating" style="color:var(--accent-warn)">&#x26A0;&#xFE0F; The feature gap is real &mdash; and so is the cost</div>
       <div class="v-sub">Life360 offers genuine safety benefits that Radar currently does not: crash detection, professional emergency dispatch, driver monitoring, and crime data. But those features come at a price beyond the subscription fee &mdash; your family's continuous location stream is the product that funds the platform.</div>
       <ul>
-        <li><span class="li-icon" style="color:var(--accent-teal)">&#x1F4E1;</span> <strong style="color:var(--text)">If your family needs offline resilience or lives under surveillance risk:</strong> Radar's mesh networking and zero-knowledge architecture are unique &mdash; no other app in this comparison can deliver an SOS when cell networks are down.</li>
+        <li><span class="li-icon" style="color:var(--accent-teal)">&#x1F4E1;</span> <strong style="color:var(--text)">If your family needs offline resilience or lives under surveillance risk:</strong> Radar's mesh networking and end-to-end encrypted, UUID-only design are unique &mdash; no other app in this comparison can deliver an SOS when cell networks are down.</li>
         <li><span class="li-icon" style="color:var(--c-l360)">&#x1F697;</span> <strong style="color:var(--text)">If your family drives and you want commercial safety features:</strong> Life360 (or GeoZilla) &mdash; but understand that your location data has funded a data-broker business. Read the privacy policy before enabling location for your children.</li>
         <li><span class="li-icon" style="color:var(--c-apl)">&#x1F34E;</span> <strong style="color:var(--text)">If your family is all-Apple and privacy matters:</strong> Apple Find My offers the strongest privacy guarantees of the commercial options &mdash; E2E encrypted location data that Apple cannot read &mdash; plus hardware crash detection at no extra cost.</li>
       </ul>

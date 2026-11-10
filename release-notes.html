@@ -249,13 +249,122 @@
   <div class="rn-wrap">
 
     <!-- ══════════════════════════════════════════════
-         v2.000 — Production (Latest)
+         v2.100 — Production (Latest)
     ══════════════════════════════════════════════ -->
     <div class="version-card latest">
       <div class="version-header">
-        <span class="version-number">v2.000</span>
+        <span class="version-number">v2.100</span>
         <span class="vtag vtag-prod">🚀 Production</span>
         <span class="vtag vtag-latest">✔ Latest</span>
+        <span class="version-date">9 November 2026</span>
+      </div>
+      <p class="version-build">versionCode 60 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>First-run guided tours</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The first time you open each main screen, a short sequence of callout bubbles shows what its buttons do. Each bubble points at its target with a green ring, and you tap anywhere to move on. Every tour is shown once and never again. The Radar view tour covers the light/dark toggle, the Bluetooth, Wi-Fi, Network and Web counters (when shown), the layers menu, refresh, the view toggle, weather, position, the range slider and every navigation bar button. The Map view tour covers the Home, Search and zoom buttons and the viewport size text, including the area thresholds below which some Points of Interest appear. The List view tour covers the layers button, a device row and the view toggle. The Chats tour covers sorting, new chat and the menu, the Broadcast and Saved Messages chats, and the chats area. The chat screen tour covers the back button, contact avatar, translation, invite, chat menu, connection status, search, attachments, message entry, stickers and voice notes. The Contacts tour covers adding a contact, the options menu, search, and the Radar peers and Android Contacts lists. The Public Rooms tour covers joining rooms, sorting, the Matrix login and the Radar and Matrix room groups. The SOS / Emergency tour covers the toolbox icons, country selector, tabs and list, and has a red Close button to end it early. The Emergency Checklist page has a short tour of its new [+] button. All tour text is translated into every supported app language.</span>
+            </li>
+            <li>
+              <strong>Barometer on the weather forecast</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The weather page now has an antique-style barometer showing the current air pressure from your phone's pressure sensor, or from the forecast data if your phone has no sensor. Tap it for a fresh reading: the needle gives a little wobble and plays a soft tap sound, even when your phone is on Do Not Disturb.</span>
+            </li>
+            <li>
+              <strong>Weather backgrounds that match the sky</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The weather forecast page background now changes with today's conditions, with separate day and night pictures (night runs from 6 pm to 6 am). Very hot and very cold days have their own variants. The frosted-glass cards follow the new picture.</span>
+            </li>
+            <li>
+              <strong>Radar view bottom row reworked</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The weather icon is now about twice as big and the weather text is right-aligned. The position and weather blocks adjust to the screen width, in portrait and landscape, so nothing overlaps the view toggle button. The pressure reading is always shown with the weather.</span>
+            </li>
+            <li>
+              <strong>Working without internet or mobile data</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">When your phone has no working internet connection, the weather forecast page and Radar view now say so clearly and show the last forecast they have, marked as out of date, instead of an error or an empty page. A connection that is joined but not actually reaching the internet is treated as offline. The app also backs off quietly while offline, so the background chat connection no longer retries constantly or floods its logs, and it resumes by itself when you are back online.</span>
+            </li>
+            <li>
+              <strong>Radiation danger alarm and a new sound system</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">When the radiation level reaches the Danger band, the Environment Alert now also sounds an alarm. It plays at full alarm volume and is designed to be heard even when your phone is on Do Not Disturb. All the app's sounds now go through one central system with separate paths for notifications, app sounds, alarms and ringtones, so each follows the right volume and silent-mode rules. Peer-detected pings follow your notification volume and Do Not Disturb settings, other app effects follow your media volume, and an incoming "PING!" message is loud on purpose, to help you find your phone. The foundation is also ready for a custom incoming-call ringtone that will follow your ring volume.</span>
+            </li>
+            <li>
+              <strong>Replay the tours from About</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">A new "Show tour bubbles" button on the About page lets you see all the guided tours again.</span>
+            </li>
+            <li>
+              <strong>Navigation bar remembers your first tab</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The navigation bar now remembers which tab you use first, so the app opens where you expect it to.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Close button hidden by the camera on some phones</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">On phones with a punch-hole camera in the top-right corner, such as the Samsung S10, the close button on the Lamp and SOS alarm pages sat under the camera. It now moves down to clear it.</span>
+            </li>
+            <li>
+              <strong>SOS toolbox icons out of line</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">When a label such as "Compass" wrapped onto two lines, its icon was pushed up so the row looked uneven. The icons are now aligned along their tops whatever the label length or language.</span>
+            </li>
+            <li>
+              <strong>Crashes and layout glitches</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Several crashes and layout problems found from crash reports have been fixed.</span>
+            </li>
+            <li>
+              <strong>Premium upgrade reminder layout</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The reminder is tidier on small screens, and its text now matches the Premium description in Settings.</span>
+            </li>
+            <li>
+              <strong>Network devices not opening from the All Detected list</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Tapping some network devices, such as a TV box found over mDNS, did nothing in both the All Detected list and the Network list. These devices were never stored properly, so they could not be looked up when tapped. They are now kept and open their details. If a device's details genuinely cannot be found, a message now tells you instead of the tap being ignored.</span>
+            </li>
+            <li>
+              <strong>Network devices disappearing during a session</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Devices found on your local network (mDNS, UDP multicast, UPnP and network scan) are no longer removed after a timeout. They now build up for the whole session and are cleared only when you switch to a different Wi-Fi network or start a new session.</span>
+            </li>
+            <li>
+              <strong>Premium upgrade prompt appearing over open windows</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The occasional Premium upgrade reminder no longer appears on top of the layers picker, map and detail dialogs, other pop-up windows or the guided tours. It waits until you are not busy.</span>
+            </li>
+            <li>
+              <strong>Add Members dialog refreshed</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">The invite dialog for chats is now purple glass with a sunken, scrollable list in alphabetical order, tighter row spacing, green-tick checkboxes, and separate sections for known contacts and other detected peers. Cancel is red, Add is green, and the title reads "Add other Members to this chat".</span>
+            </li>
+            <li>
+              <strong>Smoother device lists</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Rows in the device list no longer flicker or lose a tap while the list refreshes in the background.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v2.000 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v2.000</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
         <span class="version-date">1 November 2026</span>
       </div>
       <p class="version-build">      versionCode 55 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>      <div class="version-body">
@@ -1834,9 +1943,7 @@
     <div class="roadmap-card">
       <h2>🔭 On the Roadmap</h2>
       <ul class="roadmap-list">
-        <li>📹 Voice &amp; video calls</li>
-        <li>📄 File &amp; image transfers (BLE / LAN)</li>
-        <li>📥 Offline map tile caching</li>
+        <li>📥 Built-in offline map tile caching (Google Maps offline downloads are already supported)</li>
         <li>👥 Group admin controls</li>
         <li>⏳ Disappearing messages timer</li>
         <li>💻 Desktop companion app</li>

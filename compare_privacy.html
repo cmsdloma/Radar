@@ -874,12 +874,13 @@
       <div class="feature-grid">
         <div class="feature-card">
           <span class="ficon">🔁</span>
-          <h3>No Central Servers — By Design</h3>
-          <p>Radar is a <strong>peer-to-peer application</strong>.  There are no Radar servers
-          routing your messages, storing your conversations, or aggregating your behavioural
-          data.  Communication happens directly between devices over Bluetooth LE, WiFi Aware,
-          local network, or optional internet relay.  There is no central point of failure,
-          no infrastructure to subpoena, and no server operator to compel.</p>
+          <h3>Peer-to-Peer First — Server Optional</h3>
+                    <p>Radar is a <strong>peer-to-peer application</strong>. Messages travel directly between
+                    devices over Bluetooth LE, Wi-Fi Aware or the local network wherever possible. An optional
+                    internet relay and peer-discovery server exist for when peers are out of range; they store
+                    only anonymous, unvalidated data (UUIDs, a device-location record and end-to-end encrypted
+                    relay messages for up to 7 days). There is no account system, so no real identities
+                    are held, and local operation has no single point of failure.</p>
         </div>
         <div class="feature-card">
           <span class="ficon">📡</span>
@@ -901,11 +902,11 @@
         </div>
         <div class="feature-card">
           <span class="ficon">🔐</span>
-          <h3>End-to-End Encryption — Always</h3>
-          <p>All Radar messages are <strong>end-to-end encrypted by default</strong>, with no
-          unencrypted mode.  Because there is no central server, there is no server key to
-          compromise, no operator capable of performing a man-in-the-middle attack, and no
-          infrastructure whose key management practices need to be trusted.</p>
+          <h3>End-to-End Encryption — By Default</h3>
+                    <p>Radar messages are <strong>end-to-end encrypted by default</strong>, and the relay
+                    server holds no key that can decrypt them. The only exception is when encryption is
+                    not possible (for example, the recipient's pre-keys are unavailable): Radar then warns
+                    you and sends unencrypted <strong>only if you explicitly confirm</strong>.</p>
         </div>
         <div class="feature-card">
           <span class="ficon">🗺️</span>
@@ -918,20 +919,22 @@
         </div>
         <div class="feature-card">
           <span class="ficon">📊</span>
-          <h3>Zero Metadata Aggregation</h3>
-          <p>Because Radar has no central servers, it collects <strong>no metadata at scale</strong>.
-          There is no server-side record of who communicated with whom, when, or how frequently.
-          The social graph of Radar users does not exist anywhere outside users' own devices.
-          There is nothing to hand over under a subpoena because there is nothing held.</p>
+          <h3>Anonymous, Unvalidated Metadata</h3>
+          <p>Most Radar traffic is device-to-device and never touches a server. Where the optional
+          internet relay or peer-discovery service is used, the server sees only random <strong>UUIDs</strong>
+          &mdash; it has no phone number, email or verified identity to link them to a real person.
+          Relay messages are end-to-end encrypted by default (unencrypted only if you confirm a warning) and deleted after at most 7 days, and device
+          location records are removed after 3 months without an update.</p>
         </div>
         <div class="feature-card">
           <span class="ficon">🛰️</span>
           <h3>Radar — Proximity-Aware by Architecture</h3>
           <p>Radar visualises nearby peers on a <strong>radar-style display</strong>, using GPS
           and radio signal strength to show relative position and distance.  This proximity
-          model is inherently local — it requires no cloud lookups, no location servers, and
-          no sharing of your position with any central infrastructure.  Location is shared
-          peer-to-peer, on-device, in real time.</p>
+          model is primarily local — nearby peers are found over Bluetooth and Wi-Fi Aware with no
+          internet at all.  When internet is available, an optional discovery service holds your
+          current position against an anonymous UUID so distant peers can find you; it never learns
+          who you are.</p>
         </div>
         <div class="feature-card">
           <span class="ficon">⚡</span>
@@ -944,11 +947,12 @@
         </div>
         <div class="feature-card">
           <span class="ficon">🔒</span>
-          <h3>No Government Access — Structurally</h3>
-          <p>Radar cannot comply with a subpoena for user data because <strong>Radar holds
-          no user data</strong>.  There are no servers to seize, no databases to query, no
-          metadata logs to produce.  The legal compulsion mechanism that works against every
-          other platform in this comparison has nothing to act upon with Radar.</p>
+          <h3>Little to Hand Over — Structurally</h3>
+          <p>Radar's server holds <strong>no identifiable user data</strong>: only anonymous UUIDs,
+          unvalidated optional profile details, short-lived encrypted relay messages and a
+          device-location table purged after 3 months.  Message content is end-to-end encrypted
+          so it cannot be read, and there is no phone number, email or verified name to
+          link a UUID to a person.</p>
         </div>
         <div class="feature-card">
           <span class="ficon">🌐</span>
@@ -1008,7 +1012,7 @@
             <tr>
               <td class="feature-label">Can be subpoenaed for user data</td>
               <td class="col-sig" colspan="3"><span class="cell-risk">Yes — operator holds or can access data</span></td>
-              <td class="col-rad"><span class="cell-safe">No — no data held centrally</span></td>
+              <td class="col-rad"><span class="cell-safe">Limited — only anonymous, unvalidated UUID data; content is E2E encrypted</span></td>
             </tr>
             <tr>
               <td class="feature-label">Can be blocked at national level</td>

@@ -23,7 +23,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <title>Radar App Privacy Policy – Zero Data Collection &amp; No Account</title>
+  <title>Radar App Privacy Policy – Anonymous, Unvalidated Data &amp; No Account</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Radar privacy policy — what data is collected, how it is used, your rights, and how to contact DAL Technology." />
   <link rel="canonical" href="https://www.radar-chat.app/privacy-policy.html" />
@@ -31,12 +31,12 @@
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="Radar – Off-Grid Communication App" />
   <meta property="og:url"         content="https://www.radar-chat.app/privacy-policy.html" />
-  <meta property="og:title"       content="Radar App Privacy Policy – Zero Data Collection &amp; No Account" />
+  <meta property="og:title"         content="Radar App Privacy Policy – Anonymous, Unvalidated Data &amp; No Account" />
   <meta property="og:description" content="Radar privacy policy — what data is collected, how it is used, your rights, and how to contact DAL Technology." />
   <meta property="og:image"       content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary" />
-  <meta name="twitter:title"       content="Radar App Privacy Policy – Zero Data Collection &amp; No Account" />
+  <meta name="twitter:title"         content="Radar App Privacy Policy – Anonymous, Unvalidated Data &amp; No Account" />
   <meta name="twitter:description" content="Radar privacy policy — what data is collected, how it is used, your rights, and how to contact DAL Technology." />
   <meta name="twitter:image"       content="https://www.radar-chat.app/assets/App_Icon_blueradar.png" />
   <link rel="stylesheet" href="styles.css" />
@@ -287,7 +287,7 @@
       <p>This Privacy Policy explains how DAL Technology ("we", "our", or "us") collects, uses, stores, and shares information when you use the Radar Android application.</p>
       <p>By installing or using Radar you agree to the practices described in this policy. If you do not agree, please uninstall the app and do not use it.</p>
       <div class="callout">
-        Radar is a peer-to-peer mesh communication tool. Some data is temporarily stored on our server strictly to enable peer discovery and message relay — this is explained in full below. <strong style="color:var(--text);">We do not sell or profile your data, and we do not use your messages, contacts or precise location for advertising.</strong>
+        Radar is a peer-to-peer mesh communication tool. Some data is temporarily stored on our server strictly to enable peer discovery and message relay — this is explained in full below. All of it is <strong style="color:var(--text);">non-identifiable, anonymous and unvalidated</strong>: our server only knows a random UUID and a check key, and we do not know who the user is. Optional Firebase usage statistics are also collected (and can be switched off). <strong style="color:var(--text);">We do not sell or profile your data, and we do not use your messages, contacts or precise location for advertising.</strong>
       </div>
     </section>
 
@@ -300,10 +300,10 @@
       <table class="data-table">
         <thead><tr><th>Data type</th><th>Examples</th><th>Where stored</th><th>Why needed</th></tr></thead>
         <tbody>
-          <tr><td>Profile nickname</td><td>Optional display name you choose</td><td>Device + server (current value only)</td><td>Shown to nearby Radar peers</td></tr>
-          <tr><td>Gender</td><td>Optional — male / female / not specified</td><td>Device + server (current value only)</td><td>Shown to nearby peers as part of your profile</td></tr>
+          <tr><td>Profile nickname, first name, last name, age</td><td>Optional details you choose to enter; none are checked or verified</td><td>Device + server (current value only)</td><td>Shown to nearby Radar peers</td></tr>
+          <tr><td>Gender</td><td>Optional — male / female / not specified; unverified</td><td>Device + server (current value only)</td><td>Shown to nearby peers as part of your profile</td></tr>
           <tr><td>Profile photo</td><td>Image chosen from gallery or camera</td><td>Device only — transferred peer-to-peer</td><td>Shown on your contact card to nearby peers</td></tr>
-          <tr><td>Chat messages (unencrypted path)</td><td>Text, images, video, audio clips, files</td><td>Device; temporarily on relay server (≤ 7 days)</td><td>Delivered to recipient via server relay when no direct path available</td></tr>
+          <tr><td>Chat messages (unencrypted — only if you choose)</td><td>Text, images, video, audio clips, files</td><td>Device; temporarily on relay server (≤ 7 days)</td><td>Only used when encryption is not possible (e.g. the recipient's pre-keys are unavailable). Radar warns you and asks for your confirmation before sending a message unencrypted</td></tr>
           <tr><td>Chat messages (sealed-sender path)</td><td>End-to-end encrypted ciphertext</td><td>Device; temporarily on relay server — content unreadable to us</td><td>Encrypted delivery via server relay when no direct path available</td></tr>
           <tr><td>Emergency contacts</td><td>Names and phone numbers added manually</td><td>Device only</td><td>Quick-dial contacts for the Emergency / SOS screen</td></tr>
           <tr><td>In-app support message</td><td>Problem description; optional reply-to email</td><td>Server (retained for support resolution)</td><td>Enable us to respond to support requests</td></tr>
@@ -315,7 +315,7 @@
         <thead><tr><th>Data type</th><th>Examples</th><th>Where stored</th><th>Why needed</th></tr></thead>
         <tbody>
           <tr><td>Current GPS location</td><td>Latitude, longitude, altitude</td><td>Device; current position only on server (overwritten each update — no history)</td><td>Power radar view; share position with nearby peers; enable peer discovery</td></tr>
-          <tr><td>Device UUID</td><td>Randomly generated GUID created on first launch</td><td>Device + server (linked to current location row)</td><td>Pseudonymous device identifier for peer routing; contains no personal information</td></tr>
+          <tr><td>Device UUID</td><td>Randomly generated GUID created on first launch</td><td>Device + server (linked to current location row)</td><td>Anonymous device identifier for peer routing; contains no personal information and is not linked to who you are</td></tr>
           <tr><td>IP address</td><td>IPv4 / IPv6 at time of server contact</td><td>Server (current value, overwritten each update)</td><td>Network routing for direct peer communication</td></tr>
           <tr><td>Device technical info</td><td>Manufacturer, model, Android version, SDK</td><td>Server (stored when push notifications registered)</td><td>Diagnostic support and compatibility checks</td></tr>
           <tr><td>App version</td><td>e.g. 0.9.1</td><td>Server</td><td>Compatibility checks and support</td></tr>
@@ -349,20 +349,20 @@
 
       <h3>Peer location record</h3>
       <ul class="plain-list">
-        <li>One row per device UUID — no history, just the current position.</li>
-        <li>Stores: UUID (pseudonymous), current GPS coordinates, optional nickname, optional gender, IP address, port, app version, FCM token, device model/OS.</li>
-        <li><strong>No email address or phone number is stored</strong> — deliberate privacy design decision.</li>
+        <li>One row per device UUID in the device-location table — no history, just the current position. Used only for Radar-peer discovery via our server.</li>
+        <li>Stores: UUID (anonymous), current GPS coordinates, optional nickname, first name, last name, age and gender (all entered by you, unvalidated), IP address, port, app version, FCM token, device model/OS.</li>
+        <li><strong>No email address or phone number is stored</strong> — deliberate privacy design decision. We have no means of knowing who the user is.</li>
         <li>Record is overwritten on every location update; previous locations are not retained.</li>
-        <li>Soft-deleted when device identity is reset; hard-deleted on the next nightly cleanup job.</li>
+        <li>Soft-deleted when device identity is reset. Because we cannot tell if or when the app is uninstalled, a record is deleted automatically after 3 months in which that UUID has not sent a location update.</li>
       </ul>
 
       <h3>Relayed messages</h3>
       <ul class="plain-list">
         <li>Messages sent via server relay are stored temporarily until the recipient collects them.</li>
         <li>Maximum retention: <strong>7 days.</strong> Soft-deleted on recipient acknowledgement or TTL expiry; hard-deleted by the nightly job.</li>
-        <li>Unencrypted relay messages: the server stores the full message JSON. We can technically read the payload. We do not do so except for operational support or legal obligations.</li>
+        <li>Unencrypted relay messages (exception): if encryption is not possible on the sender's device (for example, the recipient's pre-keys are not available), Radar warns you and asks whether you want to send the message unencrypted. It is never sent unencrypted without your confirmation. If you agree, the server stores the full message JSON and could technically read the payload. We do not do so except for operational support or legal obligations.</li>
         <li>Encrypted (sealed-sender) messages: ciphertext stored opaquely. <strong>We cannot decrypt or read message content.</strong> Cipher: X25519 / XChaCha20-Poly1305.</li>
-        <li>The sender's UUID is stored in the outer message envelope (used for authentication / anti-spam). It is pseudonymous and not linked to any real-world identity.</li>
+        <li>Messages are end-to-end encrypted by default and carry sender and receiver UUIDs (used for routing, authentication and anti-spam). These are anonymous and not linked to any real-world identity.</li>
         <li>Push notification payload for sealed messages contains only a minimal wake-up signal ('message_pending') — no message content, no sender identity.</li>
       </ul>
 
@@ -393,7 +393,7 @@
       <div class="callout">We do not sell your data, use your Radar messages, contacts or precise location for advertising, share it with data brokers, or process it for any purpose beyond those listed below. The free tier shows third-party ads (Google AdMob); Premium removes them.</div>
       <ul class="plain-list">
         <li>To power the core peer discovery, messaging, and mapping features of Radar.</li>
-        <li>To display your pseudonymous profile (nickname and gender) to nearby Radar peers.</li>
+        <li>To display your profile (nickname, name, age and gender, if you entered them) to nearby Radar peers.</li>
         <li>To relay messages between you and other Radar users when no direct wireless path is available.</li>
         <li>To send a minimal push notification to your device when a relayed message is waiting.</li>
         <li>To render maps and location features via Google Maps SDK and Google Play Services Location.</li>
@@ -439,7 +439,7 @@
 
       <h3>With other Radar users</h3>
       <ul class="plain-list">
-        <li>Your current location and pseudonymous profile (nickname, gender) are shared with nearby Radar peers via our server or direct wireless link.</li>
+        <li>Your current location and profile (nickname, name, age, gender — all optional and unvalidated) are shared with nearby Radar peers via our server or direct wireless link.</li>
         <li>No email address or phone number is ever sent to other users.</li>
         <li>You control what profile information you provide — all profile fields except UUID are optional.</li>
       </ul>
@@ -457,7 +457,7 @@
       <table class="data-table">
         <thead><tr><th>Data</th><th>Retention period</th><th>How deleted</th></tr></thead>
         <tbody>
-          <tr><td>Current location + profile</td><td>Until you reset your device identity, or until inactive cleanup</td><td>Soft-deleted then hard-deleted by the nightly scheduled job</td></tr>
+          <tr><td>Current location + profile</td><td>Until you reset your device identity, or deleted automatically after 3 months without a location update from that UUID</td><td>Soft-deleted then hard-deleted by the nightly scheduled job</td></tr>
           <tr><td>Relayed messages</td><td>Maximum 7 days; earlier if all recipients acknowledge receipt</td><td>Auto soft-deleted on acknowledgement or TTL expiry; hard-deleted by the nightly job</td></tr>
           <tr><td>FCM token / device info</td><td>Until you reset your device identity</td><td>Cleared when identity is reset; nightly cleanup</td></tr>
           <tr><td>Matrix guest credentials</td><td>Until you reset your device identity</td><td>Cleared when identity is reset</td></tr>
@@ -488,7 +488,7 @@
         <li>All communication with the relay server uses HTTPS (TLS).</li>
         <li>API requests are authenticated with a pre-shared API key, a per-request timestamp, and a one-time-use nonce to prevent replay attacks.</li>
         <li>End-to-end encrypted messages use <strong>X25519 key exchange</strong> and <strong>XChaCha20-Poly1305 authenticated encryption</strong> — the server stores only the opaque ciphertext.</li>
-        <li>The sealed-sender design means the server cannot determine the real-world identity of message participants from the encrypted payload alone.</li>
+        <li>Sealed sender is applied in transit only: it prevents a middle man observing the traffic from obtaining the sender's UUID. Our relay server itself handles sender and receiver UUIDs, never real-world identities.</li>
       </ul>
 
       <h3>Server-side security</h3>
