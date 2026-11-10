@@ -107,6 +107,8 @@
   .phone-btn-vol-up { left:  calc(-1*(var(--btn-w)+1px)); top: 20%; height:  8%; }
   .phone-btn-vol-dn { left:  calc(-1*(var(--btn-w)+1px)); top: 31%; height: 10%; }
   .phone-btn-power  { right: calc(-1*(var(--btn-w)+1px)); top: 24%; height:  9%; }
+  /* No side buttons: they showed as a grey line beside the screen */
+  .phone-btn { display: none; }
 
   .phone-body::after {
     content: ''; position: absolute; inset: 0; border-radius: inherit;
