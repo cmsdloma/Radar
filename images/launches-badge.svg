@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="40" viewBox="0 0 160 40" role="img" aria-label="Radar launches and features">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14346e"/>
+      <stop offset="1" stop-color="#081a40"/>
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="159" height="39" rx="8" fill="url(#g)" stroke="#4ab5ff" stroke-opacity="0.7"/>
+  <text x="12" y="26" font-family="Segoe UI Emoji, Apple Color Emoji, Noto Color Emoji, sans-serif" font-size="18">&#x1F680;</text>
+  <text x="38" y="17" font-family="system-ui, Segoe UI, Arial, sans-serif" font-size="8.5" fill="#a0b8e0" letter-spacing="1.2">FIND US ON</text>
+  <text x="38" y="31" font-family="system-ui, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#4ab5ff">Launch Sites</text>
+</svg>
