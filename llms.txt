@@ -35,8 +35,8 @@ Messaging and calls
 
 Discovery, map and situational awareness
 - Radar view and list of nearby Radar peers (BLE and Wi-Fi Aware), plus other detected devices, with profile and distance information.
-- Map with Radar contacts, points of interest and layers: earthquakes, wildfire hotspots (NASA FIRMS), floods and weather warnings (UK-specific official sources), webcams, road traffic, Wi-Fi access points (WiGLE-based), UK crime and air-pollution data, weather forecast.
-- Aircraft positions (OpenSky Network) and "overhead now" alerts; vessel positions (AIS); these need internet and Premium.
+- Map with Radar contacts, points of interest and layers: earthquakes, wildfire hotspots (satellite fire detection), floods and weather warnings (UK-specific official sources), webcams, road traffic, Wi-Fi access points (crowd-sourced database), UK crime and air-pollution data, weather forecast.
+- Aircraft positions (live aircraft tracking network) and "overhead now" alerts; vessel positions (AIS); these need internet and Premium.
 - Drone detection via Bluetooth Remote ID broadcasts (ASTM F3411 style), decoded locally, with background notifications. Only works for drones that broadcast Remote ID and are within Bluetooth range; no Premium or internet needed.
 - Feeds engine for CAP, GeoJSON, GeoRSS, KML and RSS sources worldwide (earthquakes, volcanoes, wildfires, cyclones, tsunami, health, humanitarian and other alerts), shown as a map-linked timeline. The website cites 250+ feeds across 50+ countries; the full catalogue is Premium.
 - Maps use the Google Maps SDK. Areas can be downloaded for offline use through Google Maps; Radar does not yet run its own offline tile cache (roadmap).
@@ -73,9 +73,9 @@ Emergency and preparedness (SOS hub; core items work offline)
 
 - Android only (Google Play). Free to install; minimum Android 8.0 (API 26). Wi-Fi Aware needs compatible hardware on Android 8.0+.
 - Basic (free, with Google AdMob ads, consent requested in UK/EEA): receive messages from anyone, reply to chats, group chat, Matrix, SMS/MMS, BLE/Wi-Fi Aware/LAN/web delivery, mesh relay, SOS tools, nearby map, curated earthquake/wildfire/flood/cyclone/volcano feeds, CAP and GeoRSS feeds.
-- Premium: £1.99 per month in the UK, first month free (billing handled by Google Play, cancel any time). Only Premium is ad-free. Removes ads and adds: starting chats with new contacts, calls with non-friends, aircraft and vessel layers, wildfire hotspots, WiGLE Wi-Fi layer, webcams, UK flood/weather warnings, UK crime and air-quality, rich POI details, full 250+ feed catalogue, custom feed URLs, CAP polygons, priority support.
+- Premium: £1.99 per month in the UK, first month free (billing handled by Google Play, cancel any time). Only Premium is ad-free. Removes ads and adds: starting chats with new contacts, calls with non-friends, aircraft and vessel layers, wildfire hotspots, Wi-Fi access point layer, webcams, UK flood/weather warnings, UK crime and air-quality, rich POI details, full 250+ feed catalogue, custom feed URLs, CAP polygons, priority support.
 - Encryption and privacy features are identical on both tiers.
-- Regional limits: some layers (flood areas, Met Office warnings, crime, air quality) are UK-only; emergency-number and alert-link coverage is limited to the countries listed on the emergency page. Prices are shown in GBP on the site; local Play pricing may vary.
+- Regional limits: some layers (flood areas, weather warnings, crime, air quality) are UK-only; emergency-number and alert-link coverage is limited to the countries listed on the emergency page. Prices are shown in GBP on the site; local Play pricing may vary.
 
 ## Limitations
 
