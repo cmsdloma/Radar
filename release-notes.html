@@ -251,13 +251,100 @@
   <div class="rn-wrap">
 
     <!-- ══════════════════════════════════════════════
-         v2.100 — Production (Latest)
+         v2.200 — Production (Latest)
     ══════════════════════════════════════════════ -->
     <div class="version-card latest">
       <div class="version-header">
-        <span class="version-number">v2.100</span>
+        <span class="version-number">v2.200</span>
         <span class="vtag vtag-prod">🚀 Production</span>
         <span class="vtag vtag-latest">✔ Latest</span>
+        <span class="version-date">13 November 2026</span>
+      </div>
+      <p class="version-build">versionCode 65 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
+      <div class="version-body">
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-new"></span> New Features</div>
+          <ul class="change-list">
+            <li>
+              <strong>Geological map overlays (UK, Premium)</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The Map view now has a Statistics Layers group with British Geological Survey data: radon, uranium and thorium levels, plus topsoil chemistry maps for arsenic, lead, cadmium, zinc, copper, nickel, chromium, cobalt, antimony, selenium, iodine, tin and tungsten, and coal mining areas. Tiles are stored on Radar's own server, so they load quickly and show at every zoom level. Pick one layer at a time with a radio button, each with its own icon. A colour-bar legend with the layer's icon appears beside the map. These layers only appear when you are in the UK.</span>
+            </li>
+            <li>
+              <strong>Smooth, blended overlays</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Low-resolution data no longer looks like a staircase of blocks. Radon is blurred across its 1 km cells, and each topsoil layer is blurred to match its own cell size, whatever that is. Zooming in far beyond the data's native detail stays smooth too, with no visible tile edges or seams.</span>
+            </li>
+            <li>
+              <strong>Marine weather forecast</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">On the Weather Forecast page, swipe left to open a separate Marine Forecast page with sea conditions, on its own ocean background. A hint shows on each page so you know which way to swipe. The marine page appears only when you are near the coast, and Radar remembers this for each location. It is part of Premium and is fetched in the same request as the normal forecast.</span>
+            </li>
+            <li>
+              <strong>Air quality and UV on the weather</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Air quality now shows in the weather text on the Radar view, above the UV line, and both air quality and UV are shown on the Weather Forecast page.</span>
+            </li>
+            <li>
+              <strong>Freezing weather alert</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">If the temperature is forecast to drop below 0 °C today, Radar shows a cold-weather alert. You can tick "Don't show freezing alerts again", and there is a new Weather switch under Settings → Web Services, on by default.</span>
+            </li>
+            <li>
+              <strong>Acknowledgements for every data source</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Radar now credits the organisations behind its data, with their logos: British Geological Survey, Open-Meteo, OpenStreetMap, the Environment Agency and Met Office, NASA FIRMS, OpenSky, WiGLE, AISStream, HERE, TomTom, EMSC, USGS, Google, OpenRadiation, what3words and more. A credit appears the first time you use the related Map view feature, each with its own "Do not show again" tick box. A new Settings → Acknowledgements page lists them all alphabetically and opens any of them at any time.</span>
+            </li>
+            <li>
+              <strong>Zoom level in the map's size text</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">The viewport size text at the bottom of the Map view now also shows the zoom level, for example "0.5 x 0.5 km (0 km², ZL10)". A distance scale bar now sits above it.</span>
+            </li>
+            <li>
+              <strong>Home button resets rotation</strong>
+              <span class="chip chip-new">New</span>
+              <span class="note">Tapping Home on the Map view now turns the map so north is at the top, as well as panning back to your location.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-improve"></span> Improvements</div>
+          <ul class="change-list">
+            <li>
+              <strong>Clearer weather forecast page</strong>
+              <span class="note">All text now has a thin black outline, so it stays readable on any background, including negative temperatures in blue. Temperature ranges read "-2 to +8 °C", with a + sign only when one value is below zero. Wind and gusts share one line, as "Wind 14 to 27 km/h", and no longer wrap.</span>
+            </li>
+            <li>
+              <strong>Weather is a Premium feature</strong>
+              <span class="note">Without Premium, tapping the weather text on the Radar view shows a Premium upgrade prompt with wording that fits weather. No weather data is requested for you.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="change-section">
+          <div class="change-heading"><span class="cat-dot dot-fix"></span> Bug Fixes</div>
+          <ul class="change-list">
+            <li>
+              <strong>Hard edges on overlays</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Tiles that failed to download briefly could be cached with missing edges, leaving straight lines in the overlay. Radar now retries those tiles instead.</span>
+            </li>
+            <li>
+              <strong>Weather text outline artefacts</strong>
+              <span class="chip chip-fix">Fix</span>
+              <span class="note">Fixed stray black copies of the temperature text showing under the Today and forecast cards.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         v2.100 — Production
+    ══════════════════════════════════════════════ -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v2.100</span>
+        <span class="vtag vtag-prod">🚀 Production</span>
         <span class="version-date">9 November 2026</span>
       </div>
       <p class="version-build">versionCode 60 &nbsp;·&nbsp; Minimum Android 8 (API 26)</p>
